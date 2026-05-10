@@ -1,0 +1,6 @@
+phase_order,phase_code,phase_name,start_marker,end_marker,records_with_phase,records_without_phase,percent_with_phase
+1,phase_1_planting_to_vegetative,Siembra a vegetativa temprana,planting,vegetative,885,4421,16.68
+2,phase_2_vegetative_to_reproductive,Vegetativa a reproductiva,vegetative,harvest,885,4421,16.68
+3,phase_3_ripening_to_harvest,Maduracion a cosecha,harvest,endofseason,885,4421,16.68
+4,phase_4_end_of_season,Fin de temporada,endofseason,outofseason,880,4426,16.58
+5,phase_5_out_of_season,Fuera de temporada,outofseason,planting,880,4426,16.58

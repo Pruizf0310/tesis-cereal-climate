@@ -1,0 +1,62 @@
+﻿# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+_temp_dask/
+.dirlock
+*.lock
+*.swp
+
+# Git internals / nested repositories
+.git/
+
+# Heavy scientific data - never commit
+*.h5
+*.hdf5
+*.nc
+*.nc4
+*.tif
+*.tiff
+*.npy
+*.npz
+*.zip
+*.rar
+*.7z
+*.grib
+*.bin
+*.rdata
+*.RData
+
+# Heavy geospatial containers / shapefile bundles
+*.shp
+*.dbf
+*.shx
+*.sbn
+*.sbx
+*.gpkg
+
+# Local environments
+.env
+.env.*
+.venv/
+venv/
+env/
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Notebooks excluded from initial publication: embedded outputs / absolute paths / large review burden
+notebooks/revisar/grafica verifi corr.ipynb
+notebooks/revisar/Verificacion_corr_cluster_aleatorio.ipynb
+notebooks/importantes/Puntos relevantes.ipynb
+notebooks/importantes/CorrelacionesconSST.ipynb
+notebooks/importantes/Creación_Clústeres.ipynb

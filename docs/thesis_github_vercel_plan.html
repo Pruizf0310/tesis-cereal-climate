@@ -1,0 +1,232 @@
+
+<style>
+.tabs{display:flex;gap:6px;margin-bottom:1.25rem;border-bottom:0.5px solid var(--color-border-tertiary);padding-bottom:10px;flex-wrap:wrap}
+.tab{padding:5px 13px;border-radius:var(--border-radius-md);border:0.5px solid transparent;font-size:13px;cursor:pointer;background:transparent;color:var(--color-text-secondary);transition:all .15s}
+.tab.on{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-secondary);font-weight:500}
+.tab:hover:not(.on){color:var(--color-text-primary)}
+.pnl{display:none}.pnl.on{display:block}
+.tf{font-family:var(--font-mono);font-size:12px;line-height:1.9;color:var(--color-text-primary)}
+.tr{display:flex;align-items:center;gap:6px;padding:1px 4px;border-radius:4px;cursor:pointer;user-select:none}
+.tr:hover{background:var(--color-background-secondary)}
+.tc{margin-left:18px;border-left:0.5px solid var(--color-border-tertiary);padding-left:10px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.bdg{font-size:10px;padding:1px 7px;border-radius:10px;font-family:var(--font-sans);flex-shrink:0}
+.st{display:flex;gap:12px;margin-bottom:1rem;align-items:flex-start}
+.sn{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+.sc{flex:1}
+.st-title{font-size:13px;font-weight:500;margin:0 0 2px;color:var(--color-text-primary)}
+.st-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.55;margin:0}
+.cmd{font-family:var(--font-mono);font-size:11px;background:var(--color-background-secondary);padding:4px 9px;border-radius:5px;margin-top:5px;border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);display:block;line-height:1.6;white-space:pre}
+.phase{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);margin:1.25rem 0 .7rem;padding-top:.75rem;border-top:0.5px solid var(--color-border-tertiary)}
+.phase:first-child{margin-top:0;border-top:none}
+.fb-row{display:flex;align-items:stretch;gap:0;margin-bottom:.75rem}
+.fb{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;flex:1}
+.fb-name{font-size:13px;font-weight:500;margin:0 0 3px;color:var(--color-text-primary)}
+.fb-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.5;margin:0}
+.farr{display:flex;align-items:center;padding:0 6px;color:var(--color-text-tertiary);font-size:18px;flex-shrink:0}
+.ir{display:flex;gap:12px;margin-bottom:.85rem;align-items:flex-start}
+.idot{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.it{font-size:13px;font-weight:500;margin:0 0 2px;color:var(--color-text-primary)}
+.id{font-size:12px;color:var(--color-text-secondary);line-height:1.5;margin:0}
+.note{padding:9px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:12px;color:var(--color-text-secondary);margin-top:12px}
+</style>
+
+<div style="padding:2px 0">
+<div class="tabs">
+  <button class="tab on" onclick="sw('repo',this)">Repositorio</button>
+  <button class="tab" onclick="sw('flow',this)">Integracion</button>
+  <button class="tab" onclick="sw('road',this)">Hoja de ruta</button>
+  <button class="tab" onclick="sw('ip',this)">Derechos</button>
+</div>
+
+<div id="p-repo" class="pnl on">
+<div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Haz clic en las carpetas para expandir/colapsar</div>
+<div class="tf">
+  <div class="tr"><div class="dot" style="background:#7F77DD"></div><strong>thesis-cereal-climate/</strong></div>
+  <div class="tc">
+    <div class="tr"><div class="dot" style="background:#888780"></div>README.md<span class="bdg" style="background:var(--color-background-info);color:var(--color-text-info)">entrada</span></div>
+    <div class="tr"><div class="dot" style="background:#888780"></div>LICENSE<span class="bdg" style="background:var(--color-background-success);color:var(--color-text-success)">CC BY 4.0</span></div>
+    <div class="tr"><div class="dot" style="background:#888780"></div>CITATION.cff<span class="bdg" style="background:var(--color-background-warning);color:var(--color-text-warning)">citable</span></div>
+    <div class="tr"><div class="dot" style="background:#888780"></div>.gitignore</div>
+    <div class="tr"><div class="dot" style="background:#888780"></div>environment.yml</div>
+
+    <div class="tr" onclick="tog('d-docs')"><div class="dot" style="background:#7F77DD"></div><strong>docs/</strong>&nbsp;— tesis en Quarto <span style="color:var(--color-text-tertiary)">▸</span></div>
+    <div class="tc" id="d-docs" style="display:none">
+      <div class="tr"><div class="dot" style="background:#888780"></div>_quarto.yml</div>
+      <div class="tr"><div class="dot" style="background:#7F77DD"></div>00_intro/</div>
+      <div class="tr"><div class="dot" style="background:#7F77DD"></div>01_paper1/&nbsp;— ENSO x rendimiento</div>
+      <div class="tr"><div class="dot" style="background:#7F77DD"></div>02_paper2/&nbsp;— MJO + fenologia + umbrales</div>
+      <div class="tr"><div class="dot" style="background:#7F77DD"></div>99_conclusiones/</div>
+      <div class="tr"><div class="dot" style="background:#888780"></div>_figures/</div>
+    </div>
+
+    <div class="tr" onclick="tog('d-src')"><div class="dot" style="background:#1D9E75"></div><strong>src/</strong>&nbsp;— codigo Python <span style="color:var(--color-text-tertiary)">▸</span></div>
+    <div class="tc" id="d-src" style="display:none">
+      <div class="tr"><div class="dot" style="background:#1D9E75"></div>utils/&nbsp;— funciones compartidas</div>
+      <div class="tr"><div class="dot" style="background:#1D9E75"></div>paper1/</div>
+      <div class="tc">
+        <div class="tr"><div class="dot" style="background:#888780"></div>01_detrending.py</div>
+        <div class="tr"><div class="dot" style="background:#888780"></div>02_sst_correlations.py</div>
+        <div class="tr"><div class="dot" style="background:#888780"></div>03_pca.py</div>
+        <div class="tr"><div class="dot" style="background:#888780"></div>04_som.py</div>
+      </div>
+      <div class="tr"><div class="dot" style="background:#1D9E75"></div>paper2/</div>
+      <div class="tc">
+        <div class="tr"><div class="dot" style="background:#888780"></div>01_fenologia.py</div>
+        <div class="tr"><div class="dot" style="background:#888780"></div>02_umbrales.py</div>
+        <div class="tr"><div class="dot" style="background:#888780"></div>03_seguros.py</div>
+      </div>
+    </div>
+
+    <div class="tr" onclick="tog('d-nb')"><div class="dot" style="background:#BA7517"></div><strong>notebooks/</strong>&nbsp;— exploracion <span style="color:var(--color-text-tertiary)">▸</span></div>
+    <div class="tc" id="d-nb" style="display:none">
+      <div class="tr"><div class="dot" style="background:#BA7517"></div>paper1/</div>
+      <div class="tr"><div class="dot" style="background:#BA7517"></div>paper2/</div>
+    </div>
+
+    <div class="tr" onclick="tog('d-data')"><div class="dot" style="background:#D85A30"></div><strong>data/</strong>&nbsp;— solo metadatos y procesados pequenos <span style="color:var(--color-text-tertiary)">▸</span></div>
+    <div class="tc" id="d-data" style="display:none">
+      <div class="tr"><div class="dot" style="background:#888780"></div>README.md&nbsp;— como descargar SST, GDHY, ONI, RMM</div>
+      <div class="tr"><div class="dot" style="background:#D85A30"></div>processed/&nbsp;— archivos pequenos (.csv, .nc ligeros)</div>
+      <div class="tr"><div class="dot" style="background:#D85A30"></div>external/&nbsp;— scripts de descarga</div>
+      <div class="tc">
+        <div class="tr"><div class="dot" style="background:#888780"></div>download_sst.py</div>
+        <div class="tr"><div class="dot" style="background:#888780"></div>download_oni.py</div>
+        <div class="tr"><div class="dot" style="background:#888780"></div>download_gdhy.py</div>
+      </div>
+    </div>
+
+    <div class="tr" onclick="tog('d-res')"><div class="dot" style="background:#639922"></div><strong>results/</strong>&nbsp;— figuras y mapas <span style="color:var(--color-text-tertiary)">▸</span></div>
+    <div class="tc" id="d-res" style="display:none">
+      <div class="tr"><div class="dot" style="background:#639922"></div>paper1/&nbsp;— correlaciones SST, SOM, PCA</div>
+      <div class="tr"><div class="dot" style="background:#639922"></div>paper2/&nbsp;— umbrales, fenologia</div>
+    </div>
+
+    <div class="tr" onclick="tog('d-web')"><div class="dot" style="background:#378ADD"></div><strong>web/</strong>&nbsp;— sitio Vercel <span style="color:var(--color-text-tertiary)">▸</span></div>
+    <div class="tc" id="d-web" style="display:none">
+      <div class="tr"><div class="dot" style="background:#888780"></div>package.json</div>
+      <div class="tr"><div class="dot" style="background:#378ADD"></div>src/pages/&nbsp;— paginas del sitio</div>
+      <div class="tr"><div class="dot" style="background:#378ADD"></div>public/data/&nbsp;— datos exportados para viz</div>
+    </div>
+  </div>
+</div>
+<div class="note">Los datos crudos (SST, GDHY, ONI, RMM) no van en git — son muy pesados. Documenta como descargarlos en data/README.md. Si quieres control de versiones de datos, usa DVC.</div>
+</div>
+
+<div id="p-flow" class="pnl">
+<div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:12px">Como se conectan las herramientas en un flujo continuo</div>
+<div class="fb-row">
+  <div class="fb"><div class="fb-name">Maquina local</div><div class="fb-desc">VS Code + Jupyter. Escribes codigo, procesas datos, generas figuras.</div></div>
+  <div class="farr">→</div>
+  <div class="fb"><div class="fb-name">GitHub</div><div class="fb-desc">Control de versiones, historial, colaboracion. Cada push activa Vercel.</div></div>
+  <div class="farr">→</div>
+  <div class="fb"><div class="fb-name">Vercel</div><div class="fb-desc">Deploy automatico en cada push a main. Tu sitio siempre actualizado.</div></div>
+</div>
+<div style="margin:14px 0 10px;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary)">Rol de Claude en el flujo</div>
+<div class="ir"><div class="idot" style="background:#7F77DD"></div><div><div class="it">Claude Code (terminal / VS Code)</div><div class="id">Refactoriza tus scripts Python, documenta funciones, revisa el codigo de correlaciones y SOM directamente en tu carpeta de trabajo. Ve la estructura de archivos en tiempo real.</div></div></div>
+<div class="ir"><div class="idot" style="background:#1D9E75"></div><div><div class="it">Claude.ai (chat — aqui)</div><div class="id">Sube notebooks, borradores o resultados para redactar secciones del articulo, revisar metodologia, generar el discussion. Ideal para escritura academica.</div></div></div>
+<div class="ir"><div class="idot" style="background:#BA7517"></div><div><div class="it">GitHub Issues + Projects</div><div class="id">Cada tarea pendiente (umbrales, validacion, seguros) como un issue. Projects te da un tablero tipo Kanban o Gantt. Reemplaza tu Gantt_Tesis.xlsx con algo vivo.</div></div></div>
+<div class="ir"><div class="idot" style="background:#378ADD"></div><div><div class="it">Zenodo (DOI automatico)</div><div class="id">Conectado a GitHub: cada Release genera un DOI permanente. Tu trabajo queda citable con DOI antes de que el paper este publicado.</div></div></div>
+</div>
+
+<div id="p-road" class="pnl">
+<div class="phase">Fase 1 — Fundamentos (dias 1–2)</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-info);color:var(--color-text-info)">1</div>
+  <div class="sc">
+    <div class="st-title">Crear el repositorio en GitHub</div>
+    <div class="st-desc">Nombre: thesis-cereal-climate. Empieza en privado. Luego lo abres cuando estes listo para publicar o compartir con tu director/a.</div>
+    <code class="cmd">git init
+git remote add origin https://github.com/tu-usuario/thesis-cereal-climate</code>
+  </div>
+</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-info);color:var(--color-text-info)">2</div>
+  <div class="sc">
+    <div class="st-title">Configurar .gitignore para datos pesados</div>
+    <div class="st-desc">Los archivos .nc, .tif y las carpetas de datos crudos no van en git. Solo datos procesados pequenos y scripts.</div>
+    <code class="cmd">*.nc
+*.tif
+*.hdf5
+_temp_dask/
+01_Data/SST/
+01_Data/GDHY/
+01_Data/CEREALS/</code>
+  </div>
+</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-info);color:var(--color-text-info)">3</div>
+  <div class="sc">
+    <div class="st-title">Agregar LICENSE y CITATION.cff</div>
+    <div class="st-desc">CC BY 4.0 para documentos/resultados, MIT para codigo Python. CITATION.cff define como te citan — GitHub lo muestra con boton automatico.</div>
+  </div>
+</div>
+
+<div class="phase">Fase 2 — Migrar trabajo existente (dias 3–7)</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-success);color:var(--color-text-success)">4</div>
+  <div class="sc">
+    <div class="st-title">Reorganizar scripts en src/paper1/ y src/paper2/</div>
+    <div class="st-desc">Mueve desde 02_Scripts/ y CORRELA_TODOS. Un commit por modulo con mensaje descriptivo.</div>
+    <code class="cmd">git commit -m "feat(paper1): add SST-yield correlation module"
+git commit -m "feat(paper1): add SOM classification script"</code>
+  </div>
+</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-success);color:var(--color-text-success)">5</div>
+  <div class="sc">
+    <div class="st-title">Mover resultados a results/ y figuras a web/public/</div>
+    <div class="st-desc">Los GIFs (maize_yield, rgb_cereals) van a results/paper1/. Las figuras que quieres mostrar en el sitio van a web/public/figures/.</div>
+  </div>
+</div>
+
+<div class="phase">Fase 3 — Conectar Vercel (dia 8)</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-warning);color:var(--color-text-warning)">6</div>
+  <div class="sc">
+    <div class="st-title">Crear sitio web basico en web/</div>
+    <div class="st-desc">Empieza simple: HTML + CSS estatico, o Astro si quieres algo mas estructurado. Una pagina de inicio + una seccion de resultados donde iras subiendo figuras.</div>
+  </div>
+</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-warning);color:var(--color-text-warning)">7</div>
+  <div class="sc">
+    <div class="st-title">Importar en Vercel y activar auto-deploy</div>
+    <div class="st-desc">vercel.com → New Project → Import from GitHub → selecciona web/ como root directory. Desde ese momento, cada push a main actualiza el sitio automaticamente.</div>
+  </div>
+</div>
+
+<div class="phase">Fase 4 — Citabilidad y DOI (dia 9)</div>
+<div class="st">
+  <div class="sn" style="background:var(--color-background-danger);color:var(--color-text-danger)">8</div>
+  <div class="sc">
+    <div class="st-title">Conectar Zenodo para DOI permanente</div>
+    <div class="st-desc">zenodo.org → conectar con GitHub → activar el repo → crear Release v0.1.0 en GitHub → Zenodo genera DOI automaticamente. Puedes poner el DOI en el README desde ese dia.</div>
+    <code class="cmd">GitHub Release: v0.1.0
+→ Zenodo DOI: 10.5281/zenodo.XXXXXXX</code>
+  </div>
+</div>
+</div>
+
+<div id="p-ip" class="pnl">
+<div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:12px">Como proteger tu autoria siendo ciencia abierta al mismo tiempo</div>
+<div class="ir"><div class="idot" style="background:#1D9E75"></div><div><div class="it">CC BY 4.0 — libre uso con atribucion obligatoria</div><div class="id">Cualquiera puede usar, compartir y adaptar tu trabajo, pero siempre citandote. Tu nombre queda permanentemente asociado a los resultados. Es el estandar de ciencia abierta.</div></div></div>
+<div class="ir"><div class="idot" style="background:#7F77DD"></div><div><div class="it">Git history = prueba legal de autoria</div><div class="id">Cada commit tiene timestamp, autor y hash unico. Si alguien usa tu trabajo sin citarte, tienes evidencia irrefutable de que lo creaste primero. Es un registro publico con fechas.</div></div></div>
+<div class="ir"><div class="idot" style="background:#BA7517"></div><div><div class="it">Zenodo DOI — snapshot citable permanente</div><div class="id">Cada GitHub Release genera un DOI que sobrevive aunque cierres el repo. Los papers pueden citarte con DOI antes de que publiques el articulo. Freeze de version en ese momento exacto.</div></div></div>
+<div class="ir"><div class="idot" style="background:#378ADD"></div><div><div class="it">CITATION.cff — instrucciones formales de citacion</div><div class="id">Archivo que GitHub muestra con boton "Cite this repository". Cualquier gestor de referencias (Zotero, Mendeley) lo importa automaticamente con nombre, ano, titulo y DOI.</div></div></div>
+<div class="ir"><div class="idot" style="background:#D85A30"></div><div><div class="it">Empieza privado, abre cuando estes listo</div><div class="id">Puedes dar acceso a tu director/a sin hacer el repo publico. Lo abres antes de enviar el paper a revista, o el dia de la defensa. El historial de commits ya esta protegiendo tu trabajo desde el primer dia.</div></div></div>
+</div>
+</div>
+
+<script>
+function sw(id,btn){
+  document.querySelectorAll('.pnl').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+function tog(id){
+  const el=document.getElementById(id);
+  el.style.display=el.style.display==='none'?'block':'none';
+}
+</script>
