@@ -1,61 +1,69 @@
 ﻿# Tesis Cereal Climate
 
-Repositorio limpio para una tesis de maestría sobre la relación entre variabilidad climática global y rendimiento de cereales, con aplicaciones en seguridad alimentaria, seguros paramétricos agrícolas y comunicación científica interactiva.
+Repositorio vivo de la tesis de maestría **“Categorización de los impactos de variabilidad climática global en el rendimiento de cereales y generación de insumos para seguros paramétricos orientados a fortalecer la seguridad alimentaria”**.
 
-## Objetivo científico
+El proyecto estudia cómo señales de variabilidad climática global, especialmente **ENSO (El Niño-Southern Oscillation)** y **MJO (Madden-Julian Oscillation)**, se relacionan con anomalías de rendimiento de cereales. La plataforma integra datos climáticos, rendimiento agrícola, correlaciones SST-rendimiento, fenología agrícola y visualización geoespacial para explorar posibles señales de riesgo y futuros triggers climáticos aplicables a seguros paramétricos agrícolas.
 
-Analizar cómo fenómenos climáticos de gran escala como ENSO, MJO, IOD, NAO y variabilidad del Atlántico tropical afectan el rendimiento global de maíz, arroz, trigo y soya. El proyecto combina procesamiento climático, correlaciones SST-rendimiento, reducción de dimensionalidad, SOM, fenología agrícola, triggers climáticos y visualización web.
+## Alcance actual
 
-## Estructura
+El foco operativo actual está en:
+
+- ENSO / ONI como señal climática principal ya documentada con outputs livianos.
+- MJO / RMM como componente climático identificado y en revisión.
+- SST y correlaciones SST-rendimiento como base espacial del análisis climático.
+- Rendimiento de maíz, arroz, trigo y soya.
+- Fenología agrícola con calendarios GEOGLAM.
+- Outputs livianos para visualización web y exploración de riesgo.
+
+El repositorio no afirma todavía triggers definitivos ni resultados validados para seguros. La plataforma está diseñada para evolucionar desde exploración científica hacia insumos paramétricos reproducibles.
+
+## Arquitectura del proyecto
 
 ```text
 tesis-cereal-climate/
-├── docs/
-├── data_info/
-├── metadata/
-├── scripts/
-├── notebooks/
-│   ├── importantes/
-│   └── revisar/
+├── docs/                 # documentación técnica y estado del proyecto
+├── data_info/            # fichas de datasets y fuentes
+├── metadata/             # inventario de datos y metadatos livianos
+├── scripts/              # scripts curados del flujo científico
+├── notebooks/            # notebooks importantes y material por revisar
 ├── outputs/
-│   └── web/
-├── manuscript/
-├── web/
-└── archive/
+│   └── web/              # derivados livianos para visualización
+├── manuscript/           # insumos de escritura académica
+├── web/                  # plataforma web interactiva
+└── archive/              # notas sobre material no migrado
 ```
 
-## Datasets principales
+## Datos y componentes
 
-- GDHY yield datasets.
-- SST monthly/daily y SST detrended.
-- ENSO / ONI.
-- MJO / RMM.
-- OLR.
-- GEOGLAM crop calendars.
-- Correlaciones SST-rendimiento almacenadas originalmente en HDF5/NetCDF.
+- **GDHY yield datasets**: rendimiento de cereales; datos pesados fuera del repo.
+- **SST**: campo climático para correlaciones SST-rendimiento; NetCDF fuera del repo.
+- **ENSO / ONI**: índice climático con derivados livianos para exploración.
+- **MJO / RMM**: componente identificado, pendiente de consolidar en outputs finales.
+- **GEOGLAM**: calendarios agrícolas y ventanas fenológicas.
+- **Correlaciones SST-rendimiento**: resultados pesados documentados, no versionados.
+- **SOM / patrones espaciales**: resúmenes livianos disponibles para exploración preliminar.
 
-Los datasets pesados no se versionan en GitHub. Este repositorio conserva código, notebooks curados, documentación, metadatos y outputs livianos para web.
+## Plataforma web
 
-## Flujo metodológico general
+La carpeta `web/` contiene un prototipo estático publicable en Vercel. La experiencia está pensada como una plataforma de **climate-food-risk intelligence**: mapa global, filtros por cultivo/señal/fase/riesgo, panel dinámico por pixel o zona y placeholders claros para capas futuras.
 
-1. Documentar fuentes de datos y rutas externas.
-2. Preprocesar índices climáticos, SST, calendarios agrícolas y rendimientos.
-3. Remover tendencias y construir matrices comparables por cultivo/periodo.
-4. Calcular correlaciones SST-rendimiento.
-5. Reducir dimensionalidad y clasificar patrones con SOM/PCA.
-6. Integrar fenología y detectar triggers climáticos.
-7. Exportar resultados livianos para visualización web.
-8. Comunicar resultados mediante dashboard React/Next.js desplegable en Vercel.
+La web consume únicamente archivos livianos desde `outputs/web/` y deja preparada la conexión futura con `outputs/web_ready/` o `web/data/`.
 
-## Reglas de reproducibilidad
+## Reproducibilidad
 
 - No versionar archivos mayores a 100 MB.
 - No versionar HDF5, NetCDF, TIFF, NPY, NPZ ni ZIP.
-- Registrar fuente, ruta original, periodo, formato y uso científico de cada dataset.
-- Mantener notebooks importantes como trazabilidad del proceso, pero convertir el flujo final a scripts/pipeline.
-- Usar `outputs/web/` solo para derivados livianos consumibles por frontend.
-- Usar Zenodo u otro almacenamiento externo para datos/resultados pesados cuando el proyecto esté listo para publicación.
+- Mantener datos pesados en almacenamiento externo o archivo científico.
+- Registrar fuente, ruta original, formato, periodo y uso de cada dataset.
+- Convertir notebooks críticos a scripts reproducibles a medida que el flujo madure.
+- Publicar solo derivados livianos y documentados en la web.
 
-## Vercel y Zenodo
+## GitHub, Vercel y Zenodo
 
-La carpeta `web/` queda reservada para una aplicación React/Next.js. Los datos consumidos por la web deben estar en `outputs/web/` en formatos livianos como CSV, JSON, GeoJSON simplificado o imágenes optimizadas. Los datos científicos completos deben quedar fuera de GitHub y citarse mediante manifiestos, DOI o enlaces a Zenodo cuando estén publicados.
+La arquitectura prevista separa tres roles:
+
+- **GitHub**: repositorio vivo para código, documentación, notebooks curados, metadatos y control de cambios.
+- **Vercel**: despliegue de la plataforma web interactiva para exploración visual de riesgo climático-agroalimentario.
+- **Zenodo**: archivo científico futuro para releases estables, DOI citable, preservación de resultados reproducibles y conexión con publicaciones académicas.
+
+La integración con Zenodo no está implementada todavía. El proyecto queda preparado conceptualmente para publicar versiones estables mediante releases de GitHub y archivarlas en Zenodo cuando existan resultados validados.

@@ -1,0 +1,105 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Climate-Food Risk Intelligence | Tesis</title>
+  <meta name="description" content="Plataforma visual para explorar ENSO, MJO, fenología agrícola, cereales y señales preliminares de riesgo climático." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ5yYoYe+M3Zr3HV6Fq9hCC5h5g2Yw=" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-signal"></span><span>Climate-Food-Risk</span></a>
+    <nav class="nav-links" aria-label="Secciones principales">
+      <a href="#explorer">Explorer</a>
+      <a href="#trigger-lab">Triggers</a>
+      <a href="#open-science">Open science</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Climate-food-risk intelligence · thesis prototype</p>
+        <h1>Explorar riesgo climático en cereales desde el mapa.</h1>
+        <p>Una plataforma visual para navegar señales ENSO/MJO, zonas agrícolas, ventanas fenológicas y posibles triggers climáticos para seguros paramétricos.</p>
+        <a class="cta" href="#explorer">Explorar mapa global</a>
+      </div>
+    </section>
+
+    <section class="explorer" id="explorer" aria-label="Explorador climático interactivo">
+      <aside class="control-panel glass-panel">
+        <div class="panel-title"><span>Layers</span><strong>Climate scenario</strong></div>
+        <label>Cultivo<select id="cropSelect"><option value="rice">Arroz</option><option value="maize">Maíz</option><option value="wheat">Trigo</option><option value="soybean">Soya</option></select></label>
+        <label>Señal climática<select id="signalSelect"><option value="ONI">ENSO / ONI</option><option value="RMM">MJO / RMM</option><option value="SST">SST correlation</option></select></label>
+        <label>Fase fenológica<select id="phaseSelect"><option value="Sin filtrar">Sin filtrar</option><option>Planting</option><option>Vegetative</option><option>Harvest</option><option>End of season</option></select></label>
+        <label>Mes<select id="monthSelect"><option value="Todos">Todos</option><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option><option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option></select></label>
+        <label>Riesgo visual<select id="riskSelect"><option value="all">Todos</option><option value="low">Bajo</option><option value="moderate">Moderado</option><option value="high">Alto</option><option value="extreme">Extremo</option></select></label>
+        <label>SOM / patrón<select id="somSelect"><option value="all">Todas las clases</option></select></label>
+        <div class="layer-stack">
+          <button class="layer-chip active" data-layer="points">Puntos agrícolas</button>
+          <button class="layer-chip" data-layer="phenology">Fenología demo</button>
+          <button class="layer-chip" data-layer="sst">SST risk demo</button>
+          <button class="layer-chip" data-layer="triggers">Trigger zones demo</button>
+        </div>
+      </aside>
+
+      <section class="map-wrap">
+        <div id="map" class="map"></div>
+        <div id="mapFallback" class="map-fallback" hidden><strong>Mapa demo</strong><p>Conectar Leaflet/MapLibre o capas GeoJSON reales para la versión final.</p></div>
+        <div class="map-title glass-panel"><span id="mapStatus">loading</span><strong id="mapTitle">Global crop-risk explorer</strong><small id="mapSubtitle">CSV liviano conectado desde outputs/web</small></div>
+        <div class="risk-legend glass-panel"><strong>Risk scale</strong><div class="scale"><i></i><i></i><i></i><i></i></div><div><span>bajo</span><span>moderado</span><span>alto</span><span>extremo</span></div></div>
+      </section>
+
+      <aside class="insight-panel glass-panel" id="insightPanel">
+        <span class="analysis-state">Exploratorio · pendiente de validación científica</span>
+        <h2 id="zoneTitle">Selecciona un pixel o zona</h2>
+        <div class="insight-grid">
+          <div><span>Zona</span><strong id="zoneValue">Global preview</strong></div>
+          <div><span>Cultivo dominante</span><strong id="cropValue">Arroz</strong></div>
+          <div><span>Fase fenológica</span><strong id="phaseValue">Sin filtrar</strong></div>
+          <div><span>Señal climática</span><strong id="signalValue">ENSO / ONI</strong></div>
+          <div><span>ONI / MJO / SST</span><strong id="climateValue">Por conectar</strong></div>
+          <div><span>Sensibilidad</span><strong id="sensitivityValue">Demo visual</strong></div>
+          <div><span>Anomalía asociada</span><strong id="anomalyValue">Pendiente</strong></div>
+          <div><span>Nivel de riesgo</span><strong id="riskValue">Demo</strong></div>
+        </div>
+        <div class="spark-card">
+          <span>Historia climática</span>
+          <svg viewBox="0 0 320 92" aria-label="Placeholder de serie climática"><path d="M0 62 C36 40 48 72 78 54 S136 22 170 42 222 78 260 43 300 30 320 36"/><line x1="0" y1="64" x2="320" y2="64"/></svg>
+          <small>Mini serie placeholder. Conectar con ONI/RMM/SST por pixel o región.</small>
+        </div>
+        <div class="trigger-card" id="triggerCard">
+          <span>Trigger candidate</span>
+          <strong>Umbral climático por validar durante fase sensible</strong>
+          <p>Exploratorio: requiere validación estadística, agronómica y de basis risk antes de uso paramétrico.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="trigger-lab" id="trigger-lab">
+      <div class="section-copy"><p class="eyebrow">Camino hacia triggers</p><h2>De señal observada a insumo asegurable.</h2></div>
+      <div class="trigger-flow" id="triggerFlow"></div>
+    </section>
+
+    <section class="open-science" id="open-science">
+      <div class="section-copy"><p class="eyebrow">Open science + reproducibility</p><h2>Una plataforma viva, reproducible y citable.</h2><p>El proyecto separa código vivo, despliegue web y archivo científico para que la exploración de riesgo climático pueda evolucionar sin perder trazabilidad.</p></div>
+      <div class="science-grid">
+        <article><span>GitHub</span><h3>Living repository</h3><p>Código, documentación, notebooks curados, metadatos y evolución del producto.</p></article>
+        <article><span>Vercel</span><h3>Interactive platform</h3><p>Experiencia web pública para explorar mapas, filtros, capas y prototipos de riesgo.</p></article>
+        <article><span>Zenodo</span><h3>DOI release coming soon</h3><p>Archivo científico en preparación para versiones estables, reproducibles y citables.</p></article>
+        <article><span>Workflows</span><h3>Reproducible climate-risk workflows</h3><p>Pipeline futuro para conectar datos pesados, outputs web_ready y capas validadas.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div><strong>Paola Andrea Ruiz Franco</strong><br>Maestría en Ingeniería - Recursos Hidráulicos<br>Universidad Nacional de Colombia</div><div>Director de tesis: <strong>Carlos David Hoyos Ortiz</strong><br>Proyecto en desarrollo · Climate-Food-Risk Intelligence</div></footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
