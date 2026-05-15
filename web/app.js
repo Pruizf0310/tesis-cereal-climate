@@ -1,4 +1,4 @@
-﻿const DATA_ROOTS = ["public/data/", "./public/data/", "../outputs/web/"];
+﻿const DATA_ROOTS = ["", "./", "data/", "../outputs/web/"];
 const cropFiles = {
   rice: "rice_puntos_utiles_interseccion.csv",
   maize: "maize_puntos_utiles_interseccion.csv",
@@ -235,4 +235,5 @@ boot().catch(error => {
   document.getElementById("mapKicker").textContent = "Data layer offline";
   document.getElementById("mapSubtitle").textContent = error.message;
 });
+
 

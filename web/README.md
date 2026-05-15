@@ -4,7 +4,7 @@ Static climate-food-risk intelligence interface for the thesis project. The web 
 
 ## What this version does
 
-- Loads lightweight crop-pixel CSV files from `web/public/data/`.
+- Loads lightweight crop-pixel CSV files from `web/`.
 - Displays agricultural pixels for rice, maize, wheat and soybean on an interactive Leaflet map.
 - Colors pixels by crop, SOM class, variability or trigger proximity.
 - Shows a dynamic pixel intelligence panel when a point is selected.
@@ -16,7 +16,7 @@ Static climate-food-risk intelligence interface for the thesis project. The web 
 
 ## Data connected
 
-Current lightweight files copied into `web/public/data/`:
+Current lightweight files copied into `web/`:
 
 - `rice_puntos_utiles_interseccion.csv`
 - `maize_puntos_utiles_interseccion.csv`
@@ -57,15 +57,16 @@ Recommended static deployment settings:
 - Build command: leave empty
 - Output directory: `.`
 
-Because data files are inside `web/public/data/`, the deployed static app can load them with stable relative paths.
+Because data files are inside `web/`, the deployed static app can load them with stable relative paths.
 
 ## Future data integrations
 
 The code is ready to connect future lightweight exports from Google Earth Engine, SST correlation workflows, MJO/RMM processing or web-ready geospatial layers:
 
-- `web/public/data/*.geojson` for crop zones, hotspots or SOM regions.
+- `web/*.geojson` for crop zones, hotspots or SOM regions.
 - Raster tiles or static map images for SST/correlation layers.
 - JSON files for validated trigger profiles.
 - Region-level summaries for climate finance, insurance and food-system risk narratives.
 
 Keep HDF5, NetCDF, TIFF, NPY, NPZ and ZIP files outside the web and outside GitHub.
+
