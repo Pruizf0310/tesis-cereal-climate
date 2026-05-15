@@ -1,81 +1,71 @@
-﻿# Web: Climate-Food-Risk Intelligence
+﻿# CerealRisk Intelligence
 
-Interfaz estática inicial para una plataforma visual de climate-food-risk intelligence asociada a la tesis.
+Static climate-food-risk intelligence interface for the thesis project. The web experience is designed as a modern geospatial product, not as a traditional academic page.
 
-## Propósito
+## What this version does
 
-La web prioriza exploración geoespacial e interacción visual. No es una página metodológica ni un catálogo de outputs. Está diseñada para que el usuario pueda navegar un mapamundi, filtrar cultivos, seleccionar señales ENSO/MJO/SST, explorar fases fenológicas y abrir un panel dinámico por pixel o zona.
+- Loads lightweight crop-pixel CSV files from `web/public/data/`.
+- Displays agricultural pixels for rice, maize, wheat and soybean on an interactive Leaflet map.
+- Colors pixels by crop, SOM class, variability or trigger proximity.
+- Shows a dynamic pixel intelligence panel when a point is selected.
+- Visualizes SOM climate-correlation fingerprints from `cluster_means.csv`.
+- Visualizes ONI critical-window values against yield anomalies from `oni_yield_pixel_year_merged.csv`.
+- Displays a phenology-aware timeline from `geoglam_resumen_fases.csv`.
+- Shows research-grade candidate trigger signals from `trigger_summary_preliminar.csv`.
+- Frames GitHub, Vercel and Zenodo as the open-science architecture for the project.
 
-## Archivos
+## Data connected
 
-- `index.html`: estructura del observatorio y explorador climático.
-- `styles.css`: diseño premium, responsivo y geoespacial.
-- `app.js`: mapa Leaflet, carga de CSV livianos, click en puntos y panel dinámico.
-- `README.md`: esta guía.
-
-## Datos conectados actualmente
-
-La web carga CSV livianos desde `../outputs/web/`:
+Current lightweight files copied into `web/public/data/`:
 
 - `rice_puntos_utiles_interseccion.csv`
 - `maize_puntos_utiles_interseccion.csv`
 - `wheat_puntos_utiles_interseccion.csv`
 - `soybean_puntos_utiles_interseccion.csv`
-
-También deja preparada la conexión conceptual con:
-
-- `geoglam_fases.csv`
-- `som_assignments.csv`
 - `oni_yield_pixel_year_merged.csv`
+- `geoglam_fases.csv`
+- `geoglam_resumen_fases.csv`
+- `som_assignments.csv`
+- `som_class_summary.csv`
+- `cluster_means.csv`
 - `trigger_summary_preliminar.csv`
+- `maize_yield.gif`
+- `rgb_cereals_1981_2016.gif`
 
-## Placeholders sofisticados
+No heavy scientific data is loaded by the web.
 
-La interfaz incluye placeholders marcados como demo/preliminar para:
+## Run locally
 
-- zonas agrícolas globales;
-- franjas fenológicas;
-- mapas de correlación SST-rendimiento;
-- hotspots;
-- clases SOM;
-- niveles de riesgo;
-- trigger candidates.
-
-Estos placeholders no son resultados científicos finales. Deben reemplazarse por archivos validados en `outputs/web_ready/` o `web/data/`.
-
-## Dónde conectar futuros outputs
-
-En `app.js` hay comentarios `TODO` para conectar:
-
-- GeoJSON de zonas de cultivo;
-- tiles o imágenes de correlación/riesgo;
-- JSON de triggers;
-- CSV agregados por región/pixel;
-- capas SOM o fenológicas.
-
-## Correr localmente
-
-Desde la raíz del repositorio:
+From the repository root:
 
 ```powershell
 python -m http.server 8000
 ```
 
-Abrir:
+Open:
 
 ```text
 http://localhost:8000/web/
 ```
 
-## Vercel
+## Deploy on Vercel
 
-Para desplegar como prototipo estático:
+Recommended static deployment settings:
 
-1. Usar la raíz del repositorio como fuente del proyecto.
-2. Servir `web/` como carpeta de la página.
-3. Mantener `outputs/web/` accesible porque `app.js` carga archivos con rutas relativas.
-4. Si Vercel se configura con `web/` como root, copiar outputs livianos a `web/data/` y actualizar rutas.
+- Framework preset: `Other`
+- Root directory: `web`
+- Build command: leave empty
+- Output directory: `.`
 
-## Regla central
+Because data files are inside `web/public/data/`, the deployed static app can load them with stable relative paths.
 
-No cargar ni publicar archivos pesados: HDF5, NetCDF, TIFF, NPY, NPZ, ZIP o derivados no validados.
+## Future data integrations
+
+The code is ready to connect future lightweight exports from Google Earth Engine, SST correlation workflows, MJO/RMM processing or web-ready geospatial layers:
+
+- `web/public/data/*.geojson` for crop zones, hotspots or SOM regions.
+- Raster tiles or static map images for SST/correlation layers.
+- JSON files for validated trigger profiles.
+- Region-level summaries for climate finance, insurance and food-system risk narratives.
+
+Keep HDF5, NetCDF, TIFF, NPY, NPZ and ZIP files outside the web and outside GitHub.
