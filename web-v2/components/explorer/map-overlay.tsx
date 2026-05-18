@@ -14,7 +14,7 @@ export function MapOverlay({ cropLabel, pointCount, loading, error }: MapOverlay
   return (
     <>
       {/* Top-left title card */}
-      <div className="pointer-events-none absolute left-[316px] top-[72px] z-10 max-w-[420px]">
+      <div className="pointer-events-none absolute left-4 top-[72px] z-10 max-w-[420px] md:left-[316px]">
         <div className="pointer-events-auto glass relative rounded-sm px-4 py-3 animate-fade-up">
           <div className="flex items-center gap-2">
             <span
@@ -51,7 +51,7 @@ export function MapOverlay({ cropLabel, pointCount, loading, error }: MapOverlay
       </div>
 
       {/* Bottom-left risk legend */}
-      <div className="pointer-events-none absolute bottom-[100px] left-[316px] z-10">
+      <div className="pointer-events-none absolute bottom-[100px] left-4 z-10 hidden md:block md:left-[316px]">
         <div className="pointer-events-auto glass rounded-sm px-4 py-3 animate-fade-up">
           <p className="kicker mb-2">Climate exposure</p>
           <div className="flex h-1.5 w-[200px] overflow-hidden rounded-xs">

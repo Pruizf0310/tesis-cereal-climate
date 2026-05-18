@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const NAV = [
   { href: "/", label: "Explorer" },
@@ -8,33 +12,66 @@ const NAV = [
 ];
 
 export function Header() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between border-b border-line bg-bg-deep/60 px-6 backdrop-blur-md">
-      <Link href="/" className="group flex items-center gap-2.5">
-        <span
-          aria-hidden
-          className="relative h-4 w-4 rotate-45 rounded-[2px] bg-gradient-to-br from-cool via-crop to-warm shadow-[0_0_18px_rgba(127,212,223,0.45)] transition-transform group-hover:scale-110"
-        />
-        <span className="text-[13px] font-semibold tracking-[-0.01em] text-ink">
-          CerealRisk
-        </span>
-      </Link>
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between border-b border-line bg-bg-deep/60 px-6 backdrop-blur-md">
+        <Link href="/" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
+          <span
+            aria-hidden
+            className="relative h-4 w-4 rotate-45 rounded-[2px] bg-gradient-to-br from-cool via-crop to-warm shadow-[0_0_18px_rgba(127,212,223,0.45)] transition-transform group-hover:scale-110"
+          />
+          <span className="text-[13px] font-semibold tracking-[-0.01em] text-ink">
+            CerealRisk
+          </span>
+        </Link>
 
-      <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
-        {NAV.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            className="rounded-sm px-3 py-1.5 text-[12.5px] font-medium text-ink-dim transition-colors hover:bg-white/[0.04] hover:text-ink"
-          >
-            {label}
-          </Link>
-        ))}
-      </nav>
+        {/* Desktop nav */}
+        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+          {NAV.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-sm px-3 py-1.5 text-[12.5px] font-medium text-ink-dim transition-colors hover:bg-white/[0.04] hover:text-ink"
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
 
-      <div className="hidden items-center gap-2 md:flex">
-        <span className="kicker">v0.2 · preview</span>
-      </div>
-    </header>
+        <div className="hidden items-center gap-2 md:flex">
+          <span className="kicker">v0.2 · preview</span>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-8 w-8 items-center justify-center rounded-sm text-ink-dim transition-colors hover:bg-white/[0.04] hover:text-ink md:hidden"
+        >
+          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+        </button>
+      </header>
+
+      {/* Mobile nav dropdown */}
+      {open && (
+        <div className="fixed inset-x-0 top-14 z-40 border-b border-line bg-bg-deep/95 backdrop-blur-md md:hidden">
+          <nav className="flex flex-col px-4 py-3">
+            {NAV.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="rounded-sm px-3 py-3 text-[13px] font-medium text-ink-dim transition-colors hover:bg-white/[0.04] hover:text-ink"
+              >
+                {label}
+              </Link>
+            ))}
+            <p className="kicker px-3 py-2 pt-3 border-t border-line mt-1">v0.2 · preview</p>
+          </nav>
+        </div>
+      )}
+    </>
   );
 }

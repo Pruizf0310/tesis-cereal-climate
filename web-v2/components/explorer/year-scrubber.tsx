@@ -17,7 +17,7 @@ export function YearScrubber({ year, min, max, onChange }: YearScrubberProps) {
   const pct = ((year - min) / range) * 100;
 
   return (
-    <div className="pointer-events-auto glass w-[560px] rounded-sm p-3.5 animate-fade-up">
+    <div className="pointer-events-auto glass w-full max-w-[560px] rounded-sm p-3.5 animate-fade-up">
       <div className="flex items-baseline justify-between">
         <div className="flex items-center gap-3">
           <p className="kicker">Year</p>
@@ -64,7 +64,10 @@ export function YearScrubber({ year, min, max, onChange }: YearScrubberProps) {
       {/* Decade rail */}
       <div className="mt-2 flex justify-between text-[10px] text-ink-mute">
         {[1985, 1990, 1995, 2000, 2005, 2010, 2015].map((d) => (
-          <span key={d} className="num">
+          <span
+            key={d}
+            className={`num ${d === 1990 || d === 2000 || d === 2010 ? "" : "hidden sm:inline"}`}
+          >
             {d}
           </span>
         ))}

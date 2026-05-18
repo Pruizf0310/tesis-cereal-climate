@@ -10,8 +10,8 @@ interface TriggerTableProps {
 
 export function TriggerTable({ triggers, summary }: TriggerTableProps) {
   return (
-    <div className="mt-6 overflow-hidden rounded-sm border border-line glass animate-fade-up">
-      <table className="w-full border-collapse">
+    <div className="mt-6 overflow-x-auto rounded-sm border border-line glass animate-fade-up">
+      <table className="w-full min-w-[640px] border-collapse">
         <thead>
           <tr className="border-b border-line text-left text-[10.5px] uppercase tracking-wider text-ink-mute">
             <Th>Class</Th>
