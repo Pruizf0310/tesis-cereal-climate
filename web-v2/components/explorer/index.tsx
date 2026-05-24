@@ -24,7 +24,7 @@ const CROP_ICON: Record<Crop, React.ReactNode> = {
 };
 
 export function Explorer() {
-  const [crop, setCrop] = useState<Crop>("maize");
+  const [crop, setCrop] = useState<Crop>("rice");
   const [signal, setSignal] = useState<Signal>("ENSO");
   const [year, setYear] = useState<number>(2015);
   const [points, setPoints] = useState<CropPoint[]>([]);

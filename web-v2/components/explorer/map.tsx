@@ -102,6 +102,8 @@ export function MapView({ points, onHover, onSelect, selected }: MapViewProps) {
     });
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
+    window.requestAnimationFrame(() => map.resize());
+    window.setTimeout(() => map.resize(), 250);
 
     map.on("load", () => {
       // Empty source — filled by the points effect
@@ -268,5 +270,5 @@ export function MapView({ points, onHover, onSelect, selected }: MapViewProps) {
     // optional: smooth pan to selected
   }, [selected]);
 
-  return <div ref={containerRef} className="absolute inset-0" aria-label="Global crop-risk map" />;
+  return <div ref={containerRef} className="absolute inset-0 z-[1]" aria-label="Global crop-risk map" />;
 }

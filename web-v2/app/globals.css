@@ -128,6 +128,10 @@
   }
 
   /* Atmospheric globe glow behind the map */
+  .map-atmosphere {
+    isolation: isolate;
+  }
+
   .map-atmosphere::before {
     content: "";
     position: absolute;
@@ -139,7 +143,7 @@
       transparent 55%
     );
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
   }
 
   .map-atmosphere::after {
@@ -148,7 +152,7 @@
     inset: 0;
     background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(5, 11, 18, 0.65) 100%);
     pointer-events: none;
-    z-index: 2;
+    z-index: 0;
   }
 }
 
