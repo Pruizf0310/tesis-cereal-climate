@@ -51,7 +51,7 @@ export function MapOverlay({ cropLabel, pointCount, loading, error }: MapOverlay
       </div>
 
       {/* Bottom-left risk legend */}
-      <div className="pointer-events-none absolute bottom-[100px] left-4 z-10 hidden md:block md:left-[316px]">
+      <div className="pointer-events-none absolute bottom-[172px] left-4 z-10 hidden md:block md:left-[316px]">
         <div className="pointer-events-auto glass rounded-sm px-4 py-3 animate-fade-up">
           <p className="kicker mb-2">Climate exposure</p>
           <div className="flex h-1.5 w-[200px] overflow-hidden rounded-xs">
