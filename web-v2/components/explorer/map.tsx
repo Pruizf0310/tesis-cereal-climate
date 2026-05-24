@@ -186,7 +186,8 @@ export function MapView({ points, onHover, onSelect, selected }: MapViewProps) {
           std: f.properties.std,
           longestRun: f.properties.longestRun,
           yearsValid: f.properties.yearsValid,
-          risk: f.properties.risk
+          risk: f.properties.risk,
+          climate: f.properties.climate ? JSON.parse(f.properties.climate) : undefined
         });
       });
 
@@ -208,7 +209,8 @@ export function MapView({ points, onHover, onSelect, selected }: MapViewProps) {
           std: f.properties.std,
           longestRun: f.properties.longestRun,
           yearsValid: f.properties.yearsValid,
-          risk: f.properties.risk
+          risk: f.properties.risk,
+          climate: f.properties.climate ? JSON.parse(f.properties.climate) : undefined
         });
       });
 
@@ -248,7 +250,8 @@ export function MapView({ points, onHover, onSelect, selected }: MapViewProps) {
             std: p.std,
             longestRun: p.longestRun,
             yearsValid: p.yearsValid,
-            risk: p.risk
+            risk: p.risk,
+            climate: p.climate ? JSON.stringify(p.climate) : ""
           }
         }))
       });

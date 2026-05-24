@@ -5,6 +5,7 @@ import { RISK_META } from "@/lib/types";
 import { formatCoord, formatNumber } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { MapPin } from "lucide-react";
+import { PixelClimatePanel } from "@/components/climate/PixelClimatePanel";
 
 interface ContextPanelProps {
   point: CropPoint | null;
@@ -78,6 +79,10 @@ function PixelView({
   signal: Signal;
   year: number;
 }) {
+  if (crop.id === "rice" && point.climate) {
+    return <PixelClimatePanel point={point} />;
+  }
+
   const riskMeta = RISK_META[point.risk];
   return (
     <div className="mt-5 flex flex-col gap-5">

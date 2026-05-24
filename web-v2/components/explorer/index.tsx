@@ -11,6 +11,7 @@ import { MapView } from "./map";
 import { MapOverlay } from "./map-overlay";
 import { cn } from "@/lib/utils";
 import { Sprout, Waves, Wheat, ActivitySquare } from "lucide-react";
+import { loadRiceMapLayer } from "@/components/climate/RiceMapLayer";
 
 const YEAR_MIN = 1982;
 const YEAR_MAX = 2016;
@@ -38,13 +39,17 @@ export function Explorer() {
     setError(null);
     setSelected(null);
     setHover(null);
-    loadCsv<CropPointRow>(`/data/${crop}.csv`)
+    const loader =
+      crop === "rice"
+        ? loadRiceMapLayer()
+        : loadCsv<CropPointRow>(`/data/${crop}.csv`).then((rows) =>
+            rows.map((row, i) => normalizePoint(row, i)).filter((p): p is CropPoint => p !== null)
+          );
+
+    loader
       .then((rows) => {
         if (cancelled) return;
-        const normalized = rows
-          .map((row, i) => normalizePoint(row, i))
-          .filter((p): p is CropPoint => p !== null);
-        setPoints(normalized);
+        setPoints(rows);
         setLoading(false);
       })
       .catch((err: Error) => {
@@ -58,6 +63,7 @@ export function Explorer() {
   }, [crop]);
 
   const focus = hover ?? selected;
+  const panelPoint = crop === "rice" ? selected : focus;
   const cropMeta = useMemo(() => CROPS.find((c) => c.id === crop)!, [crop]);
 
   return (
@@ -87,7 +93,7 @@ export function Explorer() {
 
       {/* Right rail — context panel — large screens only */}
       <div className="pointer-events-none absolute inset-y-14 right-0 z-10 hidden lg:flex w-[380px] flex-col p-4">
-        <ContextPanel point={focus} crop={cropMeta} signal={signal} year={year} />
+        <ContextPanel point={panelPoint} crop={cropMeta} signal={signal} year={year} />
       </div>
 
       {/* Map overlays — title (TL) and legend (BR) */}

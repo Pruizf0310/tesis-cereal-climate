@@ -48,7 +48,55 @@ export interface CropPoint {
   longestRun: number;
   yearsValid: number;
   risk: RiskLevel;
+  climate?: RiceMapProperties;
 }
+
+export type RiceConfidence = "high" | "moderate" | "low";
+
+export interface RiceMapProperties {
+  id: string;
+  dr: number;
+  conf: "h" | "m" | "l";
+  sp: "flo" | "gf" | "pla" | "veg";
+  rph: number[];
+  olr: string;
+  mw: number;
+}
+
+export interface RiceMapFeature {
+  type: "Feature";
+  geometry: {
+    type: "Point";
+    coordinates: [number, number];
+  };
+  properties: RiceMapProperties;
+}
+
+export interface RiceMapGeoJson {
+  type: "FeatureCollection";
+  features: RiceMapFeature[];
+}
+
+export interface RicePixelDetail {
+  lat: number;
+  lon: number;
+  crop: "rice";
+  oni_r: number | null;
+  oni_bins: Record<"sn" | "n" | "neu" | "el" | "sel", number | null>;
+  peak_month: number;
+  olr_region: string;
+  olr_r: number | null;
+  mjo_phase_yield: Record<string, number | null>;
+  mjo_risk_phases: number[];
+  mjo_worst_phase: number | null;
+  mjo_olr_coherent: boolean;
+  sensitive_phase: string;
+  critical_months: number[];
+  yield_sigma: number | null;
+  confidence: RiceConfidence;
+}
+
+export type RiceDetailCache = Record<string, RicePixelDetail>;
 
 /** Row from oni_yield_pixel_year_merged.csv */
 export interface OniYieldRow {
