@@ -10,7 +10,7 @@ import { YearScrubber } from "./year-scrubber";
 import { MapView } from "./map";
 import { MapOverlay } from "./map-overlay";
 import { cn } from "@/lib/utils";
-import { Sprout, Waves, Wheat, ActivitySquare } from "lucide-react";
+import { Sprout, Waves, Wheat, ActivitySquare, X } from "lucide-react";
 import { loadRiceMapLayer } from "@/components/climate/RiceMapLayer";
 
 const YEAR_MIN = 1982;
@@ -68,8 +68,8 @@ export function Explorer() {
 
   return (
     <section className="relative h-[100dvh] w-full overflow-hidden pt-14">
-      {/* Map fills the whole stage */}
-      <div className="absolute inset-0 top-14 map-atmosphere">
+      {/* Centered map frame */}
+      <div className="absolute inset-x-3 bottom-28 top-24 overflow-hidden rounded-sm border border-line bg-bg-panel/35 shadow-glass map-atmosphere md:left-[316px] md:right-[396px] md:bottom-24 md:top-28">
         <MapView
           points={points}
           onHover={setHover}
@@ -125,6 +125,23 @@ export function Explorer() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center p-4">
         <YearScrubber year={year} min={YEAR_MIN} max={YEAR_MAX} onChange={setYear} />
       </div>
+
+      {/* Responsive selected-pixel sheet */}
+      {panelPoint && (
+        <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex lg:hidden">
+          <div className="pointer-events-auto glass max-h-[72dvh] w-full overflow-y-auto rounded-t-sm border-x-0 border-b-0 p-4 shadow-glass">
+            <button
+              type="button"
+              onClick={() => setSelected(null)}
+              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-sm border border-line bg-white/[0.03] text-ink-dim"
+              aria-label="Close pixel detail"
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <ContextPanel point={panelPoint} crop={cropMeta} signal={signal} year={year} />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
