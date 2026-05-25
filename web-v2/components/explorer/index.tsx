@@ -69,7 +69,7 @@ export function Explorer() {
   return (
     <section className="relative h-[100dvh] w-full overflow-hidden pt-14">
       {/* Centered map frame */}
-      <div className="absolute inset-x-3 bottom-28 top-24 overflow-hidden rounded-sm border border-line bg-bg-panel/35 shadow-glass map-atmosphere md:left-[316px] md:right-[396px] md:bottom-24 md:top-28">
+      <div className="absolute inset-x-3 bottom-28 top-24 overflow-hidden rounded-sm border border-line-strong bg-bg-panel/80 shadow-glass map-atmosphere md:left-[316px] md:right-[396px] md:bottom-24 md:top-28">
         <MapView
           points={points}
           onHover={setHover}

@@ -366,14 +366,9 @@ function PointSvgOverlay({
 }) {
   const [zoom, setZoom] = useState(1);
   const center = useMemo(() => {
-    if (!points.length) return { x: 500, y: 250 };
-    const projected = points.map(projectPoint);
-    const minX = Math.min(...projected.map((p) => p.x));
-    const maxX = Math.max(...projected.map((p) => p.x));
-    const minY = Math.min(...projected.map((p) => p.y));
-    const maxY = Math.max(...projected.map((p) => p.y));
-    return { x: (minX + maxX) / 2, y: (minY + maxY) / 2 };
-  }, [points]);
+    if (selected && zoom > 1) return projectPoint(selected);
+    return { x: 500, y: 250 };
+  }, [selected, zoom]);
   const transform = `translate(500 250) scale(${zoom}) translate(${-center.x} ${-center.y})`;
   const pointRadius = Math.max(3.2 / zoom, 1.8);
 
@@ -397,13 +392,14 @@ function PointSvgOverlay({
             <stop offset="100%" stopColor="rgba(5,11,18,0)" />
           </radialGradient>
         </defs>
+        <rect width="1000" height="500" fill="rgba(7,20,29,0.92)" pointerEvents="none" />
         <rect width="1000" height="500" fill="url(#ocean-glow)" pointerEvents="none" />
         <g transform={transform}>
           {Array.from({ length: 7 }, (_, i) => 125 + i * 125).map((x) => (
-            <line key={`lon-${x}`} x1={x} x2={x} y1={0} y2={500} stroke="rgba(255,255,255,0.045)" />
+            <line key={`lon-${x}`} x1={x} x2={x} y1={0} y2={500} stroke="rgba(255,255,255,0.075)" />
           ))}
           {Array.from({ length: 5 }, (_, i) => 83.33 + i * 83.33).map((y) => (
-            <line key={`lat-${y}`} x1={0} x2={1000} y1={y} y2={y} stroke="rgba(255,255,255,0.045)" />
+            <line key={`lat-${y}`} x1={0} x2={1000} y1={y} y2={y} stroke="rgba(255,255,255,0.075)" />
           ))}
           {WORLD_OUTLINES.map((shape) => (
             <polygon
@@ -412,9 +408,9 @@ function PointSvgOverlay({
                 const p = projectLonLat(lon, lat);
                 return `${p.x},${p.y}`;
               }).join(" ")}
-              fill="rgba(127,175,123,0.045)"
-              stroke="rgba(230,238,242,0.22)"
-              strokeWidth={1.2 / zoom}
+              fill="rgba(127,175,123,0.11)"
+              stroke="rgba(230,238,242,0.58)"
+              strokeWidth={1.8 / zoom}
               vectorEffect="non-scaling-stroke"
               pointerEvents="none"
             />
