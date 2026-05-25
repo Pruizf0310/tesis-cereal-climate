@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type WheelEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import maplibregl, {
   Map as MapLibreMap,
   MapMouseEvent,
@@ -317,22 +317,47 @@ function projectLonLat(lon: number, lat: number) {
   return { x, y };
 }
 
-function ringToPath(ring: number[][]) {
-  return ring
+function ringToPath(ring: number[][], closePath: boolean) {
+  const body = ring
     .map(([lon, lat], index) => {
       const point = projectLonLat(lon, lat);
       return `${index === 0 ? "M" : "L"}${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
     })
-    .join(" ")
-    .concat(" Z");
+    .join(" ");
+  return closePath ? `${body} Z` : body;
+}
+
+function splitAntimeridian(ring: number[][]) {
+  const segments: number[][][] = [];
+  let current: number[][] = [];
+
+  ring.forEach((coord, index) => {
+    if (index > 0 && Math.abs(coord[0] - ring[index - 1][0]) > 180) {
+      if (current.length > 1) segments.push(current);
+      current = [coord];
+      return;
+    }
+    current.push(coord);
+  });
+
+  if (current.length > 1) segments.push(current);
+  return segments;
 }
 
 function geometryToPath(geometry: WorldGeometry) {
+  const polygonToPath = (polygon: number[][][]) =>
+    polygon
+      .flatMap((ring) => {
+        const split = splitAntimeridian(ring);
+        return split.map((segment) => ringToPath(segment, split.length === 1));
+      })
+      .join(" ");
+
   if (geometry.type === "Polygon") {
-    return (geometry.coordinates as number[][][]).map(ringToPath).join(" ");
+    return polygonToPath(geometry.coordinates as number[][][]);
   }
   return (geometry.coordinates as number[][][][])
-    .flatMap((polygon) => polygon.map(ringToPath))
+    .map(polygonToPath)
     .join(" ");
 }
 
@@ -354,6 +379,7 @@ function PointSvgOverlay({
   const [zoom, setZoom] = useState(1);
   const [center, setCenter] = useState({ x: 500, y: 250 });
   const [worldFeatures, setWorldFeatures] = useState<WorldFeature[]>([]);
+  const svgRef = useRef<SVGSVGElement>(null);
   const transform = `translate(500 250) scale(${zoom}) translate(${-center.x} ${-center.y})`;
   const pointRadius = Math.max(3.2 / zoom, 1.8);
 
@@ -376,7 +402,7 @@ function PointSvgOverlay({
     if (selected && zoom > 1) setCenter(projectPoint(selected));
   }, [selected, zoom]);
 
-  const setZoomAround = (nextZoom: number, anchor = { x: 500, y: 250 }) => {
+  const setZoomAround = useCallback((nextZoom: number, anchor = { x: 500, y: 250 }) => {
     setZoom((currentZoom) => {
       const z = clamp(nextZoom, 1, 6);
       setCenter((currentCenter) => {
@@ -388,32 +414,52 @@ function PointSvgOverlay({
       });
       return Number(z.toFixed(2));
     });
-  };
+  }, []);
 
   const zoomIn = () => setZoomAround(zoom + 0.5);
   const zoomOut = () => setZoomAround(zoom - 0.5);
 
-  const handleWheel = (event: WheelEvent<SVGSVGElement>) => {
-    event.preventDefault();
-    const rect = event.currentTarget.getBoundingClientRect();
-    const anchor = {
-      x: ((event.clientX - rect.left) / rect.width) * 1000,
-      y: ((event.clientY - rect.top) / rect.height) * 500
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const rect = svg.getBoundingClientRect();
+      const anchor = {
+        x: ((event.clientX - rect.left) / rect.width) * 1000,
+        y: ((event.clientY - rect.top) / rect.height) * 500
+      };
+      const delta = event.deltaY > 0 ? -0.35 : 0.35;
+      setZoom((currentZoom) => {
+        const nextZoom = clamp(currentZoom + delta, 1, 6);
+        setCenter((currentCenter) => {
+          if (nextZoom === 1) return { x: 500, y: 250 };
+          return {
+            x: clamp(anchor.x - ((anchor.x - currentCenter.x) * currentZoom) / nextZoom, 0, 1000),
+            y: clamp(anchor.y - ((anchor.y - currentCenter.y) * currentZoom) / nextZoom, 0, 500)
+          };
+        });
+        return Number(nextZoom.toFixed(2));
+      });
     };
-    const delta = event.deltaY > 0 ? -0.25 : 0.25;
-    setZoomAround(zoom + delta, anchor);
-  };
+
+    svg.addEventListener("wheel", handleWheel, { passive: false });
+    return () => svg.removeEventListener("wheel", handleWheel);
+  }, []);
 
   return (
     <>
       <svg
+        ref={svgRef}
         viewBox="0 0 1000 500"
         preserveAspectRatio="xMidYMid meet"
-        className="absolute inset-0 h-full w-full"
+        className="absolute inset-0 h-full w-full touch-none"
+        style={{ overscrollBehavior: "contain" }}
         role="img"
         aria-label="Projected crop pixels"
         onClick={() => onSelect(null)}
-        onWheel={handleWheel}
       >
         <defs>
           <radialGradient id="ocean-glow" cx="50%" cy="50%" r="65%">
