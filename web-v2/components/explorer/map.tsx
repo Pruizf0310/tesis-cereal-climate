@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState, type WheelEvent } from "react";
 import maplibregl, {
   Map as MapLibreMap,
   MapMouseEvent,
@@ -79,57 +79,21 @@ const SVG_RISK_COLOR: Record<CropPoint["risk"], string> = {
   extreme: "#B23D3D"
 };
 
-const WORLD_OUTLINES: { name: string; points: [number, number][] }[] = [
-  {
-    name: "north-america",
-    points: [
-      [-168, 71], [-145, 68], [-126, 53], [-124, 39], [-117, 31], [-101, 22],
-      [-89, 18], [-80, 25], [-66, 45], [-54, 49], [-60, 58], [-92, 74],
-      [-122, 72], [-168, 71]
-    ]
-  },
-  {
-    name: "south-america",
-    points: [
-      [-81, 12], [-68, 8], [-52, -7], [-44, -22], [-50, -39], [-65, -55],
-      [-73, -42], [-79, -17], [-81, 12]
-    ]
-  },
-  {
-    name: "eurasia",
-    points: [
-      [-10, 36], [4, 58], [31, 70], [64, 63], [96, 70], [132, 54],
-      [153, 47], [139, 31], [111, 23], [81, 8], [54, 22], [31, 31],
-      [10, 36], [-10, 36]
-    ]
-  },
-  {
-    name: "africa",
-    points: [
-      [-17, 35], [9, 36], [33, 28], [51, 9], [42, -18], [28, -35],
-      [14, -35], [-2, -18], [-16, 5], [-17, 35]
-    ]
-  },
-  {
-    name: "australia",
-    points: [
-      [112, -11], [133, -9], [154, -25], [146, -43], [122, -37], [112, -25],
-      [112, -11]
-    ]
-  },
-  {
-    name: "greenland",
-    points: [
-      [-52, 60], [-31, 66], [-25, 78], [-46, 83], [-64, 76], [-52, 60]
-    ]
-  },
-  {
-    name: "madagascar",
-    points: [
-      [47, -13], [51, -21], [48, -26], [43, -21], [47, -13]
-    ]
-  }
-];
+type WorldGeometry = {
+  type: "Polygon" | "MultiPolygon";
+  coordinates: number[][][] | number[][][][];
+};
+
+interface WorldFeature {
+  type: "Feature";
+  geometry: WorldGeometry;
+  properties?: Record<string, unknown>;
+}
+
+interface WorldGeoJson {
+  type: "FeatureCollection";
+  features: WorldFeature[];
+}
 
 interface MapViewProps {
   points: CropPoint[];
@@ -353,6 +317,29 @@ function projectLonLat(lon: number, lat: number) {
   return { x, y };
 }
 
+function ringToPath(ring: number[][]) {
+  return ring
+    .map(([lon, lat], index) => {
+      const point = projectLonLat(lon, lat);
+      return `${index === 0 ? "M" : "L"}${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+    })
+    .join(" ")
+    .concat(" Z");
+}
+
+function geometryToPath(geometry: WorldGeometry) {
+  if (geometry.type === "Polygon") {
+    return (geometry.coordinates as number[][][]).map(ringToPath).join(" ");
+  }
+  return (geometry.coordinates as number[][][][])
+    .flatMap((polygon) => polygon.map(ringToPath))
+    .join(" ");
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
 function PointSvgOverlay({
   points,
   selected,
@@ -365,15 +352,57 @@ function PointSvgOverlay({
   onSelect: (point: CropPoint | null) => void;
 }) {
   const [zoom, setZoom] = useState(1);
-  const center = useMemo(() => {
-    if (selected && zoom > 1) return projectPoint(selected);
-    return { x: 500, y: 250 };
-  }, [selected, zoom]);
+  const [center, setCenter] = useState({ x: 500, y: 250 });
+  const [worldFeatures, setWorldFeatures] = useState<WorldFeature[]>([]);
   const transform = `translate(500 250) scale(${zoom}) translate(${-center.x} ${-center.y})`;
   const pointRadius = Math.max(3.2 / zoom, 1.8);
 
-  const zoomIn = () => setZoom((z) => Math.min(5, Number((z + 0.5).toFixed(1))));
-  const zoomOut = () => setZoom((z) => Math.max(1, Number((z - 0.5).toFixed(1))));
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/data/world_outline.geojson")
+      .then((response) => response.json() as Promise<WorldGeoJson>)
+      .then((geojson) => {
+        if (!cancelled) setWorldFeatures(geojson.features);
+      })
+      .catch(() => {
+        if (!cancelled) setWorldFeatures([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (selected && zoom > 1) setCenter(projectPoint(selected));
+  }, [selected, zoom]);
+
+  const setZoomAround = (nextZoom: number, anchor = { x: 500, y: 250 }) => {
+    setZoom((currentZoom) => {
+      const z = clamp(nextZoom, 1, 6);
+      setCenter((currentCenter) => {
+        if (z === 1) return { x: 500, y: 250 };
+        return {
+          x: clamp(anchor.x - ((anchor.x - currentCenter.x) * currentZoom) / z, 0, 1000),
+          y: clamp(anchor.y - ((anchor.y - currentCenter.y) * currentZoom) / z, 0, 500)
+        };
+      });
+      return Number(z.toFixed(2));
+    });
+  };
+
+  const zoomIn = () => setZoomAround(zoom + 0.5);
+  const zoomOut = () => setZoomAround(zoom - 0.5);
+
+  const handleWheel = (event: WheelEvent<SVGSVGElement>) => {
+    event.preventDefault();
+    const rect = event.currentTarget.getBoundingClientRect();
+    const anchor = {
+      x: ((event.clientX - rect.left) / rect.width) * 1000,
+      y: ((event.clientY - rect.top) / rect.height) * 500
+    };
+    const delta = event.deltaY > 0 ? -0.25 : 0.25;
+    setZoomAround(zoom + delta, anchor);
+  };
 
   return (
     <>
@@ -384,6 +413,7 @@ function PointSvgOverlay({
         role="img"
         aria-label="Projected crop pixels"
         onClick={() => onSelect(null)}
+        onWheel={handleWheel}
       >
         <defs>
           <radialGradient id="ocean-glow" cx="50%" cy="50%" r="65%">
@@ -401,13 +431,10 @@ function PointSvgOverlay({
           {Array.from({ length: 5 }, (_, i) => 83.33 + i * 83.33).map((y) => (
             <line key={`lat-${y}`} x1={0} x2={1000} y1={y} y2={y} stroke="rgba(255,255,255,0.075)" />
           ))}
-          {WORLD_OUTLINES.map((shape) => (
-            <polygon
-              key={shape.name}
-              points={shape.points.map(([lon, lat]) => {
-                const p = projectLonLat(lon, lat);
-                return `${p.x},${p.y}`;
-              }).join(" ")}
+          {worldFeatures.map((feature, index) => (
+            <path
+              key={index}
+              d={geometryToPath(feature.geometry)}
               fill="rgba(127,175,123,0.11)"
               stroke="rgba(230,238,242,0.58)"
               strokeWidth={1.8 / zoom}
