@@ -1,60 +1,50 @@
-import { SignalCardEnso } from "@/components/signals/enso-card";
-import { SignalCardSoon } from "@/components/signals/soon-card";
+import { SignalHero } from "@/components/signals/SignalHero";
+import { ONIHistoricalChart } from "@/components/signals/ONIHistoricalChart";
+import { MJOPhaseDiagram } from "@/components/signals/MJOPhaseDiagram";
+import { OLRMapPanel } from "@/components/signals/OLRMapPanel";
+import { SSTMapPanel } from "@/components/signals/SSTMapPanel";
+import { ResearchConnectionPanel } from "@/components/signals/ResearchConnectionPanel";
 
 export const metadata = {
-  title: "Signals · CerealRisk",
+  title: "Live climate signals · CerealRisk",
   description:
-    "The climate modes CerealRisk tracks: ENSO, MJO and the Pacific SST field that anchors them."
+    "Operational ENSO, MJO, OLR and SST indicators used to interpret agroclimatic risk."
 };
 
 export default function SignalsPage() {
   return (
     <section className="relative min-h-[100dvh] w-full bg-bg-deep pt-14">
-      <div className="grid-bg absolute inset-0 opacity-40 pointer-events-none" />
+      <div className="grid-bg absolute inset-0 opacity-35 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 pb-24 pt-16">
-        <header className="max-w-[820px] animate-fade-up">
-          <p className="kicker">Climate signals</p>
-          <h1 className="mt-3 font-display text-[clamp(2.2rem,4.2vw,3.6rem)] font-medium leading-[1] tracking-tightest text-ink">
-            ENSO and MJO: two coupled modes that drive agricultural exposure.
+      <div className="relative mx-auto max-w-[1440px] px-4 pb-24 pt-12 sm:px-6 lg:px-8">
+        <header className="max-w-[900px] animate-fade-up">
+          <p className="kicker">Climate teleconnection monitoring room</p>
+          <h1 className="mt-3 font-display text-[clamp(2.1rem,4vw,3.8rem)] font-medium leading-[1] tracking-tightest text-ink">
+            Live climate signals
           </h1>
-          <p className="mt-5 max-w-[640px] text-[14.5px] leading-relaxed text-ink-dim">
-            CerealRisk tracks two climate modes. ENSO drives interannual yield swings through the
-            Oceanic Niño Index, while the Madden–Julian Oscillation modulates precipitation and
-            temperature on intraseasonal scales — compounding or dampening agricultural exposure
-            within the same growing season.
+          <p className="mt-4 max-w-[760px] text-[15px] leading-relaxed text-ink-dim">
+            Operational ENSO, MJO, OLR and SST indicators used to interpret agroclimatic risk.
+          </p>
+          <p className="mt-3 max-w-[820px] text-[12.5px] leading-relaxed text-ink-mute">
+            These signals describe the current ocean-atmosphere state. They are used as climate context for
+            interpreting historical crop-yield sensitivity patterns, not as deterministic crop-yield forecasts.
           </p>
         </header>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-2">
-          <SignalCardEnso />
-          <SignalCardSoon
-            label="MJO"
-            sublabel="Madden–Julian Oscillation"
-            description="Eastward-propagating tropical convection. Tracked through RMM1/RMM2 amplitude and phase. Integration in progress."
-            source="BoM RMM index · daily"
-          />
+        <div className="mt-8">
+          <SignalHero />
         </div>
 
-        {/* Methodology strip */}
-        <section className="mt-20 grid grid-cols-1 gap-12 border-t border-line pt-12 md:grid-cols-3">
-          <Stat label="Yield record" value="35 yrs" sub="1981–2016 · GDHY v1.2" />
-          <Stat label="Pixels analyzed" value="3,187" sub="Quarter-degree · SOM-classified" />
-          <Stat label="SOM classes" value="7" sub="Pacific climate classification" />
-        </section>
+        <div className="mt-8 space-y-8">
+          <ONIHistoricalChart />
+          <MJOPhaseDiagram />
+          <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
+            <OLRMapPanel />
+            <SSTMapPanel />
+          </div>
+          <ResearchConnectionPanel />
+        </div>
       </div>
     </section>
-  );
-}
-
-function Stat({ label, value, sub }: { label: string; value: string; sub: string }) {
-  return (
-    <div>
-      <p className="kicker">{label}</p>
-      <p className="num mt-2 font-display text-[clamp(1.8rem,3vw,2.6rem)] font-medium tracking-tightest text-ink">
-        {value}
-      </p>
-      <p className="mt-1 text-[12px] text-ink-mute">{sub}</p>
-    </div>
   );
 }
