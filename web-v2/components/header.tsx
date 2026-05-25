@@ -18,9 +18,11 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between border-b border-line bg-bg-deep/60 px-6 backdrop-blur-md">
         <Link href="/" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span
+          <img
+            src="/cerealrisk-icon.jpg"
+            alt=""
             aria-hidden
-            className="relative h-4 w-4 rotate-45 rounded-[2px] bg-gradient-to-br from-cool via-crop to-warm shadow-[0_0_18px_rgba(127,212,223,0.45)] transition-transform group-hover:scale-110"
+            className="h-6 w-6 rounded-sm object-cover shadow-[0_0_18px_rgba(127,212,223,0.35)] transition-transform group-hover:scale-105"
           />
           <span className="text-[13px] font-semibold tracking-[-0.01em] text-ink">
             CerealRisk

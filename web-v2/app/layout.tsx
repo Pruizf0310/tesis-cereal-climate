@@ -50,7 +50,20 @@ export const metadata: Metadata = {
     title: "CerealRisk",
     description: "Climate-food risk intelligence for global cereal systems.",
     type: "website",
-    siteName: "CerealRisk"
+    siteName: "CerealRisk",
+    images: [
+      {
+        url: "/cerealrisk-icon.jpg",
+        width: 1024,
+        height: 1024,
+        alt: "CerealRisk climate and cereal icon"
+      }
+    ]
+  },
+  icons: {
+    icon: [{ url: "/cerealrisk-icon.jpg", type: "image/jpeg" }],
+    shortcut: [{ url: "/cerealrisk-icon.jpg", type: "image/jpeg" }],
+    apple: [{ url: "/cerealrisk-icon.jpg", type: "image/jpeg" }]
   },
   robots: {
     index: true,
