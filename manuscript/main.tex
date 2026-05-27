@@ -1,0 +1,83 @@
+\documentclass[12pt,letterpaper,oneside]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{csquotes}
+\usepackage{newtxtext,newtxmath}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\geometry{
+  letterpaper,
+  left=3cm,
+  right=2.5cm,
+  top=3cm,
+  bottom=3cm
+}
+
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue,
+  pdftitle={Categorizacion de los impactos de variabilidad climatica global en el rendimiento de cereales},
+  pdfauthor={Paola Andrea Ruiz Franco}
+}
+
+\usepackage[
+  backend=biber,
+  style=apa,
+  natbib=true,
+  sorting=nyt,
+  language=spanish
+]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{bib/referencias.bib}
+
+\title{Categorización de los impactos de variabilidad climática global en el rendimiento de cereales y la generación de insumos para el desarrollo de seguros paramétricos orientados a fortalecer la seguridad alimentaria}
+\author{Paola Andrea Ruiz Franco}
+\date{2026}
+
+\begin{document}
+
+\frontmatter
+\input{frontmatter/portada}
+\input{frontmatter/dedicatoria}
+\input{frontmatter/agradecimientos}
+\input{frontmatter/resumen}
+\input{frontmatter/abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+\input{chapters/01_introduccion}
+\input{chapters/02_paper1}
+\input{chapters/03_paper2}
+\input{chapters/04_conclusiones}
+\input{chapters/05_recomendaciones}
+
+\backmatter
+\chapter*{Bibliografía completa}
+\addcontentsline{toc}{chapter}{Bibliografía completa}
+\printbibliography[heading=none]
+
+\end{document}
