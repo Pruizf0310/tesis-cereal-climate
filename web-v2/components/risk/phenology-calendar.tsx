@@ -332,7 +332,18 @@ function InternalPattern({ pattern, months }: { pattern: PhenologyPattern; month
       </div>
       <div className="grid grid-cols-[120px_repeat(12,minmax(42px,1fr))] gap-1">
         <div className="flex items-center text-[10px] uppercase tracking-wider text-ink-mute">
-          Pattern
+          Month
+        </div>
+        {months.map((month) => (
+          <div
+            key={month}
+            className="grid h-6 place-items-center rounded-[2px] border border-line bg-white/[0.015] text-[9px] uppercase tracking-wider text-ink-mute"
+          >
+            {month.slice(0, 3)}
+          </div>
+        ))}
+        <div className="flex items-center text-[10px] uppercase tracking-wider text-ink-mute">
+          Phase
         </div>
         {months.map((month) => (
           <PhaseBox key={month} phase={pattern.phases[month]} compact />
