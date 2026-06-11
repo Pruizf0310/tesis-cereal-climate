@@ -14,7 +14,7 @@ from openpyxl.utils import get_column_letter
 
 
 INPUT = Path(r"C:\Users\paola\Tesis\03_Resultados\Fenologia\geoglam_cm4ew_tabla_maestra.xlsx")
-ROOT = Path(r"C:\Users\paola\Documents\Codex\2026-06-10\files-mentioned-by-the-user-texto")
+ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "outputs"
 OUT.mkdir(exist_ok=True)
 
@@ -128,7 +128,7 @@ def crop_target(value):
 
 
 def intervals_for_doy(start, end, wraps):
-    if wraps or start > end:
+    if start > end:
         return [(start, 366), (1, end)]
     return [(start, end)]
 
@@ -223,7 +223,7 @@ def build_region_calendars(df, dictionary_df):
         for _, r in group.iterrows():
             start = int(r["start_num"])
             end = int(r["end_num"])
-            wraps = bool(r.get("wraps_year", False)) or start > end
+            wraps = start > end
             duration = r["duration_num"]
             if pd.isna(duration):
                 duration = sum(b - a + 1 for a, b in intervals_for_doy(start, end, wraps))
