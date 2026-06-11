@@ -1,9 +1,8 @@
 import { RiskBoard } from "@/components/risk/board";
 
 export const metadata = {
-  title: "Risk · CerealRisk",
-  description:
-    "Self-organized climate clusters, trigger candidates and the curve from El Niño to harvest loss."
+  title: "Phenology · CerealRisk",
+  description: "Typical phenology calendars and crop-stage windows for climate threat interpretation."
 };
 
 export default function RiskPage() {
@@ -12,14 +11,13 @@ export default function RiskPage() {
       <div className="grid-bg absolute inset-0 opacity-40 pointer-events-none" />
       <div className="relative mx-auto max-w-[1400px] px-6 pb-24 pt-16">
         <header className="max-w-[820px] animate-fade-up">
-          <p className="kicker">Exploratory risk</p>
+          <p className="kicker">Phenological threats</p>
           <h1 className="mt-3 font-display text-[clamp(2.2rem,4.2vw,3.6rem)] font-medium leading-[1] tracking-tightest text-ink">
-            From a climate fingerprint to a harvest loss.
+            Crop calendars for climate-sensitive windows.
           </h1>
           <p className="mt-5 max-w-[640px] text-[14.5px] leading-relaxed text-ink-dim">
-            Each agricultural pixel is grouped into a Self-Organizing Map class that summarizes how
-            it co-varies with Pacific and Atlantic SST modes. We then ask: when ONI crosses a
-            threshold, how does yield respond?
+            Explore typical monthly phenology by crop, season and latitude band. Open each band to
+            inspect internal variability and phase duration before linking threats to growth stages.
           </p>
         </header>
 
