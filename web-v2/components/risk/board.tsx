@@ -6,6 +6,7 @@ import type { ClusterMean, TriggerCandidate, SomClassSummary } from "@/lib/types
 import { SomRadar } from "./som-radar";
 import { TriggerTable } from "./trigger-table";
 import { OniYieldCurve } from "./oni-yield-curve";
+import { PhenologyCalendar } from "./phenology-calendar";
 
 export function RiskBoard() {
   const [means, setMeans] = useState<ClusterMean[]>([]);
@@ -28,6 +29,22 @@ export function RiskBoard() {
 
   return (
     <div className="mt-14 space-y-16">
+      {/* Typical phenology calendar */}
+      <section>
+        <div className="flex flex-col gap-3 border-b border-line pb-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="kicker">Block 0</p>
+            <h2 className="mt-1 font-display text-[22px] font-medium tracking-tightest text-ink">
+              Typical phenology windows
+            </h2>
+          </div>
+          <p className="max-w-[520px] text-[11.5px] leading-relaxed text-ink-mute sm:text-right">
+            Compact monthly calendars by crop and season, grouped from dominant GEOGLAM patterns.
+          </p>
+        </div>
+        <PhenologyCalendar />
+      </section>
+
       {/* SOM fingerprints */}
       <section>
         <div className="flex items-end justify-between border-b border-line pb-4">
