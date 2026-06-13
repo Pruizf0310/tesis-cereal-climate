@@ -47,6 +47,67 @@ const BADGE_CLASS: Record<ImpactLabel, string> = {
   "No determinado": "border-line bg-white/[0.025] text-ink-mute"
 };
 
+const IMPACT_LABELS: Record<ImpactLabel, string> = {
+  Bajo: "Low",
+  Moderado: "Moderate",
+  Alto: "High",
+  Crítico: "Critical",
+  "No determinado": "Not determined"
+};
+
+const STAGE_LABELS: Record<string, string> = {
+  "Floración / reproducción": "Flowering / reproduction",
+  "Germinación / establecimiento": "Germination / establishment",
+  "Llenado de grano / formación de rendimiento": "Grain filling / yield formation",
+  "Llenado de grano / maduración": "Grain filling / maturation",
+  "Maduración / cosecha": "Maturation / harvest",
+  "Desarrollo vegetativo": "Vegetative development",
+  "No determinado": "Not determined"
+};
+
+const THREAT_LABELS: Record<string, string> = {
+  "Déficit hídrico en ventana reproductiva — Hídrico": "Water deficit during the reproductive window — Water stress",
+  "Humedad del suelo en zona radicular — Hídrico": "Root-zone soil moisture — Water stress",
+  "Temperatura durante llenado efectivo del grano — Térmico": "Temperature during effective grain filling — Heat stress",
+  "Temperatura máxima durante antesis/floración — Térmico": "Maximum temperature during anthesis/flowering — Heat stress",
+  "Potencial hídrico del suelo/solución — Hídrico": "Soil/solution water potential — Water stress",
+  "Temperatura del aire durante llenado del grano — Térmico": "Air temperature during grain filling — Heat stress",
+  "Temperatura del aire en antesis — Térmico": "Air temperature at anthesis — Heat stress",
+  "Temperatura durante emergencia y crecimiento otoñal temprano — Térmico": "Temperature during emergence and early autumn growth — Heat stress",
+  "Temperatura del aire en llenado medio a terminal — Térmico": "Air temperature during mid-to-terminal grain filling — Heat stress"
+};
+
+const THRESHOLD_LABELS: Record<string, string> = {
+  "<30 mm en 10 días durante fase reproductiva en maíz grano (umbral empírico distrital); evidencia experimental complementaria con ψs ≈ −50 kPa como estrés manejado":
+    "<30 mm over 10 days during the reproductive phase in grain maize (district-scale empirical threshold); complementary experimental evidence with ψs ≈ −50 kPa as managed stress",
+  "θ < 0.183 cm³ cm⁻³ en 0–1 m, derivado con criterio FAO (p = 0.55) a partir de θFC = 0.26 y θWP = 0.12; por debajo de ese valor comenzó (K_s<1)":
+    "θ < 0.183 cm³ cm⁻³ in 0-1 m soil depth, derived with the FAO criterion (p = 0.55) from θFC = 0.26 and θWP = 0.12; below this value, stress began (K_s<1)",
+  "Tratamientos con Tmax media de 39.4–41.5 °C durante 7 días en llenado efectivo generaron daño claro; a 32.9 °C no hubo efecto significativo":
+    "Treatments with mean Tmax of 39.4-41.5 °C for 7 days during effective grain filling caused clear damage; at 32.9 °C there was no significant effect",
+  "≥35 °C durante antesis; en el experimento, el tratamiento térmico tuvo pico de 39 °C y se aplicó 48 h":
+    "≥35 °C during anthesis; in the experiment, the heat treatment peaked at 39 °C and was applied for 48 h",
+  "−0.046 a −0.056 MPa: umbral a partir del cual comienzan a caer evapotranspiración, expansión foliar y biomasa; en campo, la productividad cayó cuando se alcanzó −0.05 a −0.06 MPa":
+    "−0.046 to −0.056 MPa: threshold where evapotranspiration, leaf expansion and biomass begin to decline; in field conditions, productivity declined at −0.05 to −0.06 MPa",
+  "T media diaria >25 °C durante llenado se asocia a pérdida de calidad; en campo, un aumento de 1.6–3.1 °C durante llenado redujo el rendimiento":
+    "Mean daily temperature >25 °C during filling is associated with quality loss; in the field, a 1.6-3.1 °C increase during filling reduced yield",
+  "35/25 °C día/noche durante 7 días en antesis": "35/25 °C day/night for 7 days at anthesis",
+  "<10 °C o >30 °C reducen significativamente la germinación; alrededor de 8 °C aún germina, pero con emergencia muy lenta y menor rendimiento posterior":
+    "<10 °C or >30 °C significantly reduce germination; around 8 °C germination still occurs, but emergence is very slow and later yield is lower",
+  "38/28 °C día/noche durante 7 días en llenado medio; además, >30 °C se asocia de forma consistente con caída del llenado":
+    "38/28 °C day/night for 7 days during mid grain filling; >30 °C is also consistently associated with reduced filling"
+};
+
+const EVIDENCE_LABELS: Record<string, string> = {
+  "Modelación empírica a escala distrital + experimento de campo": "District-scale empirical modeling + field experiment",
+  "Experimental de campo multianual + umbral operativo derivado por balance hídrico":
+    "Multi-year field experiment + operational threshold derived from water balance",
+  "Experimental de campo": "Field experiment",
+  "Experimental en ambiente controlado": "Controlled-environment experiment",
+  "Experimental en invernadero con validación de campo": "Greenhouse experiment with field validation",
+  "Experimental de campo + revisión": "Field experiment + review",
+  "Experimental de campo multianual + síntesis fisiológica": "Multi-year field experiment + physiological synthesis"
+};
+
 export function RiskPivotV2() {
   const [rows, setRows] = useState<RiskPivotRow[]>([]);
   const [cropId, setCropId] = useState<string>("");
@@ -109,13 +170,13 @@ export function RiskPivotV2() {
         <table className="w-full min-w-[1120px] border-collapse">
           <thead>
             <tr className="border-b border-line text-left text-[10.5px] uppercase tracking-wider text-ink-mute">
-              <Th>Etapa derivada</Th>
-              <Th>Amenaza</Th>
-              <Th>Umbral</Th>
-              <Th>Impacto cualitativo</Th>
-              <Th>Impacto cuantitativo</Th>
-              <Th>Categoría</Th>
-              <Th>Detalle</Th>
+              <Th>Derived stage</Th>
+              <Th>Threat</Th>
+              <Th>Threshold</Th>
+              <Th>Qualitative impact</Th>
+              <Th>Quantitative impact</Th>
+              <Th>Category</Th>
+              <Th>Details</Th>
             </tr>
           </thead>
           <tbody>
@@ -157,9 +218,9 @@ function RiskTableRow({ row, isOpen, onToggle }: { row: RiskPivotRow; isOpen: bo
   return (
     <>
       <tr className="border-b border-line/60 text-[12px] last:border-b-0 hover:bg-white/[0.02]">
-        <Td className="max-w-[180px] font-medium text-ink">{row.etapa_derivada}</Td>
-        <Td className="max-w-[260px] text-ink-dim">{row.amenaza}</Td>
-        <Td className="max-w-[310px] text-ink-dim">{row.umbral}</Td>
+        <Td className="max-w-[180px] font-medium text-ink">{displayStage(row.etapa_derivada)}</Td>
+        <Td className="max-w-[260px] text-ink-dim">{displayThreat(row.amenaza)}</Td>
+        <Td className="max-w-[310px] text-ink-dim">{displayThreshold(row.umbral)}</Td>
         <Td>
           <ImpactBadge label={row.impacto_cualitativo} />
         </Td>
@@ -172,10 +233,10 @@ function RiskTableRow({ row, isOpen, onToggle }: { row: RiskPivotRow; isOpen: bo
             type="button"
             onClick={onToggle}
             className="flex h-8 items-center gap-2 rounded-sm border border-line bg-white/[0.02] px-2.5 text-[11px] text-ink-dim transition-colors hover:text-ink"
-            title="Mostrar fuente, criterio y registros base"
+            title="Show source, method and base records"
           >
             <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isOpen && "rotate-180")} />
-            Ver
+            View
           </button>
         </Td>
       </tr>
@@ -195,19 +256,19 @@ function RiskMobileCard({ row, isOpen, onToggle }: { row: RiskPivotRow; isOpen: 
     <article className="rounded-sm border border-line bg-white/[0.02] p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[12px] font-medium text-ink">{row.etapa_derivada}</p>
-          <p className="mt-1 text-[11px] leading-relaxed text-ink-dim">{row.amenaza}</p>
+          <p className="text-[12px] font-medium text-ink">{displayStage(row.etapa_derivada)}</p>
+          <p className="mt-1 text-[11px] leading-relaxed text-ink-dim">{displayThreat(row.amenaza)}</p>
         </div>
         <ImpactBadge label={row.categoria_impacto} />
       </div>
-      <p className="mt-3 text-[11.5px] leading-relaxed text-ink-dim">{row.umbral}</p>
+      <p className="mt-3 text-[11.5px] leading-relaxed text-ink-dim">{displayThreshold(row.umbral)}</p>
       <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
         <div className="rounded-[2px] border border-line bg-white/[0.02] p-2">
-          <span className="block text-ink-mute">Impacto cualitativo</span>
+          <span className="block text-ink-mute">Qualitative impact</span>
           <span className="mt-1 block"><ImpactBadge label={row.impacto_cualitativo} /></span>
         </div>
         <div className="rounded-[2px] border border-line bg-white/[0.02] p-2">
-          <span className="block text-ink-mute">Impacto cuantitativo</span>
+          <span className="block text-ink-mute">Quantitative impact</span>
           <span className="num mt-1 block text-ink">{formatQuant(row.impacto_cuantitativo)}</span>
         </div>
       </div>
@@ -217,7 +278,7 @@ function RiskMobileCard({ row, isOpen, onToggle }: { row: RiskPivotRow; isOpen: 
         className="mt-3 flex h-8 items-center gap-2 rounded-sm border border-line bg-white/[0.02] px-2.5 text-[11px] text-ink-dim"
       >
         <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isOpen && "rotate-180")} />
-        Fuente y trazabilidad
+        Source and traceability
       </button>
       {isOpen && <div className="mt-3"><RiskDetails row={row} /></div>}
     </article>
@@ -227,8 +288,8 @@ function RiskMobileCard({ row, isOpen, onToggle }: { row: RiskPivotRow; isOpen: 
 function RiskDetails({ row }: { row: RiskPivotRow }) {
   return (
     <div className="grid gap-3 text-[11.5px] leading-relaxed text-ink-dim lg:grid-cols-[1fr_1fr_1.4fr]">
-      <Detail label="Fuente">{row.fuente}</Detail>
-      <Detail label="Enlace">
+      <Detail label="Source">{row.fuente}</Detail>
+      <Detail label="Link">
         <div className="space-y-1">
           {row.enlace.split(";").map((link) => {
             const href = link.trim();
@@ -248,9 +309,9 @@ function RiskDetails({ row }: { row: RiskPivotRow }) {
           })}
         </div>
       </Detail>
-      <Detail label="Criterio de cálculo">{row.criterio_calculo}</Detail>
-      <Detail label="Evidencia">{row.evidencia}</Detail>
-      <Detail label="Registros base">
+      <Detail label="Calculation rule">{displayCriteria(row.criterio_calculo)}</Detail>
+      <Detail label="Evidence">{displayEvidence(row.evidencia)}</Detail>
+      <Detail label="Base records">
         <span className="line-clamp-3 break-words" title={row.registros_base}>
           {row.registros_base}
         </span>
@@ -271,17 +332,46 @@ function Detail({ label, children }: { label: string; children: React.ReactNode 
 function ImpactBadge({ label }: { label: ImpactLabel }) {
   return (
     <span className={cn("inline-flex rounded-[2px] border px-2 py-1 text-[10.5px] font-medium", BADGE_CLASS[label])}>
-      {label}
+      {IMPACT_LABELS[label]}
     </span>
   );
 }
 
 function formatQuant(value: RiskPivotRow["impacto_cuantitativo"]) {
-  return typeof value === "number" ? value.toFixed(2) : value;
+  return typeof value === "number" ? value.toFixed(2) : "Not determined";
 }
 
 function rowKey(row: RiskPivotRow, index: number) {
   return `${row.cultivo}-${row.etapa_derivada}-${row.amenaza}-${index}`;
+}
+
+function displayStage(value: string) {
+  return STAGE_LABELS[value] ?? value;
+}
+
+function displayThreat(value: string) {
+  return THREAT_LABELS[value] ?? value;
+}
+
+function displayThreshold(value: string) {
+  return THRESHOLD_LABELS[value] ?? value;
+}
+
+function displayEvidence(value: string) {
+  return EVIDENCE_LABELS[value] ?? value;
+}
+
+function displayCriteria(value: string) {
+  if (value.startsWith("Porcentaje extraído")) {
+    return "Percentage extracted from impact_cultivo, weighted by impact type and evidence level.";
+  }
+  if (value.startsWith("Regla cualitativa")) {
+    return "Qualitative rule: no explicit percentage was found in impact_cultivo.";
+  }
+  if (value.startsWith("Cálculo mixto")) {
+    return "Mixed calculation: extracted percentage where available and qualitative rule for records without an explicit percentage.";
+  }
+  return value;
 }
 
 function Th({ children }: { children: React.ReactNode }) {

@@ -26,15 +26,14 @@ export function RiskBoard() {
           <div>
             <p className="kicker">Risk pivot v2</p>
             <h2 className="mt-1 font-display text-[22px] font-medium tracking-tightest text-ink">
-              Resumen de amenazas e impacto por etapa fenológica
+              Threat and impact summary by phenological stage
             </h2>
           </div>
           <p className="max-w-[680px] text-[11.5px] leading-relaxed text-ink-mute sm:text-right">
-            La tabla sintetiza, para cada cultivo, las amenazas climáticas críticas asociadas a
-            etapas fenológicas derivadas. El impacto cuantitativo se estima a partir de porcentajes
-            reportados en la literatura, ponderados por tipo de variable afectada y nivel de
-            evidencia. Cuando no existe porcentaje explícito, se conserva una clasificación
-            cualitativa trazable al texto original.
+            This table summarizes critical climate threats by crop and derived phenological stage.
+            Quantitative impact is estimated from percentages reported in the literature, weighted
+            by the affected variable and evidence level. When no explicit percentage is available,
+            the table preserves a qualitative classification traceable to the source text.
           </p>
         </div>
         <RiskPivotV2 />
