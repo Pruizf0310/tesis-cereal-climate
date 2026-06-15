@@ -89,8 +89,8 @@ export default function AboutPage() {
             <p>MSc Engineering — Water Resources</p>
             <p>Universidad Nacional de Colombia</p>
             <p className="pt-1">
-              Thesis advisor:{" "}
-              <span className="text-ink">Carlos David Hoyos Ortiz</span>
+              Thesis advisors:{" "}
+              <span className="text-ink">Carlos David Hoyos Ortiz and Santiago Medina Hurtado</span>
             </p>
           </div>
         </div>

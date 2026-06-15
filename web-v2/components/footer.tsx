@@ -7,7 +7,9 @@ export function Footer() {
           <p className="text-ink-dim">
             <span className="text-ink">Paola Andrea Ruiz Franco</span> · MSc Engineering — Water Resources
           </p>
-          <p>Universidad Nacional de Colombia · Advisor: Carlos David Hoyos Ortiz</p>
+          <p>
+            Universidad Nacional de Colombia · Advisors: Carlos David Hoyos Ortiz and Santiago Medina Hurtado
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11.5px]">
