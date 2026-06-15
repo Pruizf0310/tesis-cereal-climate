@@ -1,23 +1,15 @@
 # Phase calculator GEE setup
 
-The `/calculator` page never downloads or stores global daily series. It resolves the crop pixel and
-phenology window in the browser, then posts one coordinate/crop/phase/variable request to:
-
-```txt
-POST /api/phase-calculator
-```
-
-The Next.js API route is a thin proxy. In production, configure it with:
+The `/calculator` page calls an external Cloud Run backend directly from the browser. It does not
+store credentials in Vercel or in the frontend bundle.
 
 ```bash
-GEE_ENDPOINT_URL=https://REGION-PROJECT.cloudfunctions.net/phase-calculator
-GEE_ENDPOINT_API_KEY=optional-shared-secret
+NEXT_PUBLIC_GEE_API_URL=https://<cloud-run-url>/calculate-phase-risk
 ```
 
-If `GEE_ENDPOINT_URL` is missing, the UI shows a clear "GEE not configured" message and no synthetic
-probability is shown.
+If this variable is missing, the UI shows `Backend GEE no configurado` and does not simulate results.
 
-## Expected request
+## Frontend request
 
 ```json
 {
@@ -27,89 +19,27 @@ probability is shown.
   "phase": "F2",
   "variable": "tmax_c",
   "threshold": 35,
-  "event_rule": "at_least_3",
   "start_year": 1981,
   "end_year": 2016,
-  "pixel": {
-    "lat": 4.75,
-    "lon_ee": -74.25,
-    "pixel_lat_min": 4.5,
-    "pixel_lat_max": 5.0,
-    "pixel_lon_min_ee": -74.5,
-    "pixel_lon_max_ee": -74.0
-  },
-  "phase_window": {
-    "start_doy": 182,
-    "end_doy": 273,
-    "crosses_year": false
-  }
+  "min_days_event": 3
 }
 ```
 
-## Expected response
+## Backend
 
-Return either `{ "result": ... }` or the result object directly:
-
-```json
-{
-  "result": {
-    "probability": 0.3333,
-    "event_years": 12,
-    "valid_years": 36,
-    "years_critical": [1983, 1992],
-    "annual": [
-      {
-        "year": 1981,
-        "n_days": 92,
-        "n_exceedance_days": 4,
-        "max_value": 36.1,
-        "mean_value": 28.4,
-        "p95_value": 34.7,
-        "max_consecutive_exceedance_days": 2,
-        "event_occurred": true,
-        "daily_values": [
-          { "date": "1981-07-01", "doy": 182, "value": 31.4, "exceeds": false }
-        ]
-      }
-    ]
-  }
-}
-```
-
-## GEE implementation notes
-
-Use `ECMWF/ERA5_LAND/DAILY_AGGR` and query only the request polygon:
+The backend lives in `gee-backend/` and exposes:
 
 ```txt
-[lon - 0.25, lat - 0.25, lon + 0.25, lat + 0.25]
+POST /calculate-phase-risk
 ```
 
-Variable mapping:
+It authenticates Earth Engine with a Google Cloud Service Account using environment variables:
 
-- `tmean_c`: `temperature_2m - 273.15`
-- `tmax_c`: `temperature_2m_max - 273.15`
-- `tmin_c`: `temperature_2m_min - 273.15`
-- `precip_mm`: `total_precipitation_sum * 1000`
-- `swvl1`: `volumetric_soil_water_layer_1`
-- `rootzone_sm`: `swvl1 * 0.07 + swvl2 * 0.21 + swvl3 * 0.72`
-- `water_deficit_mm`: optional, for example precipitation minus potential evaporation in mm
+```bash
+GOOGLE_CLOUD_PROJECT=
+GEE_SERVICE_ACCOUNT_EMAIL=
+GEE_SERVICE_ACCOUNT_PRIVATE_KEY=
+ALLOWED_ORIGIN=https://tesis-cereal-climate-egcl.vercel.app
+```
 
-For each year, build the phase date range from `start_doy` and `end_doy`. If `crosses_year` is true,
-the end date belongs to the following year. Compute:
-
-- `n_days`
-- `n_exceedance_days`
-- `max_value`
-- `mean_value`
-- `p95_value`
-- `max_consecutive_exceedance_days`
-- `event_occurred`
-
-Rules:
-
-- `at_least_1`: `n_exceedance_days >= 1`
-- `at_least_3`: `n_exceedance_days >= 3`
-- `at_least_5`: `n_exceedance_days >= 5`
-- `max_consecutive`: return the maximum run of exceedance days and set `event_occurred` according to
-  the backend policy. The current UI sends only the climate threshold, not a separate run-length
-  threshold.
+See `gee-backend/README.md` for Cloud Run deployment steps.

@@ -9,9 +9,8 @@ export type PhaseVariable =
   | "precip_mm"
   | "rootzone_sm"
   | "swvl1"
-  | "water_deficit_mm";
-
-export type EventRule = "at_least_1" | "at_least_3" | "at_least_5" | "max_consecutive";
+  | "swvl2"
+  | "swvl3";
 
 export interface PixelInventoryRow {
   crop: Crop;
@@ -83,7 +82,7 @@ export interface PhaseCalculationRequest {
   phase: Phase;
   variable: PhaseVariable;
   threshold: number;
-  event_rule: EventRule;
+  min_days_event: number;
   start_year: number;
   end_year: number;
   pixel?: PixelInventoryRow;
@@ -94,7 +93,8 @@ export interface PhaseCalculationResult {
   probability: number;
   event_years: number;
   valid_years: number;
-  years_critical: number[];
+  critical_years: number[];
+  years_critical?: number[];
   annual: AnnualPhaseMetric[];
   selected_year?: number;
   daily?: DailyPhaseValue[];
@@ -117,14 +117,14 @@ export const PHASE_VARIABLES: { id: PhaseVariable; label: string; unit: string; 
   { id: "precip_mm", label: "Precipitation", unit: "mm", direction: "above" },
   { id: "rootzone_sm", label: "Root-zone soil moisture", unit: "m3/m3", direction: "above" },
   { id: "swvl1", label: "Surface soil moisture", unit: "m3/m3", direction: "above" },
-  { id: "water_deficit_mm", label: "Water deficit", unit: "mm", direction: "above" }
+  { id: "swvl2", label: "Soil moisture layer 2", unit: "m3/m3", direction: "above" },
+  { id: "swvl3", label: "Soil moisture layer 3", unit: "m3/m3", direction: "above" }
 ];
 
-export const EVENT_RULES: { id: EventRule; label: string }[] = [
-  { id: "at_least_1", label: "At least 1 day exceeds threshold" },
-  { id: "at_least_3", label: "At least 3 days exceed threshold" },
-  { id: "at_least_5", label: "At least 5 days exceed threshold" },
-  { id: "max_consecutive", label: "Any consecutive exceedance run" }
+export const MIN_DAYS_EVENT_OPTIONS: { value: number; label: string }[] = [
+  { value: 1, label: "At least 1 day exceeds threshold" },
+  { value: 3, label: "At least 3 days exceed threshold" },
+  { value: 5, label: "At least 5 days exceed threshold" }
 ];
 
 export function wrapLon180(lon: number): number {

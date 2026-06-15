@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import type { Crop } from "@/lib/types";
 import { CROPS } from "@/lib/types";
 import {
-  EVENT_RULES,
+  MIN_DAYS_EVENT_OPTIONS,
   PHASE_VARIABLES,
   csvEscape,
   gridCenter05,
@@ -14,7 +14,6 @@ import {
   wrapLon180,
   type AnnualPhaseMetric,
   type CalendarBandWindow,
-  type EventRule,
   type Phase,
   type PhaseCalculationRequest,
   type PhaseCalculationResponse,
@@ -25,6 +24,7 @@ import {
 } from "@/lib/phase-calculator";
 
 const PHASES: Phase[] = ["F1", "F2", "F3"];
+const GEE_API_URL = process.env.NEXT_PUBLIC_GEE_API_URL;
 
 type ApiState = "idle" | "loading" | "success" | "error";
 
@@ -48,7 +48,7 @@ interface FormState {
   phase: Phase;
   variable: PhaseVariable;
   threshold: string;
-  eventRule: EventRule;
+  minDaysEvent: string;
   startYear: string;
   endYear: string;
 }
@@ -60,7 +60,7 @@ const INITIAL_FORM: FormState = {
   phase: "F2",
   variable: "tmax_c",
   threshold: "35",
-  eventRule: "at_least_3",
+  minDaysEvent: "3",
   startYear: "1981",
   endYear: "2016"
 };
@@ -154,6 +154,17 @@ export function PhaseCalculatorBoard() {
       return;
     }
 
+    if (!GEE_API_URL) {
+      setApiResponse({
+        ok: false,
+        configured: false,
+        message:
+          "Backend GEE no configurado. Define NEXT_PUBLIC_GEE_API_URL con la URL de Cloud Run /calculate-phase-risk."
+      });
+      setApiState("error");
+      return;
+    }
+
     const request: PhaseCalculationRequest = {
       lat: derived.lat,
       lon: derived.lon,
@@ -161,26 +172,29 @@ export function PhaseCalculatorBoard() {
       phase: form.phase,
       variable: form.variable,
       threshold: Number(form.threshold),
-      event_rule: form.eventRule,
+      min_days_event: Number(form.minDaysEvent),
       start_year: Number(form.startYear),
-      end_year: Number(form.endYear),
-      pixel: derived.pixel,
-      phase_window: derived.phaseWindow
+      end_year: Number(form.endYear)
     };
 
     setApiState("loading");
     setApiResponse(null);
     try {
-      const response = await fetch("/api/phase-calculator", {
+      const response = await fetch(GEE_API_URL, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(request)
       });
       const data: PhaseCalculationResponse = await response.json();
-      setApiResponse(data);
+      const normalized = normalizeResponse(data, request);
+      setApiResponse(normalized);
       setApiState(data.ok ? "success" : "error");
     } catch {
-      setApiResponse({ ok: false, configured: false, message: "Could not reach the phase calculator API." });
+      setApiResponse({
+        ok: false,
+        configured: true,
+        message: "No se pudo contactar el backend GEE configurado."
+      });
       setApiState("error");
     }
   }
@@ -275,14 +289,14 @@ export function PhaseCalculatorBoard() {
                 className={inputClass()}
               />
             </Field>
-            <Field label="Event rule">
+            <Field label="Event minimum">
               <select
-                value={form.eventRule}
-                onChange={(event) => update("eventRule", event.target.value as EventRule)}
+                value={form.minDaysEvent}
+                onChange={(event) => update("minDaysEvent", event.target.value)}
                 className={inputClass()}
               >
-                {EVENT_RULES.map((item) => (
-                  <option key={item.id} value={item.id}>
+                {MIN_DAYS_EVENT_OPTIONS.map((item) => (
+                  <option key={item.value} value={item.value}>
                     {item.label}
                   </option>
                 ))}
@@ -325,7 +339,7 @@ export function PhaseCalculatorBoard() {
         {apiResponse && !apiResponse.ok ? (
           <StatusPanel
             tone={apiResponse.configured ? "error" : "warn"}
-            title={apiResponse.configured ? "GEE request failed" : "GEE not configured"}
+            title={apiResponse.configured ? "GEE request failed" : "Backend GEE no configurado"}
             message={apiResponse.message ?? "No calculation result was returned."}
           />
         ) : null}
@@ -382,8 +396,8 @@ function ProbabilityPanel({ result, variable }: { result: PhaseCalculationRespon
         <p className="kicker">Historical probability</p>
         <div className="mt-5 grid min-h-[170px] place-items-center rounded-sm border border-dashed border-line bg-white/[0.015] text-center">
           <p className="max-w-[420px] text-[12.5px] leading-relaxed text-ink-dim">
-            Configure GEE and run a query to calculate 1981-2016 event frequency for the selected
-            coordinate, crop, phase and threshold.
+            Configure NEXT_PUBLIC_GEE_API_URL and run a query to calculate event frequency for the
+            selected coordinate, crop, phase and threshold.
           </p>
         </div>
       </div>
@@ -404,7 +418,9 @@ function ProbabilityPanel({ result, variable }: { result: PhaseCalculationRespon
         </div>
         <div className="rounded-sm border border-line bg-white/[0.025] px-3 py-2 text-right">
           <p className="text-[11px] text-ink-mute">Critical years</p>
-          <p className="num mt-1 text-[13px] text-warm">{result.years_critical.join(", ") || "None"}</p>
+          <p className="num mt-1 text-[13px] text-warm">
+            {(result.critical_years ?? result.years_critical ?? []).join(", ") || "None"}
+          </p>
         </div>
       </div>
       <p className="mt-4 text-[11.5px] leading-relaxed text-ink-mute">
@@ -722,4 +738,37 @@ function polygonLabel(pixel: PixelInventoryRow) {
 
 function formatMetric(value: number | null) {
   return Number.isFinite(value) ? Number(value).toFixed(2) : "";
+}
+
+function normalizeResponse(
+  data: PhaseCalculationResponse | PhaseCalculationResponse["result"] | undefined,
+  request: PhaseCalculationRequest
+): PhaseCalculationResponse {
+  if (!data) {
+    return {
+      ok: false,
+      configured: true,
+      request,
+      message: "Backend GEE did not return a calculation result."
+    };
+  }
+
+  if ("ok" in data) {
+    if (data.result?.years_critical && !data.result.critical_years) {
+      data.result.critical_years = data.result.years_critical;
+    }
+    return data;
+  }
+
+  const result = data;
+  if (result?.years_critical && !result.critical_years) {
+    result.critical_years = result.years_critical;
+  }
+  return {
+    ok: Boolean(result),
+    configured: true,
+    request,
+    result: result ?? undefined,
+    message: result ? undefined : "Backend GEE did not return a calculation result."
+  };
 }
