@@ -48,6 +48,67 @@ OUTPUT_COLUMNS = [
     "registros_base",
 ]
 
+WEB_STAGE_LABELS = {
+    "Floración / reproducción": "Flowering / reproduction",
+    "Germinación / establecimiento": "Germination / establishment",
+    "Llenado de grano / formación de rendimiento": "Grain filling / yield formation",
+    "Llenado de grano / maduración": "Grain filling / maturation",
+    "Maduración / cosecha": "Maturation / harvest",
+    "Desarrollo vegetativo": "Vegetative development",
+    "No determinado": "Not determined",
+}
+
+WEB_THREAT_LABELS = {
+    "Déficit hídrico en ventana reproductiva — Hídrico": "Water deficit during the reproductive window — Water stress",
+    "Humedad del suelo en zona radicular — Hídrico": "Root-zone soil moisture — Water stress",
+    "Temperatura durante llenado efectivo del grano — Térmico": "Temperature during effective grain filling — Heat stress",
+    "Temperatura máxima durante antesis/floración — Térmico": "Maximum temperature during anthesis/flowering — Heat stress",
+    "Potencial hídrico del suelo/solución — Hídrico": "Soil/solution water potential — Water stress",
+    "Temperatura del aire durante llenado del grano — Térmico": "Air temperature during grain filling — Heat stress",
+    "Temperatura del aire en antesis — Térmico": "Air temperature at anthesis — Heat stress",
+    "Temperatura durante emergencia y crecimiento otoñal temprano — Térmico": "Temperature during emergence and early autumn growth — Heat stress",
+    "Temperatura del aire en llenado medio a terminal — Térmico": "Air temperature during mid-to-terminal grain filling — Heat stress",
+}
+
+WEB_THRESHOLD_LABELS = {
+    "<30 mm en 10 días durante fase reproductiva en maíz grano (umbral empírico distrital); evidencia experimental complementaria con ψs ≈ −50 kPa como estrés manejado":
+        "<30 mm over 10 days during the reproductive phase in grain maize (district-scale empirical threshold); complementary experimental evidence with ψs ≈ −50 kPa as managed stress",
+    "θ < 0.183 cm³ cm⁻³ en 0–1 m, derivado con criterio FAO (p = 0.55) a partir de θFC = 0.26 y θWP = 0.12; por debajo de ese valor comenzó (K_s<1)":
+        "θ < 0.183 cm³ cm⁻³ in 0-1 m soil depth, derived with the FAO criterion (p = 0.55) from θFC = 0.26 and θWP = 0.12; below this value, stress began (K_s<1)",
+    "Tratamientos con Tmax media de 39.4–41.5 °C durante 7 días en llenado efectivo generaron daño claro; a 32.9 °C no hubo efecto significativo":
+        "Treatments with mean Tmax of 39.4-41.5 °C for 7 days during effective grain filling caused clear damage; at 32.9 °C there was no significant effect",
+    "≥35 °C durante antesis; en el experimento, el tratamiento térmico tuvo pico de 39 °C y se aplicó 48 h":
+        "≥35 °C during anthesis; in the experiment, the heat treatment peaked at 39 °C and was applied for 48 h",
+    "−0.046 a −0.056 MPa: umbral a partir del cual comienzan a caer evapotranspiración, expansión foliar y biomasa; en campo, la productividad cayó cuando se alcanzó −0.05 a −0.06 MPa":
+        "−0.046 to −0.056 MPa: threshold where evapotranspiration, leaf expansion and biomass begin to decline; in field conditions, productivity declined at −0.05 to −0.06 MPa",
+    "T media diaria >25 °C durante llenado se asocia a pérdida de calidad; en campo, un aumento de 1.6–3.1 °C durante llenado redujo el rendimiento":
+        "Mean daily temperature >25 °C during filling is associated with quality loss; in the field, a 1.6-3.1 °C increase during filling reduced yield",
+    "35/25 °C día/noche durante 7 días en antesis": "35/25 °C day/night for 7 days at anthesis",
+    "<10 °C o >30 °C reducen significativamente la germinación; alrededor de 8 °C aún germina, pero con emergencia muy lenta y menor rendimiento posterior":
+        "<10 °C or >30 °C significantly reduce germination; around 8 °C germination still occurs, but emergence is very slow and later yield is lower",
+    "38/28 °C día/noche durante 7 días en llenado medio; además, >30 °C se asocia de forma consistente con caída del llenado":
+        "38/28 °C day/night for 7 days during mid grain filling; >30 °C is also consistently associated with reduced filling",
+}
+
+WEB_IMPACT_LABELS = {
+    "Bajo": "Low",
+    "Moderado": "Moderate",
+    "Alto": "High",
+    "Crítico": "Critical",
+    "No determinado": "Not determined",
+}
+
+WEB_EVIDENCE_LABELS = {
+    "Modelación empírica a escala distrital + experimento de campo": "District-scale empirical modeling + field experiment",
+    "Experimental de campo multianual + umbral operativo derivado por balance hídrico":
+        "Multi-year field experiment + operational threshold derived from water balance",
+    "Experimental de campo": "Field experiment",
+    "Experimental en ambiente controlado": "Controlled-environment experiment",
+    "Experimental en invernadero con validación de campo": "Greenhouse experiment with field validation",
+    "Experimental de campo + revisión": "Field experiment + review",
+    "Experimental de campo multianual + síntesis fisiológica": "Multi-year field experiment + physiological synthesis",
+}
+
 SEVERITY_ORDER = {"No determinado": 0, "Bajo": 1, "Moderado": 2, "Alto": 3, "Crítico": 4}
 EVIDENCE_STRENGTH = {
     "Experimental de campo": 5,
@@ -417,9 +478,33 @@ def write_excel(input_path: Path, output_path: Path, pivot: pd.DataFrame) -> Non
     workbook.save(output_path)
 
 
+def web_criteria(value: str) -> str:
+    if value.startswith("Porcentaje extraído"):
+        return "Percentage extracted from impact_cultivo, weighted by impact type and evidence level."
+    if value.startswith("Regla cualitativa"):
+        return "Qualitative rule: no explicit percentage was found in impact_cultivo."
+    if value.startswith("Cálculo mixto"):
+        return "Mixed calculation: extracted percentage where available and qualitative rule for records without an explicit percentage."
+    return value
+
+
+def web_record(record: dict[str, Any]) -> dict[str, Any]:
+    converted = dict(record)
+    converted["etapa_derivada"] = WEB_STAGE_LABELS.get(record["etapa_derivada"], record["etapa_derivada"])
+    converted["amenaza"] = WEB_THREAT_LABELS.get(record["amenaza"], record["amenaza"])
+    converted["umbral"] = WEB_THRESHOLD_LABELS.get(record["umbral"], record["umbral"])
+    converted["impacto_cualitativo"] = WEB_IMPACT_LABELS.get(record["impacto_cualitativo"], record["impacto_cualitativo"])
+    converted["categoria_impacto"] = WEB_IMPACT_LABELS.get(record["categoria_impacto"], record["categoria_impacto"])
+    if converted["impacto_cuantitativo"] == "No determinado":
+        converted["impacto_cuantitativo"] = "Not determined"
+    converted["evidencia"] = WEB_EVIDENCE_LABELS.get(record["evidencia"], record["evidencia"])
+    converted["criterio_calculo"] = web_criteria(record["criterio_calculo"])
+    return converted
+
+
 def write_json(output_path: Path, pivot: pd.DataFrame) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    records = pivot.to_dict(orient="records")
+    records = [web_record(record) for record in pivot.to_dict(orient="records")]
     output_path.write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
