@@ -24,7 +24,6 @@ import {
 } from "@/lib/phase-calculator";
 
 const PHASES: Phase[] = ["F1", "F2", "F3"];
-const GEE_API_URL = process.env.NEXT_PUBLIC_GEE_API_URL;
 
 type ApiState = "idle" | "loading" | "success" | "error";
 
@@ -154,17 +153,6 @@ export function PhaseCalculatorBoard() {
       return;
     }
 
-    if (!GEE_API_URL) {
-      setApiResponse({
-        ok: false,
-        configured: false,
-        message:
-          "Backend GEE no configurado. Define NEXT_PUBLIC_GEE_API_URL con la URL de Cloud Run /calculate-phase-risk."
-      });
-      setApiState("error");
-      return;
-    }
-
     const request: PhaseCalculationRequest = {
       lat: derived.lat,
       lon: derived.lon,
@@ -180,7 +168,7 @@ export function PhaseCalculatorBoard() {
     setApiState("loading");
     setApiResponse(null);
     try {
-      const response = await fetch(GEE_API_URL, {
+      const response = await fetch("/api/calculate-phase-risk", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(request)
@@ -193,7 +181,7 @@ export function PhaseCalculatorBoard() {
       setApiResponse({
         ok: false,
         configured: true,
-        message: "No se pudo contactar el backend GEE configurado."
+        message: "No se pudo contactar el backend GEE de Vercel."
       });
       setApiState("error");
     }
@@ -396,8 +384,8 @@ function ProbabilityPanel({ result, variable }: { result: PhaseCalculationRespon
         <p className="kicker">Historical probability</p>
         <div className="mt-5 grid min-h-[170px] place-items-center rounded-sm border border-dashed border-line bg-white/[0.015] text-center">
           <p className="max-w-[420px] text-[12.5px] leading-relaxed text-ink-dim">
-            Configure NEXT_PUBLIC_GEE_API_URL and run a query to calculate event frequency for the
-            selected coordinate, crop, phase and threshold.
+            Configure the Earth Engine service account variables in Vercel and run a query to
+            calculate event frequency for the selected coordinate, crop, phase and threshold.
           </p>
         </div>
       </div>
