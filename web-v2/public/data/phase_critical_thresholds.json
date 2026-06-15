@@ -1,0 +1,151 @@
+{
+  "source": "Compiled from geoglam_cm4ew_tabla_maestra.xlsx and risk_pivot_v2.json for web calculator defaults.",
+  "generated_from": "C:\\Users\\paola\\Tesis\\03_Resultados\\Fenologia\\geoglam_cm4ew_tabla_maestra.xlsx",
+  "crops": {
+    "maize": {
+      "phases": {
+        "F1": {
+          "phase": "F1",
+          "phase_label": "Germination / establishment",
+          "variable": "rootzone_sm",
+          "variable_label": "Root-zone soil moisture",
+          "threshold": 0.183,
+          "threshold_text": "theta < 0.183 cm3 cm-3 in 0-1 m soil depth, derived with FAO criterion from thetaFC = 0.26 and thetaWP = 0.12.",
+          "unit": "m3/m3",
+          "operator": "<",
+          "min_days_event": 3,
+          "stress_type": "Water stress",
+          "source": "Song et al., 2019",
+          "link": "https://doi.org/10.3390/su11185086",
+          "note": "ERA5-Land proxy uses rootzone_sm = swvl1*0.07 + swvl2*0.21 + swvl3*0.72."
+        },
+        "F2": {
+          "phase": "F2",
+          "phase_label": "Flowering / reproduction",
+          "variable": "precip_mm",
+          "variable_label": "Precipitation",
+          "threshold": 30,
+          "threshold_text": "<30 mm over 10 days during the reproductive phase in grain maize.",
+          "unit": "mm",
+          "operator": "<",
+          "min_days_event": 3,
+          "stress_type": "Water deficit",
+          "source": "Bogenreuther et al., 2025; Sah et al., 2020",
+          "link": "https://doi.org/10.1016/j.agrformet.2025.110836 ; https://doi.org/10.1038/s41598-020-59689-7",
+          "note": "Operationalized as low daily precipitation within the selected phase window."
+        },
+        "F3": {
+          "phase": "F3",
+          "phase_label": "Grain filling / yield formation",
+          "variable": "tmax_c",
+          "variable_label": "Maximum temperature",
+          "threshold": 39.4,
+          "threshold_text": "Mean Tmax of 39.4-41.5 deg C for 7 days during effective grain filling caused clear damage.",
+          "unit": "deg C",
+          "operator": ">=",
+          "min_days_event": 5,
+          "stress_type": "Heat stress",
+          "source": "Zhang et al., 2023; Mu et al., 2025",
+          "link": "https://doi.org/10.3390/agronomy13082126 ; https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2025.1660130/full"
+        }
+      }
+    },
+    "rice": {
+      "phases": {
+        "F1": {
+          "phase": "F1",
+          "phase_label": "Germination / establishment",
+          "variable": null,
+          "variable_label": "Soil/solution water potential",
+          "threshold": -0.046,
+          "threshold_text": "-0.046 to -0.056 MPa threshold for soil/solution water potential.",
+          "unit": "MPa",
+          "operator": "<",
+          "min_days_event": 3,
+          "stress_type": "Water stress",
+          "source": "Dos Santos et al., 2018",
+          "link": "https://doi.org/10.3390/plants7030048",
+          "note": "Not calculated automatically because ERA5-Land does not provide soil/solution water potential in MPa."
+        },
+        "F2": {
+          "phase": "F2",
+          "phase_label": "Flowering / reproduction",
+          "variable": "tmax_c",
+          "variable_label": "Maximum temperature",
+          "threshold": 35,
+          "threshold_text": ">=35 deg C during anthesis/flowering.",
+          "unit": "deg C",
+          "operator": ">=",
+          "min_days_event": 1,
+          "stress_type": "Heat stress",
+          "source": "Open PMC experiment 2020; Xu et al., 2021",
+          "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7010791/ ; https://doi.org/10.1016/j.cj.2021.02.011"
+        },
+        "F3": {
+          "phase": "F3",
+          "phase_label": "Grain filling / yield formation",
+          "variable": "tmean_c",
+          "variable_label": "Mean temperature",
+          "threshold": 25,
+          "threshold_text": "Mean daily temperature >25 deg C during grain filling is associated with quality loss.",
+          "unit": "deg C",
+          "operator": ">",
+          "min_days_event": 3,
+          "stress_type": "Heat stress",
+          "source": "Liu et al., 2021; Ma et al., 2025",
+          "link": "https://doi.org/10.3389/fpls.2021.746180 ; https://doi.org/10.3390/agronomy15020417"
+        }
+      }
+    },
+    "wheat": {
+      "phases": {
+        "F1": {
+          "phase": "F1",
+          "phase_label": "Germination / emergence",
+          "variable": "tmax_c",
+          "variable_label": "Maximum temperature",
+          "threshold": 30,
+          "threshold_text": "<10 deg C or >30 deg C significantly reduce germination; web calculation tracks the high-temperature side.",
+          "unit": "deg C",
+          "operator": ">",
+          "min_days_event": 3,
+          "stress_type": "Heat stress",
+          "source": "Kanapickas et al., 2024; Soureshjani et al., 2026",
+          "link": "https://doi.org/10.3390/atmos15060738 ; https://www.nature.com/articles/s41598-026-44918-2",
+          "note": "Cold-side threshold (<10 deg C) is documented but not calculated in this single-variable web request."
+        },
+        "F2": {
+          "phase": "F2",
+          "phase_label": "Flowering / reproduction",
+          "variable": "tmax_c",
+          "variable_label": "Maximum temperature",
+          "threshold": 35,
+          "threshold_text": "35/25 deg C day/night for 7 days at anthesis.",
+          "unit": "deg C",
+          "operator": ">=",
+          "min_days_event": 5,
+          "stress_type": "Heat stress",
+          "source": "Mirosavljevic et al., 2024; Bhandari et al., 2026",
+          "link": "https://doi.org/10.3390/plants13152083 ; https://www.nature.com/articles/s41598-025-29819-0"
+        },
+        "F3": {
+          "phase": "F3",
+          "phase_label": "Grain filling / yield formation",
+          "variable": "tmax_c",
+          "variable_label": "Maximum temperature",
+          "threshold": 38,
+          "threshold_text": "38/28 deg C day/night for 7 days during mid grain filling.",
+          "unit": "deg C",
+          "operator": ">=",
+          "min_days_event": 5,
+          "stress_type": "Heat stress",
+          "source": "Mirosavljevic et al., 2024; Bhandari et al., 2026",
+          "link": "https://doi.org/10.3390/plants13152083 ; https://www.nature.com/articles/s41598-025-29819-0"
+        }
+      }
+    },
+    "soybean": {
+      "phases": {}
+    }
+  }
+}

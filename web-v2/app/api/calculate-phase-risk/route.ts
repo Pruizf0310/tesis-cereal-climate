@@ -9,6 +9,7 @@ import type {
   PhaseCalculationRequest,
   PhaseCalculationResponse,
   PhaseCalendarWindows,
+  ThresholdOperator,
   PhaseVariable
 } from "@/lib/phase-calculator";
 
@@ -78,6 +79,14 @@ function maxConsecutive(flags: boolean[]) {
     }
   }
   return best;
+}
+
+function thresholdExceeded(value: number | null, threshold: number, operator: ThresholdOperator = ">") {
+  if (value == null || !Number.isFinite(value)) return false;
+  if (operator === "<") return value < threshold;
+  if (operator === "<=") return value <= threshold;
+  if (operator === ">=") return value >= threshold;
+  return value > threshold;
 }
 
 function loadCalendar() {
@@ -220,14 +229,20 @@ async function queryDailyValues(geometry: any, start: Date, endExclusive: Date, 
   return info.features.map((feature) => feature.properties);
 }
 
-function annualMetrics(year: number, daily: GeeDailyValue[], threshold: number, minDaysEvent: number): AnnualPhaseMetric {
+function annualMetrics(
+  year: number,
+  daily: GeeDailyValue[],
+  threshold: number,
+  minDaysEvent: number,
+  operator: ThresholdOperator = ">"
+): AnnualPhaseMetric {
   const values = daily
     .map((item) => item.value)
     .filter((value): value is number => typeof value === "number" && Number.isFinite(value));
   const flags: boolean[] = [];
   const dailyValues: DailyPhaseValue[] = daily.map((item) => {
     const value = typeof item.value === "number" && Number.isFinite(item.value) ? item.value : null;
-    const exceeds = value != null && value > threshold;
+    const exceeds = thresholdExceeded(value, threshold, operator);
     flags.push(exceeds);
     return {
       date: item.date ?? "",
@@ -292,7 +307,7 @@ export async function POST(request: Request) {
       const endYear = phaseWindow.crosses_year ? year + 1 : year;
       const endExclusive = doyToDate(endYear, phaseWindow.end_doy + 1);
       const daily = await queryDailyValues(geometry, start, endExclusive, payload.variable);
-      annual.push(annualMetrics(year, daily, payload.threshold, payload.min_days_event));
+      annual.push(annualMetrics(year, daily, payload.threshold, payload.min_days_event, payload.operator ?? ">"));
     }
 
     const validYears = annual.filter((item) => item.n_days > 0).length;

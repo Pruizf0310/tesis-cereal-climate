@@ -12,6 +12,8 @@ export type PhaseVariable =
   | "swvl2"
   | "swvl3";
 
+export type ThresholdOperator = ">" | ">=" | "<" | "<=";
+
 export interface PixelInventoryRow {
   crop: Crop;
   pixel_id_h5: number;
@@ -82,6 +84,7 @@ export interface PhaseCalculationRequest {
   phase: Phase;
   variable: PhaseVariable;
   threshold: number;
+  operator?: ThresholdOperator;
   min_days_event: number;
   start_year: number;
   end_year: number;
@@ -110,15 +113,37 @@ export interface PhaseCalculationResponse {
   details?: unknown;
 }
 
-export const PHASE_VARIABLES: { id: PhaseVariable; label: string; unit: string; direction: "above" }[] = [
+export interface PhaseCriticalThreshold {
+  phase: Phase;
+  phase_label: string;
+  variable: PhaseVariable | null;
+  variable_label: string;
+  threshold: number | null;
+  threshold_text: string;
+  unit: string;
+  operator: ThresholdOperator;
+  min_days_event: number;
+  stress_type: string;
+  source: string;
+  link: string;
+  note?: string;
+}
+
+export interface PhaseCriticalThresholds {
+  source: string;
+  generated_from: string;
+  crops: Partial<Record<Crop, { phases: Partial<Record<Phase, PhaseCriticalThreshold>> }>>;
+}
+
+export const PHASE_VARIABLES: { id: PhaseVariable; label: string; unit: string; direction: "above" | "below" }[] = [
   { id: "tmax_c", label: "Tmax", unit: "deg C", direction: "above" },
   { id: "tmean_c", label: "Tmean", unit: "deg C", direction: "above" },
-  { id: "tmin_c", label: "Tmin", unit: "deg C", direction: "above" },
-  { id: "precip_mm", label: "Precipitation", unit: "mm", direction: "above" },
-  { id: "rootzone_sm", label: "Root-zone soil moisture", unit: "m3/m3", direction: "above" },
-  { id: "swvl1", label: "Surface soil moisture", unit: "m3/m3", direction: "above" },
-  { id: "swvl2", label: "Soil moisture layer 2", unit: "m3/m3", direction: "above" },
-  { id: "swvl3", label: "Soil moisture layer 3", unit: "m3/m3", direction: "above" }
+  { id: "tmin_c", label: "Tmin", unit: "deg C", direction: "below" },
+  { id: "precip_mm", label: "Precipitation", unit: "mm", direction: "below" },
+  { id: "rootzone_sm", label: "Root-zone soil moisture", unit: "m3/m3", direction: "below" },
+  { id: "swvl1", label: "Surface soil moisture", unit: "m3/m3", direction: "below" },
+  { id: "swvl2", label: "Soil moisture layer 2", unit: "m3/m3", direction: "below" },
+  { id: "swvl3", label: "Soil moisture layer 3", unit: "m3/m3", direction: "below" }
 ];
 
 export const MIN_DAYS_EVENT_OPTIONS: { value: number; label: string }[] = [
