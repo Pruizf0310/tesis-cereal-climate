@@ -67,6 +67,33 @@ NEXT_PUBLIC_GEE_API_URL=https://CLOUD_RUN_URL/calculate-phase-risk
 
 7. Redeploy Vercel and test `/calculator`.
 
+## GitHub Actions deployment
+
+This repo includes `.github/workflows/deploy-gee-backend.yml`. To use it, add these repository
+secrets in GitHub:
+
+```txt
+GCP_SERVICE_ACCOUNT_JSON        full JSON for a deploy-capable Google Cloud service account
+GOOGLE_CLOUD_PROJECT           Google Cloud project id
+GEE_SERVICE_ACCOUNT_EMAIL      Earth Engine service account email used by the runtime
+ALLOWED_ORIGIN                 https://tesis-cereal-climate-egcl.vercel.app
+```
+
+Also create a Secret Manager secret in Google Cloud named:
+
+```txt
+GEE_SERVICE_ACCOUNT_PRIVATE_KEY
+```
+
+with the private key value for the Earth Engine service account. The workflow maps that secret into
+Cloud Run as `GEE_SERVICE_ACCOUNT_PRIVATE_KEY`.
+
+After the workflow prints the Cloud Run URL, configure Vercel:
+
+```txt
+NEXT_PUBLIC_GEE_API_URL=https://<cloud-run-url>/calculate-phase-risk
+```
+
 ## ERA5-Land variables
 
 - `tmax_c`: `temperature_2m_max - 273.15`
