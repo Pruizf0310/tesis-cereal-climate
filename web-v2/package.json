@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare-data": "node scripts/prepare-data.mjs"
+    "prepare-data": "node scripts/prepare-data.mjs",
+    "prepare-calculator-data": "node ../scripts/build_phase_calculator_assets.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
