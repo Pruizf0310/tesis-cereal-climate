@@ -321,6 +321,15 @@ export function PhaseCalculatorBoard() {
         </div>
 
         <PixelSummary derived={derived} />
+        <PixelGuide
+          crop={form.crop}
+          pixels={pixels}
+          derived={derived}
+          onUsePixel={(pixel) => {
+            update("lat", String(pixel.lat));
+            update("lon", String(pixel.lon_ee));
+          }}
+        />
       </section>
 
       <section className="space-y-6">
@@ -333,15 +342,17 @@ export function PhaseCalculatorBoard() {
         ) : null}
 
         <ProbabilityPanel result={result} variable={form.variable} />
-        <AnnualChart annual={annual} />
+        <AnnualChart annual={annual} selectedYear={selectedYear} onSelectYear={setSelectedYear} />
         <DailyChart
           annual={annual}
           daily={dailySeries}
           selectedYear={selectedYear}
           onYearChange={setSelectedYear}
           variable={form.variable}
+          threshold={Number(form.threshold)}
         />
         <AnnualTable annual={annual} onExport={exportCsv} />
+        <SourcePanel />
       </section>
     </div>
   );
@@ -373,6 +384,91 @@ function PixelSummary({ derived }: { derived: DerivedContext | null }) {
         />
         <Metric label="Cell polygon" value={derived.pixel ? polygonLabel(derived.pixel) : "Unavailable"} />
       </div>
+    </div>
+  );
+}
+
+function PixelGuide({
+  crop,
+  pixels,
+  derived,
+  onUsePixel
+}: {
+  crop: Crop;
+  pixels: PixelInventoryRow[];
+  derived: DerivedContext | null;
+  onUsePixel: (pixel: PixelInventoryRow) => void;
+}) {
+  const cropPixels = useMemo(() => pixels.filter((pixel) => pixel.crop === crop), [crop, pixels]);
+  const bandCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const pixel of cropPixels) counts.set(pixel.lat_band, (counts.get(pixel.lat_band) ?? 0) + 1);
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  }, [cropPixels]);
+  const nearby = useMemo(() => {
+    const lat = derived?.latGrid ?? 0;
+    const lon = derived?.lonGrid ?? 0;
+    return [...cropPixels]
+      .sort((a, b) => Math.hypot(a.lat - lat, a.lon_ee - lon) - Math.hypot(b.lat - lat, b.lon_ee - lon))
+      .slice(0, 8);
+  }, [cropPixels, derived?.latGrid, derived?.lonGrid]);
+
+  return (
+    <div className="mt-4 rounded-sm border border-line bg-white/[0.025] p-3">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <p className="text-[12px] font-medium text-ink">Pixel guide</p>
+          <p className="mt-1 text-[10.5px] text-ink-mute">
+            {cropPixels.length.toLocaleString("en-US")} valid H5 pixels for {crop}
+          </p>
+        </div>
+        <span className="num rounded-sm border border-line bg-bg-panel px-2 py-1 text-[10.5px] text-ink-dim">
+          0.5 deg cells
+        </span>
+      </div>
+
+      <div className="mt-3 flex flex-wrap gap-1.5">
+        {bandCounts.slice(0, 6).map(([band, count]) => (
+          <span key={band} className="rounded-sm border border-line bg-white/[0.02] px-2 py-1 text-[10.5px] text-ink-dim">
+            {band.replace(/_/g, " ")}: <span className="num text-ink">{count}</span>
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-3 max-h-[235px] overflow-auto rounded-sm border border-line/70">
+        <table className="w-full border-collapse text-left text-[11px]">
+          <thead className="sticky top-0 bg-bg-panel text-[9.5px] uppercase tracking-wider text-ink-mute">
+            <tr>
+              <th className="px-2 py-2 font-medium">Center</th>
+              <th className="px-2 py-2 font-medium">Band</th>
+              <th className="px-2 py-2 font-medium" />
+            </tr>
+          </thead>
+          <tbody>
+            {nearby.map((pixel) => (
+              <tr key={pixel.pixel_id_h5} className="border-t border-line/60">
+                <td className="num px-2 py-2 text-ink-dim">
+                  {pixel.lat.toFixed(2)}, {pixel.lon_ee.toFixed(2)}
+                </td>
+                <td className="px-2 py-2 text-ink-mute">{pixel.lat_band.replace(/_/g, " ")}</td>
+                <td className="px-2 py-2 text-right">
+                  <button
+                    type="button"
+                    onClick={() => onUsePixel(pixel)}
+                    className="rounded-sm border border-cool/30 bg-cool/[0.08] px-2 py-1 text-[10.5px] font-medium text-ink hover:bg-cool/[0.14]"
+                  >
+                    Use
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-2 text-[10.5px] leading-relaxed text-ink-mute">
+        The table lists the nearest valid inventory cells for the selected crop. Use a center point
+        from this guide when testing the calculator.
+      </p>
     </div>
   );
 }
@@ -419,7 +515,15 @@ function ProbabilityPanel({ result, variable }: { result: PhaseCalculationRespon
   );
 }
 
-function AnnualChart({ annual }: { annual: AnnualPhaseMetric[] }) {
+function AnnualChart({
+  annual,
+  selectedYear,
+  onSelectYear
+}: {
+  annual: AnnualPhaseMetric[];
+  selectedYear: number;
+  onSelectYear: (year: number) => void;
+}) {
   const max = Math.max(1, ...annual.map((item) => item.n_exceedance_days));
   return (
     <div className="glass rounded-sm border border-line p-5">
@@ -446,7 +550,11 @@ function AnnualChart({ annual }: { annual: AnnualPhaseMetric[] }) {
                     height={height}
                     rx={1}
                     fill={item.event_occurred ? "var(--risk-high)" : "var(--accent-cool)"}
-                    opacity={item.event_occurred ? 0.9 : 0.45}
+                    opacity={item.year === selectedYear ? 1 : item.event_occurred ? 0.9 : 0.45}
+                    stroke={item.year === selectedYear ? "var(--accent-warm)" : "transparent"}
+                    strokeWidth={item.year === selectedYear ? 2 : 0}
+                    className="cursor-pointer"
+                    onClick={() => onSelectYear(item.year)}
                   />
                   {index % 5 === 0 ? (
                     <text x={x} y={210} className="fill-ink-mute text-[10px]">
@@ -470,13 +578,15 @@ function DailyChart({
   daily,
   selectedYear,
   onYearChange,
-  variable
+  variable,
+  threshold
 }: {
   annual: AnnualPhaseMetric[];
   daily: { date: string; value: number | null; exceeds: boolean }[];
   selectedYear: number;
   onYearChange: (year: number) => void;
   variable: PhaseVariable;
+  threshold: number;
 }) {
   const values = daily.map((item) => item.value).filter((value): value is number => Number.isFinite(value));
   const min = values.length ? Math.min(...values) : 0;
@@ -491,13 +601,14 @@ function DailyChart({
     })
     .filter(Boolean)
     .join(" ");
+  const thresholdY = Number.isFinite(threshold) ? 180 - ((threshold - min) / span) * 150 : null;
 
   return (
     <div className="glass rounded-sm border border-line p-5">
       <div className="flex flex-col gap-3 border-b border-line pb-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="kicker">Daily series</p>
-          <h3 className="mt-1 text-[17px] font-medium text-ink">Selected year inside phase</h3>
+          <h3 className="mt-1 text-[17px] font-medium text-ink">Zoom of selected annual bar</h3>
         </div>
         <select
           value={selectedYear}
@@ -514,6 +625,14 @@ function DailyChart({
       <div className="mt-4 h-[210px]">
         {daily.length ? (
           <svg viewBox="0 0 720 210" className="h-full w-full overflow-visible">
+            {thresholdY != null && thresholdY >= 20 && thresholdY <= 185 ? (
+              <>
+                <line x1="10" x2="710" y1={thresholdY} y2={thresholdY} stroke="var(--risk-high)" strokeDasharray="4 4" opacity="0.7" />
+                <text x="650" y={thresholdY - 5} className="fill-ink-mute text-[10px]">
+                  threshold
+                </text>
+              </>
+            ) : null}
             <polyline fill="none" stroke="var(--accent-cool)" strokeWidth="2" points={points} />
             {daily.map((item, index) => {
               if (item.value == null || !item.exceeds) return null;
@@ -528,6 +647,55 @@ function DailyChart({
         ) : (
           <EmptyChart />
         )}
+      </div>
+    </div>
+  );
+}
+
+function SourcePanel() {
+  return (
+    <div className="glass rounded-sm border border-line p-5">
+      <div className="border-b border-line pb-3">
+        <p className="kicker">Source and method</p>
+        <h3 className="mt-1 text-[17px] font-medium text-ink">ERA5-Land daily, queried on demand</h3>
+      </div>
+      <div className="mt-4 grid gap-3 text-[12px] leading-relaxed text-ink-dim md:grid-cols-2">
+        <div className="rounded-sm border border-line bg-white/[0.02] p-3">
+          <p className="font-medium text-ink">Dataset</p>
+          <p className="mt-1">
+            Google Earth Engine collection <span className="num text-ink">ECMWF/ERA5_LAND/DAILY_AGGR</span>,
+            daily aggregates from ECMWF ERA5-Land reanalysis.
+          </p>
+          <a
+            href="https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_LAND_DAILY_AGGR"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 inline-block text-[11px] font-medium text-cool hover:text-ink"
+          >
+            Earth Engine Data Catalog
+          </a>
+        </div>
+        <div className="rounded-sm border border-line bg-white/[0.02] p-3">
+          <p className="font-medium text-ink">Resolution and scope</p>
+          <p className="mt-1">
+            Native pixel size is approximately <span className="num text-ink">11,132 m</span>. The
+            calculator averages the selected variable over one GDHY-compatible 0.5 degree polygon.
+          </p>
+        </div>
+        <div className="rounded-sm border border-line bg-white/[0.02] p-3">
+          <p className="font-medium text-ink">Transformations</p>
+          <p className="mt-1">
+            Temperatures are converted from Kelvin to deg C, precipitation from meters to mm, and
+            root-zone moisture is computed as swvl1*0.07 + swvl2*0.21 + swvl3*0.72.
+          </p>
+        </div>
+        <div className="rounded-sm border border-line bg-white/[0.02] p-3">
+          <p className="font-medium text-ink">Storage policy</p>
+          <p className="mt-1">
+            The app stores only pixel and calendar metadata. Daily values are requested from Earth
+            Engine for one coordinate, phase, variable and historical period at a time.
+          </p>
+        </div>
       </div>
     </div>
   );
