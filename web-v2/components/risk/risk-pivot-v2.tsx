@@ -4,16 +4,14 @@ import { useEffect, useMemo, useState } from "react";
 import { ActivitySquare, ChevronDown, ExternalLink, Sprout, Waves, Wheat } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type ImpactLabel = "Bajo" | "Moderado" | "Alto" | "Crítico" | "No determinado";
-
 interface RiskPivotRow {
   cultivo: string;
   etapa_derivada: string;
   amenaza: string;
   umbral: string;
-  impacto_cualitativo: ImpactLabel;
-  impacto_cuantitativo: number | "No determinado";
-  categoria_impacto: ImpactLabel;
+  impacto_cualitativo: string;
+  impacto_cuantitativo: number | string;
+  categoria_impacto: string;
   evidencia: string;
   fuente: string;
   enlace: string;
@@ -39,20 +37,25 @@ const CROP_ICONS: Record<string, React.ReactNode> = {
   soybean: <ActivitySquare className="h-3.5 w-3.5" />
 };
 
-const BADGE_CLASS: Record<ImpactLabel, string> = {
-  Bajo: "border-[color:var(--risk-low)]/40 bg-[color:var(--risk-low)]/12 text-[color:var(--risk-low)]",
-  Moderado: "border-[color:var(--risk-mod)]/40 bg-[color:var(--risk-mod)]/12 text-[color:var(--risk-mod)]",
-  Alto: "border-[color:var(--risk-high)]/40 bg-[color:var(--risk-high)]/12 text-[color:var(--risk-high)]",
-  Crítico: "border-[color:var(--risk-extr)]/45 bg-[color:var(--risk-extr)]/14 text-[#E27A7A]",
-  "No determinado": "border-line bg-white/[0.025] text-ink-mute"
+const BADGE_CLASS: Record<string, string> = {
+  Low: "border-[color:var(--risk-low)]/40 bg-[color:var(--risk-low)]/12 text-[color:var(--risk-low)]",
+  Moderate: "border-[color:var(--risk-mod)]/40 bg-[color:var(--risk-mod)]/12 text-[color:var(--risk-mod)]",
+  High: "border-[color:var(--risk-high)]/40 bg-[color:var(--risk-high)]/12 text-[color:var(--risk-high)]",
+  Critical: "border-[color:var(--risk-extr)]/45 bg-[color:var(--risk-extr)]/14 text-[#E27A7A]",
+  "Not determined": "border-line bg-white/[0.025] text-ink-mute"
 };
 
-const IMPACT_LABELS: Record<ImpactLabel, string> = {
+const IMPACT_LABELS: Record<string, string> = {
   Bajo: "Low",
   Moderado: "Moderate",
   Alto: "High",
   Crítico: "Critical",
-  "No determinado": "Not determined"
+  "No determinado": "Not determined",
+  Low: "Low",
+  Moderate: "Moderate",
+  High: "High",
+  Critical: "Critical",
+  "Not determined": "Not determined"
 };
 
 const STAGE_LABELS: Record<string, string> = {
@@ -329,16 +332,18 @@ function Detail({ label, children }: { label: string; children: React.ReactNode 
   );
 }
 
-function ImpactBadge({ label }: { label: ImpactLabel }) {
+function ImpactBadge({ label }: { label: string }) {
+  const displayLabel = displayImpact(label);
   return (
-    <span className={cn("inline-flex rounded-[2px] border px-2 py-1 text-[10.5px] font-medium", BADGE_CLASS[label])}>
-      {IMPACT_LABELS[label]}
+    <span className={cn("inline-flex rounded-[2px] border px-2 py-1 text-[10.5px] font-medium", BADGE_CLASS[displayLabel])}>
+      {displayLabel}
     </span>
   );
 }
 
 function formatQuant(value: RiskPivotRow["impacto_cuantitativo"]) {
-  return typeof value === "number" ? value.toFixed(2) : "Not determined";
+  if (typeof value === "number") return value.toFixed(2);
+  return value === "No determinado" ? "Not determined" : value;
 }
 
 function rowKey(row: RiskPivotRow, index: number) {
@@ -372,6 +377,10 @@ function displayCriteria(value: string) {
     return "Mixed calculation: extracted percentage where available and qualitative rule for records without an explicit percentage.";
   }
   return value;
+}
+
+function displayImpact(value: string) {
+  return IMPACT_LABELS[value] ?? value;
 }
 
 function Th({ children }: { children: React.ReactNode }) {
