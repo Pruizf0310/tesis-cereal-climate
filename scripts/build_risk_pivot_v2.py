@@ -58,7 +58,7 @@ WEB_STAGE_LABELS = {
     "No determinado": "Not determined",
 }
 
-WEB_THREAT_LABELS = {
+WEB_HAZARD_LABELS = {
     "Déficit hídrico en ventana reproductiva — Hídrico": "Water deficit during the reproductive window — Water stress",
     "Humedad del suelo en zona radicular — Hídrico": "Root-zone soil moisture — Water stress",
     "Temperatura durante llenado efectivo del grano — Térmico": "Temperature during effective grain filling — Heat stress",
@@ -234,7 +234,7 @@ def derive_stage(row: pd.Series) -> tuple[str, str]:
     return "No determinado", "Baja"
 
 
-def build_threat(row: pd.Series) -> str:
+def build_hazard(row: pd.Series) -> str:
     variable = display(row.get("variable_critica"))
     stress = display(row.get("tipo_estres"))
     if stress == "No determinado":
@@ -414,7 +414,7 @@ def build_pivot(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
     stages = base.apply(derive_stage, axis=1)
     base["etapa_derivada"] = [stage for stage, _confidence in stages]
     base["confianza_etapa"] = [confidence for _stage, confidence in stages]
-    base["amenaza"] = base.apply(build_threat, axis=1)
+    base["amenaza"] = base.apply(build_hazard, axis=1)
     impacts = base.apply(quantitative_impact, axis=1)
     base["impacto_cuantitativo_raw"] = [value for value, _criterion in impacts]
     base["criterio_calculo"] = [criterion for _value, criterion in impacts]
@@ -424,7 +424,7 @@ def build_pivot(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
     )
 
     grouped_rows: list[dict[str, Any]] = []
-    for (crop, stage, threat, threshold), group in base.groupby(
+    for (crop, stage, hazard, threshold), group in base.groupby(
         ["cultivo", "etapa_derivada", "amenaza", "umbral"], dropna=False, sort=True
     ):
         quant_values = group["impacto_cuantitativo_raw"].dropna()
@@ -434,7 +434,7 @@ def build_pivot(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
             {
                 "cultivo": crop,
                 "etapa_derivada": stage,
-                "amenaza": threat,
+                "amenaza": hazard,
                 "umbral": threshold,
                 "impacto_cualitativo": qualitative,
                 "impacto_cuantitativo": "No determinado" if max_quant is None else round(max_quant, 2),
@@ -491,7 +491,7 @@ def web_criteria(value: str) -> str:
 def web_record(record: dict[str, Any]) -> dict[str, Any]:
     converted = dict(record)
     converted["etapa_derivada"] = WEB_STAGE_LABELS.get(record["etapa_derivada"], record["etapa_derivada"])
-    converted["amenaza"] = WEB_THREAT_LABELS.get(record["amenaza"], record["amenaza"])
+    converted["amenaza"] = WEB_HAZARD_LABELS.get(record["amenaza"], record["amenaza"])
     converted["umbral"] = WEB_THRESHOLD_LABELS.get(record["umbral"], record["umbral"])
     converted["impacto_cualitativo"] = WEB_IMPACT_LABELS.get(record["impacto_cualitativo"], record["impacto_cualitativo"])
     converted["categoria_impacto"] = WEB_IMPACT_LABELS.get(record["categoria_impacto"], record["categoria_impacto"])

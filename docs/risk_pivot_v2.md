@@ -1,6 +1,6 @@
 # Risk pivot v2
 
-`risk_pivot_v2` resume climate threats by crop and derived phenological stage for the `/risk` page. It is generated from the workbook:
+`risk_pivot_v2` summarizes climate hazards by crop and derived phenological stage for the `/risk` page. It is generated from the workbook:
 
 `C:\Users\paola\Tesis\03_Resultados\Fenologia\geoglam_cm4ew_tabla_maestra.xlsx`
 

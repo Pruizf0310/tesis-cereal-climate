@@ -68,7 +68,7 @@ const STAGE_LABELS: Record<string, string> = {
   "No determinado": "Not determined"
 };
 
-const THREAT_LABELS: Record<string, string> = {
+const HAZARD_LABELS: Record<string, string> = {
   "Déficit hídrico en ventana reproductiva — Hídrico": "Water deficit during the reproductive window — Water stress",
   "Humedad del suelo en zona radicular — Hídrico": "Root-zone soil moisture — Water stress",
   "Temperatura durante llenado efectivo del grano — Térmico": "Temperature during effective grain filling — Heat stress",
@@ -165,7 +165,7 @@ export function RiskPivotV2() {
           ))}
         </div>
         <p className="text-[11px] text-ink-mute">
-          {visibleRows.length} summarized threats · no latitude split
+          {visibleRows.length} summarized hazards · no latitude split
         </p>
       </div>
 
@@ -174,7 +174,7 @@ export function RiskPivotV2() {
           <thead>
             <tr className="border-b border-line text-left text-[10.5px] uppercase tracking-wider text-ink-mute">
               <Th>Derived stage</Th>
-              <Th>Threat</Th>
+              <Th>Hazard</Th>
               <Th>Threshold</Th>
               <Th>Qualitative impact</Th>
               <Th>Quantitative impact</Th>
@@ -222,7 +222,7 @@ function RiskTableRow({ row, isOpen, onToggle }: { row: RiskPivotRow; isOpen: bo
     <>
       <tr className="border-b border-line/60 text-[12px] last:border-b-0 hover:bg-white/[0.02]">
         <Td className="max-w-[180px] font-medium text-ink">{displayStage(row.etapa_derivada)}</Td>
-        <Td className="max-w-[260px] text-ink-dim">{displayThreat(row.amenaza)}</Td>
+        <Td className="max-w-[260px] text-ink-dim">{displayHazard(row.amenaza)}</Td>
         <Td className="max-w-[310px] text-ink-dim">{displayThreshold(row.umbral)}</Td>
         <Td>
           <ImpactBadge label={row.impacto_cualitativo} />
@@ -260,7 +260,7 @@ function RiskMobileCard({ row, isOpen, onToggle }: { row: RiskPivotRow; isOpen: 
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[12px] font-medium text-ink">{displayStage(row.etapa_derivada)}</p>
-          <p className="mt-1 text-[11px] leading-relaxed text-ink-dim">{displayThreat(row.amenaza)}</p>
+          <p className="mt-1 text-[11px] leading-relaxed text-ink-dim">{displayHazard(row.amenaza)}</p>
         </div>
         <ImpactBadge label={row.categoria_impacto} />
       </div>
@@ -354,8 +354,8 @@ function displayStage(value: string) {
   return STAGE_LABELS[value] ?? value;
 }
 
-function displayThreat(value: string) {
-  return THREAT_LABELS[value] ?? value;
+function displayHazard(value: string) {
+  return HAZARD_LABELS[value] ?? value;
 }
 
 function displayThreshold(value: string) {
