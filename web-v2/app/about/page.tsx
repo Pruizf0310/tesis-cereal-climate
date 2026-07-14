@@ -58,7 +58,7 @@ export default function AboutPage() {
             <Section
               kicker="Status"
               title="Exploratory intelligence"
-              body="CerealRisk presents exploratory risk signals and trigger candidates derived from historical data. Results are research-grade and intended for analytical exploration, not operational decision-making."
+              body="CerealRisk presents exploratory risk signals and trigger candidates derived from historical data (1981-2016). Results are research-grade and designed as a rigorous analytical foundation for operational product development in parametric insurance and climate-risk applications. Calibration to specific portfolios or regions requires domain validation."
             />
           </div>
         </div>
@@ -92,6 +92,38 @@ export default function AboutPage() {
               Thesis advisors:{" "}
               <span className="text-ink">Carlos David Hoyos Ortiz and Santiago Medina Hurtado</span>
             </p>
+            <p className="pt-3 leading-relaxed">
+              To cite this platform, use the GitHub repository while the Zenodo DOI is finalized:{" "}
+              <a
+                href="https://github.com/Pruizf0310/tesis-cereal-climate"
+                target="_blank"
+                rel="noreferrer"
+                className="text-cool transition-colors hover:text-ink"
+              >
+                github.com/Pruizf0310/tesis-cereal-climate
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div className="mt-12 border-t border-line pt-10 animate-fade-up">
+          <p className="kicker mb-4">Contact</p>
+          <div className="max-w-[520px] space-y-2 text-[13px] text-ink-dim">
+            <p className="text-[15px] font-medium text-ink">Paola Andrea Ruiz Franco</p>
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <a
+                href="https://www.linkedin.com/in/paola-ruiz-franco"
+                target="_blank"
+                rel="noreferrer"
+                className="text-cool transition-colors hover:text-ink"
+              >
+                LinkedIn
+              </a>
+              <a href="mailto:paruizf@unal.edu.co" className="text-cool transition-colors hover:text-ink">
+                Email
+              </a>
+            </div>
           </div>
         </div>
       </div>
