@@ -25,6 +25,7 @@ import {
 const PHASES: Phase[] = ["F1", "F2", "F3"];
 const DEFAULT_START_YEAR = "1981";
 const DEFAULT_END_YEAR = "2016";
+const DEFAULT_EXAMPLE_TARGET = { lat: 3.5, lon: -76.5 };
 
 type ApiState = "idle" | "loading" | "success" | "error";
 
@@ -62,6 +63,7 @@ export function PhaseCalculatorBoard() {
   const [apiResponse, setApiResponse] = useState<PhaseCalculationResponse | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(2016);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [hasAutoSubmitted, setHasAutoSubmitted] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -99,11 +101,15 @@ export function PhaseCalculatorBoard() {
       return;
     }
     const current = cropPixels.some((pixel) => String(pixel.pixel_id_h5) === form.pixelId);
-    if (!current) update("pixelId", String(cropPixels[0].pixel_id_h5));
+    if (!current) {
+      const defaultPixel = pickDefaultPixel(form.crop, cropPixels);
+      update("pixelId", String(defaultPixel.pixel_id_h5));
+      if (form.crop === "maize") setLatBandFilter(defaultPixel.lat_band);
+    }
   }, [cropPixels, form.pixelId]);
 
   useEffect(() => {
-    setLatBandFilter("all");
+    if (form.crop !== "maize") setLatBandFilter("all");
     setApiResponse(null);
   }, [form.crop]);
 
@@ -196,6 +202,17 @@ export function PhaseCalculatorBoard() {
     setApiState("error");
   }
 
+  useEffect(() => {
+    if (hasAutoSubmitted || apiState !== "idle" || !form.pixelId) return;
+    if (form.crop !== "maize" || form.phase !== "F2") return;
+    if (form.startYear !== DEFAULT_START_YEAR || form.endYear !== DEFAULT_END_YEAR) return;
+    if (!derived.pixel || String(derived.pixel.pixel_id_h5) !== form.pixelId || !derived.phaseWindow) return;
+    if (!threshold?.variable || threshold.threshold == null) return;
+
+    setHasAutoSubmitted(true);
+    void submit();
+  }, [hasAutoSubmitted, apiState, form, derived.pixel, derived.phaseWindow, threshold]);
+
   function exportCsv() {
     if (!annual.length) return;
     const header = [
@@ -284,13 +301,14 @@ export function PhaseCalculatorBoard() {
               type="button"
               onClick={submit}
               disabled={apiState === "loading" || !derived.pixel || !threshold?.variable || threshold.threshold == null}
-              className="mt-1 flex h-10 items-center justify-center gap-2 rounded-sm border border-cool/35 bg-cool/[0.1] px-4 text-[12.5px] font-semibold text-ink transition-colors hover:bg-cool/[0.16] disabled:cursor-not-allowed disabled:opacity-50"
+              className="mt-1 flex h-10 items-center justify-center gap-2 rounded-md border-none bg-teal-600 px-5 py-2.5 text-[12.5px] font-medium text-white transition-colors hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-[#4A7A66] disabled:text-[#A8C8BE]"
             >
               {apiState === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
               Calculate historical probability
             </button>
           </div>
 
+          <ExamplePreloadNote crop={form.crop} phase={form.phase} startYear={form.startYear} endYear={form.endYear} pixel={selectedPixel} />
           <PixelSummary derived={derived} />
           <PixelGuide
             crop={form.crop}
@@ -394,6 +412,31 @@ function PixelSummary({ derived }: { derived: DerivedContext }) {
         />
         <Metric label="Cell polygon" value={polygonLabel(derived.pixel)} />
       </div>
+    </div>
+  );
+}
+
+function ExamplePreloadNote({
+  crop,
+  phase,
+  startYear,
+  endYear,
+  pixel
+}: {
+  crop: Crop;
+  phase: Phase;
+  startYear: string;
+  endYear: string;
+  pixel: PixelInventoryRow | null;
+}) {
+  if (!pixel) return null;
+  const cropLabel = CROPS.find((item) => item.id === crop)?.label ?? crop;
+  return (
+    <div className="mt-4 rounded-sm border border-line bg-white/[0.025] p-3 text-[11.5px] leading-relaxed text-ink-mute">
+      <p>
+        Example pre-loaded · {cropLabel} · {phase} · {pixel.lat.toFixed(2)}, {pixel.lon_ee.toFixed(2)} · {startYear}-{endYear}
+      </p>
+      <p>Change any parameter and recalculate to explore other locations.</p>
     </div>
   );
 }
@@ -893,6 +936,23 @@ function parsePixelInventory(csv: string): PixelInventoryRow[] {
       pixel_lon_max_ee: Number(row.pixel_lon_max_ee)
     };
   });
+}
+
+function pickDefaultPixel(crop: Crop, pixels: PixelInventoryRow[]) {
+  if (crop !== "maize") return pixels[0];
+  const tropicalPixels = pixels.filter((pixel) => pixel.lat >= -15 && pixel.lat <= 15);
+  const candidates = tropicalPixels.length ? tropicalPixels : pixels;
+  return candidates.reduce((best, pixel) => {
+    const bestDistance = pixelDistance(best);
+    const pixelDistanceValue = pixelDistance(pixel);
+    if (pixelDistanceValue < bestDistance) return pixel;
+    if (pixelDistanceValue === bestDistance && pixel.pixel_id_h5 < best.pixel_id_h5) return pixel;
+    return best;
+  }, candidates[0]);
+}
+
+function pixelDistance(pixel: PixelInventoryRow) {
+  return Math.pow(pixel.lat - DEFAULT_EXAMPLE_TARGET.lat, 2) + Math.pow(pixel.lon_ee - DEFAULT_EXAMPLE_TARGET.lon, 2);
 }
 
 function polygonLabel(pixel: PixelInventoryRow) {
