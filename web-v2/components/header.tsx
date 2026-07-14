@@ -44,7 +44,7 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <span className="kicker">v0.2 · preview</span>
+          <span className="kicker">v1.0 · DOI registered</span>
         </div>
 
         {/* Mobile hamburger */}
@@ -71,7 +71,7 @@ export function Header() {
                 {label}
               </Link>
             ))}
-            <p className="kicker px-3 py-2 pt-3 border-t border-line mt-1">v0.2 · preview</p>
+            <p className="kicker px-3 py-2 pt-3 border-t border-line mt-1">v1.0 · DOI registered</p>
           </nav>
         </div>
       )}
