@@ -8,7 +8,7 @@ export function Footer() {
             <span className="text-ink">Paola Andrea Ruiz Franco</span> · MSc Engineering — Water Resources
           </p>
           <p>
-            Universidad Nacional de Colombia · Advisors: Carlos David Hoyos Ortiz and Santiago Medina Hurtado
+            Universidad Nacional de Colombia · Advisors: Carlos David Hoyos Ortiz · Santiago Medina Hurtado
           </p>
         </div>
 
@@ -22,7 +22,7 @@ export function Footer() {
             Repository
           </a>
           <span aria-hidden className="h-3 w-px bg-line-strong" />
-          <span>DOI · coming soon</span>
+          <span>Zenodo DOI · in preparation</span>
           <span aria-hidden className="h-3 w-px bg-line-strong" />
           <span className="num">© 1981–2016 GDHY · NOAA · GEOGLAM</span>
         </div>
