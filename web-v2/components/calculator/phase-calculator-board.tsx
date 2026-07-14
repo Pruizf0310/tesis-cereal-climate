@@ -25,6 +25,8 @@ import {
 const PHASES: Phase[] = ["F1", "F2", "F3"];
 const DEFAULT_START_YEAR = "1981";
 const DEFAULT_END_YEAR = "2016";
+const DEFAULT_EXAMPLE_PIXEL_ID = "2964";
+const DEFAULT_EXAMPLE_LAT_BAND = "10_to_0";
 const DEFAULT_EXAMPLE_TARGET = { lat: 3.5, lon: -76.5 };
 
 type ApiState = "idle" | "loading" | "success" | "error";
@@ -47,7 +49,7 @@ interface FormState {
 
 const INITIAL_FORM: FormState = {
   crop: "maize",
-  pixelId: "",
+  pixelId: DEFAULT_EXAMPLE_PIXEL_ID,
   phase: "F2",
   startYear: DEFAULT_START_YEAR,
   endYear: DEFAULT_END_YEAR
@@ -58,7 +60,7 @@ export function PhaseCalculatorBoard() {
   const [pixels, setPixels] = useState<PixelInventoryRow[]>([]);
   const [calendar, setCalendar] = useState<PhaseCalendarWindows | null>(null);
   const [thresholds, setThresholds] = useState<PhaseCriticalThresholds | null>(null);
-  const [latBandFilter, setLatBandFilter] = useState("all");
+  const [latBandFilter, setLatBandFilter] = useState(DEFAULT_EXAMPLE_LAT_BAND);
   const [apiState, setApiState] = useState<ApiState>("idle");
   const [apiResponse, setApiResponse] = useState<PhaseCalculationResponse | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(2016);
@@ -97,7 +99,7 @@ export function PhaseCalculatorBoard() {
 
   useEffect(() => {
     if (!cropPixels.length) {
-      update("pixelId", "");
+      if (pixels.length) update("pixelId", "");
       return;
     }
     const current = cropPixels.some((pixel) => String(pixel.pixel_id_h5) === form.pixelId);

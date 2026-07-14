@@ -93,14 +93,14 @@ export default function AboutPage() {
               <span className="text-ink">Carlos David Hoyos Ortiz and Santiago Medina Hurtado</span>
             </p>
             <p className="pt-3 leading-relaxed">
-              To cite this platform, use the GitHub repository while the Zenodo DOI is finalized:{" "}
+              To cite this platform, use the permanent Zenodo conceptual DOI:{" "}
               <a
-                href="https://github.com/Pruizf0310/tesis-cereal-climate"
+                href="https://doi.org/10.5281/zenodo.21361423"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-cool transition-colors hover:text-ink"
               >
-                github.com/Pruizf0310/tesis-cereal-climate
+                DOI: 10.5281/zenodo.21361423
               </a>
             </p>
           </div>

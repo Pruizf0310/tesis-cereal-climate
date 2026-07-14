@@ -22,7 +22,14 @@ export function Footer() {
             Repository
           </a>
           <span aria-hidden className="h-3 w-px bg-line-strong" />
-          <span>Zenodo DOI · in preparation</span>
+          <a
+            href="https://doi.org/10.5281/zenodo.21361423"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-ink"
+          >
+            DOI: 10.5281/zenodo.21361423
+          </a>
           <span aria-hidden className="h-3 w-px bg-line-strong" />
           <span className="num">© 1981–2016 GDHY · NOAA · GEOGLAM</span>
         </div>
