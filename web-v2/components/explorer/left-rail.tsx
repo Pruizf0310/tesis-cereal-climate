@@ -11,6 +11,11 @@ const CROP_ICON: Record<Crop, React.ReactNode> = {
   soybean: <ActivitySquare className="h-3.5 w-3.5" />
 };
 
+const DISABLED_SIGNAL_NOTES: Partial<Record<Signal, string>> = {
+  MJO: "MJO intraseasonal layer · scheduled for next release",
+  SST: "SST Pacific field layer · scheduled for next release"
+};
+
 interface LeftRailProps {
   crop: Crop;
   onCropChange: (c: Crop) => void;
@@ -67,6 +72,7 @@ export function LeftRail({
         <div className="space-y-1">
           {SIGNALS.map((s) => {
             const enabled = s.id === "ENSO";
+            const disabledNote = DISABLED_SIGNAL_NOTES[s.id];
             return (
               <button
                 key={s.id}
@@ -91,10 +97,13 @@ export function LeftRail({
                     {s.label}
                   </span>
                   <span className="text-[10.5px] text-ink-mute">{s.sublabel}</span>
+                  {!enabled && disabledNote ? (
+                    <span className="mt-1 text-[10px] leading-snug text-ink-mute">{disabledNote}</span>
+                  ) : null}
                 </div>
                 {!enabled && (
                   <span className="rounded-xs border border-line bg-white/[0.02] px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-ink-mute">
-                    soon
+                    coming soon
                   </span>
                 )}
               </button>

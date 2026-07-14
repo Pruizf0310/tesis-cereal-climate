@@ -14,7 +14,7 @@ export function SignalCardSoon({ label, sublabel, description, source }: SoonCar
           <h2 className="mt-1 font-display text-[20px] font-medium tracking-tightest text-ink">{label}</h2>
         </div>
         <span className="rounded-xs border border-line bg-white/[0.02] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-ink-mute">
-          pipeline
+          integration in progress
         </span>
       </header>
 
