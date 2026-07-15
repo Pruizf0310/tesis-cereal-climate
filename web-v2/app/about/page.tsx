@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "About · CerealRisk",
+  title: "About",
   description:
     "Climate-Food Risk Explorer — geospatial intelligence platform for ENSO-MJO driven agricultural risk."
 };

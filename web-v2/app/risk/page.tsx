@@ -1,7 +1,7 @@
 import { RiskBoard } from "@/components/risk/board";
 
 export const metadata = {
-  title: "Risk · Phenology · CerealRisk",
+  title: "Risk · Phenology",
   description: "Typical phenology calendars and crop-stage windows for climate hazard interpretation."
 };
 

@@ -6,7 +6,7 @@ import { SSTMapPanel } from "@/components/signals/SSTMapPanel";
 import { ResearchConnectionPanel } from "@/components/signals/ResearchConnectionPanel";
 
 export const metadata = {
-  title: "Live climate signals · CerealRisk",
+  title: "Live climate signals",
   description:
     "Operational ENSO, MJO, OLR and SST indicators used to interpret agroclimatic risk."
 };

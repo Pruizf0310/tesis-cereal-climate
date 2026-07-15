@@ -1,7 +1,7 @@
 import { PhaseCalculatorBoard } from "@/components/calculator/phase-calculator-board";
 
 export const metadata = {
-  title: "Phase calculator - CerealRisk",
+  title: "Phase calculator",
   description: "One-pixel historical climate exceedance calculator by crop phenological phase."
 };
 
