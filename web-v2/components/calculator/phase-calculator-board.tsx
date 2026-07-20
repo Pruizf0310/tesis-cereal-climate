@@ -175,6 +175,8 @@ export function PhaseCalculatorBoard() {
       variable: threshold.variable,
       threshold: threshold.threshold,
       operator: threshold.operator,
+      aggregation: threshold.aggregation,
+      window_days: threshold.window_days,
       min_days_event: threshold.min_days_event,
       start_year: Number(form.startYear),
       end_year: Number(form.endYear),
@@ -306,7 +308,7 @@ export function PhaseCalculatorBoard() {
               className="mt-1 flex h-10 items-center justify-center gap-2 rounded-md border-none bg-teal-600 px-5 py-2.5 text-[12.5px] font-medium text-white transition-colors hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-[#4A7A66] disabled:text-[#A8C8BE]"
             >
               {apiState === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
-              Calculate historical probability
+              Calculate historical trigger frequency
             </button>
           </div>
 
@@ -364,7 +366,7 @@ function CriticalVariableCard({ threshold }: { threshold: PhaseCriticalThreshold
     <div className="rounded-sm border border-line bg-white/[0.025] p-3">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[12px] font-medium text-ink">Critical variable from source table</p>
+          <p className="text-[12px] font-medium text-ink">Audited scientific trigger</p>
           <p className="mt-1 text-[11px] text-ink-mute">{threshold.phase_label}</p>
         </div>
         <span className="rounded-sm border border-line bg-bg-panel px-2 py-1 text-[10px] uppercase tracking-wider text-ink-mute">
@@ -381,7 +383,19 @@ function CriticalVariableCard({ threshold }: { threshold: PhaseCriticalThreshold
           label="Critical threshold"
           value={threshold.threshold == null ? threshold.threshold_text : `${threshold.operator} ${threshold.threshold} ${threshold.unit}`}
         />
-        <Metric label="Event rule" value={`${threshold.min_days_event}+ critical days in phase`} />
+        <Metric label="Evidence" value={threshold.evidence_type} />
+        <Metric
+          label="Aggregation"
+          value={
+            threshold.calculation_status === "provisional"
+              ? aggregationLabel(threshold)
+              : "Not calculable with the current evidence and ERA5-Land variables"
+          }
+        />
+        <Metric
+          label="Event rule"
+          value={threshold.calculation_status === "provisional" ? `${threshold.min_days_event}+ critical observation(s) in phase` : "Disabled"}
+        />
       </div>
       <p className="mt-3 text-[10.5px] leading-relaxed text-ink-mute">{threshold.threshold_text}</p>
       {threshold.note ? <p className="mt-2 text-[10.5px] leading-relaxed text-warm">{threshold.note}</p> : null}
@@ -511,10 +525,10 @@ function ProbabilityPanel({ result, threshold }: { result: PhaseCalculationRespo
   if (!result) {
     return (
       <div className="glass rounded-sm border border-line p-5">
-        <p className="kicker">Historical probability</p>
+        <p className="kicker">Historical trigger frequency</p>
         <div className="mt-5 grid min-h-[170px] place-items-center rounded-sm border border-dashed border-line bg-white/[0.015] text-center">
           <p className="max-w-[440px] text-[12.5px] leading-relaxed text-ink-dim">
-            Choose a crop, a valid pixel and a phenological phase. The calculator will use the documented critical variable and threshold automatically.
+            Choose a crop, a valid pixel and a phenological phase. Calculations are enabled only for literature-aligned provisional triggers.
           </p>
         </div>
       </div>
@@ -525,7 +539,7 @@ function ProbabilityPanel({ result, threshold }: { result: PhaseCalculationRespo
     <div className="glass rounded-sm border border-line p-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="kicker">Historical probability</p>
+          <p className="kicker">Historical trigger frequency</p>
           <div className="mt-3 flex items-end gap-3">
             <span className="num text-[54px] leading-none text-ink">{(result.probability * 100).toFixed(1)}%</span>
             <span className="pb-2 text-[12px] text-ink-dim">
@@ -541,7 +555,7 @@ function ProbabilityPanel({ result, threshold }: { result: PhaseCalculationRespo
         </div>
       </div>
       <p className="mt-4 text-[11.5px] leading-relaxed text-ink-mute">
-        Variable: {threshold?.variable_label ?? "No variable"}. Annual metrics are calculated only inside the selected phenological window.
+        This is the fraction of valid years in which the operational trigger occurred inside the selected phenological window. It is not a probability of crop damage or yield loss.
       </p>
     </div>
   );
@@ -552,8 +566,8 @@ function ProbabilityCurve({ annual, threshold }: { annual: AnnualPhaseMetric[]; 
   return (
     <div className="glass rounded-sm border border-line p-5">
       <div className="border-b border-line pb-3">
-        <p className="kicker">Probability curve</p>
-        <h3 className="mt-1 text-[17px] font-medium text-ink">Event probability across thresholds</h3>
+        <p className="kicker">Sensitivity curve</p>
+        <h3 className="mt-1 text-[17px] font-medium text-ink">Historical trigger frequency across thresholds</h3>
       </div>
       <div className="mt-4 h-[230px]">
         {curve.points.length ? (
@@ -595,7 +609,7 @@ function AnnualChart({
       <div className="flex items-end justify-between gap-3 border-b border-line pb-3">
         <div>
           <p className="kicker">Historical years</p>
-          <h3 className="mt-1 text-[17px] font-medium text-ink">Critical days by year in this pixel</h3>
+          <h3 className="mt-1 text-[17px] font-medium text-ink">Critical observations by year in this pixel</h3>
         </div>
       </div>
       <div className="mt-4 h-[220px]">
@@ -651,7 +665,7 @@ function CriticalYearsPanel({ annual, threshold }: { annual: AnnualPhaseMetric[]
           {critical.length ? (
             critical.map((item) => (
               <span key={item.year} className="num rounded-sm border border-risk-high/30 bg-risk-high/[0.08] px-2 py-1 text-[12px] text-ink">
-                {item.year} · {item.n_exceedance_days} days
+                {item.year} · {item.n_exceedance_days} observations
               </span>
             ))
           ) : (
@@ -704,8 +718,8 @@ function DailyChart({
     <div className="glass rounded-sm border border-line p-5">
       <div className="flex flex-col gap-3 border-b border-line pb-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="kicker">Daily zoom</p>
-          <h3 className="mt-1 text-[17px] font-medium text-ink">Daily values inside selected phase</h3>
+          <p className="kicker">Evaluated series</p>
+          <h3 className="mt-1 text-[17px] font-medium text-ink">Daily or rolling values inside selected phase</h3>
         </div>
         <select value={selectedYear} onChange={(event) => onYearChange(Number(event.target.value))} className={inputClass("h-9 w-full sm:w-32")}>
           {annual.map((item) => (
@@ -800,8 +814,8 @@ function AnnualTable({ annual, onExport }: { annual: AnnualPhaseMetric[]; onExpo
             <thead className="sticky top-0 bg-bg-panel text-[10px] uppercase tracking-wider text-ink-mute">
               <tr>
                 <Th>Year</Th>
-                <Th>Days</Th>
-                <Th>Critical</Th>
+                <Th>Evaluated</Th>
+                <Th>Critical obs.</Th>
                 <Th>Max</Th>
                 <Th>Mean</Th>
                 <Th>P95</Th>
@@ -967,6 +981,12 @@ function formatMetric(value: number | null) {
 
 function variableUnit(variable: PhaseVariable) {
   return PHASE_VARIABLES.find((item) => item.id === variable)?.unit ?? variable;
+}
+
+function aggregationLabel(threshold: PhaseCriticalThreshold) {
+  if (threshold.aggregation === "rolling_sum") return `Rolling ${threshold.window_days}-day sum`;
+  if (threshold.aggregation === "rolling_mean") return `Rolling ${threshold.window_days}-day mean`;
+  return "Daily observation";
 }
 
 function compare(value: number | null, threshold: number, operator: ThresholdOperator) {

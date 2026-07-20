@@ -13,6 +13,8 @@ export type PhaseVariable =
   | "swvl3";
 
 export type ThresholdOperator = ">" | ">=" | "<" | "<=";
+export type PhaseAggregation = "daily" | "rolling_sum" | "rolling_mean";
+export type CalculationStatus = "provisional" | "unavailable";
 
 export interface PixelInventoryRow {
   crop: Crop;
@@ -85,6 +87,8 @@ export interface PhaseCalculationRequest {
   variable: PhaseVariable;
   threshold: number;
   operator?: ThresholdOperator;
+  aggregation: PhaseAggregation;
+  window_days: number;
   min_days_event: number;
   start_year: number;
   end_year: number;
@@ -122,7 +126,11 @@ export interface PhaseCriticalThreshold {
   threshold_text: string;
   unit: string;
   operator: ThresholdOperator;
+  aggregation: PhaseAggregation;
+  window_days: number;
   min_days_event: number;
+  calculation_status: CalculationStatus;
+  evidence_type: string;
   stress_type: string;
   source: string;
   link: string;

@@ -2,7 +2,7 @@ import { PhaseCalculatorBoard } from "@/components/calculator/phase-calculator-b
 
 export const metadata = {
   title: "Phase calculator",
-  description: "One-pixel historical climate exceedance calculator by crop phenological phase."
+  description: "Literature-audited historical climate trigger frequency by crop phenological phase."
 };
 
 export default function CalculatorPage() {
@@ -13,11 +13,11 @@ export default function CalculatorPage() {
         <header className="max-w-[880px] animate-fade-up">
           <p className="kicker">Phase calculator</p>
           <h1 className="mt-3 font-display text-[clamp(2.2rem,4.2vw,3.6rem)] font-medium leading-[1] tracking-tightest text-ink">
-            Historical climate exceedance by crop phase.
+            Literature-audited climate triggers by crop phase.
           </h1>
           <p className="mt-5 max-w-[680px] text-[14.5px] leading-relaxed text-ink-dim">
             Query one GDHY-compatible 0.5 degree cell at a time, attach the typical F1-F3 calendar
-            for the selected crop and latitude band, then estimate event probability across 1981-2016.
+            for the selected crop and latitude band, then estimate historical trigger frequency across 1981-2016.
           </p>
           <div className="mt-6 max-w-[760px] border-l border-cool/40 pl-4 text-[12.5px] leading-relaxed text-ink-dim">
             <p className="font-medium text-ink">How to use this calculator:</p>
@@ -33,9 +33,9 @@ export default function CalculatorPage() {
               </li>
             </ol>
             <p className="mt-3">
-              The calculator returns the historical probability of exceeding the documented critical threshold
-              for that crop-phase combination, a day-by-day breakdown by year, and a downloadable CSV with
-              annual metrics.
+              The calculator returns the historical frequency of a literature-aligned operational trigger,
+              not a probability of crop damage. Crop-phase combinations without a scientifically defensible
+              ERA5-Land implementation remain visible but cannot be calculated.
             </p>
           </div>
         </header>

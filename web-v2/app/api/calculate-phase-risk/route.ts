@@ -9,6 +9,8 @@ import type {
   PhaseCalculationRequest,
   PhaseCalculationResponse,
   PhaseCalendarWindows,
+  PhaseCriticalThresholds,
+  PhaseAggregation,
   ThresholdOperator,
   PhaseVariable
 } from "@/lib/phase-calculator";
@@ -21,9 +23,11 @@ const require = createRequire(import.meta.url);
 const ee = require("@google/earthengine");
 const DATASET = "ECMWF/ERA5_LAND/DAILY_AGGR";
 const CALENDAR_PATH = join(process.cwd(), "public", "data", "phase_calendar_windows.json");
+const THRESHOLD_PATH = join(process.cwd(), "public", "data", "phase_critical_thresholds.json");
 
 let eeInitPromise: Promise<void> | null = null;
 let calendarCache: PhaseCalendarWindows | null = null;
+let thresholdCache: PhaseCriticalThresholds | null = null;
 
 interface GeeDailyValue {
   date?: string;
@@ -96,6 +100,13 @@ function loadCalendar() {
   return calendarCache as PhaseCalendarWindows;
 }
 
+function loadThresholds() {
+  if (!thresholdCache) {
+    thresholdCache = JSON.parse(readFileSync(THRESHOLD_PATH, "utf8"));
+  }
+  return thresholdCache as PhaseCriticalThresholds;
+}
+
 function findPhaseWindow(crop: PhaseCalculationRequest["crop"], lat: number, phase: Phase) {
   const calendar = loadCalendar();
   const cropCalendar = calendar.crops[crop];
@@ -143,6 +154,12 @@ function validatePayload(body: Partial<PhaseCalculationRequest>) {
   }
   if (!Number.isInteger(body.min_days_event) || body.min_days_event < 1) {
     return "min_days_event must be an integer greater than or equal to 1.";
+  }
+  if (!body.aggregation || !["daily", "rolling_sum", "rolling_mean"].includes(body.aggregation)) {
+    return "aggregation must be daily, rolling_sum or rolling_mean.";
+  }
+  if (!Number.isInteger(body.window_days) || Number(body.window_days) < 1) {
+    return "window_days must be an integer greater than or equal to 1.";
   }
   return null;
 }
@@ -229,6 +246,23 @@ async function queryDailyValues(geometry: any, start: Date, endExclusive: Date, 
   return info.features.map((feature) => feature.properties);
 }
 
+function aggregateValues(daily: GeeDailyValue[], aggregation: PhaseAggregation, windowDays: number): GeeDailyValue[] {
+  if (aggregation === "daily") return daily;
+  const output: GeeDailyValue[] = [];
+  for (let index = windowDays - 1; index < daily.length; index += 1) {
+    const window = daily.slice(index - windowDays + 1, index + 1);
+    const values = window.map((item) => item.value).filter((value): value is number => typeof value === "number" && Number.isFinite(value));
+    if (values.length !== windowDays) continue;
+    const total = values.reduce((sum, value) => sum + value, 0);
+    output.push({
+      date: daily[index].date,
+      doy: daily[index].doy,
+      value: aggregation === "rolling_sum" ? total : total / windowDays
+    });
+  }
+  return output;
+}
+
 function annualMetrics(
   year: number,
   daily: GeeDailyValue[],
@@ -294,6 +328,29 @@ export async function POST(request: Request) {
     return jsonResponse({ ok: false, configured: false, request: payload, message: validationError }, 400);
   }
 
+  const configuredThreshold = loadThresholds().crops[payload.crop]?.phases?.[payload.phase];
+  if (
+    !configuredThreshold ||
+    configuredThreshold.calculation_status !== "provisional" ||
+    !configuredThreshold.variable ||
+    configuredThreshold.threshold == null
+  ) {
+    return jsonResponse(
+      { ok: false, configured: true, request: payload, message: "This crop-phase combination has no scientifically defensible calculable trigger." },
+      400
+    );
+  }
+
+  payload = {
+    ...payload,
+    variable: configuredThreshold.variable,
+    threshold: configuredThreshold.threshold,
+    operator: configuredThreshold.operator,
+    aggregation: configuredThreshold.aggregation,
+    window_days: configuredThreshold.window_days,
+    min_days_event: configuredThreshold.min_days_event
+  };
+
   try {
     await ensureEeInitialized();
 
@@ -307,7 +364,8 @@ export async function POST(request: Request) {
       const endYear = phaseWindow.crosses_year ? year + 1 : year;
       const endExclusive = doyToDate(endYear, phaseWindow.end_doy + 1);
       const daily = await queryDailyValues(geometry, start, endExclusive, payload.variable);
-      annual.push(annualMetrics(year, daily, payload.threshold, payload.min_days_event, payload.operator ?? ">"));
+      const evaluated = aggregateValues(daily, payload.aggregation, payload.window_days);
+      annual.push(annualMetrics(year, evaluated, payload.threshold, payload.min_days_event, payload.operator ?? ">"));
     }
 
     const validYears = annual.filter((item) => item.n_days > 0).length;
