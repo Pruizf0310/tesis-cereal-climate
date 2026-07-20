@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AlertTriangle, Calculator, Download, Loader2, MapPin, Play, Search, Table2 } from "lucide-react";
+import { AlertTriangle, Calculator, Download, Loader2, MapPin, Play, Table2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Crop } from "@/lib/types";
 import { CROPS } from "@/lib/types";
@@ -65,7 +65,7 @@ export function PhaseCalculatorBoard() {
   const [apiResponse, setApiResponse] = useState<PhaseCalculationResponse | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(2016);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [searchProgress, setSearchProgress] = useState<string | null>(null);
+  const [hasAutoSubmitted, setHasAutoSubmitted] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -153,45 +153,6 @@ export function PhaseCalculatorBoard() {
     if (annual.length) setSelectedYear(annual[annual.length - 1].year);
   }, [annual]);
 
-  function phaseWindowFor(pixel: PixelInventoryRow) {
-    const cropCalendar = calendar?.crops[form.crop];
-    const firstSeason = cropCalendar ? Object.entries(cropCalendar.seasons)[0] : null;
-    return firstSeason?.[1].bands[latBandKeyFromInventory(pixel.lat_band)]?.phases[form.phase] ?? null;
-  }
-
-  async function calculatePixel(pixel: PixelInventoryRow) {
-    const phaseWindow = phaseWindowFor(pixel);
-    if (!phaseWindow) throw new Error("No compatible phenology window was found for this pixel.");
-    if (!threshold?.variable || threshold.threshold == null) {
-      throw new Error(threshold?.note ?? "This phase is not directly calculable with ERA5-Land.");
-    }
-
-    const request: PhaseCalculationRequest = {
-      lat: pixel.lat,
-      lon: pixel.lon_ee,
-      crop: form.crop,
-      phase: form.phase,
-      variable: threshold.variable,
-      threshold: threshold.threshold,
-      operator: threshold.operator,
-      aggregation: threshold.aggregation,
-      window_days: threshold.window_days,
-      min_days_event: threshold.min_days_event,
-      start_year: Number(form.startYear),
-      end_year: Number(form.endYear),
-      pixel,
-      phase_window: phaseWindow
-    };
-
-    const response = await fetch("/api/calculate-phase-risk", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(request)
-    });
-    const data: PhaseCalculationResponse = await response.json();
-    return normalizeResponse(data, request);
-  }
-
   async function submit() {
     if (!derived.pixel || !derived.phaseWindow) {
       fail("No compatible pixel or phenology window was found for this crop and phase.");
@@ -206,45 +167,37 @@ export function PhaseCalculatorBoard() {
       return;
     }
 
+    const request: PhaseCalculationRequest = {
+      lat: derived.pixel.lat,
+      lon: derived.pixel.lon_ee,
+      crop: form.crop,
+      phase: form.phase,
+      variable: threshold.variable,
+      threshold: threshold.threshold,
+      operator: threshold.operator,
+      aggregation: threshold.aggregation,
+      window_days: threshold.window_days,
+      min_days_event: threshold.min_days_event,
+      start_year: Number(form.startYear),
+      end_year: Number(form.endYear),
+      pixel: derived.pixel,
+      phase_window: derived.phaseWindow
+    };
+
     setApiState("loading");
     setApiResponse(null);
     try {
-      const normalized = await calculatePixel(derived.pixel);
+      const response = await fetch("/api/calculate-phase-risk", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(request)
+      });
+      const data: PhaseCalculationResponse = await response.json();
+      const normalized = normalizeResponse(data, request);
       setApiResponse(normalized);
-      setApiState(normalized.ok ? "success" : "error");
+      setApiState(data.ok ? "success" : "error");
     } catch {
       fail("No se pudo contactar el backend GEE de Vercel.", true);
-    }
-  }
-
-  async function findTriggeredPixel() {
-    if (!threshold?.variable || threshold.threshold == null || !visiblePixels.length) return;
-    setApiState("loading");
-    setApiResponse(null);
-    const candidates = visiblePixels.slice(0, 25);
-
-    try {
-      for (let index = 0; index < candidates.length; index += 1) {
-        const pixel = candidates[index];
-        setSearchProgress(`Evaluating pixel ${index + 1} of ${candidates.length} (#${pixel.pixel_id_h5})`);
-        const response = await calculatePixel(pixel);
-        if (!response.ok) {
-          setApiResponse(response);
-          setApiState("error");
-          return;
-        }
-        if ((response.result?.event_years ?? 0) >= 3) {
-          update("pixelId", String(pixel.pixel_id_h5));
-          setApiResponse(response);
-          setApiState("success");
-          return;
-        }
-      }
-      fail("No pixel with triggers in at least 3 independent years was found among the first 25 candidates in this latitude band.");
-    } catch {
-      fail("The triggered-pixel search could not be completed.", true);
-    } finally {
-      setSearchProgress(null);
     }
   }
 
@@ -252,6 +205,17 @@ export function PhaseCalculatorBoard() {
     setApiResponse({ ok: false, configured, message });
     setApiState("error");
   }
+
+  useEffect(() => {
+    if (hasAutoSubmitted || apiState !== "idle" || !form.pixelId) return;
+    if (form.crop !== "maize" || form.phase !== "F2") return;
+    if (form.startYear !== DEFAULT_START_YEAR || form.endYear !== DEFAULT_END_YEAR) return;
+    if (!derived.pixel || String(derived.pixel.pixel_id_h5) !== form.pixelId || !derived.phaseWindow) return;
+    if (!threshold?.variable || threshold.threshold == null) return;
+
+    setHasAutoSubmitted(true);
+    void submit();
+  }, [hasAutoSubmitted, apiState, form, derived.pixel, derived.phaseWindow, threshold]);
 
   function exportCsv() {
     if (!annual.length) return;
@@ -346,18 +310,6 @@ export function PhaseCalculatorBoard() {
               {apiState === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
               Calculate historical trigger frequency
             </button>
-            <button
-              type="button"
-              onClick={findTriggeredPixel}
-              disabled={apiState === "loading" || !visiblePixels.length || !threshold?.variable || threshold.threshold == null}
-              className="flex h-10 items-center justify-center gap-2 rounded-md border border-cool/50 px-5 py-2.5 text-[12.5px] font-medium text-ink transition-colors hover:bg-cool/10 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {apiState === "loading" && searchProgress ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
-              {searchProgress ?? "Find pixel with triggers in at least 3 years"}
-            </button>
-            <p className="text-[11px] leading-relaxed text-ink-mute">
-              Searches up to 25 pixels in the selected latitude band and stops at the first pixel with the literature trigger in at least three independent years.
-            </p>
           </div>
 
           <ExamplePreloadNote crop={form.crop} phase={form.phase} startYear={form.startYear} endYear={form.endYear} pixel={selectedPixel} />
