@@ -323,11 +323,6 @@ export async function POST(request: Request) {
     return jsonResponse({ ok: false, configured: false, message: "Request body must be valid JSON." }, 400);
   }
 
-  const validationError = validatePayload(payload);
-  if (validationError) {
-    return jsonResponse({ ok: false, configured: false, request: payload, message: validationError }, 400);
-  }
-
   const configuredThreshold = loadThresholds().crops[payload.crop]?.phases?.[payload.phase];
   if (
     !configuredThreshold ||
@@ -350,6 +345,14 @@ export async function POST(request: Request) {
     window_days: configuredThreshold.window_days,
     min_days_event: configuredThreshold.min_days_event
   };
+
+  // Scientific trigger parameters are server-owned. Besides preventing client-side
+  // overrides, filling them before validation keeps requests from an older cached
+  // calculator bundle compatible with the audited threshold schema.
+  const validationError = validatePayload(payload);
+  if (validationError) {
+    return jsonResponse({ ok: false, configured: true, request: payload, message: validationError }, 400);
+  }
 
   try {
     await ensureEeInitialized();

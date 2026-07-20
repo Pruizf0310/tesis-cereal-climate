@@ -330,7 +330,11 @@ export function PhaseCalculatorBoard() {
         {apiResponse && !apiResponse.ok ? (
           <StatusPanel
             tone={apiResponse.configured ? "error" : "warn"}
-            title={apiResponse.configured ? "GEE request failed" : "Backend GEE no configurado"}
+            title={
+              apiResponse.message?.startsWith("Backend GEE no configurado")
+                ? "Backend GEE no configurado"
+                : "No se pudo completar el cálculo"
+            }
             message={apiResponse.message ?? "No calculation result was returned."}
           />
         ) : null}
