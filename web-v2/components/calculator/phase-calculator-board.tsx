@@ -25,9 +25,11 @@ import {
 const PHASES: Phase[] = ["F1", "F2", "F3"];
 const DEFAULT_START_YEAR = "1981";
 const DEFAULT_END_YEAR = "2016";
-const DEFAULT_EXAMPLE_PIXEL_ID = "2964";
+// Audited once against the production GEE endpoint: maize F2 had the
+// <30 mm rolling 10-day trigger in 3 of 36 years (1981-2016).
+const DEFAULT_EXAMPLE_PIXEL_ID = "3150";
 const DEFAULT_EXAMPLE_LAT_BAND = "10_to_0";
-const DEFAULT_EXAMPLE_TARGET = { lat: 3.5, lon: -76.5 };
+const DEFAULT_EXAMPLE_TARGET = { lat: 5.25, lon: -75.25 };
 
 type ApiState = "idle" | "loading" | "success" | "error";
 
