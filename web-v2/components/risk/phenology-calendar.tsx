@@ -60,6 +60,8 @@ interface PhenologyCrop {
 interface PhenologyPayload {
   months: string[];
   phaseLegend: Record<Phase, string>;
+  source?: string;
+  method?: string;
   crops: PhenologyCrop[];
 }
 
@@ -185,13 +187,18 @@ export function PhenologyCalendar() {
         </div>
       </div>
 
+      <div className="border-b border-line bg-cool/[0.035] px-4 py-3 text-[11px] leading-relaxed text-ink-dim">
+        <span className="font-medium text-ink">Fuente fenológica v1:</span>{" "}
+        {payload.source ?? "calendario maestro"}. {payload.method ?? "Resumen operacional por coordenada"}.
+        Las ocho fases técnicas permanecen en la tabla maestra; F1-F3 son una agregación para esta visualización.
+      </div>
+
       {!crop || !season ? (
         <div className="grid min-h-[320px] place-items-center px-6 py-12 text-center">
           <div>
             <p className="kicker">No complete calendar</p>
             <p className="mt-3 max-w-[520px] text-[13px] leading-relaxed text-ink-dim">
-              The source workbook includes soybean risk references, but no complete regional
-              phenological calendar with F1, F2 and F3 in the master table.
+              No se encontró una temporada compatible en la tabla maestra v1 para esta selección.
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
 {
-  "source": "Scientific evidence audit, 2026-07-20. Only literature-aligned operational triggers are calculable.",
-  "generated_from": "Audited primary literature and matriz_evidencia_cientifica_umbrales.xlsx",
+  "source": "Auditoría científica local + tabla maestra global v1, 2026-08-05",
+  "generated_from": "reglas_amenaza_v1.csv; umbrales conservan alcance y tipo de evidencia",
   "crops": {
     "maize": {
       "phases": {
@@ -186,7 +186,65 @@
       }
     },
     "soybean": {
-      "phases": {}
+      "phases": {
+        "F1": {
+          "phase": "F1",
+          "phase_label": "Emergence / early vegetative",
+          "variable": null,
+          "variable_label": "Daily temperature above 30 deg C",
+          "threshold": 30,
+          "threshold_text": ">30 deg C was associated with up to 6% yield loss per day in US rainfed soybean over the growing season.",
+          "unit": "deg C",
+          "operator": ">",
+          "aggregation": "daily",
+          "window_days": 1,
+          "min_days_event": 1,
+          "calculation_status": "unavailable",
+          "evidence_type": "Seasonal observational association; not phase-specific",
+          "stress_type": "Heat / water interaction",
+          "source": "Schauberger et al., 2017",
+          "link": "https://doi.org/10.1038/ncomms13931",
+          "note": "Shown for completeness but not calculated by phase: the source estimates a growing-season association in US counties, strongest under rainfed conditions."
+        },
+        "F2": {
+          "phase": "F2",
+          "phase_label": "Vegetative / reproductive",
+          "variable": null,
+          "variable_label": "Daily temperature above 30 deg C",
+          "threshold": 30,
+          "threshold_text": ">30 deg C was associated with up to 6% yield loss per day in US rainfed soybean over the growing season.",
+          "unit": "deg C",
+          "operator": ">",
+          "aggregation": "daily",
+          "window_days": 1,
+          "min_days_event": 1,
+          "calculation_status": "unavailable",
+          "evidence_type": "Seasonal observational association; not phase-specific",
+          "stress_type": "Heat / water interaction",
+          "source": "Schauberger et al., 2017",
+          "link": "https://doi.org/10.1038/ncomms13931",
+          "note": "Shown for completeness but not calculated by phase: the source estimates a growing-season association in US counties, strongest under rainfed conditions."
+        },
+        "F3": {
+          "phase": "F3",
+          "phase_label": "Seed filling / maturity",
+          "variable": null,
+          "variable_label": "Daily temperature above 30 deg C",
+          "threshold": 30,
+          "threshold_text": ">30 deg C was associated with up to 6% yield loss per day in US rainfed soybean over the growing season.",
+          "unit": "deg C",
+          "operator": ">",
+          "aggregation": "daily",
+          "window_days": 1,
+          "min_days_event": 1,
+          "calculation_status": "unavailable",
+          "evidence_type": "Seasonal observational association; not phase-specific",
+          "stress_type": "Heat / water interaction",
+          "source": "Schauberger et al., 2017",
+          "link": "https://doi.org/10.1038/ncomms13931",
+          "note": "Shown for completeness but not calculated by phase: the source estimates a growing-season association in US counties, strongest under rainfed conditions."
+        }
+      }
     }
   }
 }

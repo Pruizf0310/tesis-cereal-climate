@@ -1,42 +1,41 @@
 {
-  "source": "Derived from phenology_typical.json monthly dominant phases",
-  "resolution": "monthly-to-DOY approximation",
+  "source": "Tabla maestra global v1: GGCMI endpoints + normalized crop phase priors",
+  "resolution": "0.5-degree calendar summarized monthly; intermediate phases are modeled estimates",
   "phaseLegend": {
-    "F1": "Establishment / planting",
-    "F2": "Vegetative and reproductive growth",
-    "F3": "Maturation and harvest"
+    "F1": "Establecimiento y vegetativo temprano",
+    "F2": "Desarrollo avanzado y reproducción",
+    "F3": "Llenado, maduración y cosecha"
   },
   "crops": {
     "maize": {
-      "label": "Maize",
+      "label": "Maíz",
       "seasons": {
-        "1": {
-          "label": "Temporada 1",
+        "maize": {
+          "label": "Maize",
           "bands": {
-            "50_40": {
-              "latMin": 40,
-              "latMax": 50,
-              "latBand": "50°N–40°N",
+            "60_50": {
+              "latMin": 50.25,
+              "latMax": 51.75,
+              "latBand": "60_50",
               "phases": {
                 "F1": {
-                  "start_doy": 91,
-                  "end_doy": 120,
+                  "start_doy": 121,
+                  "end_doy": 151,
                   "crosses_year": false,
                   "months": [
-                    "abril"
+                    "mayo"
                   ],
-                  "duration_days": 45
+                  "duration_days": 36.666666666666664
                 },
                 "F2": {
-                  "start_doy": 121,
+                  "start_doy": 152,
                   "end_doy": 212,
                   "crosses_year": false,
                   "months": [
-                    "mayo",
                     "junio",
                     "julio"
                   ],
-                  "duration_days": 77
+                  "duration_days": 57.46666666666667
                 },
                 "F3": {
                   "start_doy": 213,
@@ -45,28 +44,136 @@
                   "months": [
                     "agosto"
                   ],
-                  "duration_days": 31
+                  "duration_days": 36.666666666666664
                 }
               },
-              "matchPct": 100,
-              "coveragePct": 0.5
+              "matchPct": 70,
+              "coveragePct": 0.3
             },
-            "40_30": {
-              "latMin": 30,
-              "latMax": 40,
-              "latBand": "40°N–30°N",
+            "50_40": {
+              "latMin": 40.25,
+              "latMax": 49.75,
+              "latBand": "50_40",
               "phases": {
                 "F1": {
-                  "start_doy": 91,
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 39.711223203026485
+                },
+                "F2": {
+                  "start_doy": 152,
                   "end_doy": 212,
                   "crosses_year": false,
                   "months": [
-                    "abril",
-                    "mayo",
                     "junio",
                     "julio"
                   ],
-                  "duration_days": 122
+                  "duration_days": 62.417402269861284
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 39.711223203026485
+                }
+              },
+              "matchPct": 28.1,
+              "coveragePct": 21.8
+            },
+            "40_30": {
+              "latMin": 30.25,
+              "latMax": 39.75,
+              "latBand": "40_30",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 37.199911347517734
+                },
+                "F2": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 58.39915780141844
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 37.199911347517734
+                }
+              },
+              "matchPct": 23.8,
+              "coveragePct": 20.7
+            },
+            "30_20": {
+              "latMin": 20.25,
+              "latMax": 29.75,
+              "latBand": "30_20",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "junio"
+                  ],
+                  "duration_days": 36.8180924287119
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "julio",
+                    "agosto"
+                  ],
+                  "duration_days": 57.809242871189774
+                },
+                "F3": {
+                  "start_doy": 244,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "septiembre"
+                  ],
+                  "duration_days": 36.8180924287119
+                }
+              },
+              "matchPct": 20.7,
+              "coveragePct": 9.3
+            },
+            "20_10": {
+              "latMin": 10.25,
+              "latMax": 19.75,
+              "latBand": "20_10",
+              "phases": {
+                "F1": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 31.40239043824701
                 },
                 "F2": {
                   "start_doy": 213,
@@ -76,7 +183,7 @@
                     "agosto",
                     "septiembre"
                   ],
-                  "duration_days": 31
+                  "duration_days": 49.33346613545817
                 },
                 "F3": {
                   "start_doy": 274,
@@ -85,307 +192,25 @@
                   "months": [
                     "octubre"
                   ],
-                  "duration_days": 46
+                  "duration_days": 31.40239043824701
                 }
               },
-              "matchPct": 41.7,
-              "coveragePct": 5.5
-            },
-            "30_20": {
-              "latMin": 20,
-              "latMax": 30,
-              "latBand": "30°N–20°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 1,
-                  "end_doy": 59,
-                  "crosses_year": false,
-                  "months": [
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 59
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 90,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo"
-                  ],
-                  "duration_days": 31
-                }
-              },
-              "matchPct": 30.8,
-              "coveragePct": 11.9
-            },
-            "20_10": {
-              "latMin": 10,
-              "latMax": 20,
-              "latBand": "20°N–10°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 121,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 74.9
-                },
-                "F3": {
-                  "start_doy": 274,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 93.7
-                }
-              },
-              "matchPct": 15.9,
-              "coveragePct": 20.1
+              "matchPct": 22.4,
+              "coveragePct": 11.5
             },
             "10_0": {
-              "latMin": 0,
-              "latMax": 10,
-              "latBand": "10°N–0°",
+              "latMin": 0.25,
+              "latMax": 9.75,
+              "latBand": "10_0",
               "phases": {
                 "F1": {
-                  "start_doy": 32,
+                  "start_doy": 91,
                   "end_doy": 120,
                   "crosses_year": false,
                   "months": [
-                    "febrero",
-                    "marzo",
                     "abril"
                   ],
-                  "duration_days": 59
-                },
-                "F2": {
-                  "start_doy": 121,
-                  "end_doy": 212,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio",
-                    "julio"
-                  ],
-                  "duration_days": 107
-                },
-                "F3": {
-                  "start_doy": 213,
-                  "end_doy": 243,
-                  "crosses_year": false,
-                  "months": [
-                    "agosto"
-                  ],
-                  "duration_days": 31
-                }
-              },
-              "matchPct": 9.8,
-              "coveragePct": 23.3
-            },
-            "0_-10": {
-              "latMin": -10,
-              "latMax": 0,
-              "latBand": "0°–10°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 274,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 92
-                },
-                "F2": {
-                  "start_doy": 1,
-                  "end_doy": 59,
-                  "crosses_year": false,
-                  "months": [
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 59
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 46
-                }
-              },
-              "matchPct": 16,
-              "coveragePct": 11.4
-            },
-            "-10_-20": {
-              "latMin": -20,
-              "latMax": -10,
-              "latBand": "10°S–20°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 60.8
-                },
-                "F2": {
-                  "start_doy": 1,
-                  "end_doy": 59,
-                  "crosses_year": false,
-                  "months": [
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 64.5
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 46.9
-                }
-              },
-              "matchPct": 40.5,
-              "coveragePct": 19.2
-            },
-            "-20_-30": {
-              "latMin": -30,
-              "latMax": -20,
-              "latBand": "20°S–30°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 305,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre"
-                  ],
-                  "duration_days": 30
-                },
-                "F2": {
-                  "start_doy": 335,
-                  "end_doy": 59,
-                  "crosses_year": true,
-                  "months": [
-                    "diciembre",
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 90
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 52
-                }
-              },
-              "matchPct": 29.4,
-              "coveragePct": 7.8
-            },
-            "-30_-40": {
-              "latMin": -40,
-              "latMax": -30,
-              "latBand": "30°S–40°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 305,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre"
-                  ],
-                  "duration_days": 30
-                },
-                "F2": {
-                  "start_doy": 335,
-                  "end_doy": 59,
-                  "crosses_year": true,
-                  "months": [
-                    "diciembre",
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 90
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 46
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 0.5
-            }
-          }
-        },
-        "2": {
-          "label": "Temporada 2",
-          "bands": {
-            "30_20": {
-              "latMin": 20,
-              "latMax": 30,
-              "latBand": "30°N–20°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 61
+                  "duration_days": 33.907738095238095
                 },
                 "F2": {
                   "start_doy": 121,
@@ -394,7 +219,7 @@
                   "months": [
                     "mayo"
                   ],
-                  "duration_days": 31
+                  "duration_days": 53.294642857142854
                 },
                 "F3": {
                   "start_doy": 152,
@@ -403,1259 +228,413 @@
                   "months": [
                     "junio"
                   ],
-                  "duration_days": 30
+                  "duration_days": 33.907738095238095
                 }
               },
-              "matchPct": 66.7,
-              "coveragePct": 16.2
-            },
-            "20_10": {
-              "latMin": 10,
-              "latMax": 20,
-              "latBand": "20°N–10°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 244,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "septiembre"
-                  ],
-                  "duration_days": 33
-                },
-                "F2": {
-                  "start_doy": 274,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre"
-                  ],
-                  "duration_days": 61
-                },
-                "F3": {
-                  "start_doy": 335,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "diciembre"
-                  ],
-                  "duration_days": 28
-                }
-              },
-              "matchPct": 58.8,
-              "coveragePct": 23
-            },
-            "10_0": {
-              "latMin": 0,
-              "latMax": 10,
-              "latBand": "10°N–0°",
-              "phases": {
-                "F1": {
-                  "start_doy": 213,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 274,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre"
-                  ],
-                  "duration_days": 61
-                },
-                "F3": {
-                  "start_doy": 335,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "diciembre"
-                  ],
-                  "duration_days": 31
-                }
-              },
-              "matchPct": 39.3,
-              "coveragePct": 37.8
+              "matchPct": 24.8,
+              "coveragePct": 12.3
             },
             "0_-10": {
-              "latMin": -10,
-              "latMax": 0,
-              "latBand": "0°–10°S",
+              "latMin": -9.75,
+              "latMax": -0.25,
+              "latBand": "0_-10",
               "phases": {
                 "F1": {
                   "start_doy": 244,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "septiembre"
+                  ],
+                  "duration_days": 36.083688699360344
+                },
+                "F2": {
+                  "start_doy": 274,
                   "end_doy": 304,
                   "crosses_year": false,
                   "months": [
-                    "septiembre",
                     "octubre"
                   ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 61
+                  "duration_days": 56.682302771855014
                 },
                 "F3": {
+                  "start_doy": 305,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre"
+                  ],
+                  "duration_days": 36.083688699360344
+                }
+              },
+              "matchPct": 16.4,
+              "coveragePct": 8.6
+            },
+            "-10_-20": {
+              "latMin": -19.75,
+              "latMax": -10.25,
+              "latBand": "-10_-20",
+              "phases": {
+                "F1": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 41.69961734693877
+                },
+                "F2": {
+                  "start_doy": 91,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "abril",
+                    "mayo"
+                  ],
+                  "duration_days": 65.42219387755102
+                },
+                "F3": {
+                  "start_doy": 152,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "junio"
+                  ],
+                  "duration_days": 41.69961734693877
+                }
+              },
+              "matchPct": 38.5,
+              "coveragePct": 7.2
+            },
+            "-20_-30": {
+              "latMin": -29.75,
+              "latMax": -20.25,
+              "latBand": "-20_-30",
+              "phases": {
+                "F1": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 44.382521489971346
+                },
+                "F2": {
+                  "start_doy": 91,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "abril",
+                    "mayo"
+                  ],
+                  "duration_days": 69.6676217765043
+                },
+                "F3": {
+                  "start_doy": 152,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "junio"
+                  ],
+                  "duration_days": 44.382521489971346
+                }
+              },
+              "matchPct": 14.6,
+              "coveragePct": 6.4
+            },
+            "-30_-40": {
+              "latMin": -38.75,
+              "latMax": -30.25,
+              "latBand": "-30_-40",
+              "phases": {
+                "F1": {
                   "start_doy": 1,
                   "end_doy": 31,
                   "crosses_year": false,
                   "months": [
                     "enero"
                   ],
-                  "duration_days": 31
+                  "duration_days": 38.47511312217195
+                },
+                "F2": {
+                  "start_doy": 32,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero"
+                  ],
+                  "duration_days": 60.4683257918552
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 38.47511312217195
                 }
               },
-              "matchPct": 47.1,
-              "coveragePct": 23
+              "matchPct": 31.2,
+              "coveragePct": 2
+            },
+            "-40_-50": {
+              "latMin": -40.25,
+              "latMax": -40.25,
+              "latBand": "-40_-50",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre"
+                  ],
+                  "duration_days": 37
+                },
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 31,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero"
+                  ],
+                  "duration_days": 58
+                },
+                "F3": {
+                  "start_doy": 32,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero"
+                  ],
+                  "duration_days": 37
+                }
+              },
+              "matchPct": 100,
+              "coveragePct": 0
             }
           }
         }
       }
     },
     "rice": {
-      "label": "Rice",
+      "label": "Arroz",
       "seasons": {
-        "1": {
-          "label": "Temporada 1",
+        "rice_1": {
+          "label": "Rice 1",
           "bands": {
             "50_40": {
-              "latMin": 40,
-              "latMax": 50,
-              "latBand": "50°N–40°N",
+              "latMin": 40.25,
+              "latMax": 48.75,
+              "latBand": "50_40",
               "phases": {
                 "F1": {
+                  "start_doy": 91,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "abril"
+                  ],
+                  "duration_days": 24.933333333333334
+                },
+                "F2": {
                   "start_doy": 121,
-                  "end_doy": 181,
+                  "end_doy": 212,
                   "crosses_year": false,
                   "months": [
                     "mayo",
-                    "junio"
+                    "junio",
+                    "julio"
                   ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 243,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto"
-                  ],
-                  "duration_days": 62
+                  "duration_days": 78.075
                 },
                 "F3": {
-                  "start_doy": 244,
+                  "start_doy": 213,
                   "end_doy": 273,
                   "crosses_year": false,
                   "months": [
-                    "septiembre"
-                  ],
-                  "duration_days": 30
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 0.8
-            },
-            "40_30": {
-              "latMin": 30,
-              "latMax": 40,
-              "latBand": "40°N–30°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 152,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "junio"
-                  ],
-                  "duration_days": 45
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
                     "agosto",
                     "septiembre"
                   ],
-                  "duration_days": 62
-                },
-                "F3": {
-                  "start_doy": 274,
-                  "end_doy": 304,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre"
-                  ],
-                  "duration_days": 46
+                  "duration_days": 44.141666666666666
                 }
               },
               "matchPct": 33.3,
-              "coveragePct": 11.7
+              "coveragePct": 3.8
             },
-            "30_20": {
-              "latMin": 20,
-              "latMax": 30,
-              "latBand": "30°N–20°N",
+            "40_30": {
+              "latMin": 30.25,
+              "latMax": 39.75,
+              "latBand": "40_30",
               "phases": {
                 "F1": {
                   "start_doy": 152,
-                  "end_doy": 212,
+                  "end_doy": 181,
                   "crosses_year": false,
                   "months": [
-                    "junio",
-                    "julio"
+                    "junio"
                   ],
-                  "duration_days": 61
+                  "duration_days": 23.888544891640866
                 },
                 "F2": {
-                  "start_doy": 213,
-                  "end_doy": 304,
-                  "crosses_year": false,
-                  "months": [
-                    "agosto",
-                    "septiembre",
-                    "octubre"
-                  ],
-                  "duration_days": 92
-                },
-                "F3": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 38.9,
-              "coveragePct": 14.1
-            },
-            "20_10": {
-              "latMin": 10,
-              "latMax": 20,
-              "latBand": "20°N–10°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 46
-                },
-                "F2": {
-                  "start_doy": 121,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo"
-                  ],
-                  "duration_days": 46
-                },
-                "F3": {
-                  "start_doy": 152,
+                  "start_doy": 182,
                   "end_doy": 273,
                   "crosses_year": false,
                   "months": [
-                    "junio",
                     "julio",
                     "agosto",
                     "septiembre"
                   ],
-                  "duration_days": 122
+                  "duration_days": 74.45820433436532
+                },
+                "F3": {
+                  "start_doy": 274,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre"
+                  ],
+                  "duration_days": 42.30030959752322
                 }
               },
-              "matchPct": 11.4,
-              "coveragePct": 27.3
+              "matchPct": 28.2,
+              "coveragePct": 10.1
             },
-            "10_0": {
-              "latMin": 0,
-              "latMax": 10,
-              "latBand": "10°N–0°",
+            "30_20": {
+              "latMin": 20.25,
+              "latMax": 29.75,
+              "latBand": "30_20",
               "phases": {
                 "F1": {
-                  "start_doy": 32,
+                  "start_doy": 60,
                   "end_doy": 90,
                   "crosses_year": false,
                   "months": [
-                    "febrero",
                     "marzo"
                   ],
-                  "duration_days": 59
+                  "duration_days": 22.799126637554586
                 },
                 "F2": {
                   "start_doy": 91,
-                  "end_doy": 212,
+                  "end_doy": 151,
                   "crosses_year": false,
                   "months": [
                     "abril",
-                    "mayo",
-                    "junio",
-                    "julio"
+                    "mayo"
                   ],
-                  "duration_days": 122
+                  "duration_days": 70.89847161572052
                 },
                 "F3": {
-                  "start_doy": 213,
-                  "end_doy": 243,
+                  "start_doy": 152,
+                  "end_doy": 181,
                   "crosses_year": false,
                   "months": [
-                    "agosto"
+                    "junio"
                   ],
-                  "duration_days": 31
+                  "duration_days": 40.13864628820961
+                }
+              },
+              "matchPct": 16.6,
+              "coveragePct": 28.8
+            },
+            "20_10": {
+              "latMin": 10.25,
+              "latMax": 19.75,
+              "latBand": "20_10",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "junio"
+                  ],
+                  "duration_days": 25.36675235646958
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "julio",
+                    "agosto",
+                    "septiembre"
+                  ],
+                  "duration_days": 79.18680377035133
+                },
+                "F3": {
+                  "start_doy": 274,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre",
+                    "noviembre"
+                  ],
+                  "duration_days": 44.7120822622108
+                }
+              },
+              "matchPct": 15.8,
+              "coveragePct": 36.6
+            },
+            "10_0": {
+              "latMin": 0.25,
+              "latMax": 9.75,
+              "latBand": "10_0",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "junio"
+                  ],
+                  "duration_days": 23.110367892976587
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "julio",
+                    "agosto",
+                    "septiembre"
+                  ],
+                  "duration_days": 71.9247491638796
+                },
+                "F3": {
+                  "start_doy": 274,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre"
+                  ],
+                  "duration_days": 40.71070234113712
                 }
               },
               "matchPct": 15.6,
-              "coveragePct": 25
-            },
-            "0_-10": {
-              "latMin": -10,
-              "latMax": 0,
-              "latBand": "0°–10°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 274,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 92
-                },
-                "F2": {
-                  "start_doy": 1,
-                  "end_doy": 90,
-                  "crosses_year": false,
-                  "months": [
-                    "enero",
-                    "febrero",
-                    "marzo"
-                  ],
-                  "duration_days": 90
-                },
-                "F3": {
-                  "start_doy": 91,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 27.8,
-              "coveragePct": 14.1
-            },
-            "-10_-20": {
-              "latMin": -20,
-              "latMax": -10,
-              "latBand": "10°S–20°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 1,
-                  "end_doy": 59,
-                  "crosses_year": false,
-                  "months": [
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 59
-                },
-                "F2": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 61
-                },
-                "F3": {
-                  "start_doy": 121,
-                  "end_doy": 212,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio",
-                    "julio"
-                  ],
-                  "duration_days": 92
-                }
-              },
-              "matchPct": 28.6,
-              "coveragePct": 5.5
-            },
-            "-20_-30": {
-              "latMin": -30,
-              "latMax": -20,
-              "latBand": "20°S–30°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 1,
-                  "end_doy": 90,
-                  "crosses_year": false,
-                  "months": [
-                    "enero",
-                    "febrero",
-                    "marzo"
-                  ],
-                  "duration_days": 90
-                },
-                "F3": {
-                  "start_doy": 91,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 0.8
-            },
-            "-30_-40": {
-              "latMin": -40,
-              "latMax": -30,
-              "latBand": "30°S–40°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 274,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre"
-                  ],
-                  "duration_days": 76
-                },
-                "F2": {
-                  "start_doy": 335,
-                  "end_doy": 59,
-                  "crosses_year": true,
-                  "months": [
-                    "diciembre",
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 75
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 90,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo"
-                  ],
-                  "duration_days": 31
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 0.8
-            }
-          }
-        },
-        "2": {
-          "label": "Temporada 2",
-          "bands": {
-            "40_30": {
-              "latMin": 30,
-              "latMax": 40,
-              "latBand": "40°N–30°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 182,
-                  "end_doy": 243,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto"
-                  ],
-                  "duration_days": 62
-                },
-                "F2": {
-                  "start_doy": 244,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "septiembre",
-                    "octubre",
-                    "noviembre"
-                  ],
-                  "duration_days": 91
-                },
-                "F3": {
-                  "start_doy": 335,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "diciembre"
-                  ],
-                  "duration_days": 31
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 1.6
-            },
-            "30_20": {
-              "latMin": 20,
-              "latMax": 30,
-              "latBand": "30°N–20°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 121,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio",
-                    "julio",
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 138
-                },
-                "F2": {
-                  "start_doy": 274,
-                  "end_doy": 304,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre"
-                  ],
-                  "duration_days": 31
-                },
-                "F3": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 34.8,
-              "coveragePct": 37.7
-            },
-            "20_10": {
-              "latMin": 10,
-              "latMax": 20,
-              "latBand": "20°N–10°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 274,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 335,
-                  "end_doy": 59,
-                  "crosses_year": true,
-                  "months": [
-                    "diciembre",
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 77
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 90,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo"
-                  ],
-                  "duration_days": 44
-                }
-              },
-              "matchPct": 18.2,
-              "coveragePct": 36.1
-            },
-            "10_0": {
-              "latMin": 0,
-              "latMax": 10,
-              "latBand": "10°N–0°",
-              "phases": {
-                "F1": {
-                  "start_doy": 60,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril",
-                    "mayo"
-                  ],
-                  "duration_days": 92
-                },
-                "F2": {
-                  "start_doy": 152,
-                  "end_doy": 212,
-                  "crosses_year": false,
-                  "months": [
-                    "junio",
-                    "julio"
-                  ],
-                  "duration_days": 61
-                },
-                "F3": {
-                  "start_doy": 213,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 37.5,
-              "coveragePct": 13.1
-            },
-            "0_-10": {
-              "latMin": -10,
-              "latMax": 0,
-              "latBand": "0°–10°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 91,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 91
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 92
-                },
-                "F3": {
-                  "start_doy": 274,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 71.4,
-              "coveragePct": 11.5
-            }
-          }
-        },
-        "3": {
-          "label": "Temporada 3",
-          "bands": {
-            "30_20": {
-              "latMin": 20,
-              "latMax": 30,
-              "latBand": "30°N–20°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 60,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 121,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 46
-                },
-                "F3": {
-                  "start_doy": 182,
-                  "end_doy": 212,
-                  "crosses_year": false,
-                  "months": [
-                    "julio"
-                  ],
-                  "duration_days": 31
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 100
-            }
-          }
-        }
-      }
-    },
-    "wheat": {
-      "label": "Wheat",
-      "seasons": {
-        "spring": {
-          "label": "Temporada spring",
-          "bands": {
-            "60_50": {
-              "latMin": 50,
-              "latMax": 60,
-              "latBand": "60°N–50°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 121,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo"
-                  ],
-                  "duration_days": 31
-                },
-                "F2": {
-                  "start_doy": 152,
-                  "end_doy": 212,
-                  "crosses_year": false,
-                  "months": [
-                    "junio",
-                    "julio"
-                  ],
-                  "duration_days": 61
-                },
-                "F3": {
-                  "start_doy": 213,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 3.8
-            },
-            "50_40": {
-              "latMin": 40,
-              "latMax": 50,
-              "latBand": "50°N–40°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 91,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 152,
-                  "end_doy": 243,
-                  "crosses_year": false,
-                  "months": [
-                    "junio",
-                    "julio",
-                    "agosto"
-                  ],
-                  "duration_days": 92
-                },
-                "F3": {
-                  "start_doy": 244,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "septiembre"
-                  ],
-                  "duration_days": 21.4
-                }
-              },
-              "matchPct": 70,
-              "coveragePct": 38.5
-            },
-            "40_30": {
-              "latMin": 30,
-              "latMax": 40,
-              "latBand": "40°N–30°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 32,
-                  "end_doy": 120,
-                  "crosses_year": false,
-                  "months": [
-                    "febrero",
-                    "marzo",
-                    "abril"
-                  ],
-                  "duration_days": 74
-                },
-                "F2": {
-                  "start_doy": 121,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 76
-                },
-                "F3": {
-                  "start_doy": 182,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 77
-                }
-              },
-              "matchPct": 72.7,
-              "coveragePct": 42.3
-            },
-            "20_10": {
-              "latMin": 10,
-              "latMax": 20,
-              "latBand": "20°N–10°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 152,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "junio"
-                  ],
-                  "duration_days": 30
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 243,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto"
-                  ],
-                  "duration_days": 62
-                },
-                "F3": {
-                  "start_doy": 244,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "septiembre"
-                  ],
-                  "duration_days": 15
-                }
-              },
-              "matchPct": 100,
-              "coveragePct": 15.4
-            }
-          }
-        },
-        "winter": {
-          "label": "Temporada winter",
-          "bands": {
-            "40_30": {
-              "latMin": 30,
-              "latMax": 40,
-              "latBand": "40°N–30°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 274,
-                  "end_doy": 334,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre"
-                  ],
-                  "duration_days": 76
-                },
-                "F2": {
-                  "start_doy": 335,
-                  "end_doy": 90,
-                  "crosses_year": true,
-                  "months": [
-                    "diciembre",
-                    "enero",
-                    "febrero",
-                    "marzo"
-                  ],
-                  "duration_days": 106
-                },
-                "F3": {
-                  "start_doy": 91,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 26.7,
-              "coveragePct": 29.7
-            },
-            "30_20": {
-              "latMin": 20,
-              "latMax": 30,
-              "latBand": "30°N–20°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 60
-                },
-                "F2": {
-                  "start_doy": 1,
-                  "end_doy": 59,
-                  "crosses_year": false,
-                  "months": [
-                    "enero",
-                    "febrero"
-                  ],
-                  "duration_days": 60
-                },
-                "F3": {
-                  "start_doy": 60,
-                  "end_doy": 90,
-                  "crosses_year": false,
-                  "months": [
-                    "marzo"
-                  ],
-                  "duration_days": 16
-                }
-              },
-              "matchPct": 42.1,
               "coveragePct": 18.8
             },
-            "20_10": {
-              "latMin": 10,
-              "latMax": 20,
-              "latBand": "20°N–10°N",
-              "phases": {
-                "F1": {
-                  "start_doy": 182,
-                  "end_doy": 212,
-                  "crosses_year": false,
-                  "months": [
-                    "julio"
-                  ],
-                  "duration_days": 31
-                },
-                "F2": {
-                  "start_doy": 213,
-                  "end_doy": 304,
-                  "crosses_year": false,
-                  "months": [
-                    "agosto",
-                    "septiembre",
-                    "octubre"
-                  ],
-                  "duration_days": 92
-                },
-                "F3": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 50,
-              "coveragePct": 11.9
-            },
-            "10_0": {
-              "latMin": 0,
-              "latMax": 10,
-              "latBand": "10°N–0°",
-              "phases": {
-                "F1": {
-                  "start_doy": 121,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 304,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto",
-                    "septiembre",
-                    "octubre"
-                  ],
-                  "duration_days": 123
-                },
-                "F3": {
-                  "start_doy": 305,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 61
-                }
-              },
-              "matchPct": 83.3,
-              "coveragePct": 5.9
-            },
             "0_-10": {
-              "latMin": -10,
-              "latMax": 0,
-              "latBand": "0°–10°S",
+              "latMin": -9.75,
+              "latMax": -0.75,
+              "latBand": "0_-10",
               "phases": {
                 "F1": {
-                  "start_doy": 32,
-                  "end_doy": 90,
-                  "crosses_year": false,
-                  "months": [
-                    "febrero",
-                    "marzo"
-                  ],
-                  "duration_days": 44
-                },
-                "F2": {
-                  "start_doy": 91,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 91
-                },
-                "F3": {
-                  "start_doy": 182,
-                  "end_doy": 212,
-                  "crosses_year": false,
-                  "months": [
-                    "julio"
-                  ],
-                  "duration_days": 31
-                }
-              },
-              "matchPct": 40,
-              "coveragePct": 5
-            },
-            "-10_-20": {
-              "latMin": -20,
-              "latMax": -10,
-              "latBand": "10°S–20°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 91,
-                  "end_doy": 151,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo"
-                  ],
-                  "duration_days": 61
-                },
-                "F2": {
-                  "start_doy": 152,
-                  "end_doy": 243,
-                  "crosses_year": false,
-                  "months": [
-                    "junio",
-                    "julio",
-                    "agosto"
-                  ],
-                  "duration_days": 92
-                },
-                "F3": {
-                  "start_doy": 244,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "septiembre"
-                  ],
-                  "duration_days": 30
-                }
-              },
-              "matchPct": 35.7,
-              "coveragePct": 13.9
-            },
-            "-20_-30": {
-              "latMin": -30,
-              "latMax": -20,
-              "latBand": "20°S–30°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 91,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 76
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 92
-                },
-                "F3": {
-                  "start_doy": 274,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 76
-                }
-              },
-              "matchPct": 63.6,
-              "coveragePct": 10.9
-            },
-            "-30_-40": {
-              "latMin": -40,
-              "latMax": -30,
-              "latBand": "30°S–40°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 91,
-                  "end_doy": 181,
-                  "crosses_year": false,
-                  "months": [
-                    "abril",
-                    "mayo",
-                    "junio"
-                  ],
-                  "duration_days": 76
-                },
-                "F2": {
-                  "start_doy": 182,
-                  "end_doy": 273,
-                  "crosses_year": false,
-                  "months": [
-                    "julio",
-                    "agosto",
-                    "septiembre"
-                  ],
-                  "duration_days": 92
-                },
-                "F3": {
-                  "start_doy": 274,
-                  "end_doy": 365,
-                  "crosses_year": false,
-                  "months": [
-                    "octubre",
-                    "noviembre",
-                    "diciembre"
-                  ],
-                  "duration_days": 76
-                }
-              },
-              "matchPct": 66.7,
-              "coveragePct": 3
-            },
-            "-40_-50": {
-              "latMin": -50,
-              "latMax": -40,
-              "latBand": "40°S–50°S",
-              "phases": {
-                "F1": {
-                  "start_doy": 121,
-                  "end_doy": 243,
-                  "crosses_year": false,
-                  "months": [
-                    "mayo",
-                    "junio",
-                    "julio",
-                    "agosto"
-                  ],
-                  "duration_days": 123
-                },
-                "F2": {
-                  "start_doy": 244,
+                  "start_doy": 305,
                   "end_doy": 334,
                   "crosses_year": false,
                   "months": [
-                    "septiembre",
-                    "octubre",
                     "noviembre"
                   ],
-                  "duration_days": 91
+                  "duration_days": 19.8
                 },
-                "F3": {
+                "F2": {
                   "start_doy": 335,
                   "end_doy": 31,
                   "crosses_year": true,
@@ -1663,19 +642,1671 @@
                     "diciembre",
                     "enero"
                   ],
-                  "duration_days": 62
+                  "duration_days": 61.31428571428572
+                },
+                "F3": {
+                  "start_doy": 32,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero"
+                  ],
+                  "duration_days": 34.42857142857143
+                }
+              },
+              "matchPct": 34.3,
+              "coveragePct": 1.1
+            },
+            "-10_-20": {
+              "latMin": -19.75,
+              "latMax": -11.25,
+              "latBand": "-10_-20",
+              "phases": {
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 59,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 68
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 39
                 }
               },
               "matchPct": 100,
-              "coveragePct": 1
+              "coveragePct": 0.3
+            },
+            "-20_-30": {
+              "latMin": -29.75,
+              "latMax": -20.25,
+              "latBand": "-20_-30",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre"
+                  ],
+                  "duration_days": 24.76923076923077
+                },
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 59,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 77
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 43.84615384615385
+                }
+              },
+              "matchPct": 69.2,
+              "coveragePct": 0.4
+            },
+            "-30_-40": {
+              "latMin": -31.75,
+              "latMax": -30.25,
+              "latBand": "-30_-40",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre"
+                  ],
+                  "duration_days": 26
+                },
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 59,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 81
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 46
+                }
+              },
+              "matchPct": 100,
+              "coveragePct": 0.1
+            }
+          }
+        },
+        "rice_2": {
+          "label": "Rice 2",
+          "bands": {
+            "50_40": {
+              "latMin": 40.25,
+              "latMax": 48.75,
+              "latBand": "50_40",
+              "phases": {
+                "F1": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 28.170212765957448
+                },
+                "F2": {
+                  "start_doy": 91,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "abril",
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 88.30851063829788
+                },
+                "F3": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 49.9468085106383
+                }
+              },
+              "matchPct": 79.8,
+              "coveragePct": 3.3
+            },
+            "40_30": {
+              "latMin": 30.25,
+              "latMax": 39.75,
+              "latBand": "40_30",
+              "phases": {
+                "F1": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 23.51829268292683
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 73.84146341463415
+                },
+                "F3": {
+                  "start_doy": 244,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "septiembre"
+                  ],
+                  "duration_days": 41.640243902439025
+                }
+              },
+              "matchPct": 34.1,
+              "coveragePct": 5.7
+            },
+            "30_20": {
+              "latMin": 20.25,
+              "latMax": 29.75,
+              "latBand": "30_20",
+              "phases": {
+                "F1": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 21.649164677804297
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto",
+                    "septiembre"
+                  ],
+                  "duration_days": 67.87112171837708
+                },
+                "F3": {
+                  "start_doy": 274,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre"
+                  ],
+                  "duration_days": 38.463007159904535
+                }
+              },
+              "matchPct": 18,
+              "coveragePct": 29.1
+            },
+            "20_10": {
+              "latMin": 10.25,
+              "latMax": 19.75,
+              "latBand": "20_10",
+              "phases": {
+                "F1": {
+                  "start_doy": 32,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero"
+                  ],
+                  "duration_days": 22.90745501285347
+                },
+                "F2": {
+                  "start_doy": 60,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo",
+                    "abril"
+                  ],
+                  "duration_days": 70.8808911739503
+                },
+                "F3": {
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 40.07369323050557
+                }
+              },
+              "matchPct": 11.8,
+              "coveragePct": 40.5
+            },
+            "10_0": {
+              "latMin": 0.25,
+              "latMax": 9.75,
+              "latBand": "10_0",
+              "phases": {
+                "F1": {
+                  "start_doy": 32,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero"
+                  ],
+                  "duration_days": 21.257602862254025
+                },
+                "F2": {
+                  "start_doy": 60,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo",
+                    "abril"
+                  ],
+                  "duration_days": 66
+                },
+                "F3": {
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 37.20751341681574
+                }
+              },
+              "matchPct": 16.8,
+              "coveragePct": 19.4
+            },
+            "0_-10": {
+              "latMin": -9.75,
+              "latMax": -0.75,
+              "latBand": "0_-10",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 20.485714285714284
+                },
+                "F2": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 63.42857142857143
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 35.857142857142854
+                }
+              },
+              "matchPct": 62.9,
+              "coveragePct": 1.2
+            },
+            "-10_-20": {
+              "latMin": -19.75,
+              "latMax": -11.25,
+              "latBand": "-10_-20",
+              "phases": {
+                "F1": {
+                  "start_doy": 1,
+                  "end_doy": 31,
+                  "crosses_year": false,
+                  "months": [
+                    "enero"
+                  ],
+                  "duration_days": 21
+                },
+                "F2": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 64
+                },
+                "F3": {
+                  "start_doy": 91,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "abril"
+                  ],
+                  "duration_days": 36
+                }
+              },
+              "matchPct": 100,
+              "coveragePct": 0.4
+            },
+            "-20_-30": {
+              "latMin": -29.75,
+              "latMax": -20.25,
+              "latBand": "-20_-30",
+              "phases": {
+                "F1": {
+                  "start_doy": 1,
+                  "end_doy": 31,
+                  "crosses_year": false,
+                  "months": [
+                    "enero"
+                  ],
+                  "duration_days": 21
+                },
+                "F2": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 64
+                },
+                "F3": {
+                  "start_doy": 91,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "abril"
+                  ],
+                  "duration_days": 36
+                }
+              },
+              "matchPct": 100,
+              "coveragePct": 0.5
+            },
+            "-30_-40": {
+              "latMin": -31.75,
+              "latMax": -30.25,
+              "latBand": "-30_-40",
+              "phases": {
+                "F1": {
+                  "start_doy": 1,
+                  "end_doy": 31,
+                  "crosses_year": false,
+                  "months": [
+                    "enero"
+                  ],
+                  "duration_days": 21
+                },
+                "F2": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 64
+                },
+                "F3": {
+                  "start_doy": 91,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "abril"
+                  ],
+                  "duration_days": 36
+                }
+              },
+              "matchPct": 100,
+              "coveragePct": 0.1
             }
           }
         }
       }
     },
     "soybean": {
-      "label": "Soybean",
-      "seasons": {}
+      "label": "Soya",
+      "seasons": {
+        "soybean": {
+          "label": "Soybean",
+          "bands": {
+            "60_50": {
+              "latMin": 50.25,
+              "latMax": 53.25,
+              "latBand": "60_50",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 50
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 52
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 29
+                }
+              },
+              "matchPct": 100,
+              "coveragePct": 1
+            },
+            "50_40": {
+              "latMin": 40.25,
+              "latMax": 49.75,
+              "latBand": "50_40",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 48.11106523534269
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 50.29851362510322
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 27.922378199834846
+                }
+              },
+              "matchPct": 49.1,
+              "coveragePct": 24.4
+            },
+            "40_30": {
+              "latMin": 30.25,
+              "latMax": 39.75,
+              "latBand": "40_30",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 52.58239549839228
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 55.26567524115756
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 30.479903536977492
+                }
+              },
+              "matchPct": 28.9,
+              "coveragePct": 25.1
+            },
+            "30_20": {
+              "latMin": 20.25,
+              "latMax": 29.75,
+              "latBand": "30_20",
+              "phases": {
+                "F1": {
+                  "start_doy": 91,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "abril",
+                    "mayo"
+                  ],
+                  "duration_days": 48.10260115606936
+                },
+                "F2": {
+                  "start_doy": 152,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "junio"
+                  ],
+                  "duration_days": 50.768304431599226
+                },
+                "F3": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 27.94508670520231
+                }
+              },
+              "matchPct": 46.6,
+              "coveragePct": 20.9
+            },
+            "20_10": {
+              "latMin": 10.25,
+              "latMax": 19.75,
+              "latBand": "20_10",
+              "phases": {
+                "F1": {
+                  "start_doy": 182,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "julio"
+                  ],
+                  "duration_days": 43.54733727810651
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto",
+                    "septiembre"
+                  ],
+                  "duration_days": 45.887573964497044
+                }
+              },
+              "matchPct": 63.3,
+              "coveragePct": 3.4
+            },
+            "10_0": {
+              "latMin": 1.25,
+              "latMax": 9.75,
+              "latBand": "10_0",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 47.454787234042556
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 50.034574468085104
+                },
+                "F3": {
+                  "start_doy": 244,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "septiembre"
+                  ],
+                  "duration_days": 27.329787234042552
+                }
+              },
+              "matchPct": 25.5,
+              "coveragePct": 3.8
+            },
+            "0_-10": {
+              "latMin": -9.75,
+              "latMax": -9.75,
+              "latBand": "0_-10",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre"
+                  ],
+                  "duration_days": 38
+                },
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 31,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero"
+                  ],
+                  "duration_days": 40
+                }
+              },
+              "matchPct": 100,
+              "coveragePct": 0
+            },
+            "-10_-20": {
+              "latMin": -19.75,
+              "latMax": -10.25,
+              "latBand": "-10_-20",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre"
+                  ],
+                  "duration_days": 36.833898305084745
+                },
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 31,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero"
+                  ],
+                  "duration_days": 38.54237288135593
+                }
+              },
+              "matchPct": 50.5,
+              "coveragePct": 6
+            },
+            "-20_-30": {
+              "latMin": -29.75,
+              "latMax": -20.25,
+              "latBand": "-20_-30",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre"
+                  ],
+                  "duration_days": 48.48012552301255
+                },
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 31,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero"
+                  ],
+                  "duration_days": 51.08577405857741
+                }
+              },
+              "matchPct": 22,
+              "coveragePct": 9.6
+            },
+            "-30_-40": {
+              "latMin": -38.75,
+              "latMax": -30.25,
+              "latBand": "-30_-40",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 53.39247311827957
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 56.21146953405018
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 30.980286738351253
+                }
+              },
+              "matchPct": 43,
+              "coveragePct": 5.6
+            }
+          }
+        }
+      }
+    },
+    "wheat": {
+      "label": "Trigo",
+      "seasons": {
+        "spring_wheat": {
+          "label": "Spring Wheat",
+          "bands": {
+            "60_50": {
+              "latMin": 50.25,
+              "latMax": 59.25,
+              "latBand": "60_50",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 48.82379862700229
+                },
+                "F2": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 54.59610983981693
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 36.29595728451564
+                }
+              },
+              "matchPct": 29.7,
+              "coveragePct": 12.5
+            },
+            "50_40": {
+              "latMin": 40.25,
+              "latMax": 49.75,
+              "latBand": "50_40",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 44.61545832002555
+                },
+                "F2": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 49.75151708719259
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 33.10124560843181
+                }
+              },
+              "matchPct": 38.1,
+              "coveragePct": 29.8
+            },
+            "40_30": {
+              "latMin": 30.25,
+              "latMax": 39.75,
+              "latBand": "40_30",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo"
+                  ],
+                  "duration_days": 44.31400310318076
+                },
+                "F2": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 49.46955003878976
+                },
+                "F3": {
+                  "start_doy": 213,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto"
+                  ],
+                  "duration_days": 32.89391000775795
+                }
+              },
+              "matchPct": 16,
+              "coveragePct": 24.5
+            },
+            "30_20": {
+              "latMin": 20.25,
+              "latMax": 29.75,
+              "latBand": "30_20",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 43.221614227086185
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "julio",
+                    "agosto"
+                  ],
+                  "duration_days": 48.341313269493845
+                },
+                "F3": {
+                  "start_doy": 244,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "septiembre"
+                  ],
+                  "duration_days": 32.07729138166895
+                }
+              },
+              "matchPct": 19.9,
+              "coveragePct": 7
+            },
+            "20_10": {
+              "latMin": 10.25,
+              "latMax": 19.75,
+              "latBand": "20_10",
+              "phases": {
+                "F1": {
+                  "start_doy": 335,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "diciembre"
+                  ],
+                  "duration_days": 46.267790262172284
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 31,
+                  "crosses_year": false,
+                  "months": [
+                    "enero"
+                  ],
+                  "duration_days": 51.447565543071164
+                }
+              },
+              "matchPct": 15,
+              "coveragePct": 2.5
+            },
+            "10_0": {
+              "latMin": 0.25,
+              "latMax": 9.75,
+              "latBand": "10_0",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 52.43518518518518
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto",
+                    "septiembre"
+                  ],
+                  "duration_days": 58.446296296296296
+                },
+                "F3": {
+                  "start_doy": 274,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre"
+                  ],
+                  "duration_days": 39.13148148148148
+                }
+              },
+              "matchPct": 34.1,
+              "coveragePct": 2.6
+            },
+            "0_-10": {
+              "latMin": -9.75,
+              "latMax": -0.25,
+              "latBand": "0_-10",
+              "phases": {
+                "F1": {
+                  "start_doy": 1,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 59.12450592885376
+                },
+                "F2": {
+                  "start_doy": 60,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo",
+                    "abril",
+                    "mayo"
+                  ],
+                  "duration_days": 65.83201581027669
+                },
+                "F3": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 43.887351778656125
+                }
+              },
+              "matchPct": 12.3,
+              "coveragePct": 2.4
+            },
+            "-10_-20": {
+              "latMin": -19.75,
+              "latMax": -10.25,
+              "latBand": "-10_-20",
+              "phases": {
+                "F1": {
+                  "start_doy": 335,
+                  "end_doy": 31,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero"
+                  ],
+                  "duration_days": 51.609699769053115
+                },
+                "F2": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 57.508083140877595
+                },
+                "F3": {
+                  "start_doy": 91,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "abril"
+                  ],
+                  "duration_days": 38.04849884526559
+                }
+              },
+              "matchPct": 42.8,
+              "coveragePct": 4.1
+            },
+            "-20_-30": {
+              "latMin": -29.75,
+              "latMax": -20.25,
+              "latBand": "-20_-30",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 53.934437086092714
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "julio",
+                    "agosto"
+                  ],
+                  "duration_days": 60.02980132450331
+                },
+                "F3": {
+                  "start_doy": 244,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "septiembre",
+                    "octubre"
+                  ],
+                  "duration_days": 39.80066225165563
+                }
+              },
+              "matchPct": 18.1,
+              "coveragePct": 7.2
+            },
+            "-30_-40": {
+              "latMin": -39.75,
+              "latMax": -30.25,
+              "latBand": "-30_-40",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 62.697385620915036
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 69.78104575163398
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo",
+                    "abril"
+                  ],
+                  "duration_days": 46.38627450980392
+                }
+              },
+              "matchPct": 27.7,
+              "coveragePct": 7.3
+            },
+            "-40_-50": {
+              "latMin": -42.75,
+              "latMax": -40.25,
+              "latBand": "-40_-50",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 51.45454545454545
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 57.5
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 38.13636363636363
+                }
+              },
+              "matchPct": 59.1,
+              "coveragePct": 0.1
+            }
+          }
+        },
+        "winter_wheat": {
+          "label": "Winter Wheat",
+          "bands": {
+            "60_50": {
+              "latMin": 50.25,
+              "latMax": 59.25,
+              "latBand": "60_50",
+              "phases": {
+                "F1": {
+                  "start_doy": 274,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre",
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 101.14225781845919
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero",
+                    "marzo",
+                    "abril"
+                  ],
+                  "duration_days": 112.73112128146452
+                },
+                "F3": {
+                  "start_doy": 121,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 74.96262395118231
+                }
+              },
+              "matchPct": 22.8,
+              "coveragePct": 12.5
+            },
+            "50_40": {
+              "latMin": 40.25,
+              "latMax": 49.75,
+              "latBand": "50_40",
+              "phases": {
+                "F1": {
+                  "start_doy": 274,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre",
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 95.37975087831364
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero",
+                    "marzo",
+                    "abril"
+                  ],
+                  "duration_days": 106.35100606834877
+                },
+                "F3": {
+                  "start_doy": 121,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 70.76429255828809
+                }
+              },
+              "matchPct": 21.9,
+              "coveragePct": 29.8
+            },
+            "40_30": {
+              "latMin": 30.25,
+              "latMax": 39.75,
+              "latBand": "40_30",
+              "phases": {
+                "F1": {
+                  "start_doy": 274,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre",
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 83.94879751745539
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 93.5432505818464
+                },
+                "F3": {
+                  "start_doy": 91,
+                  "end_doy": 151,
+                  "crosses_year": false,
+                  "months": [
+                    "abril",
+                    "mayo"
+                  ],
+                  "duration_days": 62.254654771140416
+                }
+              },
+              "matchPct": 15.9,
+              "coveragePct": 24.5
+            },
+            "30_20": {
+              "latMin": 20.25,
+              "latMax": 29.75,
+              "latBand": "30_20",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 63.12995896032832
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 70.34131326949384
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 46.75512995896033
+                }
+              },
+              "matchPct": 25.9,
+              "coveragePct": 7
+            },
+            "20_10": {
+              "latMin": 10.25,
+              "latMax": 19.75,
+              "latBand": "20_10",
+              "phases": {
+                "F1": {
+                  "start_doy": 305,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 56.664794007490634
+                },
+                "F2": {
+                  "start_doy": 1,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "enero",
+                    "febrero"
+                  ],
+                  "duration_days": 63.10112359550562
+                },
+                "F3": {
+                  "start_doy": 60,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "marzo"
+                  ],
+                  "duration_days": 42.08239700374532
+                }
+              },
+              "matchPct": 34.1,
+              "coveragePct": 2.5
+            },
+            "10_0": {
+              "latMin": 0.25,
+              "latMax": 9.75,
+              "latBand": "10_0",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 53.53703703703704
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 273,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto",
+                    "septiembre"
+                  ],
+                  "duration_days": 59.7
+                },
+                "F3": {
+                  "start_doy": 274,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre"
+                  ],
+                  "duration_days": 39.93703703703704
+                }
+              },
+              "matchPct": 27,
+              "coveragePct": 2.6
+            },
+            "0_-10": {
+              "latMin": -9.75,
+              "latMax": -0.25,
+              "latBand": "0_-10",
+              "phases": {
+                "F1": {
+                  "start_doy": 274,
+                  "end_doy": 334,
+                  "crosses_year": false,
+                  "months": [
+                    "octubre",
+                    "noviembre"
+                  ],
+                  "duration_days": 65.45652173913044
+                },
+                "F2": {
+                  "start_doy": 335,
+                  "end_doy": 31,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero"
+                  ],
+                  "duration_days": 72.99802371541502
+                },
+                "F3": {
+                  "start_doy": 32,
+                  "end_doy": 59,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero"
+                  ],
+                  "duration_days": 48.61857707509881
+                }
+              },
+              "matchPct": 19.2,
+              "coveragePct": 2.4
+            },
+            "-10_-20": {
+              "latMin": -19.75,
+              "latMax": -10.25,
+              "latBand": "-10_-20",
+              "phases": {
+                "F1": {
+                  "start_doy": 335,
+                  "end_doy": 31,
+                  "crosses_year": true,
+                  "months": [
+                    "diciembre",
+                    "enero"
+                  ],
+                  "duration_days": 61.224018475750576
+                },
+                "F2": {
+                  "start_doy": 32,
+                  "end_doy": 90,
+                  "crosses_year": false,
+                  "months": [
+                    "febrero",
+                    "marzo"
+                  ],
+                  "duration_days": 68.10046189376443
+                },
+                "F3": {
+                  "start_doy": 91,
+                  "end_doy": 120,
+                  "crosses_year": false,
+                  "months": [
+                    "abril"
+                  ],
+                  "duration_days": 45.263279445727484
+                }
+              },
+              "matchPct": 30,
+              "coveragePct": 4.1
+            },
+            "-20_-30": {
+              "latMin": -29.75,
+              "latMax": -20.25,
+              "latBand": "-20_-30",
+              "phases": {
+                "F1": {
+                  "start_doy": 121,
+                  "end_doy": 181,
+                  "crosses_year": false,
+                  "months": [
+                    "mayo",
+                    "junio"
+                  ],
+                  "duration_days": 61.060264900662254
+                },
+                "F2": {
+                  "start_doy": 182,
+                  "end_doy": 243,
+                  "crosses_year": false,
+                  "months": [
+                    "julio",
+                    "agosto"
+                  ],
+                  "duration_days": 68.04966887417218
+                },
+                "F3": {
+                  "start_doy": 244,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "septiembre",
+                    "octubre"
+                  ],
+                  "duration_days": 45.29006622516556
+                }
+              },
+              "matchPct": 39.9,
+              "coveragePct": 7.2
+            },
+            "-30_-40": {
+              "latMin": -39.75,
+              "latMax": -30.25,
+              "latBand": "-30_-40",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 65.31895424836601
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto",
+                    "septiembre",
+                    "octubre"
+                  ],
+                  "duration_days": 72.86143790849673
+                },
+                "F3": {
+                  "start_doy": 305,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 48.558169934640524
+                }
+              },
+              "matchPct": 33.4,
+              "coveragePct": 7.3
+            },
+            "-40_-50": {
+              "latMin": -42.75,
+              "latMax": -40.25,
+              "latBand": "-40_-50",
+              "phases": {
+                "F1": {
+                  "start_doy": 152,
+                  "end_doy": 212,
+                  "crosses_year": false,
+                  "months": [
+                    "junio",
+                    "julio"
+                  ],
+                  "duration_days": 76
+                },
+                "F2": {
+                  "start_doy": 213,
+                  "end_doy": 304,
+                  "crosses_year": false,
+                  "months": [
+                    "agosto",
+                    "septiembre",
+                    "octubre"
+                  ],
+                  "duration_days": 85.36363636363636
+                },
+                "F3": {
+                  "start_doy": 305,
+                  "end_doy": 365,
+                  "crosses_year": false,
+                  "months": [
+                    "noviembre",
+                    "diciembre"
+                  ],
+                  "duration_days": 56.90909090909091
+                }
+              },
+              "matchPct": 63.6,
+              "coveragePct": 0.1
+            }
+          }
+        }
+      }
     }
   }
 }

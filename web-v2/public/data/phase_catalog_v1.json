@@ -1,0 +1,296 @@
+{
+  "version": "v1.0.0-2026-08-05",
+  "crops": {
+    "rice": {
+      "calendar_records": 12140,
+      "phase_records": 97120,
+      "phases": [
+        {
+          "code": "BBCH_00_09",
+          "name": "Germinación y emergencia",
+          "fraction_start": 0,
+          "fraction_end": 0.08,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "BBCH_10_19",
+          "name": "Plántula y hojas iniciales",
+          "fraction_start": 0.08,
+          "fraction_end": 0.17,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "BBCH_20_29",
+          "name": "Macollamiento",
+          "fraction_start": 0.17,
+          "fraction_end": 0.38,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "BBCH_30_39",
+          "name": "Elongación e iniciación de panícula",
+          "fraction_start": 0.38,
+          "fraction_end": 0.52,
+          "threat_rule_ids": [
+            "RICE_HEAT_MEAN_33"
+          ]
+        },
+        {
+          "code": "BBCH_40_59",
+          "name": "Embuche y emergencia de panícula",
+          "fraction_start": 0.52,
+          "fraction_end": 0.64,
+          "threat_rule_ids": [
+            "RICE_DROUGHT_SM75",
+            "RICE_COLD_MEAN20",
+            "RICE_RAIN25"
+          ]
+        },
+        {
+          "code": "BBCH_60_69",
+          "name": "Floración/antesis",
+          "fraction_start": 0.64,
+          "fraction_end": 0.7,
+          "threat_rule_ids": [
+            "RICE_HEAT_DAY37_2",
+            "RICE_HEAT_NIGHT31_2",
+            "RICE_COLD_MEAN20",
+            "RICE_RAIN25"
+          ]
+        },
+        {
+          "code": "BBCH_70_79",
+          "name": "Desarrollo y llenado del grano",
+          "fraction_start": 0.7,
+          "fraction_end": 0.9,
+          "threat_rule_ids": [
+            "RICE_COLD_MEAN17",
+            "RICE_RAIN25"
+          ]
+        },
+        {
+          "code": "BBCH_80_99",
+          "name": "Maduración",
+          "fraction_start": 0.9,
+          "fraction_end": 1,
+          "threat_rule_ids": []
+        }
+      ]
+    },
+    "maize": {
+      "calendar_records": 21846,
+      "phase_records": 174768,
+      "phases": [
+        {
+          "code": "VE",
+          "name": "Germinación y emergencia",
+          "fraction_start": 0,
+          "fraction_end": 0.07,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "V1_V6",
+          "name": "Desarrollo vegetativo temprano",
+          "fraction_start": 0.07,
+          "fraction_end": 0.28,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "V7_VT",
+          "name": "Vegetativo tardío y panojamiento",
+          "fraction_start": 0.28,
+          "fraction_end": 0.5,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "R1",
+          "name": "Sedas, polinización y cuajado",
+          "fraction_start": 0.5,
+          "fraction_end": 0.56,
+          "threat_rule_ids": [
+            "MAIZE_HEAT_DAY37_9",
+            "MAIZE_HEAT_NIGHT27_3"
+          ]
+        },
+        {
+          "code": "R2",
+          "name": "Grano ampolla",
+          "fraction_start": 0.56,
+          "fraction_end": 0.63,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "Grano lechoso",
+          "fraction_start": 0.63,
+          "fraction_end": 0.72,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "R4_R5",
+          "name": "Grano pastoso a dentado",
+          "fraction_start": 0.72,
+          "fraction_end": 0.9,
+          "threat_rule_ids": [
+            "MAIZE_HEAT_FILL39_4_41_5"
+          ]
+        },
+        {
+          "code": "R6",
+          "name": "Madurez fisiológica",
+          "fraction_start": 0.9,
+          "fraction_end": 1,
+          "threat_rule_ids": []
+        }
+      ]
+    },
+    "soybean": {
+      "calendar_records": 9910,
+      "phase_records": 79280,
+      "phases": [
+        {
+          "code": "VE_VC",
+          "name": "Emergencia y cotiledones",
+          "fraction_start": 0,
+          "fraction_end": 0.08,
+          "threat_rule_ids": [
+            "SOY_GERMINATION_TMAX46_92",
+            "SOY_SEASONAL_HEAT30"
+          ]
+        },
+        {
+          "code": "V1_VN",
+          "name": "Desarrollo vegetativo/nudos",
+          "fraction_start": 0.08,
+          "fraction_end": 0.38,
+          "threat_rule_ids": [
+            "SOY_SEASONAL_HEAT30"
+          ]
+        },
+        {
+          "code": "R1_R2",
+          "name": "Inicio y plena floración",
+          "fraction_start": 0.38,
+          "fraction_end": 0.5,
+          "threat_rule_ids": [
+            "SOY_SEASONAL_HEAT30"
+          ]
+        },
+        {
+          "code": "R3",
+          "name": "Inicio de vainas",
+          "fraction_start": 0.5,
+          "fraction_end": 0.58,
+          "threat_rule_ids": [
+            "SOY_SEASONAL_HEAT30"
+          ]
+        },
+        {
+          "code": "R4",
+          "name": "Vaina completa",
+          "fraction_start": 0.58,
+          "fraction_end": 0.67,
+          "threat_rule_ids": [
+            "SOY_SEASONAL_HEAT30"
+          ]
+        },
+        {
+          "code": "R5",
+          "name": "Inicio de semilla",
+          "fraction_start": 0.67,
+          "fraction_end": 0.78,
+          "threat_rule_ids": [
+            "SOY_SEASONAL_HEAT30"
+          ]
+        },
+        {
+          "code": "R6_R7",
+          "name": "Semilla completa a inicio de madurez",
+          "fraction_start": 0.78,
+          "fraction_end": 0.93,
+          "threat_rule_ids": [
+            "SOY_SEASONAL_HEAT30"
+          ]
+        },
+        {
+          "code": "R8",
+          "name": "Madurez completa",
+          "fraction_start": 0.93,
+          "fraction_end": 1,
+          "threat_rule_ids": [
+            "SOY_SEASONAL_HEAT30"
+          ]
+        }
+      ]
+    },
+    "wheat": {
+      "calendar_records": 42020,
+      "phase_records": 336160,
+      "phases": [
+        {
+          "code": "Z00_09",
+          "name": "Germinación y emergencia",
+          "fraction_start": 0,
+          "fraction_end": 0.07,
+          "threat_rule_ids": [
+            "WHEAT_SEEDLING_HEAT42"
+          ]
+        },
+        {
+          "code": "Z10_29",
+          "name": "Hojas, macollamiento y dormancia cuando aplica",
+          "fraction_start": 0.07,
+          "fraction_end": 0.35,
+          "threat_rule_ids": [
+            "WHEAT_SEEDLING_HEAT42"
+          ]
+        },
+        {
+          "code": "Z30_39",
+          "name": "Encañado",
+          "fraction_start": 0.35,
+          "fraction_end": 0.5,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "Z40_49",
+          "name": "Embuche",
+          "fraction_start": 0.5,
+          "fraction_end": 0.6,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "Z50_59",
+          "name": "Espigamiento",
+          "fraction_start": 0.6,
+          "fraction_end": 0.68,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "Z60_69",
+          "name": "Antesis",
+          "fraction_start": 0.68,
+          "fraction_end": 0.74,
+          "threat_rule_ids": [
+            "WHEAT_HEAT_DAY27_3",
+            "WHEAT_HEAT_NIGHT19_6"
+          ]
+        },
+        {
+          "code": "Z70_89",
+          "name": "Llenado del grano",
+          "fraction_start": 0.74,
+          "fraction_end": 0.93,
+          "threat_rule_ids": []
+        },
+        {
+          "code": "Z90_99",
+          "name": "Maduración",
+          "fraction_start": 0.93,
+          "fraction_end": 1,
+          "threat_rule_ids": []
+        }
+      ]
+    }
+  }
+}

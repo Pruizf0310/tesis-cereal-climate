@@ -156,8 +156,8 @@ function buildCalendarWindows(source, destination) {
   const payload = JSON.parse(fs.readFileSync(source, "utf8"));
   const months = payload.months;
   const output = {
-    source: "Derived from phenology_typical.json monthly dominant phases",
-    resolution: "monthly-to-DOY approximation",
+    source: "Tabla maestra global v1: GGCMI endpoints + normalized crop phase priors",
+    resolution: "0.5-degree calendar summarized monthly; intermediate phases are modeled estimates",
     phaseLegend: payload.phaseLegend ?? {},
     crops: {}
   };
