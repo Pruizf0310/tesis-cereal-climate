@@ -55,7 +55,7 @@ export function RiskPivotV2() {
   const [payload, setPayload] = useState<HazardPayload | null>(null);
   const [cropId, setCropId] = useState<HazardRow["crop"]>("maize");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
-  const [showGaps, setShowGaps] = useState(true);
+  const [showGaps, setShowGaps] = useState(false);
 
   useEffect(() => {
     fetch("/data/hazard_impact_v2.json").then((res) => res.json()).then((data: HazardPayload) => setPayload(data));
@@ -83,12 +83,12 @@ export function RiskPivotV2() {
             <input type="checkbox" checked={showGaps} onChange={(event) => setShowGaps(event.target.checked)} className="accent-[#7FD4DF]" />
             Show evidence gaps
           </label>
-          <span>{rows.length} phase–hazard rows</span>
+          <span>{rows.length} literature-linked phase–hazard rows</span>
         </div>
       </div>
 
       <div className="border-b border-line bg-warm/[0.025] px-4 py-3 text-[11px] leading-relaxed text-ink-dim">
-        All eight technical stages are retained. A rule is a literature-backed candidate assigned to a crop stage; local occurrence still requires daily climate data for the coordinate and stage window.
+        The default view shows literature-linked rules only. Enable evidence gaps solely to audit stages for which the reviewed sources do not provide a defensible quantitative rule. Local occurrence still requires daily climate data for the coordinate and stage window.
       </div>
 
       <div className="hidden overflow-x-auto md:block">
