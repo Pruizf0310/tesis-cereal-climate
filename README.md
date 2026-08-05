@@ -40,6 +40,7 @@ tesis-cereal-climate/
 - **ENSO / ONI**: índice climático con derivados livianos para exploración.
 - **MJO / RMM**: componente identificado, pendiente de consolidar en outputs finales.
 - **GEOGLAM**: calendarios agrícolas y ventanas fenológicas.
+- **Maestro de fenología**: `outputs/tabla_maestra_fenologia_web.xlsx` es el único respaldo consolidado para arroz, maíz, soya y trigo. Conserva las fases GEOGLAM de arroz, maíz y trigo; para soya conserva las coordenadas de la calculadora y marca explícitamente como pendiente el calendario fenológico externo.
 - **Risk pivot v2**: summary by crop, derived phenological stage, hazard, threshold and qualitative/quantitative impact for the `/risk` page. See `docs/risk_pivot_v2.md`.
 - **Correlaciones SST-rendimiento**: resultados pesados documentados, no versionados.
 - **SOM / patrones espaciales**: resúmenes livianos disponibles para exploración preliminar.
