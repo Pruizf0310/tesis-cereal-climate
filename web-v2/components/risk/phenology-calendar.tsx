@@ -65,6 +65,35 @@ interface PhenologyPayload {
   crops: PhenologyCrop[];
 }
 
+interface ThreatRule {
+  threat_rule_id: string;
+  crop: string;
+  hazard: string;
+  variable: string;
+  operator: string;
+  threshold: number;
+  unit: string;
+  duration_value?: number | null;
+  duration_definition: string;
+  evidence_type: string;
+  spatial_scope: string;
+  source: string;
+  doi_or_uri: string;
+  limitations: string;
+}
+
+interface ThreatPayload {
+  version: string;
+  interpretation: string;
+  event_evaluation_required: string;
+  rules: ThreatRule[];
+  crop_phase_rules: { crop: string; phase_code: string; threat_rule_ids: string[] }[];
+}
+
+interface PhaseCatalogPayload {
+  crops: Record<string, { phases: { code: string; name: string; threat_rule_ids: string[] }[] }>;
+}
+
 const CROP_ICONS: Record<PhenologyCrop["id"], React.ReactNode> = {
   maize: <Sprout className="h-3.5 w-3.5" />,
   rice: <Waves className="h-3.5 w-3.5" />,
@@ -90,6 +119,8 @@ export function PhenologyCalendar() {
   const [seasonId, setSeasonId] = useState<string>("");
   const [mode, setMode] = useState<ViewMode>("calendar");
   const [expandedBand, setExpandedBand] = useState<string | null>(null);
+  const [threats, setThreats] = useState<ThreatPayload | null>(null);
+  const [phaseCatalog, setPhaseCatalog] = useState<PhaseCatalogPayload | null>(null);
 
   useEffect(() => {
     fetch("/data/phenology_typical.json")
@@ -99,6 +130,16 @@ export function PhenologyCalendar() {
         const firstCrop = data.crops.find((crop) => crop.id === cropId);
         setSeasonId(firstCrop?.seasons[0]?.id ?? "");
       });
+  }, []);
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/data/phase_threat_matrix_v2.json").then((res) => res.json()),
+      fetch("/data/phase_catalog_v1.json").then((res) => res.json())
+    ]).then(([threatData, phaseData]) => {
+      setThreats(threatData as ThreatPayload);
+      setPhaseCatalog(phaseData as PhaseCatalogPayload);
+    });
   }, []);
 
   const crop = useMemo(
@@ -212,7 +253,70 @@ export function PhenologyCalendar() {
       ) : (
         <DurationView season={season} />
       )}
+      <TechnicalThreats cropId={cropId} threats={threats} phaseCatalog={phaseCatalog} />
     </div>
+  );
+}
+
+function TechnicalThreats({
+  cropId,
+  threats,
+  phaseCatalog
+}: {
+  cropId: PhenologyCrop["id"];
+  threats: ThreatPayload | null;
+  phaseCatalog: PhaseCatalogPayload | null;
+}) {
+  if (!threats || !phaseCatalog?.crops[cropId]) return null;
+  const rulesById = new Map(threats.rules.map((rule) => [rule.threat_rule_id, rule]));
+
+  return (
+    <section className="border-t border-line px-4 py-5">
+      <div className="mb-4">
+        <p className="kicker">Fases técnicas y amenazas · matriz v2</p>
+        <p className="mt-2 max-w-[980px] text-[11px] leading-relaxed text-ink-dim">
+          Cada regla se asigna a todas las coordenadas donde ocurre la fase. Esto define qué debe evaluarse;
+          la ocurrencia local exige cruzar la ventana DOY con clima diario. Los alcances regionales y experimentales
+          se conservan explícitamente.
+        </p>
+      </div>
+      <div className="grid gap-3 lg:grid-cols-2">
+        {phaseCatalog.crops[cropId].phases.map((phase) => {
+          const mapped = threats.crop_phase_rules.find(
+            (item) => item.crop === cropId && item.phase_code === phase.code
+          );
+          const rules = (mapped?.threat_rule_ids ?? []).map((id) => rulesById.get(id)).filter(Boolean) as ThreatRule[];
+          return (
+            <article key={phase.code} className="rounded-sm border border-line bg-white/[0.02] p-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="font-mono text-[10px] text-cool">{phase.code}</p>
+                  <p className="mt-1 text-[12px] font-medium text-ink">{phase.name}</p>
+                </div>
+                <span className="rounded-sm border border-line px-2 py-1 text-[9px] uppercase tracking-wide text-ink-mute">
+                  {rules.length ? `${rules.length} regla${rules.length > 1 ? "s" : ""}` : "sin umbral"}
+                </span>
+              </div>
+              {rules.length ? (
+                <div className="mt-3 space-y-2">
+                  {rules.map((rule) => (
+                    <div key={rule.threat_rule_id} className="border-l-2 border-warm/50 pl-3 text-[10.5px] leading-relaxed">
+                      <p className="text-ink">
+                        <span className="font-medium">{rule.hazard}:</span> {rule.variable} {rule.operator} {rule.threshold} {rule.unit}
+                        {rule.duration_value ? ` · ${rule.duration_value} ${rule.duration_definition}` : " · duración no determinada"}
+                      </p>
+                      <p className="text-ink-mute">{rule.evidence_type} · {rule.spatial_scope} · {rule.source}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-3 text-[10.5px] text-ink-mute">Sin umbral cuantitativo verificado en la literatura auditada.</p>
+              )}
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 

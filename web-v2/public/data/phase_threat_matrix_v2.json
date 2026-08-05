@@ -1,0 +1,392 @@
+{
+  "version": "v2.0.0-2026-08-05",
+  "interpretation": "Rules are assigned by crop and technical phase to every calendar coordinate; assignment is not proof of local occurrence or local biological validation.",
+  "event_evaluation_required": "Cross phase DOY window with daily climate data at the coordinate.",
+  "rules": [
+    {
+      "threat_rule_id": "RICE_HEAT_MEAN_33",
+      "crop": "rice",
+      "applicable_phase": "BBCH_30_39",
+      "hazard": "Calor",
+      "variable": "Temperatura media diaria",
+      "operator": ">=",
+      "threshold": "33.0",
+      "unit": "°C",
+      "duration_value": "1.0",
+      "duration_definition": "día consecutivo",
+      "evidence_type": "Indicador regional",
+      "spatial_scope": "Sur de China; ciclo único",
+      "source": "Sun et al. 2025",
+      "doi_or_uri": "10.5194/esd-16-1971-2025",
+      "limitations": "Duración relajada respecto del estándar; no global"
+    },
+    {
+      "threat_rule_id": "RICE_DROUGHT_SM75",
+      "crop": "rice",
+      "applicable_phase": "BBCH_40_59",
+      "hazard": "Sequía",
+      "variable": "Humedad relativa del suelo",
+      "operator": "<=",
+      "threshold": "75.0",
+      "unit": "%",
+      "duration_value": "10.0",
+      "duration_definition": "días consecutivos",
+      "evidence_type": "Indicador regional",
+      "spatial_scope": "Sur de China; ciclo único",
+      "source": "Sun et al. 2025",
+      "doi_or_uri": "10.5194/esd-16-1971-2025",
+      "limitations": "Falta definición operacional completa de SM para transferencia"
+    },
+    {
+      "threat_rule_id": "RICE_COLD_MEAN20",
+      "crop": "rice",
+      "applicable_phase": "BBCH_40_69",
+      "hazard": "Frío",
+      "variable": "Temperatura media diaria",
+      "operator": "<=",
+      "threshold": "20.0",
+      "unit": "°C",
+      "duration_value": "1.0",
+      "duration_definition": "día consecutivo",
+      "evidence_type": "Indicador regional",
+      "spatial_scope": "Sur de China; arroz tardío",
+      "source": "Sun et al. 2025",
+      "doi_or_uri": "10.5194/esd-16-1971-2025",
+      "limitations": "Duración relajada; no global"
+    },
+    {
+      "threat_rule_id": "RICE_COLD_MEAN17",
+      "crop": "rice",
+      "applicable_phase": "BBCH_70_79",
+      "hazard": "Frío",
+      "variable": "Temperatura media diaria",
+      "operator": "<=",
+      "threshold": "17.0",
+      "unit": "°C",
+      "duration_value": "1.0",
+      "duration_definition": "día consecutivo",
+      "evidence_type": "Indicador regional",
+      "spatial_scope": "Sur de China; arroz tardío",
+      "source": "Sun et al. 2025",
+      "doi_or_uri": "10.5194/esd-16-1971-2025",
+      "limitations": "Duración relajada; no global"
+    },
+    {
+      "threat_rule_id": "RICE_RAIN25",
+      "crop": "rice",
+      "applicable_phase": "BBCH_40_79",
+      "hazard": "Lluvia intensa",
+      "variable": "Precipitación total diaria",
+      "operator": ">=",
+      "threshold": "25.0",
+      "unit": "mm/día",
+      "duration_value": "1.0",
+      "duration_definition": "día consecutivo",
+      "evidence_type": "Indicador regional",
+      "spatial_scope": "Sur de China; arroz tardío",
+      "source": "Sun et al. 2025",
+      "doi_or_uri": "10.5194/esd-16-1971-2025",
+      "limitations": "Basado en estándar local de Chengdu"
+    },
+    {
+      "threat_rule_id": "RICE_HEAT_DAY37_2",
+      "crop": "rice",
+      "applicable_phase": "BBCH_60_69",
+      "hazard": "Calor diurno",
+      "variable": "Temperatura diurna",
+      "operator": ">",
+      "threshold": "37.2",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "No determinada",
+      "evidence_type": "Umbral modelado",
+      "spatial_scope": "Síntesis multiexperimento",
+      "source": "Liu et al. 2023",
+      "doi_or_uri": "10.1016/j.xplc.2023.100629",
+      "limitations": "SE 0.2°C; reducción significativa del cuajado; duración heterogénea"
+    },
+    {
+      "threat_rule_id": "RICE_HEAT_NIGHT31_2",
+      "crop": "rice",
+      "applicable_phase": "BBCH_60_69",
+      "hazard": "Calor nocturno",
+      "variable": "Temperatura nocturna",
+      "operator": ">",
+      "threshold": "31.2",
+      "unit": "°C",
+      "duration_value": "7.0",
+      "duration_definition": "más de una semana",
+      "evidence_type": "Umbral modelado provisional",
+      "spatial_scope": "Síntesis; evidencia nocturna limitada",
+      "source": "Liu et al. 2023",
+      "doi_or_uri": "10.1016/j.xplc.2023.100629",
+      "limitations": "SE 0.2°C; no es duración máxima tolerable"
+    },
+    {
+      "threat_rule_id": "MAIZE_HEAT_DAY37_9",
+      "crop": "maize",
+      "applicable_phase": "R1",
+      "hazard": "Calor diurno",
+      "variable": "Temperatura diurna",
+      "operator": ">",
+      "threshold": "37.9",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "No determinada",
+      "evidence_type": "Umbral modelado",
+      "spatial_scope": "Síntesis multiexperimento",
+      "source": "Liu et al. 2023",
+      "doi_or_uri": "10.1016/j.xplc.2023.100629",
+      "limitations": "SE 0.4°C; reducción significativa del cuajado"
+    },
+    {
+      "threat_rule_id": "MAIZE_HEAT_NIGHT27_3",
+      "crop": "maize",
+      "applicable_phase": "R1",
+      "hazard": "Calor nocturno",
+      "variable": "Temperatura nocturna",
+      "operator": ">",
+      "threshold": "27.3",
+      "unit": "°C",
+      "duration_value": "7.0",
+      "duration_definition": "más de una semana",
+      "evidence_type": "Umbral modelado provisional",
+      "spatial_scope": "Síntesis; evidencia nocturna limitada",
+      "source": "Liu et al. 2023",
+      "doi_or_uri": "10.1016/j.xplc.2023.100629",
+      "limitations": "SE 1.3°C; no es duración máxima tolerable"
+    },
+    {
+      "threat_rule_id": "MAIZE_HEAT_FILL39_4_41_5",
+      "crop": "maize",
+      "applicable_phase": "R4_R5",
+      "hazard": "Calor",
+      "variable": "Tmax media del tratamiento",
+      "operator": ">=",
+      "threshold": "39.4",
+      "unit": "°C",
+      "duration_value": "6.0",
+      "duration_definition": "días, 08:00-18:00",
+      "evidence_type": "Tratamiento experimental",
+      "spatial_scope": "Híbrido Xianyu335; China",
+      "source": "Zhang et al. 2023",
+      "doi_or_uri": "10.3390/agronomy13082126",
+      "limitations": "Rango 39.4-41.5°C; causó daño, no estima inicio crítico"
+    },
+    {
+      "threat_rule_id": "WHEAT_HEAT_DAY27_3",
+      "crop": "wheat",
+      "applicable_phase": "Z60_69",
+      "hazard": "Calor diurno",
+      "variable": "Temperatura diurna",
+      "operator": ">",
+      "threshold": "27.3",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "No determinada",
+      "evidence_type": "Umbral modelado",
+      "spatial_scope": "Síntesis multiexperimento",
+      "source": "Liu et al. 2023",
+      "doi_or_uri": "10.1016/j.xplc.2023.100629",
+      "limitations": "SE 0.5°C; reducción significativa del cuajado"
+    },
+    {
+      "threat_rule_id": "WHEAT_HEAT_NIGHT19_6",
+      "crop": "wheat",
+      "applicable_phase": "Z60_69",
+      "hazard": "Calor nocturno",
+      "variable": "Temperatura nocturna",
+      "operator": ">",
+      "threshold": "19.6",
+      "unit": "°C",
+      "duration_value": "7.0",
+      "duration_definition": "más de una semana",
+      "evidence_type": "Umbral modelado provisional",
+      "spatial_scope": "Síntesis; evidencia nocturna limitada",
+      "source": "Liu et al. 2023",
+      "doi_or_uri": "10.1016/j.xplc.2023.100629",
+      "limitations": "SE 2.7°C; no es duración máxima tolerable"
+    },
+    {
+      "threat_rule_id": "WHEAT_SEEDLING_HEAT42",
+      "crop": "wheat",
+      "applicable_phase": "Z00_29",
+      "hazard": "Calor",
+      "variable": "Temperatura de tratamiento",
+      "operator": "=",
+      "threshold": "42.0",
+      "unit": "°C",
+      "duration_value": "24.0",
+      "duration_definition": "horas",
+      "evidence_type": "Fuente secundaria",
+      "spatial_scope": "Ambiente controlado",
+      "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
+      "doi_or_uri": "10.1007/s13593-017-0443-9",
+      "limitations": "Buscar fuente primaria; tratamiento, no umbral"
+    },
+    {
+      "threat_rule_id": "SOY_SEASONAL_HEAT30",
+      "crop": "soybean",
+      "applicable_phase": "Ciclo completo",
+      "hazard": "Calor",
+      "variable": "Exposición diaria >30°C",
+      "operator": ">",
+      "threshold": "30.0",
+      "unit": "°C",
+      "duration_value": "1.0",
+      "duration_definition": "día",
+      "evidence_type": "Asociación observacional/modelos",
+      "spatial_scope": "Estados Unidos; más fuerte en secano",
+      "source": "Schauberger et al. 2017",
+      "doi_or_uri": "10.1038/ncomms13931",
+      "limitations": "Hasta 6% de reducción por día; no específica de fase"
+    },
+    {
+      "threat_rule_id": "SOY_GERMINATION_TMAX46_92",
+      "crop": "soybean",
+      "applicable_phase": "VE_VC",
+      "hazard": "Temperatura cardinal",
+      "variable": "Temperatura máxima cardinal",
+      "operator": "=",
+      "threshold": "46.92",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "No aplica",
+      "evidence_type": "Parámetro modelado",
+      "spatial_scope": "Dos cultivares MG V; incubador",
+      "source": "Alsajri 2018",
+      "doi_or_uri": "https://hdl.handle.net/11668/20905",
+      "limitations": "No usar como umbral de muerte ni alerta"
+    }
+  ],
+  "crop_phase_rules": [
+    {
+      "crop": "maize",
+      "phase_code": "R1",
+      "threat_rule_ids": [
+        "MAIZE_HEAT_DAY37_9",
+        "MAIZE_HEAT_NIGHT27_3"
+      ]
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R4_R5",
+      "threat_rule_ids": [
+        "MAIZE_HEAT_FILL39_4_41_5"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_30_39",
+      "threat_rule_ids": [
+        "RICE_HEAT_MEAN_33"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_40_59",
+      "threat_rule_ids": [
+        "RICE_COLD_MEAN20",
+        "RICE_DROUGHT_SM75",
+        "RICE_RAIN25"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_60_69",
+      "threat_rule_ids": [
+        "RICE_COLD_MEAN20",
+        "RICE_HEAT_DAY37_2",
+        "RICE_HEAT_NIGHT31_2",
+        "RICE_RAIN25"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_70_79",
+      "threat_rule_ids": [
+        "RICE_COLD_MEAN17",
+        "RICE_RAIN25"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R1_R2",
+      "threat_rule_ids": [
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R3",
+      "threat_rule_ids": [
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R4",
+      "threat_rule_ids": [
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R5",
+      "threat_rule_ids": [
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R6_R7",
+      "threat_rule_ids": [
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R8",
+      "threat_rule_ids": [
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "V1_VN",
+      "threat_rule_ids": [
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "VE_VC",
+      "threat_rule_ids": [
+        "SOY_GERMINATION_TMAX46_92",
+        "SOY_SEASONAL_HEAT30"
+      ]
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z00_09",
+      "threat_rule_ids": [
+        "WHEAT_SEEDLING_HEAT42"
+      ]
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z10_29",
+      "threat_rule_ids": [
+        "WHEAT_SEEDLING_HEAT42"
+      ]
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z60_69",
+      "threat_rule_ids": [
+        "WHEAT_HEAT_DAY27_3",
+        "WHEAT_HEAT_NIGHT19_6"
+      ]
+    }
+  ]
+}

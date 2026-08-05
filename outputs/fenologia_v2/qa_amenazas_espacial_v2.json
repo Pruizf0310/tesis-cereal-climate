@@ -1,0 +1,12 @@
+{
+  "rows": 833944,
+  "crop_maize": 196614,
+  "without_rule": 389736,
+  "with_rule": 444208,
+  "crop_soybean": 89190,
+  "crop_rice": 169960,
+  "crop_wheat": 378180,
+  "base_phase_records": 687328,
+  "unknown_rules": [],
+  "bad": {}
+}
