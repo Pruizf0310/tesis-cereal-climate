@@ -15,7 +15,7 @@ export function RiskBoard() {
             </h2>
           </div>
           <p className="max-w-[520px] text-[11.5px] leading-relaxed text-ink-mute sm:text-right">
-            Monthly F1-F3 windows grouped by latitude band, with internal variability available on click.
+            Eight crop-specific technical stages, displayed by 10° latitude band and month from the spatial master matrix.
           </p>
         </div>
         <PhenologyCalendar />
@@ -24,16 +24,15 @@ export function RiskBoard() {
       <section>
         <div className="flex flex-col gap-3 border-b border-line pb-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="kicker">Risk pivot v2</p>
+            <p className="kicker">Literature-linked hazards</p>
             <h2 className="mt-1 font-display text-[22px] font-medium tracking-tightest text-ink">
               Hazard and impact summary by phenological stage
             </h2>
           </div>
           <p className="max-w-[680px] text-[11.5px] leading-relaxed text-ink-mute sm:text-right">
-            This table summarizes critical climate hazards by crop and derived phenological stage.
-            Quantitative impact is estimated from percentages reported in the literature, weighted
-            by the affected variable and evidence level. When no explicit percentage is available,
-            the table preserves a qualitative classification traceable to the source text.
+            Every technical stage is retained for maize, rice, soybean and wheat. Thresholds,
+            impact statements, evidence scope and limitations remain traceable to the audited sources;
+            missing evidence is shown explicitly instead of being inferred.
           </p>
         </div>
         <RiskPivotV2 />

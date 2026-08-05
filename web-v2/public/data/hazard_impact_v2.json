@@ -1,0 +1,786 @@
+{
+  "version": "v2.1.0-2026-08-05",
+  "source": "Spatial master matrix v2 and audited threat-rule catalogue",
+  "interpretation": "Rows are candidate rules assigned by crop and technical phase. They do not prove local occurrence.",
+  "rows": [
+    {
+      "crop": "maize",
+      "phase_code": "VE",
+      "derived_stage": "Germination and emergence",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 1,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "V1_V6",
+      "derived_stage": "Early vegetative development",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 2,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "V7_VT",
+      "derived_stage": "Late vegetative growth and tasseling",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R1",
+      "derived_stage": "Silking, pollination and seed set",
+      "hazard": "Daytime heat",
+      "threshold": "Daytime temperature > 37.9 °C",
+      "qualitative_impact": "Seed set is significantly reduced above the modeled daytime flowering threshold.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "MAIZE_HEAT_DAY37_9",
+        "evidence_type": "Modeled threshold",
+        "spatial_scope": "Multi-experiment synthesis",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 0.4 °C; modeled threshold for significant seed-set reduction."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R1",
+      "derived_stage": "Silking, pollination and seed set",
+      "hazard": "Nighttime heat",
+      "threshold": "Nighttime temperature > 27.3 °C for 7.0 more than one week",
+      "qualitative_impact": "Night heat around silking and pollination is associated with reduced seed set.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold — provisional duration",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "MAIZE_HEAT_NIGHT27_3",
+        "evidence_type": "Provisional modeled threshold",
+        "spatial_scope": "Synthesis; limited nighttime evidence",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 1.3 °C; the reported duration is not a maximum tolerable duration."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R2",
+      "derived_stage": "Blister stage",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 5,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R3",
+      "derived_stage": "Milk stage",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R4_R5",
+      "derived_stage": "Dough to dent stage",
+      "hazard": "Heat",
+      "threshold": "Mean treatment Tmax >= 39.4 °C for 6.0 days, 08:00–18:00",
+      "qualitative_impact": "Short-term heat during effective grain filling reduces photosynthesis, grain weight and yield.",
+      "quantitative_impact": "Yield −11.6% to −17.6%; 100-grain weight −5.1% to −10.1%",
+      "category": "Damaging experimental treatment",
+      "details": {
+        "phase_order": 7,
+        "rule_id": "MAIZE_HEAT_FILL39_4_41_5",
+        "evidence_type": "Experimental treatment",
+        "spatial_scope": "Xianyu335 hybrid; China",
+        "source": "Zhang et al. 2023",
+        "link": "10.3390/agronomy13082126",
+        "limitations": "The 39.4–41.5 °C treatment caused damage but does not estimate damage onset."
+      }
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R6",
+      "derived_stage": "Physiological maturity",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 8,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_00_09",
+      "derived_stage": "Germination and emergence",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 1,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_10_19",
+      "derived_stage": "Seedling and early leaves",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 2,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_20_29",
+      "derived_stage": "Tillering",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_30_39",
+      "derived_stage": "Stem elongation and panicle initiation",
+      "hazard": "Heat",
+      "threshold": "Daily mean temperature >= 33.0 °C for 1.0 consecutive day",
+      "qualitative_impact": "Heat-risk indicator during panicle initiation; the rule does not isolate a universal biological effect size.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "RICE_HEAT_MEAN_33",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; single rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Duration was relaxed relative to the original standard; not a global threshold."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_40_59",
+      "derived_stage": "Booting and panicle emergence",
+      "hazard": "Drought",
+      "threshold": "Relative soil moisture <= 75.0 % for 10.0 consecutive days",
+      "qualitative_impact": "Sustained soil-moisture deficit can constrain reproductive development and seasonal rice performance.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 5,
+        "rule_id": "RICE_DROUGHT_SM75",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; single rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "The operational soil-moisture definition must be matched before transfer."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_40_59",
+      "derived_stage": "Booting and panicle emergence",
+      "hazard": "Cold",
+      "threshold": "Daily mean temperature <= 20.0 °C for 1.0 consecutive day",
+      "qualitative_impact": "Cold exposure around booting or flowering can impair reproductive development and seed set.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 5,
+        "rule_id": "RICE_COLD_MEAN20",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Relaxed duration and regional scope; not globally validated."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_40_59",
+      "derived_stage": "Booting and panicle emergence",
+      "hazard": "Heavy rainfall",
+      "threshold": "Daily total precipitation >= 25.0 mm/día for 1.0 consecutive day",
+      "qualitative_impact": "Heavy rainfall can disrupt panicle emergence or flowering and, during filling, reduce radiation and increase lodging or disease pressure.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 5,
+        "rule_id": "RICE_RAIN25",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_60_69",
+      "derived_stage": "Flowering / anthesis",
+      "hazard": "Cold",
+      "threshold": "Daily mean temperature <= 20.0 °C for 1.0 consecutive day",
+      "qualitative_impact": "Cold exposure around booting or flowering can impair reproductive development and seed set.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "RICE_COLD_MEAN20",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Relaxed duration and regional scope; not globally validated."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_60_69",
+      "derived_stage": "Flowering / anthesis",
+      "hazard": "Heavy rainfall",
+      "threshold": "Daily total precipitation >= 25.0 mm/día for 1.0 consecutive day",
+      "qualitative_impact": "Heavy rainfall can disrupt panicle emergence or flowering and, during filling, reduce radiation and increase lodging or disease pressure.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "RICE_RAIN25",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_60_69",
+      "derived_stage": "Flowering / anthesis",
+      "hazard": "Daytime heat",
+      "threshold": "Daytime temperature > 37.2 °C",
+      "qualitative_impact": "Seed set is significantly reduced above the modeled daytime flowering threshold.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "RICE_HEAT_DAY37_2",
+        "evidence_type": "Modeled threshold",
+        "spatial_scope": "Multi-experiment synthesis",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 0.2 °C; significant seed-set reduction; exposure durations differ among experiments."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_60_69",
+      "derived_stage": "Flowering / anthesis",
+      "hazard": "Nighttime heat",
+      "threshold": "Nighttime temperature > 31.2 °C for 7.0 more than one week",
+      "qualitative_impact": "Night heat during flowering is associated with significantly reduced seed set.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold — provisional duration",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "RICE_HEAT_NIGHT31_2",
+        "evidence_type": "Provisional modeled threshold",
+        "spatial_scope": "Synthesis; limited nighttime evidence",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 0.2 °C; the reported duration is not a maximum tolerable duration."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_70_79",
+      "derived_stage": "Grain development and filling",
+      "hazard": "Cold",
+      "threshold": "Daily mean temperature <= 17.0 °C for 1.0 consecutive day",
+      "qualitative_impact": "Cold exposure during grain filling can slow development and impair grain formation.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 7,
+        "rule_id": "RICE_COLD_MEAN17",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Relaxed duration and regional scope; not globally validated."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_70_79",
+      "derived_stage": "Grain development and filling",
+      "hazard": "Heavy rainfall",
+      "threshold": "Daily total precipitation >= 25.0 mm/día for 1.0 consecutive day",
+      "qualitative_impact": "Heavy rainfall can disrupt panicle emergence or flowering and, during filling, reduce radiation and increase lodging or disease pressure.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 7,
+        "rule_id": "RICE_RAIN25",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold."
+      }
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_80_99",
+      "derived_stage": "Ripening",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 8,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "VE_VC",
+      "derived_stage": "Emergence and cotyledons",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 1,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "VE_VC",
+      "derived_stage": "Emergence and cotyledons",
+      "hazard": "Cardinal temperature",
+      "threshold": "Maximum cardinal temperature = 46.92 °C",
+      "qualitative_impact": "Upper modeled cardinal temperature for germination rate; not a death threshold or field-alert trigger.",
+      "quantitative_impact": "Not applicable",
+      "category": "Modeled cardinal parameter",
+      "details": {
+        "phase_order": 1,
+        "rule_id": "SOY_GERMINATION_TMAX46_92",
+        "evidence_type": "Modeled parameter",
+        "spatial_scope": "Two maturity-group V cultivars; incubator",
+        "source": "Alsajri 2018",
+        "link": "https://hdl.handle.net/11668/20905",
+        "limitations": "Do not use as a mortality threshold or automatic field alert."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "V1_VN",
+      "derived_stage": "Vegetative node development",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 2,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R1_R2",
+      "derived_stage": "Flowering",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R3",
+      "derived_stage": "Early pod formation",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R4",
+      "derived_stage": "Full pod",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 5,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R5",
+      "derived_stage": "Seed filling",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R6_R7",
+      "derived_stage": "Full seed to beginning maturity",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 7,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "R8",
+      "derived_stage": "Full maturity",
+      "hazard": "Heat",
+      "threshold": "Daily exposure above 30 °C > 30.0 °C for 1.0 day",
+      "qualitative_impact": "Daily heat above 30 °C is associated with yield loss, particularly in rainfed US systems.",
+      "quantitative_impact": "Up to 6% yield loss per additional day above 30 °C",
+      "category": "Seasonal observational association",
+      "details": {
+        "phase_order": 8,
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "evidence_type": "Observational/model association",
+        "spatial_scope": "United States; stronger under rainfed conditions",
+        "source": "Schauberger et al. 2017",
+        "link": "10.1038/ncomms13931",
+        "limitations": "Seasonal US association, not a phase-specific universal threshold."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z00_09",
+      "derived_stage": "Germination and emergence",
+      "hazard": "Heat",
+      "threshold": "Treatment temperature = 42.0 °C for 24.0 hours",
+      "qualitative_impact": "The treatment elicited seedling heat and oxidative-stress responses; it is not an onset threshold.",
+      "quantitative_impact": "Not determined",
+      "category": "Secondary-source treatment",
+      "details": {
+        "phase_order": 1,
+        "rule_id": "WHEAT_SEEDLING_HEAT42",
+        "evidence_type": "Secondary source",
+        "spatial_scope": "Controlled environment",
+        "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
+        "link": "10.1007/s13593-017-0443-9",
+        "limitations": "Primary source still required; experimental treatment, not an alert threshold."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z10_29",
+      "derived_stage": "Leaf development and tillering",
+      "hazard": "Heat",
+      "threshold": "Treatment temperature = 42.0 °C for 24.0 hours",
+      "qualitative_impact": "The treatment elicited seedling heat and oxidative-stress responses; it is not an onset threshold.",
+      "quantitative_impact": "Not determined",
+      "category": "Secondary-source treatment",
+      "details": {
+        "phase_order": 2,
+        "rule_id": "WHEAT_SEEDLING_HEAT42",
+        "evidence_type": "Secondary source",
+        "spatial_scope": "Controlled environment",
+        "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
+        "link": "10.1007/s13593-017-0443-9",
+        "limitations": "Primary source still required; experimental treatment, not an alert threshold."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z30_39",
+      "derived_stage": "Stem elongation",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z40_49",
+      "derived_stage": "Booting",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z50_59",
+      "derived_stage": "Heading",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 5,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z60_69",
+      "derived_stage": "Flowering / anthesis",
+      "hazard": "Daytime heat",
+      "threshold": "Daytime temperature > 27.3 °C",
+      "qualitative_impact": "Seed set is significantly reduced above the modeled daytime anthesis threshold.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "WHEAT_HEAT_DAY27_3",
+        "evidence_type": "Modeled threshold",
+        "spatial_scope": "Multi-experiment synthesis",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 0.5 °C; modeled threshold for significant seed-set reduction."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z60_69",
+      "derived_stage": "Flowering / anthesis",
+      "hazard": "Nighttime heat",
+      "threshold": "Nighttime temperature > 19.6 °C for 7.0 more than one week",
+      "qualitative_impact": "Night heat during anthesis is associated with significantly reduced seed set.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold — provisional duration",
+      "details": {
+        "phase_order": 6,
+        "rule_id": "WHEAT_HEAT_NIGHT19_6",
+        "evidence_type": "Provisional modeled threshold",
+        "spatial_scope": "Synthesis; limited nighttime evidence",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 2.7 °C; the reported duration is not a maximum tolerable duration."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z70_89",
+      "derived_stage": "Grain development and filling",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 7,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z90_99",
+      "derived_stage": "Ripening",
+      "hazard": "No verified quantitative hazard rule",
+      "threshold": "Not available in the audited literature set",
+      "qualitative_impact": "Evidence gap — no effect is inferred.",
+      "quantitative_impact": "Not determined",
+      "category": "Evidence gap",
+      "details": {
+        "phase_order": 8,
+        "rule_id": "NO_VERIFIED_THRESHOLD",
+        "evidence_type": "No verified phase-specific rule",
+        "spatial_scope": "Not applicable",
+        "source": "Audited local bibliography",
+        "link": "",
+        "limitations": "Do not inherit a threshold from another phase."
+      }
+    }
+  ]
+}

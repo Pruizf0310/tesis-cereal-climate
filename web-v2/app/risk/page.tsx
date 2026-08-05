@@ -16,8 +16,8 @@ export default function RiskPage() {
             Risk · Phenological hazard windows
           </h1>
           <p className="mt-5 max-w-[640px] text-[14.5px] leading-relaxed text-ink-dim">
-            Explore typical monthly phenology by crop, season and latitude band. Open each band to
-            inspect internal variability and phase duration before linking hazards to growth stages.
+            Explore the eight technical stages of maize, rice, soybean and wheat by season,
+            water system and latitude band, then review the literature-linked climate hazards assigned to each stage.
           </p>
         </header>
 
