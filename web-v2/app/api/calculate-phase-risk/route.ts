@@ -368,14 +368,20 @@ export async function POST(request: Request) {
     const geometry = ee.Geometry.Rectangle([lon - 0.25, payload.lat - 0.25, lon + 0.25, payload.lat + 0.25], null, false);
     const phaseWindow = findPhaseWindow(payload.crop, payload.lat, payload.phase, payload.season_id);
 
+    const years = Array.from({ length: payload.end_year - payload.start_year + 1 }, (_, index) => payload.start_year + index);
     const annual: AnnualPhaseMetric[] = [];
-    for (let year = payload.start_year; year <= payload.end_year; year += 1) {
-      const start = doyToDate(year, phaseWindow.start_doy);
-      const endYear = phaseWindow.crosses_year ? year + 1 : year;
-      const endExclusive = doyToDate(endYear, phaseWindow.end_doy + 1);
-      const daily = await queryDailyValues(geometry, start, endExclusive, payload.variable);
-      const evaluated = aggregateValues(daily, payload.aggregation, payload.window_days);
-      annual.push(annualMetrics(year, evaluated, payload.threshold, payload.min_days_event, payload.operator ?? ">"));
+    const batchSize = 6;
+    for (let offset = 0; offset < years.length; offset += batchSize) {
+      const batch = years.slice(offset, offset + batchSize);
+      const metrics = await Promise.all(batch.map(async (year) => {
+        const start = doyToDate(year, phaseWindow.start_doy);
+        const endYear = phaseWindow.crosses_year ? year + 1 : year;
+        const endExclusive = doyToDate(endYear, phaseWindow.end_doy + 1);
+        const daily = await queryDailyValues(geometry, start, endExclusive, payload.variable);
+        const evaluated = aggregateValues(daily, payload.aggregation, payload.window_days);
+        return annualMetrics(year, evaluated, payload.threshold, payload.min_days_event, payload.operator ?? ">");
+      }));
+      annual.push(...metrics);
     }
 
     const validYears = annual.filter((item) => item.n_days > 0).length;

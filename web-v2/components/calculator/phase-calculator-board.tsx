@@ -94,12 +94,24 @@ export function PhaseCalculatorBoard() {
     return [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   }, [cropPixels]);
 
+  const bandPixels = useMemo(
+    () => latBandFilter === "all" ? cropPixels : cropPixels.filter((pixel) => pixel.lat_band === latBandFilter),
+    [cropPixels, latBandFilter]
+  );
+
   const visiblePixels = useMemo(() => {
-    const filtered = latBandFilter === "all" ? cropPixels : cropPixels.filter((pixel) => pixel.lat_band === latBandFilter);
-    const preview = filtered.slice(0, 249);
-    const selected = filtered.find((pixel) => String(pixel.pixel_id_h5) === form.pixelId);
-    return selected && !preview.some((pixel) => pixel.pixel_id_h5 === selected.pixel_id_h5) ? [selected, ...preview] : filtered.slice(0, 250);
-  }, [cropPixels, latBandFilter, form.pixelId]);
+    const preview = bandPixels.slice(0, 249);
+    const selected = bandPixels.find((pixel) => String(pixel.pixel_id_h5) === form.pixelId);
+    return selected && !preview.some((pixel) => pixel.pixel_id_h5 === selected.pixel_id_h5) ? [selected, ...preview] : bandPixels.slice(0, 250);
+  }, [bandPixels, form.pixelId]);
+
+  useEffect(() => {
+    if (!bandPixels.length) return;
+    if (!bandPixels.some((pixel) => String(pixel.pixel_id_h5) === form.pixelId)) {
+      update("pixelId", String(bandPixels[0].pixel_id_h5));
+      setApiResponse(null);
+    }
+  }, [bandPixels, form.pixelId]);
 
   useEffect(() => {
     if (!cropPixels.length) {
@@ -271,9 +283,9 @@ export function PhaseCalculatorBoard() {
   if (loadError) return <StatusPanel tone="error" title="Metadata unavailable" message={loadError} />;
 
   return (
-    <div className="mt-12 grid gap-6 xl:grid-cols-[440px_minmax(0,1fr)]">
-      <section className="space-y-4">
-        <div className="glass top-edge relative rounded-sm border border-line p-4 animate-fade-up">
+    <div className="mt-12 grid min-w-0 gap-6 xl:grid-cols-[440px_minmax(0,1fr)]">
+      <section className="min-w-0 space-y-4 overflow-hidden">
+        <div className="glass top-edge relative min-w-0 overflow-hidden rounded-sm border border-line p-4 animate-fade-up">
           <div className="mb-5 flex items-start justify-between gap-3">
             <div>
               <p className="kicker">Query setup</p>
@@ -284,22 +296,22 @@ export function PhaseCalculatorBoard() {
             <Calculator className="h-5 w-5 text-cool" />
           </div>
 
-          <div className="grid gap-4">
+          <div className="grid min-w-0 gap-4">
             <Field label="Crop">
               <Segmented options={CROPS} value={form.crop} onChange={(value) => update("crop", value as Crop)} />
             </Field>
 
-            <Field label="Season and water system">
-              <select value={form.seasonId} onChange={(event) => update("seasonId", event.target.value)} className={inputClass()}>
+            <Field label="Season and water system" htmlFor="calculator-season">
+              <select id="calculator-season" value={form.seasonId} onChange={(event) => update("seasonId", event.target.value)} className={inputClass()}>
                 {seasons.map(([id, season]) => (
                   <option key={id} value={id}>{season.label} · {season.water_label ?? season.water_system}</option>
                 ))}
               </select>
             </Field>
 
-            <div className="grid grid-cols-2 gap-3">
-              <Field label="Latitude band">
-                <select value={latBandFilter} onChange={(event) => setLatBandFilter(event.target.value)} className={inputClass()}>
+            <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+              <Field label="Latitude band" htmlFor="calculator-latitude-band">
+                <select id="calculator-latitude-band" value={latBandFilter} onChange={(event) => setLatBandFilter(event.target.value)} className={inputClass()}>
                   <option value="all">All valid bands</option>
                   {latBands.map(([band, count]) => (
                     <option key={band} value={band}>
@@ -308,8 +320,8 @@ export function PhaseCalculatorBoard() {
                   ))}
                 </select>
               </Field>
-              <Field label="Pixel">
-                <select value={form.pixelId} onChange={(event) => update("pixelId", event.target.value)} className={inputClass()}>
+              <Field label="Pixel" htmlFor="calculator-pixel">
+                <select id="calculator-pixel" value={form.pixelId} onChange={(event) => update("pixelId", event.target.value)} className={inputClass()}>
                   {visiblePixels.map((pixel) => (
                     <option key={pixel.pixel_id_h5} value={pixel.pixel_id_h5}>
                       #{pixel.pixel_id_h5} | {pixel.lat.toFixed(2)}, {pixel.lon_ee.toFixed(2)}
@@ -319,14 +331,14 @@ export function PhaseCalculatorBoard() {
               </Field>
             </div>
 
-            <Field label="Phase">
-              <select value={form.phase} onChange={(event) => update("phase", event.target.value)} className={inputClass()}>
+            <Field label="Phase" htmlFor="calculator-phase">
+              <select id="calculator-phase" value={form.phase} onChange={(event) => update("phase", event.target.value)} className={inputClass()}>
                 {phases.map((phase) => <option key={phase.code} value={phase.code}>{phase.code} · {phase.label}</option>)}
               </select>
             </Field>
 
-            <Field label="Hazard rule">
-              <select value={threshold?.rule_id ?? ""} onChange={(event) => update("ruleId", event.target.value)} className={inputClass()}>
+            <Field label="Hazard rule" htmlFor="calculator-hazard">
+              <select id="calculator-hazard" value={threshold?.rule_id ?? ""} onChange={(event) => update("ruleId", event.target.value)} className={inputClass()}>
                 {thresholdRules.map((rule) => (
                   <option key={rule.rule_id} value={rule.rule_id}>{rule.hazard} · {rule.threshold_text}</option>
                 ))}
@@ -335,12 +347,12 @@ export function PhaseCalculatorBoard() {
 
             <CriticalVariableCard threshold={threshold} />
 
-            <div className="grid grid-cols-2 gap-3">
-              <Field label="Start year">
-                <input value={form.startYear} onChange={(event) => update("startYear", event.target.value)} className={inputClass()} />
+            <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+              <Field label="Start year" htmlFor="calculator-start-year">
+                <input id="calculator-start-year" value={form.startYear} onChange={(event) => update("startYear", event.target.value)} className={inputClass()} />
               </Field>
-              <Field label="End year">
-                <input value={form.endYear} onChange={(event) => update("endYear", event.target.value)} className={inputClass()} />
+              <Field label="End year" htmlFor="calculator-end-year">
+                <input id="calculator-end-year" value={form.endYear} onChange={(event) => update("endYear", event.target.value)} className={inputClass()} />
               </Field>
             </div>
 
@@ -351,7 +363,7 @@ export function PhaseCalculatorBoard() {
               className="mt-1 flex h-10 items-center justify-center gap-2 rounded-md border-none bg-teal-600 px-5 py-2.5 text-[12.5px] font-medium text-white transition-colors hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-[#4A7A66] disabled:text-[#A8C8BE]"
             >
               {apiState === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
-              Calculate historical trigger frequency
+              {apiState === "loading" ? "Calculating…" : "Calculate historical trigger frequency"}
             </button>
           </div>
 
@@ -369,7 +381,7 @@ export function PhaseCalculatorBoard() {
         <SourcePanel />
       </section>
 
-      <section className="space-y-6">
+      <section className="min-w-0 space-y-6 overflow-hidden">
         {apiResponse && !apiResponse.ok ? (
           <StatusPanel
             tone={apiResponse.configured ? "error" : "warn"}
@@ -410,13 +422,13 @@ function CriticalVariableCard({ threshold }: { threshold: PhaseCriticalThreshold
   }
 
   return (
-    <div className="rounded-sm border border-line bg-white/[0.025] p-3">
+    <div className="min-w-0 overflow-hidden rounded-sm border border-line bg-white/[0.025] p-3">
       <div className="flex items-start justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <p className="text-[12px] font-medium text-ink">Audited scientific trigger</p>
           <p className="mt-1 text-[11px] text-ink-mute">{threshold.phase_label}</p>
         </div>
-        <span className="rounded-sm border border-line bg-bg-panel px-2 py-1 text-[10px] uppercase tracking-wider text-ink-mute">
+        <span className="max-w-[45%] shrink-0 break-words rounded-sm border border-line bg-bg-panel px-2 py-1 text-right text-[10px] uppercase tracking-wider text-ink-mute">
           {threshold.stress_type}
         </span>
       </div>
@@ -446,7 +458,7 @@ function CriticalVariableCard({ threshold }: { threshold: PhaseCriticalThreshold
       </div>
       <p className="mt-3 text-[10.5px] leading-relaxed text-ink-mute">{threshold.threshold_text}</p>
       {threshold.note ? <p className="mt-2 text-[10.5px] leading-relaxed text-warm">{threshold.note}</p> : null}
-      <a href={threshold.link} target="_blank" rel="noreferrer" className="mt-2 inline-block text-[11px] font-medium text-cool hover:text-ink">
+      <a href={threshold.link} target="_blank" rel="noreferrer" className="mt-2 inline-block max-w-full break-words text-[11px] font-medium text-cool hover:text-ink">
         {threshold.source}
       </a>
     </div>
@@ -900,10 +912,10 @@ function AnnualTable({ annual, onExport }: { annual: AnnualPhaseMetric[]; onExpo
 
 function StatusPanel({ tone, title, message }: { tone: "warn" | "error"; title: string; message: string }) {
   return (
-    <div className={cn("rounded-sm border p-4", tone === "warn" ? "border-warm/35 bg-warm/[0.08]" : "border-risk-high/35 bg-risk-high/[0.08]")}>
+    <div className={cn("min-w-0 overflow-hidden rounded-sm border p-4", tone === "warn" ? "border-warm/35 bg-warm/[0.08]" : "border-risk-high/35 bg-risk-high/[0.08]")}>
       <div className="flex gap-3">
         <AlertTriangle className={cn("mt-0.5 h-4 w-4", tone === "warn" ? "text-warm" : "text-risk-high")} />
-        <div>
+        <div className="min-w-0 break-words">
           <p className="text-[13px] font-semibold text-ink">{title}</p>
           <p className="mt-1 text-[12px] leading-relaxed text-ink-dim">{message}</p>
         </div>
@@ -922,14 +934,14 @@ function Segmented({
   onChange: (value: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid min-w-0 grid-cols-2 gap-2 sm:grid-cols-4">
       {options.map((option) => (
         <button
           key={option.id}
           type="button"
           onClick={() => onChange(option.id)}
           className={cn(
-            "h-9 rounded-sm border px-3 text-[12px] font-medium transition-colors",
+            "h-9 min-w-0 rounded-sm border px-2 text-[12px] font-medium transition-colors",
             value === option.id ? "border-cool/40 bg-cool/[0.08] text-ink" : "border-line bg-white/[0.02] text-ink-dim hover:text-ink"
           )}
         >
@@ -940,20 +952,20 @@ function Segmented({
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children, htmlFor }: { label: string; children: React.ReactNode; htmlFor?: string }) {
   return (
-    <label className="grid gap-1.5">
-      <span className="text-[10px] uppercase tracking-wider text-ink-mute">{label}</span>
+    <div className="grid min-w-0 gap-1.5">
+      <label htmlFor={htmlFor} className="text-[10px] uppercase tracking-wider text-ink-mute">{label}</label>
       {children}
-    </label>
+    </div>
   );
 }
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3">
-      <span>{label}</span>
-      <span className="num text-right text-ink">{value}</span>
+    <div className="grid min-w-0 grid-cols-[minmax(0,auto)_minmax(0,1fr)] items-start gap-3">
+      <span className="whitespace-nowrap">{label}</span>
+      <span className="num min-w-0 break-words text-right text-ink">{value}</span>
     </div>
   );
 }
@@ -975,7 +987,7 @@ function Td({ children }: { children: React.ReactNode }) {
 }
 
 function inputClass(extra = "") {
-  return cn("h-10 rounded-sm border border-line bg-bg-panel px-3 text-[12.5px] text-ink outline-none transition-colors focus:border-cool/50", extra);
+  return cn("h-10 w-full min-w-0 max-w-full truncate rounded-sm border border-line bg-bg-panel px-3 text-[12.5px] text-ink outline-none transition-colors focus:border-cool/50", extra);
 }
 
 function parsePixelInventory(csv: string): PixelInventoryRow[] {
