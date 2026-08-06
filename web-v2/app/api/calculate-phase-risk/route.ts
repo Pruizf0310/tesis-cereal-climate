@@ -22,8 +22,8 @@ export const maxDuration = 300;
 const require = createRequire(import.meta.url);
 const ee = require("@google/earthengine");
 const DATASET = "ECMWF/ERA5_LAND/DAILY_AGGR";
-const CALENDAR_PATH = join(process.cwd(), "public", "data", "phase_calendar_windows.json");
-const THRESHOLD_PATH = join(process.cwd(), "public", "data", "phase_critical_thresholds.json");
+const CALENDAR_PATH = join(process.cwd(), "public", "data", "calculator_calendar_v2.json");
+const THRESHOLD_PATH = join(process.cwd(), "public", "data", "calculator_thresholds_v2.json");
 
 let eeInitPromise: Promise<void> | null = null;
 let calendarCache: PhaseCalendarWindows | null = null;
@@ -107,18 +107,18 @@ function loadThresholds() {
   return thresholdCache as PhaseCriticalThresholds;
 }
 
-function findPhaseWindow(crop: PhaseCalculationRequest["crop"], lat: number, phase: Phase) {
+function findPhaseWindow(crop: PhaseCalculationRequest["crop"], lat: number, phase: Phase, seasonId: string) {
   const calendar = loadCalendar();
   const cropCalendar = calendar.crops[crop];
-  const firstSeason = cropCalendar ? Object.values(cropCalendar.seasons)[0] : null;
-  if (!firstSeason) {
-    throw new Error(`No phenology calendar is available for ${crop}.`);
+  const season = cropCalendar?.seasons?.[seasonId];
+  if (!season) {
+    throw new Error(`No ${seasonId} phenology calendar is available for ${crop}.`);
   }
 
   const bandId = latBandId(lat);
   const band =
-    firstSeason.bands[bandId] ??
-    Object.values(firstSeason.bands).find(
+    season.bands[bandId] ??
+    Object.values(season.bands).find(
       (item) => lat >= Math.min(item.latMin, item.latMax) && lat < Math.max(item.latMin, item.latMax)
     );
   const window = band?.phases[phase];
@@ -138,6 +138,8 @@ function validatePayload(body: Partial<PhaseCalculationRequest>) {
   }
   if (!body.crop) return "crop is required.";
   if (!body.phase) return "phase is required.";
+  if (!body.season_id) return "season_id is required.";
+  if (!body.rule_id) return "rule_id is required.";
   if (!body.variable) return "variable is required.";
   if (typeof body.threshold !== "number" || !Number.isFinite(body.threshold)) return "threshold must be numeric.";
   if (typeof body.start_year !== "number" || typeof body.end_year !== "number") {
@@ -173,7 +175,7 @@ function ensureEeInitialized() {
 
   if (!project || !clientEmail || !privateKey) {
     throw new Error(
-      "Backend GEE no configurado. Define GOOGLE_CLOUD_PROJECT, GEE_SERVICE_ACCOUNT_EMAIL y GEE_SERVICE_ACCOUNT_PRIVATE_KEY en Vercel."
+      "GEE backend is not configured. Define GOOGLE_CLOUD_PROJECT, GEE_SERVICE_ACCOUNT_EMAIL and GEE_SERVICE_ACCOUNT_PRIVATE_KEY in Vercel."
     );
   }
 
@@ -287,6 +289,7 @@ function annualMetrics(
   });
 
   const nExceedanceDays = flags.filter(Boolean).length;
+  const longestEvent = maxConsecutive(flags);
   return {
     year,
     n_days: values.length,
@@ -294,8 +297,8 @@ function annualMetrics(
     max_value: values.length ? Math.max(...values) : null,
     mean_value: values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null,
     p95_value: percentile(values, 0.95),
-    max_consecutive_exceedance_days: maxConsecutive(flags),
-    event_occurred: nExceedanceDays >= minDaysEvent,
+    max_consecutive_exceedance_days: longestEvent,
+    event_occurred: longestEvent >= minDaysEvent,
     daily_values: dailyValues
   };
 }
@@ -311,7 +314,7 @@ export async function GET() {
     configured,
     message: configured
       ? "Vercel GEE backend is configured."
-      : "Backend GEE no configurado. Faltan variables de entorno del Service Account en Vercel."
+      : "GEE backend is not configured. The service-account environment variables are missing in Vercel."
   });
 }
 
@@ -323,7 +326,11 @@ export async function POST(request: Request) {
     return jsonResponse({ ok: false, configured: false, message: "Request body must be valid JSON." }, 400);
   }
 
-  const configuredThreshold = loadThresholds().crops[payload.crop]?.phases?.[payload.phase];
+  const cropRules = loadThresholds().crops[payload.crop];
+  const configuredThreshold = [
+    ...(cropRules?.[payload.phase] ?? []),
+    ...(cropRules?.ALL ?? [])
+  ].find((rule) => rule.rule_id === payload.rule_id);
   if (
     !configuredThreshold ||
     configuredThreshold.calculation_status !== "provisional" ||
@@ -359,7 +366,7 @@ export async function POST(request: Request) {
 
     const lon = wrapLon180(payload.lon);
     const geometry = ee.Geometry.Rectangle([lon - 0.25, payload.lat - 0.25, lon + 0.25, payload.lat + 0.25], null, false);
-    const phaseWindow = findPhaseWindow(payload.crop, payload.lat, payload.phase);
+    const phaseWindow = findPhaseWindow(payload.crop, payload.lat, payload.phase, payload.season_id);
 
     const annual: AnnualPhaseMetric[] = [];
     for (let year = payload.start_year; year <= payload.end_year; year += 1) {
@@ -392,7 +399,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    const configured = !message.startsWith("Backend GEE no configurado");
+    const configured = !message.startsWith("GEE backend is not configured");
     return jsonResponse({ ok: false, configured, request: payload, message }, configured ? 502 : 200);
   }
 }

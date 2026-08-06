@@ -1,6 +1,6 @@
 import type { Crop } from "./types";
 
-export type Phase = "F1" | "F2" | "F3";
+export type Phase = string;
 
 export type PhaseVariable =
   | "tmax_c"
@@ -32,6 +32,9 @@ export interface PixelInventoryRow {
 }
 
 export interface PhaseWindow {
+  phase_code?: string;
+  phase_label?: string;
+  phase_order?: number;
   start_doy: number;
   end_doy: number;
   crosses_year: boolean;
@@ -55,7 +58,13 @@ export interface PhaseCalendarWindows {
     Crop,
     {
       label: string;
-      seasons: Record<string, { label: string; bands: Record<string, CalendarBandWindow> }>;
+      seasons: Record<string, {
+        label: string;
+        season?: string;
+        water_system?: string;
+        water_label?: string;
+        bands: Record<string, CalendarBandWindow>;
+      }>;
     }
   >;
 }
@@ -84,6 +93,8 @@ export interface PhaseCalculationRequest {
   lon: number;
   crop: Crop;
   phase: Phase;
+  season_id: string;
+  rule_id: string;
   variable: PhaseVariable;
   threshold: number;
   operator?: ThresholdOperator;
@@ -118,6 +129,7 @@ export interface PhaseCalculationResponse {
 }
 
 export interface PhaseCriticalThreshold {
+  rule_id: string;
   phase: Phase;
   phase_label: string;
   variable: PhaseVariable | null;
@@ -132,15 +144,20 @@ export interface PhaseCriticalThreshold {
   calculation_status: CalculationStatus;
   evidence_type: string;
   stress_type: string;
+  hazard: string;
   source: string;
   link: string;
   note?: string;
+  qualitative_impact?: string;
+  quantitative_impact?: string;
+  rule_status?: string;
 }
 
 export interface PhaseCriticalThresholds {
+  version?: string;
   source: string;
-  generated_from: string;
-  crops: Partial<Record<Crop, { phases: Partial<Record<Phase, PhaseCriticalThreshold>> }>>;
+  generated_from?: string;
+  crops: Partial<Record<Crop, Record<Phase, PhaseCriticalThreshold[]>>>;
 }
 
 export const PHASE_VARIABLES: { id: PhaseVariable; label: string; unit: string; direction: "above" | "below" }[] = [

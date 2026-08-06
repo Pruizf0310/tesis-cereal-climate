@@ -22,11 +22,8 @@ import {
   type ThresholdOperator
 } from "@/lib/phase-calculator";
 
-const PHASES: Phase[] = ["F1", "F2", "F3"];
 const DEFAULT_START_YEAR = "1981";
 const DEFAULT_END_YEAR = "2016";
-// Audited once against the production GEE endpoint: maize F2 had the
-// <30 mm rolling 10-day trigger in 3 of 36 years (1981-2016).
 const DEFAULT_EXAMPLE_PIXEL_ID = "3150";
 const DEFAULT_EXAMPLE_LAT_BAND = "10_to_0";
 const DEFAULT_EXAMPLE_TARGET = { lat: 5.25, lon: -75.25 };
@@ -44,7 +41,9 @@ interface DerivedContext {
 interface FormState {
   crop: Crop;
   pixelId: string;
+  seasonId: string;
   phase: Phase;
+  ruleId: string;
   startYear: string;
   endYear: string;
 }
@@ -52,7 +51,9 @@ interface FormState {
 const INITIAL_FORM: FormState = {
   crop: "maize",
   pixelId: DEFAULT_EXAMPLE_PIXEL_ID,
-  phase: "F2",
+  seasonId: "maize__rf",
+  phase: "R1",
+  ruleId: "MAIZE_HEAT_DAY37_9",
   startYear: DEFAULT_START_YEAR,
   endYear: DEFAULT_END_YEAR
 };
@@ -67,13 +68,12 @@ export function PhaseCalculatorBoard() {
   const [apiResponse, setApiResponse] = useState<PhaseCalculationResponse | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(2016);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [hasAutoSubmitted, setHasAutoSubmitted] = useState(false);
 
   useEffect(() => {
     Promise.all([
       fetch("/data/phase_pixel_inventory.csv").then((res) => res.text()),
-      fetch("/data/phase_calendar_windows.json").then((res) => res.json()),
-      fetch("/data/phase_critical_thresholds.json").then((res) => res.json())
+      fetch("/data/calculator_calendar_v2.json").then((res) => res.json()),
+      fetch("/data/calculator_thresholds_v2.json").then((res) => res.json())
     ])
       .then(([csv, calendarData, thresholdData]) => {
         setPixels(parsePixelInventory(csv));
@@ -96,8 +96,10 @@ export function PhaseCalculatorBoard() {
 
   const visiblePixels = useMemo(() => {
     const filtered = latBandFilter === "all" ? cropPixels : cropPixels.filter((pixel) => pixel.lat_band === latBandFilter);
-    return filtered.slice(0, 250);
-  }, [cropPixels, latBandFilter]);
+    const preview = filtered.slice(0, 249);
+    const selected = filtered.find((pixel) => String(pixel.pixel_id_h5) === form.pixelId);
+    return selected && !preview.some((pixel) => pixel.pixel_id_h5 === selected.pixel_id_h5) ? [selected, ...preview] : filtered.slice(0, 250);
+  }, [cropPixels, latBandFilter, form.pixelId]);
 
   useEffect(() => {
     if (!cropPixels.length) {
@@ -122,27 +124,61 @@ export function PhaseCalculatorBoard() {
     [cropPixels, form.pixelId]
   );
 
-  const threshold = thresholds?.crops[form.crop]?.phases?.[form.phase] ?? null;
+  const seasons = useMemo(() => Object.entries(calendar?.crops[form.crop]?.seasons ?? {}), [calendar, form.crop]);
+  const selectedSeason = calendar?.crops[form.crop]?.seasons?.[form.seasonId] ?? null;
+  const phases = useMemo(() => {
+    if (!selectedSeason) return [];
+    const phaseMap = new Map<string, { code: string; label: string; order: number }>();
+    for (const band of Object.values(selectedSeason.bands)) {
+      for (const [code, window] of Object.entries(band.phases)) {
+        if (window) phaseMap.set(code, { code, label: window.phase_label ?? code, order: window.phase_order ?? 99 });
+      }
+    }
+    return [...phaseMap.values()].sort((a, b) => a.order - b.order);
+  }, [selectedSeason]);
+  const thresholdRules = [
+    ...(thresholds?.crops[form.crop]?.[form.phase] ?? []),
+    ...(thresholds?.crops[form.crop]?.ALL ?? [])
+  ].sort((a, b) => Number(b.calculation_status === "provisional") - Number(a.calculation_status === "provisional"));
+  const threshold = thresholdRules.find((rule) => rule.rule_id === form.ruleId) ?? thresholdRules[0] ?? null;
+
+  useEffect(() => {
+    if (!seasons.length) return;
+    if (!seasons.some(([id]) => id === form.seasonId)) update("seasonId", seasons[0][0]);
+  }, [seasons, form.seasonId]);
+
+  useEffect(() => {
+    if (!phases.length) return;
+    if (!phases.some((item) => item.code === form.phase)) update("phase", phases[0].code);
+  }, [phases, form.phase]);
+
+  useEffect(() => {
+    if (thresholdRules.length && !thresholdRules.some((item) => item.rule_id === form.ruleId)) {
+      update("ruleId", thresholdRules[0].rule_id);
+    }
+    setApiResponse(null);
+  }, [form.crop, form.phase, form.ruleId, thresholds]);
 
   const derived = useMemo<DerivedContext>(() => {
     if (!selectedPixel) {
       return { pixel: null, seasonId: null, seasonLabel: null, band: null, phaseWindow: null };
     }
 
-    const cropCalendar = calendar?.crops[form.crop];
-    const firstSeason = cropCalendar ? Object.entries(cropCalendar.seasons)[0] : null;
+    const season = calendar?.crops[form.crop]?.seasons?.[form.seasonId] ?? null;
     const bandId = latBandKeyFromInventory(selectedPixel.lat_band);
-    const band = firstSeason ? firstSeason[1].bands[bandId] ?? null : null;
+    const band = season?.bands[bandId] ?? Object.values(season?.bands ?? {}).find(
+      (item) => selectedPixel.lat >= item.latMin && selectedPixel.lat < item.latMax
+    ) ?? null;
     const phaseWindow = band?.phases[form.phase] ?? null;
 
     return {
       pixel: selectedPixel,
-      seasonId: firstSeason?.[0] ?? null,
-      seasonLabel: firstSeason?.[1].label ?? null,
+      seasonId: form.seasonId,
+      seasonLabel: season ? `${season.label} · ${season.water_label ?? season.water_system ?? ""}` : null,
       band,
       phaseWindow
     };
-  }, [calendar, form.crop, form.phase, selectedPixel]);
+  }, [calendar, form.crop, form.seasonId, form.phase, selectedPixel]);
 
   const result = apiResponse?.result ?? null;
   const annual = result?.annual ?? [];
@@ -174,6 +210,8 @@ export function PhaseCalculatorBoard() {
       lon: derived.pixel.lon_ee,
       crop: form.crop,
       phase: form.phase,
+      season_id: form.seasonId,
+      rule_id: threshold.rule_id,
       variable: threshold.variable,
       threshold: threshold.threshold,
       operator: threshold.operator,
@@ -199,7 +237,7 @@ export function PhaseCalculatorBoard() {
       setApiResponse(normalized);
       setApiState(data.ok ? "success" : "error");
     } catch {
-      fail("No se pudo contactar el backend GEE de Vercel.", true);
+      fail("The Vercel GEE backend could not be reached.", true);
     }
   }
 
@@ -207,17 +245,6 @@ export function PhaseCalculatorBoard() {
     setApiResponse({ ok: false, configured, message });
     setApiState("error");
   }
-
-  useEffect(() => {
-    if (hasAutoSubmitted || apiState !== "idle" || !form.pixelId) return;
-    if (form.crop !== "maize" || form.phase !== "F2") return;
-    if (form.startYear !== DEFAULT_START_YEAR || form.endYear !== DEFAULT_END_YEAR) return;
-    if (!derived.pixel || String(derived.pixel.pixel_id_h5) !== form.pixelId || !derived.phaseWindow) return;
-    if (!threshold?.variable || threshold.threshold == null) return;
-
-    setHasAutoSubmitted(true);
-    void submit();
-  }, [hasAutoSubmitted, apiState, form, derived.pixel, derived.phaseWindow, threshold]);
 
   function exportCsv() {
     if (!annual.length) return;
@@ -262,6 +289,14 @@ export function PhaseCalculatorBoard() {
               <Segmented options={CROPS} value={form.crop} onChange={(value) => update("crop", value as Crop)} />
             </Field>
 
+            <Field label="Season and water system">
+              <select value={form.seasonId} onChange={(event) => update("seasonId", event.target.value)} className={inputClass()}>
+                {seasons.map(([id, season]) => (
+                  <option key={id} value={id}>{season.label} · {season.water_label ?? season.water_system}</option>
+                ))}
+              </select>
+            </Field>
+
             <div className="grid grid-cols-2 gap-3">
               <Field label="Latitude band">
                 <select value={latBandFilter} onChange={(event) => setLatBandFilter(event.target.value)} className={inputClass()}>
@@ -285,11 +320,17 @@ export function PhaseCalculatorBoard() {
             </div>
 
             <Field label="Phase">
-              <Segmented
-                options={PHASES.map((phase) => ({ id: phase, label: phase }))}
-                value={form.phase}
-                onChange={(value) => update("phase", value as Phase)}
-              />
+              <select value={form.phase} onChange={(event) => update("phase", event.target.value)} className={inputClass()}>
+                {phases.map((phase) => <option key={phase.code} value={phase.code}>{phase.code} · {phase.label}</option>)}
+              </select>
+            </Field>
+
+            <Field label="Hazard rule">
+              <select value={threshold?.rule_id ?? ""} onChange={(event) => update("ruleId", event.target.value)} className={inputClass()}>
+                {thresholdRules.map((rule) => (
+                  <option key={rule.rule_id} value={rule.rule_id}>{rule.hazard} · {rule.threshold_text}</option>
+                ))}
+              </select>
             </Field>
 
             <CriticalVariableCard threshold={threshold} />
@@ -333,9 +374,9 @@ export function PhaseCalculatorBoard() {
           <StatusPanel
             tone={apiResponse.configured ? "error" : "warn"}
             title={
-              apiResponse.message?.startsWith("Backend GEE no configurado")
-                ? "Backend GEE no configurado"
-                : "No se pudo completar el cálculo"
+              apiResponse.message?.startsWith("GEE backend is not configured")
+                ? "GEE backend not configured"
+                : "Calculation could not be completed"
             }
             message={apiResponse.message ?? "No calculation result was returned."}
           />
@@ -387,7 +428,7 @@ function CriticalVariableCard({ threshold }: { threshold: PhaseCriticalThreshold
         />
         <Metric
           label="Critical threshold"
-          value={threshold.threshold == null ? threshold.threshold_text : `${threshold.operator} ${threshold.threshold} ${threshold.unit}`}
+          value={threshold.threshold_text}
         />
         <Metric label="Evidence" value={threshold.evidence_type} />
         <Metric
@@ -400,7 +441,7 @@ function CriticalVariableCard({ threshold }: { threshold: PhaseCriticalThreshold
         />
         <Metric
           label="Event rule"
-          value={threshold.calculation_status === "provisional" ? `${threshold.min_days_event}+ critical observation(s) in phase` : "Disabled"}
+          value={threshold.calculation_status === "provisional" ? `${threshold.min_days_event}+ consecutive critical day(s) in phase` : "Disabled"}
         />
       </div>
       <p className="mt-3 text-[10.5px] leading-relaxed text-ink-mute">{threshold.threshold_text}</p>
@@ -1003,6 +1044,16 @@ function compare(value: number | null, threshold: number, operator: ThresholdOpe
   return value > threshold;
 }
 
+function longestRun(flags: boolean[]) {
+  let current = 0;
+  let longest = 0;
+  for (const flag of flags) {
+    current = flag ? current + 1 : 0;
+    longest = Math.max(longest, current);
+  }
+  return longest;
+}
+
 function buildProbabilityCurve(annual: AnnualPhaseMetric[], threshold: PhaseCriticalThreshold | null) {
   if (!annual.length || !threshold?.variable || threshold.threshold == null) {
     return { points: [], marker: null, minLabel: "", maxLabel: "" };
@@ -1020,8 +1071,8 @@ function buildProbabilityCurve(annual: AnnualPhaseMetric[], threshold: PhaseCrit
   const points = candidates.map((candidate) => {
     const eventYears = annual.filter((year) => {
       const daily = year.daily_values ?? [];
-      const n = daily.filter((item) => compare(item.value, candidate, threshold.operator)).length;
-      return n >= threshold.min_days_event;
+      const run = longestRun(daily.map((item) => compare(item.value, candidate, threshold.operator)));
+      return run >= threshold.min_days_event;
     }).length;
     const probability = annual.length ? eventYears / annual.length : 0;
     return {

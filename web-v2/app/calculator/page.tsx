@@ -16,16 +16,18 @@ export default function CalculatorPage() {
             Literature-audited climate triggers by crop phase.
           </h1>
           <p className="mt-5 max-w-[680px] text-[14.5px] leading-relaxed text-ink-dim">
-            Query one GDHY-compatible 0.5 degree cell at a time, attach the typical F1-F3 calendar
-            for the selected crop and latitude band, then estimate historical trigger frequency across 1981-2016.
+            Query one GDHY-compatible 0.5 degree cell at a time, attach the eight-stage technical calendar
+            for the selected crop, season, water system and latitude band, then estimate historical trigger frequency across 1981-2016.
           </p>
           <div className="mt-6 max-w-[760px] border-l border-cool/40 pl-4 text-[12.5px] leading-relaxed text-ink-dim">
             <p className="font-medium text-ink">How to use this calculator:</p>
             <ol className="mt-2 list-decimal space-y-1 pl-4">
               <li>Select a crop (Maize, Rice, Wheat or Soybean).</li>
+              <li>Select the crop season and rainfed or irrigated calendar.</li>
               <li>Choose a latitude band; the pixel list will filter accordingly.</li>
               <li>Pick one pixel from the valid inventory table.</li>
-              <li>Select a phenological phase (F1, F2 or F3).</li>
+              <li>Select one of the eight crop-specific technical phases.</li>
+              <li>Select the audited hazard rule to evaluate.</li>
               <li>Adjust the year range if needed (default: 1981-2016).</li>
               <li>
                 Click Calculate. ERA5-Land data is queried live from Google Earth Engine for the selected
