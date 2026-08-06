@@ -1,5 +1,5 @@
 {
-  "version": "v2.1.0-2026-08-05",
+  "version": "v2.2.0-2026-08-05",
   "interpretation": "Rules are assigned by crop and technical phase to every calendar coordinate; assignment is not proof of local occurrence or local biological validation.",
   "event_evaluation_required": "Cross phase DOY window with daily climate data at the coordinate.",
   "rules": [
@@ -26,7 +26,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "RICE_DROUGHT_SM75",
@@ -51,7 +52,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "RICE_COLD_MEAN20",
@@ -76,7 +78,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "RICE_COLD_MEAN17",
@@ -101,7 +104,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "RICE_RAIN25",
@@ -126,7 +130,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "RICE_HEAT_DAY37_2",
@@ -151,7 +156,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "VERIFIED_THRESHOLD"
     },
     {
       "threat_rule_id": "RICE_HEAT_NIGHT31_2",
@@ -176,7 +182,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "VERIFIED_THRESHOLD"
     },
     {
       "threat_rule_id": "MAIZE_HEAT_DAY37_9",
@@ -201,7 +208,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "VERIFIED_THRESHOLD"
     },
     {
       "threat_rule_id": "MAIZE_HEAT_NIGHT27_3",
@@ -226,7 +234,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "VERIFIED_THRESHOLD"
     },
     {
       "threat_rule_id": "MAIZE_HEAT_FILL39_4_41_5",
@@ -251,7 +260,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "WHEAT_HEAT_DAY27_3",
@@ -276,7 +286,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "VERIFIED_THRESHOLD"
     },
     {
       "threat_rule_id": "WHEAT_HEAT_NIGHT19_6",
@@ -301,7 +312,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "VERIFIED_THRESHOLD"
     },
     {
       "threat_rule_id": "WHEAT_SEEDLING_HEAT42",
@@ -326,7 +338,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "SOY_SEASONAL_HEAT30",
@@ -351,7 +364,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "SOY_GERMINATION_TMAX46_92",
@@ -376,7 +390,8 @@
       "citation_page": "",
       "source_file": "",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "RICE_COLD_ANTHESIS17_5D",
@@ -401,7 +416,8 @@
       "citation_page": "3",
       "source_file": "28_ARROZ_FRIO_ANTESIS_Zhang_2017.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "RICE_DROUGHT_FLOWERING_SWP30",
@@ -426,7 +442,8 @@
       "citation_page": "1, 3, 4 y 9",
       "source_file": "29_ARROZ_SEQUIA_FLORACION_Yang_2019.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
@@ -451,7 +468,8 @@
       "citation_page": "4, 9 y 10",
       "source_file": "30_ARROZ_INUNDACION_SUB1_BaileySerres_2010.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "WHEAT_HNT_POSTANTHESIS_DELTA3_8",
@@ -476,7 +494,8 @@
       "citation_page": "1, 5 y 7",
       "source_file": "31_TRIGO_CALOR_NOCTURNO_Hein_2020.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "WHEAT_WATERLOG_Z65_3D",
@@ -501,7 +520,8 @@
       "citation_page": "1–5",
       "source_file": "32_TRIGO_ANEGAMIENTO_POSTFLORACION_Ma_2022.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
@@ -526,7 +546,8 @@
       "citation_page": "4–7",
       "source_file": "33_TRIGO_HELADA_POSTESPIGAMIENTO_Frederiks_2015.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "MAIZE_HNT_FILL28_18D",
@@ -551,7 +572,8 @@
       "citation_page": "1–3",
       "source_file": "37_MAIZ_CALOR_NOCTURNO_LLENADO_Wang_2026.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "SOY_HNT_FILL28_R5_R7",
@@ -576,7 +598,8 @@
       "citation_page": "1, 3–5",
       "source_file": "39_PAPER_PMC9987466_VERIFICAR_TITULO.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "SOY_WATERLOG_R1_3CM_16D",
@@ -601,7 +624,8 @@
       "citation_page": "1, 3, 5 y 6",
       "source_file": "41_SOYA_ANEGAMIENTO_R1_Adegoye_2023.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "MEDIA"
+      "evidence_strength": "MEDIA",
+      "rule_status": "DAMAGING_TREATMENT"
     },
     {
       "threat_rule_id": "SOY_FLOOD_DURATION3",
@@ -626,7 +650,8 @@
       "citation_page": "1, 12 y 13",
       "source_file": "42_SOYA_INUNDACION_DURACION_FASE_Shen_2023.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
     },
     {
       "threat_rule_id": "SOY_FLOOD_DURATION6_GRAIN",
@@ -651,7 +676,294 @@
       "citation_page": "7, 12 y 13",
       "source_file": "42_SOYA_INUNDACION_DURACION_FASE_Shen_2023.pdf",
       "matrix_assignment": "PHASE_SPECIFIC",
-      "evidence_strength": "ALTA"
+      "evidence_strength": "ALTA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
+    },
+    {
+      "threat_rule_id": "RICE_GERMINATION_HEAT38_24H",
+      "crop": "rice",
+      "applicable_phase": "BBCH_00_09",
+      "hazard": "Calor",
+      "variable": "Temperatura durante germinación",
+      "operator": ">=",
+      "threshold": "38",
+      "unit": "°C",
+      "duration_value": "24",
+      "duration_definition": "horas continuas",
+      "evidence_type": "Tratamiento experimental con gradiente",
+      "spatial_scope": "Arroz; germinación controlada",
+      "source": "Zhang et al. 2022",
+      "doi_or_uri": "https://europepmc.org/articles/PMC9496009",
+      "limitations": "38°C fue el menor tratamiento con inhibición extrema en el control; 35°C no mostró efecto significativo. Betaína modificó la respuesta",
+      "qualitative_impact": "Inhibición marcada de germinación y protrusión; alteración hormonal y oxidativa",
+      "quantitative_impact": "A 38°C, la betaína elevó germinación 43.77 veces frente al control estresado, indicando germinación basal casi anulada",
+      "category": "Tratamiento perjudicial",
+      "details": "Comparó 26, 32, 35 y 38°C; evaluación final al día 7",
+      "citation_page": "3–6",
+      "source_file": "46_PMC9496009.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
+    },
+    {
+      "threat_rule_id": "RICE_RIPENING_HEAT_MEAN28",
+      "crop": "rice",
+      "applicable_phase": "BBCH_80_99",
+      "hazard": "Calor durante maduración",
+      "variable": "Temperatura media diaria durante llenado y maduración",
+      "operator": ">",
+      "threshold": "28",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "Exposición durante la fase de llenado/maduración; duración crítica no aislada",
+      "evidence_type": "Clasificación agronómica respaldada por ensayo de campo",
+      "spatial_scope": "28 variedades de arroz; China",
+      "source": "Mu et al. 2025",
+      "doi_or_uri": "https://europepmc.org/articles/PMC12535988",
+      "limitations": "El paper clasifica >28°C como calor en llenado; no estima un punto de quiebre por duración",
+      "qualitative_impact": "Menor peso y calidad industrial; mayor chalkiness",
+      "quantitative_impact": "Peso de 1000 granos -1.6 g; head rice -6.7%; chalkiness +3.3%",
+      "category": "Candidato transferido",
+      "details": "La fase de llenado/maduración dura normalmente 30–40 días en la fuente",
+      "citation_page": "1–4",
+      "source_file": "53_PMC12535988.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
+    },
+    {
+      "threat_rule_id": "MAIZE_EMERGENCE_COLD6",
+      "crop": "maize",
+      "applicable_phase": "VE",
+      "hazard": "Frío de suelo",
+      "variable": "Temperatura mínima en ciclo diurno durante emergencia",
+      "operator": "<",
+      "threshold": "6",
+      "unit": "°C",
+      "duration_value": "2",
+      "duration_definition": "horas por episodio; se compararon 2, 4 y 6 horas",
+      "evidence_type": "Experimento factorial con gradiente",
+      "spatial_scope": "Maíz; ambiente controlado; 60–90% capacidad de campo",
+      "source": "PLOS ONE 2026",
+      "doi_or_uri": "10.1371/journal.pone.0340773",
+      "limitations": "La respuesta depende fuertemente de humedad y duración; ≤2°C produjo emergencia final <50% en condiciones desfavorables",
+      "qualitative_impact": "Emergencia retrasada, desuniforme y menor acumulación de materia seca",
+      "quantitative_impact": "Por debajo de 6°C disminuyó significativamente la emergencia; ≤2°C: emergencia final <50% en combinaciones desfavorables",
+      "category": "Umbral experimental",
+      "details": "Comparó Tmin 0, 2, 4, 6 y 8°C; 70–80% FC fue la humedad más favorable",
+      "citation_page": "1–5",
+      "source_file": "54_PMC12928403.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA",
+      "rule_status": "VERIFIED_THRESHOLD"
+    },
+    {
+      "threat_rule_id": "MAIZE_EARLYVEG_DROUGHT_SWP051_4D",
+      "crop": "maize",
+      "applicable_phase": "V1_V6",
+      "hazard": "Sequía",
+      "variable": "Potencial hídrico del suelo",
+      "operator": "<=",
+      "threshold": "-0.51",
+      "unit": "MPa",
+      "duration_value": "4",
+      "duration_definition": "días desde suspensión del riego en plantas de 15 días",
+      "evidence_type": "Experimento temporal con medición diaria",
+      "spatial_scope": "Maíz de 15 días; ambiente controlado",
+      "source": "Voothuluru et al. 2017",
+      "doi_or_uri": "10.1093/jxb/erx381",
+      "limitations": "Umbral asociado a inhibición de elongación foliar, no directamente a pérdida de rendimiento",
+      "qualitative_impact": "Inhibición de elongación foliar; raíces inhibidas posteriormente con sequía más intensa",
+      "quantitative_impact": "Hoja inhibida desde día 4 a SWP <-0.51 MPa; raíz inhibida días 5–6 entre -0.63 y -0.81 MPa",
+      "category": "Umbral fisiológico",
+      "details": "Episodio no letal de seis días; plantas de 15 días",
+      "citation_page": "1–3",
+      "source_file": "55_PMC5854116.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA",
+      "rule_status": "VERIFIED_THRESHOLD"
+    },
+    {
+      "threat_rule_id": "MAIZE_TASSEL_HEAT38_30_15D",
+      "crop": "maize",
+      "applicable_phase": "V7_VT",
+      "hazard": "Calor",
+      "variable": "Temperatura día/noche durante panojamiento",
+      "operator": ">=",
+      "threshold": "38",
+      "unit": "°C día",
+      "duration_value": "15",
+      "duration_definition": "días consecutivos; régimen 38/30°C día/noche",
+      "evidence_type": "Tratamiento experimental",
+      "spatial_scope": "Dos híbridos; China; etapa de tasseling",
+      "source": "Hussain et al. 2019",
+      "doi_or_uri": "https://europepmc.org/articles/PMC6405865",
+      "limitations": "Tratamiento severo único, no punto de quiebre; incluye noche de 30°C",
+      "qualitative_impact": "Menor crecimiento, fotosíntesis, nutrición y rendimiento",
+      "quantitative_impact": "Efectos significativos en crecimiento y componentes productivos; magnitud dependiente del híbrido y combinación con sequía",
+      "category": "Tratamiento perjudicial",
+      "details": "Calor aplicado en tasseling durante 15 días; control 28/20°C",
+      "citation_page": "1, 2 y 8",
+      "source_file": "56_PMC6405865.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA",
+      "rule_status": "DAMAGING_TREATMENT"
+    },
+    {
+      "threat_rule_id": "MAIZE_EARLYFILL_HEAT42_30_6D",
+      "crop": "maize",
+      "applicable_phase": "R2;R3",
+      "hazard": "Calor durante llenado temprano",
+      "variable": "Temperatura día/noche después de polinización",
+      "operator": ">=",
+      "threshold": "42",
+      "unit": "°C día",
+      "duration_value": "6",
+      "duration_definition": "primer efecto significativo a 6–8 días; régimen 42/30°C continuó hasta cosecha",
+      "evidence_type": "Tratamiento experimental",
+      "spatial_scope": "Dos líneas endogámicas; ambiente controlado",
+      "source": "Li et al. 2025",
+      "doi_or_uri": "https://europepmc.org/articles/PMC11782181",
+      "limitations": "Tratamiento severo sin gradiente; la duración completa fue hasta cosecha",
+      "qualitative_impact": "Menor cuajado, tasa de llenado, peso de mil granos y almidón",
+      "quantitative_impact": "Diferencias fenotípicas significativas desde 6–8 días después de polinización",
+      "category": "Tratamiento perjudicial",
+      "details": "Control 30/20°C; calor 42/30°C desde polinización",
+      "citation_page": "1–8",
+      "source_file": "59_PMC11782181.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA",
+      "rule_status": "DAMAGING_TREATMENT"
+    },
+    {
+      "threat_rule_id": "MAIZE_R6_WIND15",
+      "crop": "maize",
+      "applicable_phase": "R6",
+      "hazard": "Viento y acame",
+      "variable": "Velocidad del viento",
+      "operator": ">",
+      "threshold": "15",
+      "unit": "m/s",
+      "duration_value": "",
+      "duration_definition": "ráfaga/evento; duración no informada",
+      "evidence_type": "Ensayo mecánico de campo",
+      "spatial_scope": "Diez cultivares; China; madurez y posmadurez",
+      "source": "Xue et al. 2020",
+      "doi_or_uri": "https://europepmc.org/articles/PMC7641793",
+      "limitations": "15 m/s marca aumento de separación entre cultivares, no un umbral universal de rotura; resistencia cambia con días posmadurez",
+      "qualitative_impact": "Rotura de tallos, acame y pérdidas durante cosecha tardía",
+      "quantitative_impact": "La resistencia máxima ocurrió 16–24 días después de madurez; el acame aumenta con cosecha tardía",
+      "category": "Candidato transferido",
+      "details": "Usar como disparador de riesgo mecánico, no como velocidad universal de fallo",
+      "citation_page": "1, 6, 7 y 10–11",
+      "source_file": "61_PMC7641793.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "BAJA",
+      "rule_status": "TRANSFERRED_CANDIDATE"
+    },
+    {
+      "threat_rule_id": "WHEAT_STEM_DROUGHT_VSMC45_14D",
+      "crop": "wheat",
+      "applicable_phase": "Z30_39",
+      "hazard": "Sequía",
+      "variable": "Reducción de humedad volumétrica del suelo frente al control",
+      "operator": ">=",
+      "threshold": "45",
+      "unit": "% de reducción",
+      "duration_value": "14",
+      "duration_definition": "días consecutivos en elongación del tallo",
+      "evidence_type": "Tratamiento experimental multivarietal",
+      "spatial_scope": "Seis variedades de trigo de invierno; Croacia",
+      "source": "Vuković et al. 2023",
+      "doi_or_uri": "https://europepmc.org/articles/PMC9921141",
+      "limitations": "Expresado como reducción relativa de VSMC, no humedad absoluta transferible entre suelos",
+      "qualitative_impact": "Menor macollamiento y alteración hormonal durante elongación",
+      "quantitative_impact": "Macollos por planta -50.0% y -63.6% en dos variedades con reducción de VSMC de 45%",
+      "category": "Tratamiento perjudicial",
+      "details": "Comparó reducciones de VSMC de 45% y 65% durante 14 días",
+      "citation_page": "1, 3–10",
+      "source_file": "66_PMC9921141.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA",
+      "rule_status": "DAMAGING_TREATMENT"
+    },
+    {
+      "threat_rule_id": "WHEAT_BOOT_COLD_MINUS2_24H",
+      "crop": "wheat",
+      "applicable_phase": "Z40_49",
+      "hazard": "Helada/frío en embuchamiento",
+      "variable": "Temperatura de cámara",
+      "operator": "<=",
+      "threshold": "-2",
+      "unit": "°C",
+      "duration_value": "24",
+      "duration_definition": "horas continuas",
+      "evidence_type": "Tratamiento experimental con gradiente",
+      "spatial_scope": "Dos variedades de trigo de invierno; booting",
+      "source": "Liu et al. 2019",
+      "doi_or_uri": "https://europepmc.org/articles/PMC6482243",
+      "limitations": "-2°C es tratamiento severo; también se compararon 0 y 2°C. No es temperatura meteorológica estándar",
+      "qualitative_impact": "Desarrollo de espiguillas inhibido y crecimiento floral retrasado",
+      "quantitative_impact": "Disminución significativa de enzimas y reguladores asociados a número/peso de grano",
+      "category": "Tratamiento perjudicial",
+      "details": "Gradiente 2, 0 y -2°C por 24 h; experimento adicional 4°C por 60 h",
+      "citation_page": "1–10",
+      "source_file": "68_PMC6482243.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
+    },
+    {
+      "threat_rule_id": "WHEAT_BOOT_HEAT35_30_24H",
+      "crop": "wheat",
+      "applicable_phase": "Z40_49",
+      "hazard": "Calor reproductivo",
+      "variable": "Temperatura día/noche durante embuchamiento",
+      "operator": ">=",
+      "threshold": "35",
+      "unit": "°C día",
+      "duration_value": "24",
+      "duration_definition": "una transferencia de 24 h; régimen 35/30°C",
+      "evidence_type": "Experimento diario de ventanas de sensibilidad",
+      "spatial_scope": "Trigo; varios genotipos; Reino Unido",
+      "source": "Barber et al. 2017",
+      "doi_or_uri": "https://europepmc.org/articles/PMC5263156",
+      "limitations": "Régimen severo frente a 20/15°C; respuesta genotipo × fase",
+      "qualitative_impact": "Reducción del cuajado y número de granos; pico de sensibilidad en GS41–45",
+      "quantitative_impact": "Cuajado relativo cayó por debajo de 80% en genotipos sensibles; reducción significativa de granos con una exposición",
+      "category": "Tratamiento perjudicial",
+      "details": "Primer pico de sensibilidad alrededor de 18 días antes de GS65, correspondiente a GS41–45",
+      "citation_page": "1–5",
+      "source_file": "69_PMC5263156.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA",
+      "rule_status": "DAMAGING_TREATMENT"
+    },
+    {
+      "threat_rule_id": "WHEAT_RIPENING_RAIN5_8H",
+      "crop": "wheat",
+      "applicable_phase": "Z90_99",
+      "hazard": "Lluvia precosecha",
+      "variable": "Intensidad de lluvia artificial",
+      "operator": ">=",
+      "threshold": "5",
+      "unit": "mm/h",
+      "duration_value": "8",
+      "duration_definition": "horas continuas a 45 días después de espigamiento",
+      "evidence_type": "Tratamiento de campo con lluvia artificial",
+      "spatial_scope": "Dos cultivares de trigo de invierno; Corea",
+      "source": "Kang et al. 2024",
+      "doi_or_uri": "https://europepmc.org/articles/PMC11172332",
+      "limitations": "Aplicado ~10 días antes de madurez y con humedad >90% posterior; efectos dependen de dormancia y cultivar",
+      "qualitative_impact": "Mayor riesgo de germinación precosecha, humedad y deterioro de calidad de harina",
+      "quantitative_impact": "La fuente identifica 40–45 días después de espigamiento y >8 h de lluvia como ventana crítica",
+      "category": "Umbral operativo de ensayo",
+      "details": "Lluvia artificial 5 mm/h durante 8 h; humedad posterior mantenida >90%",
+      "citation_page": "3 y 8",
+      "source_file": "72_PMC11172332.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA",
+      "rule_status": "VERIFIED_THRESHOLD"
     }
   ],
   "crop_phase_rules": [
@@ -665,10 +977,59 @@
     },
     {
       "crop": "maize",
+      "phase_code": "R2",
+      "threat_rule_ids": [
+        "MAIZE_EARLYFILL_HEAT42_30_6D"
+      ]
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R3",
+      "threat_rule_ids": [
+        "MAIZE_EARLYFILL_HEAT42_30_6D"
+      ]
+    },
+    {
+      "crop": "maize",
       "phase_code": "R4_R5",
       "threat_rule_ids": [
         "MAIZE_HEAT_FILL39_4_41_5",
         "MAIZE_HNT_FILL28_18D"
+      ]
+    },
+    {
+      "crop": "maize",
+      "phase_code": "R6",
+      "threat_rule_ids": [
+        "MAIZE_R6_WIND15"
+      ]
+    },
+    {
+      "crop": "maize",
+      "phase_code": "V1_V6",
+      "threat_rule_ids": [
+        "MAIZE_EARLYVEG_DROUGHT_SWP051_4D"
+      ]
+    },
+    {
+      "crop": "maize",
+      "phase_code": "V7_VT",
+      "threat_rule_ids": [
+        "MAIZE_TASSEL_HEAT38_30_15D"
+      ]
+    },
+    {
+      "crop": "maize",
+      "phase_code": "VE",
+      "threat_rule_ids": [
+        "MAIZE_EMERGENCE_COLD6"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_00_09",
+      "threat_rule_ids": [
+        "RICE_GERMINATION_HEAT38_24H"
       ]
     },
     {
@@ -721,6 +1082,13 @@
       "threat_rule_ids": [
         "RICE_COLD_MEAN17",
         "RICE_RAIN25"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_80_99",
+      "threat_rule_ids": [
+        "RICE_RIPENING_HEAT_MEAN28"
       ]
     },
     {
@@ -808,6 +1176,21 @@
     },
     {
       "crop": "wheat",
+      "phase_code": "Z30_39",
+      "threat_rule_ids": [
+        "WHEAT_STEM_DROUGHT_VSMC45_14D"
+      ]
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z40_49",
+      "threat_rule_ids": [
+        "WHEAT_BOOT_COLD_MINUS2_24H",
+        "WHEAT_BOOT_HEAT35_30_24H"
+      ]
+    },
+    {
+      "crop": "wheat",
       "phase_code": "Z50_59",
       "threat_rule_ids": [
         "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
@@ -829,6 +1212,13 @@
       "threat_rule_ids": [
         "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
         "WHEAT_HNT_POSTANTHESIS_DELTA3_8"
+      ]
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z90_99",
+      "threat_rule_ids": [
+        "WHEAT_RIPENING_RAIN5_8H"
       ]
     }
   ]

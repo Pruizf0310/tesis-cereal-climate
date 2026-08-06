@@ -49,6 +49,13 @@ const CATEGORY_CLASS: Record<string, string> = {
   "Seasonal observational association": "border-[#7FAF7B]/40 bg-[#7FAF7B]/10 text-[#91C18D]",
   "Modeled cardinal parameter": "border-[#76B7C5]/40 bg-[#76B7C5]/10 text-[#8CC8D2]",
   "Evidence gap": "border-line bg-white/[0.02] text-ink-mute"
+  ,"Umbral experimental": "border-cool/35 bg-cool/[0.08] text-cool"
+  ,"Umbral fisiológico": "border-cool/35 bg-cool/[0.08] text-cool"
+  ,"Umbral operativo de ensayo": "border-cool/35 bg-cool/[0.08] text-cool"
+  ,"Tratamiento perjudicial": "border-[#D98B57]/40 bg-[#D98B57]/10 text-[#E4A177]"
+  ,"Candidato transferido": "border-warm/35 bg-warm/[0.08] text-warm"
+  ,"Crítica": "border-[#D96C6C]/40 bg-[#D96C6C]/10 text-[#ED8B8B]"
+  ,"Alta": "border-[#D98B57]/40 bg-[#D98B57]/10 text-[#E4A177]"
 };
 
 export function RiskPivotV2() {
