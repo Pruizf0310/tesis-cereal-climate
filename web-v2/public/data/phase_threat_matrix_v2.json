@@ -1,5 +1,5 @@
 {
-  "version": "v2.0.0-2026-08-05",
+  "version": "v2.1.0-2026-08-05",
   "interpretation": "Rules are assigned by crop and technical phase to every calendar coordinate; assignment is not proof of local occurrence or local biological validation.",
   "event_evaluation_required": "Cross phase DOY window with daily climate data at the coordinate.",
   "rules": [
@@ -18,7 +18,15 @@
       "spatial_scope": "Sur de China; ciclo único",
       "source": "Sun et al. 2025",
       "doi_or_uri": "10.5194/esd-16-1971-2025",
-      "limitations": "Duración relajada respecto del estándar; no global"
+      "limitations": "Duración relajada respecto del estándar; no global",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "RICE_DROUGHT_SM75",
@@ -35,7 +43,15 @@
       "spatial_scope": "Sur de China; ciclo único",
       "source": "Sun et al. 2025",
       "doi_or_uri": "10.5194/esd-16-1971-2025",
-      "limitations": "Falta definición operacional completa de SM para transferencia"
+      "limitations": "Falta definición operacional completa de SM para transferencia",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "RICE_COLD_MEAN20",
@@ -52,7 +68,15 @@
       "spatial_scope": "Sur de China; arroz tardío",
       "source": "Sun et al. 2025",
       "doi_or_uri": "10.5194/esd-16-1971-2025",
-      "limitations": "Duración relajada; no global"
+      "limitations": "Duración relajada; no global",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "RICE_COLD_MEAN17",
@@ -69,7 +93,15 @@
       "spatial_scope": "Sur de China; arroz tardío",
       "source": "Sun et al. 2025",
       "doi_or_uri": "10.5194/esd-16-1971-2025",
-      "limitations": "Duración relajada; no global"
+      "limitations": "Duración relajada; no global",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "RICE_RAIN25",
@@ -86,7 +118,15 @@
       "spatial_scope": "Sur de China; arroz tardío",
       "source": "Sun et al. 2025",
       "doi_or_uri": "10.5194/esd-16-1971-2025",
-      "limitations": "Basado en estándar local de Chengdu"
+      "limitations": "Basado en estándar local de Chengdu",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "RICE_HEAT_DAY37_2",
@@ -103,7 +143,15 @@
       "spatial_scope": "Síntesis multiexperimento",
       "source": "Liu et al. 2023",
       "doi_or_uri": "10.1016/j.xplc.2023.100629",
-      "limitations": "SE 0.2°C; reducción significativa del cuajado; duración heterogénea"
+      "limitations": "SE 0.2°C; reducción significativa del cuajado; duración heterogénea",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "RICE_HEAT_NIGHT31_2",
@@ -120,7 +168,15 @@
       "spatial_scope": "Síntesis; evidencia nocturna limitada",
       "source": "Liu et al. 2023",
       "doi_or_uri": "10.1016/j.xplc.2023.100629",
-      "limitations": "SE 0.2°C; no es duración máxima tolerable"
+      "limitations": "SE 0.2°C; no es duración máxima tolerable",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "MAIZE_HEAT_DAY37_9",
@@ -137,7 +193,15 @@
       "spatial_scope": "Síntesis multiexperimento",
       "source": "Liu et al. 2023",
       "doi_or_uri": "10.1016/j.xplc.2023.100629",
-      "limitations": "SE 0.4°C; reducción significativa del cuajado"
+      "limitations": "SE 0.4°C; reducción significativa del cuajado",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "MAIZE_HEAT_NIGHT27_3",
@@ -154,7 +218,15 @@
       "spatial_scope": "Síntesis; evidencia nocturna limitada",
       "source": "Liu et al. 2023",
       "doi_or_uri": "10.1016/j.xplc.2023.100629",
-      "limitations": "SE 1.3°C; no es duración máxima tolerable"
+      "limitations": "SE 1.3°C; no es duración máxima tolerable",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "MAIZE_HEAT_FILL39_4_41_5",
@@ -171,7 +243,15 @@
       "spatial_scope": "Híbrido Xianyu335; China",
       "source": "Zhang et al. 2023",
       "doi_or_uri": "10.3390/agronomy13082126",
-      "limitations": "Rango 39.4-41.5°C; causó daño, no estima inicio crítico"
+      "limitations": "Rango 39.4-41.5°C; causó daño, no estima inicio crítico",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "WHEAT_HEAT_DAY27_3",
@@ -188,7 +268,15 @@
       "spatial_scope": "Síntesis multiexperimento",
       "source": "Liu et al. 2023",
       "doi_or_uri": "10.1016/j.xplc.2023.100629",
-      "limitations": "SE 0.5°C; reducción significativa del cuajado"
+      "limitations": "SE 0.5°C; reducción significativa del cuajado",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "WHEAT_HEAT_NIGHT19_6",
@@ -205,7 +293,15 @@
       "spatial_scope": "Síntesis; evidencia nocturna limitada",
       "source": "Liu et al. 2023",
       "doi_or_uri": "10.1016/j.xplc.2023.100629",
-      "limitations": "SE 2.7°C; no es duración máxima tolerable"
+      "limitations": "SE 2.7°C; no es duración máxima tolerable",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "WHEAT_SEEDLING_HEAT42",
@@ -222,7 +318,15 @@
       "spatial_scope": "Ambiente controlado",
       "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
       "doi_or_uri": "10.1007/s13593-017-0443-9",
-      "limitations": "Buscar fuente primaria; tratamiento, no umbral"
+      "limitations": "Buscar fuente primaria; tratamiento, no umbral",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "SOY_SEASONAL_HEAT30",
@@ -239,7 +343,15 @@
       "spatial_scope": "Estados Unidos; más fuerte en secano",
       "source": "Schauberger et al. 2017",
       "doi_or_uri": "10.1038/ncomms13931",
-      "limitations": "Hasta 6% de reducción por día; no específica de fase"
+      "limitations": "Hasta 6% de reducción por día; no específica de fase",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
     },
     {
       "threat_rule_id": "SOY_GERMINATION_TMAX46_92",
@@ -256,7 +368,290 @@
       "spatial_scope": "Dos cultivares MG V; incubador",
       "source": "Alsajri 2018",
       "doi_or_uri": "https://hdl.handle.net/11668/20905",
-      "limitations": "No usar como umbral de muerte ni alerta"
+      "limitations": "No usar como umbral de muerte ni alerta",
+      "qualitative_impact": "Daño informado en la fuente; magnitud dependiente del estudio",
+      "quantitative_impact": "No determinado",
+      "category": "Candidato con límites de transferencia",
+      "details": "Consultar limitaciones y fuente antes de interpretar localmente",
+      "citation_page": "",
+      "source_file": "",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
+    },
+    {
+      "threat_rule_id": "RICE_COLD_ANTHESIS17_5D",
+      "crop": "rice",
+      "applicable_phase": "BBCH_60_69",
+      "hazard": "Frío",
+      "variable": "Temperatura media de cámara durante antesis",
+      "operator": "<=",
+      "threshold": "17",
+      "unit": "°C",
+      "duration_value": "5",
+      "duration_definition": "días consecutivos de floración",
+      "evidence_type": "Tratamiento experimental con control",
+      "spatial_scope": "Zhejiang, China; cuatro cultivares",
+      "source": "Zeng et al. 2017",
+      "doi_or_uri": "10.3389/fpls.2017.01350",
+      "limitations": "17°C fue el tratamiento (20/14°C máx/mín), no un umbral universal; respuesta dependiente del cultivar",
+      "qualitative_impact": "Menor germinación de polen y fertilidad de espiguillas, especialmente en cultivares sensibles",
+      "quantitative_impact": "Fertilidad reducida significativamente; magnitud varía por cultivar",
+      "category": "Alta",
+      "details": "Tratamiento LT 17°C frente a 25°C durante cinco días de floración",
+      "citation_page": "3",
+      "source_file": "28_ARROZ_FRIO_ANTESIS_Zhang_2017.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
+    },
+    {
+      "threat_rule_id": "RICE_DROUGHT_FLOWERING_SWP30",
+      "crop": "rice",
+      "applicable_phase": "BBCH_60_69",
+      "hazard": "Sequía",
+      "variable": "Potencial hídrico del suelo a 15 cm",
+      "operator": "<=",
+      "threshold": "-30",
+      "unit": "kPa",
+      "duration_value": "",
+      "duration_definition": "Durante floración; duración exacta no informada",
+      "evidence_type": "Tratamiento de campo con control",
+      "spatial_scope": "China; dos cultivares híbridos",
+      "source": "Yang et al. 2019",
+      "doi_or_uri": "10.1038/s41598-019-40161-0",
+      "limitations": "Tratamiento mantenido en -30 ±5 kPa; no estima el primer punto perjudicial ni duración máxima tolerable",
+      "qualitative_impact": "Menos espiguillas y granos llenos; menor rendimiento",
+      "quantitative_impact": "Rendimiento -23.2% y -24.0%; espiguillas -18%/-21%; granos llenos -19%",
+      "category": "Alta",
+      "details": "Sequía impuesta a los 60 días después del trasplante durante floración",
+      "citation_page": "1, 3, 4 y 9",
+      "source_file": "29_ARROZ_SEQUIA_FLORACION_Yang_2019.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
+    },
+    {
+      "threat_rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
+      "crop": "rice",
+      "applicable_phase": "BBCH_10_19;BBCH_20_29;BBCH_30_39;BBCH_40_59",
+      "hazard": "Inundación / sumersión",
+      "variable": "Duración de sumersión completa",
+      "operator": ">=",
+      "threshold": "7",
+      "unit": "días",
+      "duration_value": "7",
+      "duration_definition": "días de inundación completa",
+      "evidence_type": "Síntesis de evidencia y mejoramiento SUB1",
+      "spatial_scope": "Arroz de tierras bajas de Asia",
+      "source": "Bailey-Serres et al. 2010",
+      "doi_or_uri": "10.1007/s00425-010-1198-z",
+      "limitations": "Las variedades sensibles suelen morir en 7 días; genotipos SUB1 toleran 7–15 días. Aplicar solo con información varietal",
+      "qualitative_impact": "Alta mortalidad de variedades sensibles; supervivencia superior con SUB1",
+      "quantitative_impact": "Variedades populares sensibles: muerte usual dentro de 7 días; SUB1: ventaja tras 7–15 días",
+      "category": "Crítica condicionada por genotipo",
+      "details": "Regla de duración de sumersión, no de precipitación; válida antes de floración",
+      "citation_page": "4, 9 y 10",
+      "source_file": "30_ARROZ_INUNDACION_SUB1_BaileySerres_2010.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
+    },
+    {
+      "threat_rule_id": "WHEAT_HNT_POSTANTHESIS_DELTA3_8",
+      "crop": "wheat",
+      "applicable_phase": "Z70_89",
+      "hazard": "Calor nocturno",
+      "variable": "Anomalía de temperatura nocturna frente al ambiente",
+      "operator": ">=",
+      "threshold": "3.8",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "Cada noche desde 50% antesis hasta madurez",
+      "evidence_type": "Tratamiento de campo con control",
+      "spatial_scope": "Kansas, Estados Unidos; 12 genotipos",
+      "source": "Hein et al. 2020",
+      "doi_or_uri": "10.1038/s41598-020-79179-0",
+      "limitations": "+3.8°C es tratamiento, no umbral absoluto; temperatura media tratada 22.1°C frente a 18.4°C",
+      "qualitative_impact": "Acorta llenado y reduce peso, número de granos y rendimiento",
+      "quantitative_impact": "Llenado -3.33 días; peso -1.25%/°C; granos -2.36%/°C; rendimiento -3.58%/°C",
+      "category": "Alta",
+      "details": "Estrés nocturno 20:00–06:00 desde antesis hasta madurez",
+      "citation_page": "1, 5 y 7",
+      "source_file": "31_TRIGO_CALOR_NOCTURNO_Hein_2020.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
+    },
+    {
+      "threat_rule_id": "WHEAT_WATERLOG_Z65_3D",
+      "crop": "wheat",
+      "applicable_phase": "Z60_69",
+      "hazard": "Anegamiento",
+      "variable": "Duración de anegamiento del suelo",
+      "operator": ">=",
+      "threshold": "3",
+      "unit": "días",
+      "duration_value": "3",
+      "duration_definition": "días consecutivos desde Z65",
+      "evidence_type": "Tratamiento de campo multianual",
+      "spatial_scope": "Jiangsu, China; trigo de invierno Ningmai 13",
+      "source": "Ma et al. 2022",
+      "doi_or_uri": "10.3389/fpls.2022.944308",
+      "limitations": "Tres días afectaron fotosíntesis tardía, pero el mayor daño de rendimiento se observó con 6–9 días; una variedad",
+      "qualitative_impact": "Senescencia acelerada, menor asimilación y rendimiento",
+      "quantitative_impact": "9 días: rendimiento final -28%; 6/9 días: peso de mil granos -11%/-19% a 28 DAA",
+      "category": "Alta",
+      "details": "Comparó 0, 3, 6 y 9 días desde 50% floración (Z65)",
+      "citation_page": "1–5",
+      "source_file": "32_TRIGO_ANEGAMIENTO_POSTFLORACION_Ma_2022.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
+    },
+    {
+      "threat_rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+      "crop": "wheat",
+      "applicable_phase": "Z50_59;Z60_69;Z70_89",
+      "hazard": "Helada",
+      "variable": "Temperatura mínima del aire en el dosel",
+      "operator": "<=",
+      "threshold": "-3.5",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "Evento nocturno; duración crítica no cuantificada",
+      "evidence_type": "Revisión técnica de evidencia de campo",
+      "spatial_scope": "Australia; trigo después de emergencia de espiga",
+      "source": "Frederiks et al. 2015",
+      "doi_or_uri": "10.1093/jxb/erv161",
+      "limitations": "Daño citado entre -3.5 y -4.5°C; temperatura real de la planta puede ser 1–3°C menor; severidad depende de nucleación y duración",
+      "qualitative_impact": "Daño reproductivo posespigamiento; daño severo al congelarse los tejidos",
+      "quantitative_impact": "Daño posible desde -3.5 a -4.5°C de aire del dosel; daño severo universal cerca de -6°C en espigas",
+      "category": "Crítica",
+      "details": "Usar temperatura del dosel, no la temperatura meteorológica estándar sin corrección",
+      "citation_page": "4–7",
+      "source_file": "33_TRIGO_HELADA_POSTESPIGAMIENTO_Frederiks_2015.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
+    },
+    {
+      "threat_rule_id": "MAIZE_HNT_FILL28_18D",
+      "crop": "maize",
+      "applicable_phase": "R4_R5",
+      "hazard": "Calor nocturno",
+      "variable": "Temperatura mínima/nocturna durante llenado efectivo",
+      "operator": ">=",
+      "threshold": "28",
+      "unit": "°C",
+      "duration_value": "18",
+      "duration_definition": "noches consecutivas; tratamiento iniciado 15 días después de sedas",
+      "evidence_type": "Tratamiento experimental con gradiente",
+      "spatial_scope": "China; híbridos ZY309 y JH5",
+      "source": "Wang et al. 2026",
+      "doi_or_uri": "10.3389/fpls.2026.1826388",
+      "limitations": "28°C fue la menor temperatura con pérdida significativa en el híbrido sensible; JH5 respondió significativamente a 30°C",
+      "qualitative_impact": "Menor rendimiento y cambios en almidón, lípidos y proteína",
+      "quantitative_impact": "ZY309: -9.27% a 28°C y -13.64% a 30°C; JH5: -11.19% a 30°C",
+      "category": "Alta",
+      "details": "Comparó noches de 24, 26, 28 y 30°C durante 18 días",
+      "citation_page": "1–3",
+      "source_file": "37_MAIZ_CALOR_NOCTURNO_LLENADO_Wang_2026.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
+    },
+    {
+      "threat_rule_id": "SOY_HNT_FILL28_R5_R7",
+      "crop": "soybean",
+      "applicable_phase": "R5;R6_R7",
+      "hazard": "Calor nocturno",
+      "variable": "Temperatura nocturna durante llenado de semilla",
+      "operator": ">=",
+      "threshold": "28",
+      "unit": "°C",
+      "duration_value": "",
+      "duration_definition": "12 h por noche durante R5–R7",
+      "evidence_type": "Tratamiento experimental bianual",
+      "spatial_scope": "Beijing, China; tres variedades",
+      "source": "Yang et al. 2023",
+      "doi_or_uri": "10.3389/fpls.2023.1099621",
+      "limitations": "28°C es tratamiento frente a 18°C, no punto de quiebre; respuesta varietal",
+      "qualitative_impact": "Menor rendimiento y alteración de carbohidratos no estructurales durante llenado",
+      "quantitative_impact": "Máxima reducción por variedad: -33.69% (2020) y -45.45% (2021)",
+      "category": "Alta",
+      "details": "Tratamiento nocturno 19:00–07:00 en R5–R7",
+      "citation_page": "1, 3–5",
+      "source_file": "39_PAPER_PMC9987466_VERIFICAR_TITULO.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
+    },
+    {
+      "threat_rule_id": "SOY_WATERLOG_R1_3CM_16D",
+      "crop": "soybean",
+      "applicable_phase": "R1_R2",
+      "hazard": "Anegamiento",
+      "variable": "Altura del agua sobre el sustrato",
+      "operator": ">=",
+      "threshold": "3",
+      "unit": "cm",
+      "duration_value": "16",
+      "duration_definition": "días consecutivos desde R1",
+      "evidence_type": "Tratamiento experimental",
+      "spatial_scope": "Estados Unidos; cultivar AG5332",
+      "source": "Adegoye et al. 2023",
+      "doi_or_uri": "10.3390/agriculture13040844",
+      "limitations": "Un solo tratamiento largo; no identifica la duración mínima perjudicial",
+      "qualitative_impact": "Hipoxia, menor fotosíntesis, número de hojas y biomasa de vainas",
+      "quantitative_impact": "O2 del suelo llegó a cero ~5 días; fotosíntesis -42%; peso seco de vainas -81% tras 16 días",
+      "category": "Crítica",
+      "details": "Agua mantenida 3 cm sobre el sustrato durante 16 días y recuperación por 16 días",
+      "citation_page": "1, 3, 5 y 6",
+      "source_file": "41_SOYA_ANEGAMIENTO_R1_Adegoye_2023.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "MEDIA"
+    },
+    {
+      "threat_rule_id": "SOY_FLOOD_DURATION3",
+      "crop": "soybean",
+      "applicable_phase": "VE_VC;V1_VN;R1_R2;R3;R4",
+      "hazard": "Inundación",
+      "variable": "Duración de inundación",
+      "operator": ">",
+      "threshold": "3",
+      "unit": "días",
+      "duration_value": "3",
+      "duration_definition": "duración crítica; daño al superar 3 días",
+      "evidence_type": "Experimento de campo multianual con varias duraciones",
+      "spatial_scope": "Llanura de Huaibei, China; etapas plántula, ramificación y floración-vainas",
+      "source": "Shen et al. 2023",
+      "doi_or_uri": "10.3390/su15010738",
+      "limitations": "Respuesta interanual; algunas exposiciones cortas compensaron sequía/calor. No extrapolar la hidráulica sin validar",
+      "qualitative_impact": "Disminución de vainas, rendimiento y materia seca al exceder la duración crítica",
+      "quantitative_impact": "A 9 días, rendimiento relativo: floración-vainas 7.1%, ramificación 15.6%, plántula 48.4% del control",
+      "category": "Crítica",
+      "details": "Duración crítica informada por los autores para vainas, rendimiento y materia seca",
+      "citation_page": "1, 12 y 13",
+      "source_file": "42_SOYA_INUNDACION_DURACION_FASE_Shen_2023.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
+    },
+    {
+      "threat_rule_id": "SOY_FLOOD_DURATION6_GRAIN",
+      "crop": "soybean",
+      "applicable_phase": "R1_R2;R3;R4;R5",
+      "hazard": "Inundación",
+      "variable": "Duración de inundación",
+      "operator": ">",
+      "threshold": "6",
+      "unit": "días",
+      "duration_value": "6",
+      "duration_definition": "duración crítica para peso de 100 granos",
+      "evidence_type": "Experimento de campo multianual con varias duraciones",
+      "spatial_scope": "Llanura de Huaibei, China; énfasis floración-vainas",
+      "source": "Shen et al. 2023",
+      "doi_or_uri": "10.3390/su15010738",
+      "limitations": "El efecto dependió del año y la fase; reducción clara generalmente a 9 días",
+      "qualitative_impact": "Reducción del peso de 100 granos, mayor sensibilidad en floración-vainas",
+      "quantitative_impact": "A 9 días: peso de 100 granos en floración-vainas 37.8% del control",
+      "category": "Alta",
+      "details": "Los autores fijan 6 días como duración crítica para peso de 100 granos",
+      "citation_page": "7, 12 y 13",
+      "source_file": "42_SOYA_INUNDACION_DURACION_FASE_Shen_2023.pdf",
+      "matrix_assignment": "PHASE_SPECIFIC",
+      "evidence_strength": "ALTA"
     }
   ],
   "crop_phase_rules": [
@@ -272,14 +667,30 @@
       "crop": "maize",
       "phase_code": "R4_R5",
       "threat_rule_ids": [
-        "MAIZE_HEAT_FILL39_4_41_5"
+        "MAIZE_HEAT_FILL39_4_41_5",
+        "MAIZE_HNT_FILL28_18D"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_10_19",
+      "threat_rule_ids": [
+        "RICE_SUBMERGENCE_SENSITIVE7D"
+      ]
+    },
+    {
+      "crop": "rice",
+      "phase_code": "BBCH_20_29",
+      "threat_rule_ids": [
+        "RICE_SUBMERGENCE_SENSITIVE7D"
       ]
     },
     {
       "crop": "rice",
       "phase_code": "BBCH_30_39",
       "threat_rule_ids": [
-        "RICE_HEAT_MEAN_33"
+        "RICE_HEAT_MEAN_33",
+        "RICE_SUBMERGENCE_SENSITIVE7D"
       ]
     },
     {
@@ -288,14 +699,17 @@
       "threat_rule_ids": [
         "RICE_COLD_MEAN20",
         "RICE_DROUGHT_SM75",
-        "RICE_RAIN25"
+        "RICE_RAIN25",
+        "RICE_SUBMERGENCE_SENSITIVE7D"
       ]
     },
     {
       "crop": "rice",
       "phase_code": "BBCH_60_69",
       "threat_rule_ids": [
+        "RICE_COLD_ANTHESIS17_5D",
         "RICE_COLD_MEAN20",
+        "RICE_DROUGHT_FLOWERING_SWP30",
         "RICE_HEAT_DAY37_2",
         "RICE_HEAT_NIGHT31_2",
         "RICE_RAIN25"
@@ -313,13 +727,18 @@
       "crop": "soybean",
       "phase_code": "R1_R2",
       "threat_rule_ids": [
-        "SOY_SEASONAL_HEAT30"
+        "SOY_FLOOD_DURATION3",
+        "SOY_FLOOD_DURATION6_GRAIN",
+        "SOY_SEASONAL_HEAT30",
+        "SOY_WATERLOG_R1_3CM_16D"
       ]
     },
     {
       "crop": "soybean",
       "phase_code": "R3",
       "threat_rule_ids": [
+        "SOY_FLOOD_DURATION3",
+        "SOY_FLOOD_DURATION6_GRAIN",
         "SOY_SEASONAL_HEAT30"
       ]
     },
@@ -327,6 +746,8 @@
       "crop": "soybean",
       "phase_code": "R4",
       "threat_rule_ids": [
+        "SOY_FLOOD_DURATION3",
+        "SOY_FLOOD_DURATION6_GRAIN",
         "SOY_SEASONAL_HEAT30"
       ]
     },
@@ -334,6 +755,8 @@
       "crop": "soybean",
       "phase_code": "R5",
       "threat_rule_ids": [
+        "SOY_FLOOD_DURATION6_GRAIN",
+        "SOY_HNT_FILL28_R5_R7",
         "SOY_SEASONAL_HEAT30"
       ]
     },
@@ -341,6 +764,7 @@
       "crop": "soybean",
       "phase_code": "R6_R7",
       "threat_rule_ids": [
+        "SOY_HNT_FILL28_R5_R7",
         "SOY_SEASONAL_HEAT30"
       ]
     },
@@ -355,6 +779,7 @@
       "crop": "soybean",
       "phase_code": "V1_VN",
       "threat_rule_ids": [
+        "SOY_FLOOD_DURATION3",
         "SOY_SEASONAL_HEAT30"
       ]
     },
@@ -362,6 +787,7 @@
       "crop": "soybean",
       "phase_code": "VE_VC",
       "threat_rule_ids": [
+        "SOY_FLOOD_DURATION3",
         "SOY_GERMINATION_TMAX46_92",
         "SOY_SEASONAL_HEAT30"
       ]
@@ -382,10 +808,27 @@
     },
     {
       "crop": "wheat",
+      "phase_code": "Z50_59",
+      "threat_rule_ids": [
+        "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
+      ]
+    },
+    {
+      "crop": "wheat",
       "phase_code": "Z60_69",
       "threat_rule_ids": [
+        "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
         "WHEAT_HEAT_DAY27_3",
-        "WHEAT_HEAT_NIGHT19_6"
+        "WHEAT_HEAT_NIGHT19_6",
+        "WHEAT_WATERLOG_Z65_3D"
+      ]
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "Z70_89",
+      "threat_rule_ids": [
+        "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "WHEAT_HNT_POSTANTHESIS_DELTA3_8"
       ]
     }
   ]
