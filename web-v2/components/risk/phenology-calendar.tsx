@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ActivitySquare, Sprout, Waves, Wheat } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MaizeReproductiveNote } from "./maize-reproductive-note";
 
 interface TechnicalPhase {
   code: string;
@@ -109,6 +110,8 @@ export function PhenologyCalendar() {
         <span className="font-medium text-ink">Technical calendar v2:</span> eight crop-specific stages reconstructed for every 0.5° calendar coordinate.
         Cells report the average number of stage-days falling in each month within the selected 10° latitude band. {payload.warning}
       </div>
+
+      {cropId === "maize" && <MaizeReproductiveNote />}
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-[1320px] border-collapse">

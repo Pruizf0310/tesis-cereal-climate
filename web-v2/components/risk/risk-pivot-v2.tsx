@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ActivitySquare, ChevronDown, ExternalLink, Sprout, Waves, Wheat } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { maizeReproductiveEvidence } from "@/lib/maize-reproductive-evidence";
 
 interface HazardDetails {
   phase_order: number;
@@ -69,7 +70,9 @@ export function RiskPivotV2() {
   }, []);
 
   const rows = useMemo(
-    () => (payload?.rows ?? []).filter((row) => row.crop === cropId && (showGaps || row.category !== "Evidence gap")),
+    () => (payload ? [...payload.rows, maizeReproductiveEvidence] : [])
+      .filter((row) => row.crop === cropId && (showGaps || row.category !== "Evidence gap"))
+      .sort((a, b) => a.details.phase_order - b.details.phase_order),
     [payload, cropId, showGaps]
   );
 
