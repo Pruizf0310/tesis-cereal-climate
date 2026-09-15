@@ -1,0 +1,940 @@
+{
+  "workbook": "REVISION_HUMANA_fases_macro_completada.xlsx",
+  "sha256": "70d5fa4ff2fd19a12eb4aad600dd4e0188059d47618545402b3104e735cbdb2b",
+  "rows": [
+    {
+      "row": 5,
+      "crop": "maize",
+      "source_phase_code": "VE",
+      "rule_id": "MAIZE_EMERGENCE_COLD6",
+      "excluded_orange": false,
+      "target_phases": [
+        "EST"
+      ],
+      "paper_phases": [
+        "EST"
+      ],
+      "assigned_phases": [
+        "EST"
+      ]
+    },
+    {
+      "row": 6,
+      "crop": "maize",
+      "source_phase_code": "V1_V6",
+      "rule_id": "MAIZE_EARLYVEG_DROUGHT_SWP051_4D",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG"
+      ],
+      "paper_phases": [
+        "VEG"
+      ],
+      "assigned_phases": [
+        "VEG"
+      ]
+    },
+    {
+      "row": 7,
+      "crop": "maize",
+      "source_phase_code": "V7_VT",
+      "rule_id": "MAIZE_TASSEL_HEAT38_30_15D",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG"
+      ],
+      "paper_phases": [
+        "VEG"
+      ],
+      "assigned_phases": [
+        "VEG"
+      ]
+    },
+    {
+      "row": 8,
+      "crop": "maize",
+      "source_phase_code": "R1",
+      "rule_id": "MAIZE_HEAT_DAY37_9",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO",
+        "REP"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 9,
+      "crop": "maize",
+      "source_phase_code": "R1",
+      "rule_id": "MAIZE_HEAT_NIGHT27_3",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO",
+        "REP"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 10,
+      "crop": "maize",
+      "source_phase_code": "R2",
+      "rule_id": "MAIZE_EARLYFILL_HEAT42_30_6D",
+      "excluded_orange": true
+    },
+    {
+      "row": 11,
+      "crop": "maize",
+      "source_phase_code": "R3",
+      "rule_id": "MAIZE_EARLYFILL_HEAT42_30_6D",
+      "excluded_orange": true
+    },
+    {
+      "row": 12,
+      "crop": "maize",
+      "source_phase_code": "R4_R5",
+      "rule_id": "MAIZE_HEAT_FILL39_4_41_5",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FIL"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 13,
+      "crop": "maize",
+      "source_phase_code": "R4_R5",
+      "rule_id": "MAIZE_HNT_FILL28_18D",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FIL"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 14,
+      "crop": "maize",
+      "source_phase_code": "R6",
+      "rule_id": "MAIZE_R6_WIND15",
+      "excluded_orange": false,
+      "target_phases": [
+        "MAT"
+      ],
+      "paper_phases": [
+        "MAT"
+      ],
+      "assigned_phases": [
+        "MAT"
+      ]
+    },
+    {
+      "row": 15,
+      "crop": "rice",
+      "source_phase_code": "BBCH_00_09",
+      "rule_id": "RICE_GERMINATION_HEAT38_24H",
+      "excluded_orange": false,
+      "target_phases": [
+        "EST"
+      ],
+      "paper_phases": [
+        "EST"
+      ],
+      "assigned_phases": [
+        "EST"
+      ]
+    },
+    {
+      "row": 16,
+      "crop": "rice",
+      "source_phase_code": "BBCH_10_19",
+      "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG"
+      ],
+      "paper_phases": [
+        "EST",
+        "VEG"
+      ],
+      "assigned_phases": [
+        "VEG"
+      ]
+    },
+    {
+      "row": 17,
+      "crop": "rice",
+      "source_phase_code": "BBCH_20_29",
+      "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG"
+      ],
+      "paper_phases": [
+        "EST",
+        "VEG"
+      ],
+      "assigned_phases": [
+        "VEG"
+      ]
+    },
+    {
+      "row": 18,
+      "crop": "rice",
+      "source_phase_code": "BBCH_30_39",
+      "rule_id": "RICE_HEAT_MEAN_33",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG",
+        "REP"
+      ],
+      "paper_phases": [
+        "VEG",
+        "REP",
+        "FLO",
+        "FIL"
+      ],
+      "assigned_phases": [
+        "VEG",
+        "REP"
+      ]
+    },
+    {
+      "row": 19,
+      "crop": "rice",
+      "source_phase_code": "BBCH_30_39",
+      "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG",
+        "REP"
+      ],
+      "paper_phases": [
+        "EST",
+        "VEG"
+      ],
+      "assigned_phases": [
+        "VEG"
+      ]
+    },
+    {
+      "row": 20,
+      "crop": "rice",
+      "source_phase_code": "BBCH_40_59",
+      "rule_id": "RICE_DROUGHT_SM75",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "VEG",
+        "REP",
+        "FLO",
+        "FIL"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 21,
+      "crop": "rice",
+      "source_phase_code": "BBCH_40_59",
+      "rule_id": "RICE_COLD_MEAN20",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "REP",
+        "FLO"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 22,
+      "crop": "rice",
+      "source_phase_code": "BBCH_40_59",
+      "rule_id": "RICE_RAIN25",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "REP",
+        "FLO"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 23,
+      "crop": "rice",
+      "source_phase_code": "BBCH_40_59",
+      "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "EST",
+        "VEG"
+      ],
+      "assigned_phases": [],
+      "excluded_reason": "No supported phase overlap"
+    },
+    {
+      "row": 24,
+      "crop": "rice",
+      "source_phase_code": "BBCH_60_69",
+      "rule_id": "RICE_COLD_MEAN20",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "REP",
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 25,
+      "crop": "rice",
+      "source_phase_code": "BBCH_60_69",
+      "rule_id": "RICE_RAIN25",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "REP",
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 26,
+      "crop": "rice",
+      "source_phase_code": "BBCH_60_69",
+      "rule_id": "RICE_HEAT_DAY37_2",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 27,
+      "crop": "rice",
+      "source_phase_code": "BBCH_60_69",
+      "rule_id": "RICE_HEAT_NIGHT31_2",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 28,
+      "crop": "rice",
+      "source_phase_code": "BBCH_60_69",
+      "rule_id": "RICE_COLD_ANTHESIS17_5D",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 29,
+      "crop": "rice",
+      "source_phase_code": "BBCH_60_69",
+      "rule_id": "RICE_DROUGHT_FLOWERING_SWP30",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 30,
+      "crop": "rice",
+      "source_phase_code": "BBCH_70_79",
+      "rule_id": "RICE_COLD_MEAN17",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FIL",
+        "MAT"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 31,
+      "crop": "rice",
+      "source_phase_code": "BBCH_70_79",
+      "rule_id": "RICE_RAIN25",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FIL",
+        "MAT"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 32,
+      "crop": "rice",
+      "source_phase_code": "BBCH_80_99",
+      "rule_id": "RICE_RIPENING_HEAT_MEAN28",
+      "excluded_orange": false,
+      "target_phases": [
+        "MAT"
+      ],
+      "paper_phases": [
+        "FIL",
+        "MAT"
+      ],
+      "assigned_phases": [
+        "MAT"
+      ]
+    },
+    {
+      "row": 33,
+      "crop": "soybean",
+      "source_phase_code": "VE_VC",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": true
+    },
+    {
+      "row": 34,
+      "crop": "soybean",
+      "source_phase_code": "VE_VC",
+      "rule_id": "SOY_GERMINATION_TMAX46_92",
+      "excluded_orange": true
+    },
+    {
+      "row": 35,
+      "crop": "soybean",
+      "source_phase_code": "VE_VC",
+      "rule_id": "SOY_FLOOD_DURATION3",
+      "excluded_orange": false,
+      "target_phases": [
+        "EST"
+      ],
+      "paper_phases": [
+        "EST"
+      ],
+      "assigned_phases": [
+        "EST"
+      ]
+    },
+    {
+      "row": 36,
+      "crop": "soybean",
+      "source_phase_code": "V1_VN",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": true
+    },
+    {
+      "row": 37,
+      "crop": "soybean",
+      "source_phase_code": "V1_VN",
+      "rule_id": "SOY_FLOOD_DURATION3",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG"
+      ],
+      "paper_phases": [
+        "VEG"
+      ],
+      "assigned_phases": [
+        "VEG"
+      ]
+    },
+    {
+      "row": 38,
+      "crop": "soybean",
+      "source_phase_code": "R1_R2",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 39,
+      "crop": "soybean",
+      "source_phase_code": "R1_R2",
+      "rule_id": "SOY_WATERLOG_R1_3CM_16D",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 40,
+      "crop": "soybean",
+      "source_phase_code": "R1_R2",
+      "rule_id": "SOY_FLOOD_DURATION3",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO",
+        "REP"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 41,
+      "crop": "soybean",
+      "source_phase_code": "R1_R2",
+      "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO",
+        "REP"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 42,
+      "crop": "soybean",
+      "source_phase_code": "R3",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": true
+    },
+    {
+      "row": 43,
+      "crop": "soybean",
+      "source_phase_code": "R3",
+      "rule_id": "SOY_FLOOD_DURATION3",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "FLO",
+        "REP"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 44,
+      "crop": "soybean",
+      "source_phase_code": "R3",
+      "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "FLO",
+        "REP"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 45,
+      "crop": "soybean",
+      "source_phase_code": "R4",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": true
+    },
+    {
+      "row": 46,
+      "crop": "soybean",
+      "source_phase_code": "R4",
+      "rule_id": "SOY_FLOOD_DURATION3",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "FLO",
+        "REP"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 47,
+      "crop": "soybean",
+      "source_phase_code": "R4",
+      "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "FLO",
+        "REP"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 48,
+      "crop": "soybean",
+      "source_phase_code": "R5",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 49,
+      "crop": "soybean",
+      "source_phase_code": "R5",
+      "rule_id": "SOY_HNT_FILL28_R5_R7",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FIL"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 50,
+      "crop": "soybean",
+      "source_phase_code": "R5",
+      "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
+      "excluded_orange": true
+    },
+    {
+      "row": 51,
+      "crop": "soybean",
+      "source_phase_code": "R6_R7",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": true
+    },
+    {
+      "row": 52,
+      "crop": "soybean",
+      "source_phase_code": "R6_R7",
+      "rule_id": "SOY_HNT_FILL28_R5_R7",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL",
+        "MAT"
+      ],
+      "paper_phases": [
+        "FIL",
+        "MAT"
+      ],
+      "assigned_phases": [
+        "FIL",
+        "MAT"
+      ]
+    },
+    {
+      "row": 53,
+      "crop": "soybean",
+      "source_phase_code": "R8",
+      "rule_id": "SOY_SEASONAL_HEAT30",
+      "excluded_orange": true
+    },
+    {
+      "row": 54,
+      "crop": "wheat",
+      "source_phase_code": "Z00_09",
+      "rule_id": "WHEAT_SEEDLING_HEAT42",
+      "excluded_orange": false,
+      "target_phases": [
+        "EST"
+      ],
+      "paper_phases": [
+        "EST"
+      ],
+      "assigned_phases": [
+        "EST"
+      ]
+    },
+    {
+      "row": 55,
+      "crop": "wheat",
+      "source_phase_code": "Z10_29",
+      "rule_id": "WHEAT_SEEDLING_HEAT42",
+      "excluded_orange": true
+    },
+    {
+      "row": 56,
+      "crop": "wheat",
+      "source_phase_code": "Z30_39",
+      "rule_id": "WHEAT_STEM_DROUGHT_VSMC45_14D",
+      "excluded_orange": false,
+      "target_phases": [
+        "VEG"
+      ],
+      "paper_phases": [
+        "VEG"
+      ],
+      "assigned_phases": [
+        "VEG"
+      ]
+    },
+    {
+      "row": 57,
+      "crop": "wheat",
+      "source_phase_code": "Z40_49",
+      "rule_id": "WHEAT_BOOT_COLD_MINUS2_24H",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "REP"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 58,
+      "crop": "wheat",
+      "source_phase_code": "Z40_49",
+      "rule_id": "WHEAT_BOOT_HEAT35_30_24H",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "REP"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 59,
+      "crop": "wheat",
+      "source_phase_code": "Z50_59",
+      "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+      "excluded_orange": false,
+      "target_phases": [
+        "REP"
+      ],
+      "paper_phases": [
+        "REP"
+      ],
+      "assigned_phases": [
+        "REP"
+      ]
+    },
+    {
+      "row": 60,
+      "crop": "wheat",
+      "source_phase_code": "Z60_69",
+      "rule_id": "WHEAT_HEAT_DAY27_3",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 61,
+      "crop": "wheat",
+      "source_phase_code": "Z60_69",
+      "rule_id": "WHEAT_HEAT_NIGHT19_6",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 62,
+      "crop": "wheat",
+      "source_phase_code": "Z60_69",
+      "rule_id": "WHEAT_WATERLOG_Z65_3D",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 63,
+      "crop": "wheat",
+      "source_phase_code": "Z60_69",
+      "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+      "excluded_orange": false,
+      "target_phases": [
+        "FLO"
+      ],
+      "paper_phases": [
+        "FLO"
+      ],
+      "assigned_phases": [
+        "FLO"
+      ]
+    },
+    {
+      "row": 64,
+      "crop": "wheat",
+      "source_phase_code": "Z70_89",
+      "rule_id": "WHEAT_HNT_POSTANTHESIS_DELTA3_8",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FIL",
+        "MAT"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 65,
+      "crop": "wheat",
+      "source_phase_code": "Z70_89",
+      "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+      "excluded_orange": false,
+      "target_phases": [
+        "FIL"
+      ],
+      "paper_phases": [
+        "FIL"
+      ],
+      "assigned_phases": [
+        "FIL"
+      ]
+    },
+    {
+      "row": 66,
+      "crop": "wheat",
+      "source_phase_code": "Z90_99",
+      "rule_id": "WHEAT_RIPENING_RAIN5_8H",
+      "excluded_orange": false,
+      "target_phases": [
+        "MAT"
+      ],
+      "paper_phases": [
+        "MAT"
+      ],
+      "assigned_phases": [
+        "MAT"
+      ]
+    },
+    {
+      "row": 67,
+      "crop": "maize",
+      "source_phase_code": "R1",
+      "rule_id": "MAIZE_REP_LAG_HEAT_ZHANG2023",
+      "excluded_orange": false
+    }
+  ]
+}

@@ -7,6 +7,10 @@ import { maizeReproductiveEvidence } from "@/lib/maize-reproductive-evidence";
 
 interface HazardDetails {
   phase_order: number;
+  source_phase?: string;
+  source_pages?: string;
+  review_row?: string;
+  homologation?: string;
   rule_id: string;
   evidence_type: string;
   spatial_scope: string;
@@ -66,7 +70,7 @@ export function RiskPivotV2() {
   const [showGaps, setShowGaps] = useState(false);
 
   useEffect(() => {
-    fetch("/data/hazard_impact_v2.json").then((res) => res.json()).then((data: HazardPayload) => setPayload(data));
+    fetch("/data/hazard_impact_harmonized_v3.json").then((res) => res.json()).then((data: HazardPayload) => setPayload(data));
   }, []);
 
   const rows = useMemo(
@@ -98,7 +102,7 @@ export function RiskPivotV2() {
       </div>
 
       <div className="border-b border-line bg-warm/[0.025] px-4 py-3 text-[11px] leading-relaxed text-ink-dim">
-        The default view shows literature-linked rules only. Enable evidence gaps solely to audit stages for which the reviewed sources do not provide a defensible quantitative rule. Local occurrence still requires daily climate data for the coordinate and stage window.
+        The default view shows reviewed literature-linked rows and the reserved maize REP slot. Experimental treatments are not automatically damage-onset thresholds. Orange-marked review rows are excluded. Enable evidence gaps solely to audit stages for which the reviewed sources do not provide a defensible quantitative rule. Local occurrence still requires daily climate data for the coordinate and stage window.
       </div>
 
       <div className="hidden overflow-x-auto md:block">
@@ -157,6 +161,9 @@ function Details({ details }: { details: HazardDetails }) {
   return <div className="grid gap-3 text-[11px] leading-relaxed text-ink-dim lg:grid-cols-3">
     <Info label="Rule ID" value={details.rule_id} /><Info label="Evidence type" value={details.evidence_type} /><Info label="Spatial scope" value={details.spatial_scope} />
     <Info label="Source" value={details.source} />
+    <Info label="Original phase" value={details.source_phase ?? "Initial kernel set; assignment pending"} />
+    <Info label="Source pages / review row" value={`${details.source_pages ?? "2, 5–6"} / ${details.review_row ?? "Pending"}`} />
+    <Info label="Phase homologation" value={details.homologation ?? "REP is reserved; no operational threshold assigned."} />
     <div className="rounded-[2px] border border-line bg-bg-panel/55 p-3"><p className="mb-1 text-[9.5px] uppercase tracking-wider text-ink-mute">Link</p>{details.link ? <a href={toHref(details.link)} target="_blank" rel="noreferrer" className="flex items-center gap-1 break-all text-cool/90"><ExternalLink className="h-3 w-3 shrink-0" />{details.link}</a> : "No external link recorded"}</div>
     <Info label="Limitations" value={details.limitations} />
   </div>;

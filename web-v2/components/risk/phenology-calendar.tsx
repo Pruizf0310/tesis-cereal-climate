@@ -7,6 +7,7 @@ import { MaizeReproductiveNote } from "./maize-reproductive-note";
 
 interface TechnicalPhase {
   code: string;
+  source_stages: string[];
   name: string;
   order: number;
   average_duration_days: number;
@@ -56,7 +57,7 @@ export function PhenologyCalendar() {
   const [waterSystem, setWaterSystem] = useState<"ir" | "rf">("rf");
 
   useEffect(() => {
-    fetch("/data/phenology_technical_v2.json")
+    fetch("/data/phenology_harmonized_v3.json")
       .then((res) => res.json())
       .then((data: CalendarPayload) => {
         setPayload(data);
@@ -107,7 +108,7 @@ export function PhenologyCalendar() {
       </div>
 
       <div className="border-b border-line bg-cool/[0.035] px-4 py-3 text-[11px] leading-relaxed text-ink-dim">
-        <span className="font-medium text-ink">Technical calendar v2:</span> eight crop-specific stages reconstructed for every 0.5° calendar coordinate.
+        <span className="font-medium text-ink">Harmonized calendar:</span> EST · Establishment; VEG · Vegetative growth; FLO · Flowering; REP · Reproductive development; FIL · Grain/seed filling; MAT · Maturation.
         Cells report the average number of stage-days falling in each month within the selected 10° latitude band. {payload.warning}
       </div>
 
@@ -117,7 +118,7 @@ export function PhenologyCalendar() {
         <table className="w-full min-w-[1320px] border-collapse">
           <thead>
             <tr className="border-b border-line text-left text-[10px] uppercase tracking-wider text-ink-mute">
-              <Th>Latitude band</Th><Th>n</Th><Th>Technical stage</Th><Th>Average duration</Th>
+              <Th>Latitude band</Th><Th>n</Th><Th>Macro-phase</Th><Th>Average duration</Th>
               {payload.months.map((month) => <Th key={month}>{month}</Th>)}
             </tr>
           </thead>
@@ -129,7 +130,7 @@ export function PhenologyCalendar() {
                 <Td>
                   <span className="mr-2 inline-block h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: PHASE_COLORS[phase.order - 1] }} />
                   <span className="font-mono text-[10px] text-cool">{phase.code}</span>
-                  <span className="ml-2 text-ink-dim">{phase.name}</span>
+                  <span className="ml-2 text-ink-dim">{phase.name}</span><span className="mt-1 block text-[9px] text-ink-mute">Original stages: {phase.source_stages.join("; ")}</span>
                 </Td>
                 <Td className="num text-ink-dim">{phase.average_duration_days.toFixed(1)} d</Td>
                 {phase.average_days_by_month.map((days, monthIndex) => (

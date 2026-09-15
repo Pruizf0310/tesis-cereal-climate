@@ -1,13 +1,13 @@
 // Literature evidence only. This record is not an operational climate threshold.
 export const maizeReproductiveEvidence = {
   crop: "maize" as const,
-  phase_code: "R1",
-  derived_stage: "REP — Initial kernel set (late R1)",
-  hazard: "Heat during initial kernel set",
-  threshold: "Damage-onset threshold not established. Observed mean Tmax: 38.8 °C (2019) and 40.8 °C (2021), with daytime heating for 6 days (08:00–18:00).",
+  phase_code: "REP",
+  derived_stage: "Reproductive development",
+  hazard: "Pending hazard assignment",
+  threshold: "Not assigned — reserved for the reviewed maize REP threat row.",
   qualitative_impact: "Heat during the lag stage reduced kernel number, consistent with kernel abortion and impaired initial kernel set.",
   quantitative_impact: "Kernel number per ear: −12.6% (2019), −7.8% (2021). Grain yield: −14.9% and −8.7%, respectively.",
-  category: "Damaging experimental treatment",
+  category: "Pending assignment",
   details: {
     phase_order: 4,
     rule_id: "MAIZE_REP_LAG_HEAT_ZHANG2023",
