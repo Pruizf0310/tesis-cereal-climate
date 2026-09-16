@@ -16,8 +16,8 @@ export default function RiskPage() {
             Risk · Phenological hazard windows
           </h1>
           <p className="mt-5 max-w-[640px] text-[14.5px] leading-relaxed text-ink-dim">
-            Explore the eight technical stages of maize, rice, soybean and wheat by season,
-            water system and latitude band, then review the literature-linked climate hazards assigned to each stage.
+            Explore the harmonized phases of maize, rice, soybean and wheat by season,
+            water system and exact coordinate, then review the literature-linked climate hazards assigned to each stage.
           </p>
         </header>
 

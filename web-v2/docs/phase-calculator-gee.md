@@ -1,5 +1,7 @@
 # Phase calculator GEE setup
 
+> Historical setup notes. The current endpoint is `/api/hazard-probability`; the latitude-band POST below is retired (HTTP 410). See [the current method](../../docs/gee_probability_method.md) and [rule audit](../../docs/gee_rule_audit.md). The same server-only credential variable names remain in use.
+
 The `/calculator` page uses a Vercel backend route:
 
 ```txt

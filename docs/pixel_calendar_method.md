@@ -45,4 +45,4 @@ cd web-v2
 node scripts/check-pixel-calendars.mjs
 ```
 
-The Excel catalogue, reviewed crosswalk and complete matrix are all explicit generator inputs. The manifest stores their hashes. The coordinate-window resolver is shared code for the calendar and the probability API migration. The legacy band-based probability calculator is not a validation of these new windows.
+The Excel catalogue, reviewed crosswalk and complete matrix are all explicit generator inputs. The manifest stores their hashes. The coordinate-window resolver is shared by the calendar and the `/api/hazard-probability` API. The old latitude-band calculation endpoint is retired. See [exposure probability method](gee_probability_method.md) for audited measurement definitions, event durations and missing-data handling.
