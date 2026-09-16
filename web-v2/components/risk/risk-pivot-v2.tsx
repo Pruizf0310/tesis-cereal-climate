@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { ActivitySquare, ChevronDown, ExternalLink, Sprout, Waves, Wheat } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { maizeReproductiveEvidence } from "@/lib/maize-reproductive-evidence";
+import { MACRO_PHASES } from "@/lib/macro-phases";
 
 interface HazardDetails {
   phase_order: number;
-  source_phase?: string;
-  source_pages?: string;
-  review_row?: string;
-  homologation?: string;
+  source_assignments?: { review_row: number; source_phase: string; source_pages: string; paper_macro_phases: string[]; assignment_note: string }[];
+  reviewed_elsewhere?: { review_row: number; original_phase: string; reason: string }[];
   rule_id: string;
   evidence_type: string;
   spatial_scope: string;
@@ -25,6 +24,9 @@ interface HazardRow {
   derived_stage: string;
   hazard: string;
   threshold: string;
+  variable?: string;
+  exact_threshold?: string | null;
+  consecutive_exposure?: string | null;
   qualitative_impact: string;
   quantitative_impact: string;
   category: string;
@@ -67,7 +69,6 @@ export function RiskPivotV2() {
   const [payload, setPayload] = useState<HazardPayload | null>(null);
   const [cropId, setCropId] = useState<HazardRow["crop"]>("maize");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
-  const [showGaps, setShowGaps] = useState(false);
 
   useEffect(() => {
     fetch("/data/hazard_impact_harmonized_v3.json").then((res) => res.json()).then((data: HazardPayload) => setPayload(data));
@@ -75,9 +76,9 @@ export function RiskPivotV2() {
 
   const rows = useMemo(
     () => (payload ? [...payload.rows, maizeReproductiveEvidence] : [])
-      .filter((row) => row.crop === cropId && (showGaps || row.category !== "Evidence gap"))
+      .filter((row) => row.crop === cropId)
       .sort((a, b) => a.details.phase_order - b.details.phase_order),
-    [payload, cropId, showGaps]
+    [payload, cropId]
   );
 
   if (!payload) return <div className="mt-6 grid h-[280px] place-items-center rounded-sm border border-line glass"><div className="h-2 w-36 animate-pulse rounded-full bg-warm/40" /></div>;
@@ -93,39 +94,43 @@ export function RiskPivotV2() {
           ))}
         </div>
         <div className="flex items-center gap-3 text-[11px] text-ink-mute">
-          <label className="flex cursor-pointer items-center gap-2">
-            <input type="checkbox" checked={showGaps} onChange={(event) => setShowGaps(event.target.checked)} className="accent-[#7FD4DF]" />
-            Show evidence gaps
-          </label>
-          <span>{rows.length} literature-linked phase–hazard rows</span>
+          <span>6 macro-phases · {rows.filter((row) => row.category !== "Pending assignment").length} grouped evidence rows{cropId === "maize" ? " · 1 reserved slot" : ""}</span>
         </div>
       </div>
 
       <div className="border-b border-line bg-warm/[0.025] px-4 py-3 text-[11px] leading-relaxed text-ink-dim">
-        The default view shows reviewed literature-linked rows and the reserved maize REP slot. Experimental treatments are not automatically damage-onset thresholds. Orange-marked review rows are excluded. Enable evidence gaps solely to audit stages for which the reviewed sources do not provide a defensible quantitative rule. Local occurrence still requires daily climate data for the coordinate and stage window.
+        Entries are grouped by macro-phase and evidence rule. Repeated original stages are combined with their source-row trace. Reviewed assignments that are unsupported in one stage remain linked to the phases where the same evidence is used. Experimental treatments retain their evidence category; they are not automatically damage-onset thresholds.
       </div>
 
       <div className="hidden overflow-x-auto md:block">
         <table className="w-full min-w-[1380px] border-collapse">
           <thead><tr className="border-b border-line text-left text-[10px] uppercase tracking-wider text-ink-mute">
-            <Th>Derived stage</Th><Th>Hazard</Th><Th>Threshold</Th><Th>Qualitative impact</Th><Th>Quantitative impact</Th><Th>Category</Th><Th>Details</Th>
+            <Th>Macro-phase</Th><Th>Hazard / variable</Th><Th>Threshold / treatment and exposure</Th><Th>Qualitative impact</Th><Th>Quantitative impact</Th><Th>Category</Th><Th>Details</Th>
           </tr></thead>
           <tbody>
-            {rows.map((row, index) => {
+            {MACRO_PHASES.map((phase) => <Fragment key={phase.code}>
+              <tr className="border-y border-line bg-cool/[0.06]"><th colSpan={7} scope="rowgroup" className="px-3 py-3 text-left text-[12px] font-medium text-cool">{phase.code} — {phase.name}</th></tr>
+              {rows.filter((row) => row.phase_code === phase.code).map((row, index) => {
               const key = `${row.crop}-${row.phase_code}-${row.details.rule_id}-${index}`;
               const open = expandedRow === key;
               return <HazardTableRow key={key} row={row} open={open} onToggle={() => setExpandedRow(open ? null : key)} />;
-            })}
+              })}
+              {!rows.some((row) => row.phase_code === phase.code) && <tr><td colSpan={7} className="px-3 py-3 text-[11px] text-ink-mute">No reviewed evidence assigned.</td></tr>}
+            </Fragment>)}
           </tbody>
         </table>
       </div>
 
       <div className="grid gap-3 p-4 md:hidden">
-        {rows.map((row, index) => {
+        {MACRO_PHASES.map((phase) => <section key={phase.code} className="space-y-3">
+          <h3 className="text-[13px] font-medium text-cool">{phase.code} — {phase.name}</h3>
+          {rows.filter((row) => row.phase_code === phase.code).map((row, index) => {
           const key = `${row.crop}-${row.phase_code}-${row.details.rule_id}-${index}`;
           const open = expandedRow === key;
           return <HazardCard key={key} row={row} open={open} onToggle={() => setExpandedRow(open ? null : key)} />;
-        })}
+          })}
+          {!rows.some((row) => row.phase_code === phase.code) && <p className="text-[11px] text-ink-mute">No reviewed evidence assigned.</p>}
+        </section>)}
       </div>
       <div className="border-t border-line px-4 py-3 text-[10.5px] text-ink-mute">Source: {payload.source}. {payload.interpretation}</div>
     </div>
@@ -136,8 +141,8 @@ function HazardTableRow({ row, open, onToggle }: { row: HazardRow; open: boolean
   return <>
     <tr className="border-b border-line/55 text-[11.5px] hover:bg-white/[0.02]">
       <Td className="max-w-[210px]"><span className="font-mono text-[9.5px] text-cool">{row.phase_code}</span><span className="mt-1 block font-medium text-ink">{row.derived_stage}</span></Td>
-      <Td className="max-w-[190px] text-ink-dim">{row.hazard}</Td>
-      <Td className="max-w-[280px] text-ink-dim">{row.threshold}</Td>
+      <Td className="max-w-[190px] text-ink-dim">{row.hazard}<span className="mt-2 block text-[10px] text-cool">{row.variable ?? "Pending assignment"}</span></Td>
+      <Td className="max-w-[280px] text-ink-dim"><Exposure row={row} /></Td>
       <Td className="max-w-[290px] text-ink-dim">{row.qualitative_impact}</Td>
       <Td className="max-w-[230px] font-mono text-[10.5px] text-ink">{row.quantitative_impact}</Td>
       <Td><CategoryBadge category={row.category} /></Td>
@@ -150,7 +155,8 @@ function HazardTableRow({ row, open, onToggle }: { row: HazardRow; open: boolean
 function HazardCard({ row, open, onToggle }: { row: HazardRow; open: boolean; onToggle: () => void }) {
   return <article className="rounded-sm border border-line bg-white/[0.02] p-4">
     <div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[10px] text-cool">{row.phase_code}</p><p className="mt-1 text-[12px] font-medium text-ink">{row.derived_stage}</p></div><CategoryBadge category={row.category} /></div>
-    <p className="mt-3 text-[11px] text-ink-dim"><span className="font-medium text-ink">{row.hazard}:</span> {row.threshold}</p>
+    <p className="mt-3 text-[11px] text-ink-dim"><span className="font-medium text-ink">{row.hazard}</span><span className="mt-1 block text-cool">{row.variable ?? "Pending assignment"}</span></p>
+    <div className="mt-2 text-[11px] text-ink-dim"><Exposure row={row} /></div>
     <div className="mt-3 grid gap-2 text-[10.5px]"><Info label="Qualitative impact" value={row.qualitative_impact} /><Info label="Quantitative impact" value={row.quantitative_impact} /></div>
     <button type="button" onClick={onToggle} className="mt-3 flex h-8 items-center gap-2 rounded-sm border border-line px-2.5 text-[11px] text-ink-dim"><ChevronDown className={cn("h-3.5 w-3.5", open && "rotate-180")} />Details</button>
     {open && <div className="mt-3"><Details details={row.details} /></div>}
@@ -161,11 +167,18 @@ function Details({ details }: { details: HazardDetails }) {
   return <div className="grid gap-3 text-[11px] leading-relaxed text-ink-dim lg:grid-cols-3">
     <Info label="Rule ID" value={details.rule_id} /><Info label="Evidence type" value={details.evidence_type} /><Info label="Spatial scope" value={details.spatial_scope} />
     <Info label="Source" value={details.source} />
-    <Info label="Original phase" value={details.source_phase ?? "Initial kernel set; assignment pending"} />
-    <Info label="Source pages / review row" value={`${details.source_pages ?? "2, 5–6"} / ${details.review_row ?? "Pending"}`} />
-    <Info label="Phase homologation" value={details.homologation ?? "REP is reserved; no operational threshold assigned."} />
+    {details.source_assignments?.map((assignment) => <Info key={assignment.review_row} label={`Original assignment · review row ${assignment.review_row}`} value={`${assignment.source_phase}. Source pages: ${assignment.source_pages}. Reviewed paper macro-phases: ${assignment.paper_macro_phases.join(" + ")}. ${assignment.assignment_note}`} />)}
+    {details.reviewed_elsewhere?.map((assignment) => <Info key={assignment.review_row} label={`Reviewed reassignment · row ${assignment.review_row}`} value={`${assignment.original_phase}: ${assignment.reason} The same evidence remains represented in this supported macro-phase.`} />)}
     <div className="rounded-[2px] border border-line bg-bg-panel/55 p-3"><p className="mb-1 text-[9.5px] uppercase tracking-wider text-ink-mute">Link</p>{details.link ? <a href={toHref(details.link)} target="_blank" rel="noreferrer" className="flex items-center gap-1 break-all text-cool/90"><ExternalLink className="h-3 w-3 shrink-0" />{details.link}</a> : "No external link recorded"}</div>
     <Info label="Limitations" value={details.limitations} />
+  </div>;
+}
+
+function Exposure({ row }: { row: HazardRow }) {
+  return <div className="space-y-1">
+    <p className="font-mono text-ink">{row.exact_threshold ?? (row.category === "Pending assignment" ? "Not assigned" : "Not specified")}</p>
+    <p>Exposure: {row.consecutive_exposure ?? (row.category === "Pending assignment" ? "Not assigned" : "Not specified in the reviewed workbook")}</p>
+    <p className="text-[10px] leading-relaxed text-ink-mute">{row.threshold}</p>
   </div>;
 }
 

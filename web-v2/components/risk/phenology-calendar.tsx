@@ -4,10 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import { ActivitySquare, Sprout, Waves, Wheat } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MaizeReproductiveNote } from "./maize-reproductive-note";
+import { groupCalendarForDisplay } from "@/lib/macro-phases";
 
 interface TechnicalPhase {
   code: string;
-  source_stages: string[];
   name: string;
   order: number;
   average_duration_days: number;
@@ -57,7 +57,7 @@ export function PhenologyCalendar() {
   const [waterSystem, setWaterSystem] = useState<"ir" | "rf">("rf");
 
   useEffect(() => {
-    fetch("/data/phenology_harmonized_v3.json")
+    fetch("/data/phenology_technical_v2.json")
       .then((res) => res.json())
       .then((data: CalendarPayload) => {
         setPayload(data);
@@ -72,7 +72,8 @@ export function PhenologyCalendar() {
     [crop]
   );
   const bands = useMemo(
-    () => (crop?.bands ?? []).filter((band) => band.season === seasonId && band.water_system === waterSystem),
+    () => (crop?.bands ?? []).filter((band) => band.season === seasonId && band.water_system === waterSystem)
+      .map((band) => ({ ...band, phases: groupCalendarForDisplay(crop!.id, band.phases) })),
     [crop, seasonId, waterSystem]
   );
 
@@ -108,8 +109,8 @@ export function PhenologyCalendar() {
       </div>
 
       <div className="border-b border-line bg-cool/[0.035] px-4 py-3 text-[11px] leading-relaxed text-ink-dim">
-        <span className="font-medium text-ink">Harmonized calendar:</span> EST · Establishment; VEG · Vegetative growth; FLO · Flowering; REP · Reproductive development; FIL · Grain/seed filling; MAT · Maturation.
-        Cells report the average number of stage-days falling in each month within the selected 10° latitude band. {payload.warning}
+        <span className="font-medium text-ink">Six macro-phases:</span> the original technical calendar is grouped for display only. Files and dates remain unchanged.
+        Cells report average stage-days per month. An asterisk marks an unresolved shared window, counted once under the indicated phase. A dash in a shared-only row means its dates cannot be separated. {payload.warning}
       </div>
 
       {cropId === "maize" && <MaizeReproductiveNote />}
@@ -118,7 +119,7 @@ export function PhenologyCalendar() {
         <table className="w-full min-w-[1320px] border-collapse">
           <thead>
             <tr className="border-b border-line text-left text-[10px] uppercase tracking-wider text-ink-mute">
-              <Th>Latitude band</Th><Th>n</Th><Th>Macro-phase</Th><Th>Average duration</Th>
+              <Th>Latitude band</Th><Th>n</Th><Th>Macro-phase / original stages</Th><Th>Displayed window duration</Th>
               {payload.months.map((month) => <Th key={month}>{month}</Th>)}
             </tr>
           </thead>
@@ -130,17 +131,19 @@ export function PhenologyCalendar() {
                 <Td>
                   <span className="mr-2 inline-block h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: PHASE_COLORS[phase.order - 1] }} />
                   <span className="font-mono text-[10px] text-cool">{phase.code}</span>
-                  <span className="ml-2 text-ink-dim">{phase.name}</span><span className="mt-1 block text-[9px] text-ink-mute">Original stages: {phase.source_stages.join("; ")}</span>
+                  <span className="ml-2 text-ink-dim">{phase.name}</span>
+                  <span className="mt-1 block max-w-[420px] text-[9px] text-ink-mute">{phase.source_stages.join("; ")}</span>
+                  {phase.shared_notes.map((note) => <span key={note} className="mt-1 block max-w-[420px] text-[9px] text-warm">{note}</span>)}
                 </Td>
-                <Td className="num text-ink-dim">{phase.average_duration_days.toFixed(1)} d</Td>
+                <Td className="num text-ink-dim">{phase.has_counted_window ? `${phase.average_duration_days.toFixed(1)} d${phase.includes_shared_window ? "*" : ""}` : "Shared window — see note"}</Td>
                 {phase.average_days_by_month.map((days, monthIndex) => (
                   <td key={monthIndex} className="px-1.5 py-2">
                     <div
-                      className={cn("grid h-7 min-w-[48px] place-items-center rounded-[2px] border text-[9.5px]", days >= 0.5 ? "border-white/10 text-bg-deep" : "border-white/[0.03] bg-white/[0.012] text-transparent")}
+                      className={cn("grid h-7 min-w-[48px] place-items-center rounded-[2px] border text-[9.5px]", days >= 0.5 ? "border-white/10 text-bg-deep" : phase.has_counted_window ? "border-white/[0.03] bg-white/[0.012] text-transparent" : "border-line text-ink-mute")}
                       style={days >= 0.5 ? { backgroundColor: PHASE_COLORS[phase.order - 1], opacity: Math.max(0.38, Math.min(1, days / 20)) } : undefined}
-                      title={`${phase.code}: ${days.toFixed(1)} average days in ${payload.months[monthIndex]}`}
+                      title={phase.has_counted_window ? `${phase.code}: ${days.toFixed(1)} average days in ${payload.months[monthIndex]}. ${phase.shared_notes.join(" ")}` : phase.shared_notes.join(" ")}
                     >
-                      {days >= 0.5 ? `${days.toFixed(0)}d` : "—"}
+                      {days >= 0.5 ? `${days.toFixed(0)}d${phase.includes_shared_window ? "*" : ""}` : "—"}
                     </div>
                   </td>
                 ))}

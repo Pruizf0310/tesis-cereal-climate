@@ -1,21 +1,32 @@
 {
-  "workbook": "REVISION_HUMANA_fases_macro_completada.xlsx",
-  "sha256": "70d5fa4ff2fd19a12eb4aad600dd4e0188059d47618545402b3104e735cbdb2b",
+  "workbook": "REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+  "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f",
+  "grouping_key": [
+    "crop",
+    "macro_phase",
+    "rule_id"
+  ],
   "rows": [
     {
       "row": 5,
       "crop": "maize",
       "source_phase_code": "VE",
       "rule_id": "MAIZE_EMERGENCE_COLD6",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "PLOS ONE 2026",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "EST"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST"
       ],
-      "assigned_phases": [
-        "EST"
+      "output_ids": [
+        "maize/EST/MAIZE_EMERGENCE_COLD6"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/EST/MAIZE_EMERGENCE_COLD6"
       ]
     },
     {
@@ -23,15 +34,21 @@
       "crop": "maize",
       "source_phase_code": "V1_V6",
       "rule_id": "MAIZE_EARLYVEG_DROUGHT_SWP051_4D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Voothuluru et al. 2017",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "VEG"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "VEG"
       ],
-      "assigned_phases": [
-        "VEG"
+      "output_ids": [
+        "maize/VEG/MAIZE_EARLYVEG_DROUGHT_SWP051_4D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/VEG/MAIZE_EARLYVEG_DROUGHT_SWP051_4D"
       ]
     },
     {
@@ -39,15 +56,21 @@
       "crop": "maize",
       "source_phase_code": "V7_VT",
       "rule_id": "MAIZE_TASSEL_HEAT38_30_15D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Hussain et al. 2019",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "VEG"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "VEG"
       ],
-      "assigned_phases": [
-        "VEG"
+      "output_ids": [
+        "maize/VEG/MAIZE_TASSEL_HEAT38_30_15D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/VEG/MAIZE_TASSEL_HEAT38_30_15D"
       ]
     },
     {
@@ -55,16 +78,22 @@
       "crop": "maize",
       "source_phase_code": "R1",
       "rule_id": "MAIZE_HEAT_DAY37_9",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Liu et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FLO",
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "maize/FLO/MAIZE_HEAT_DAY37_9"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/FLO/MAIZE_HEAT_DAY37_9"
       ]
     },
     {
@@ -72,16 +101,22 @@
       "crop": "maize",
       "source_phase_code": "R1",
       "rule_id": "MAIZE_HEAT_NIGHT27_3",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Liu et al. 2023",
+      "source_pages": "2",
+      "orange": false,
+      "calendar_phases": [
         "FLO",
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "maize/FLO/MAIZE_HEAT_NIGHT27_3"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/FLO/MAIZE_HEAT_NIGHT27_3"
       ]
     },
     {
@@ -89,29 +124,61 @@
       "crop": "maize",
       "source_phase_code": "R2",
       "rule_id": "MAIZE_EARLYFILL_HEAT42_30_6D",
-      "excluded_orange": true
+      "source": "Li et al. 2025",
+      "source_pages": "3",
+      "orange": true,
+      "calendar_phases": [
+        "FIL"
+      ],
+      "reviewed_paper_phases": [
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "Reviewer rejects the experimental temperature contrast as an onset threshold; no accepted occurrence of this rule remains.",
+      "retained_same_evidence": [],
+      "coverage": "No same-source replacement. Other evidence in this phase is not an equivalent substitute."
     },
     {
       "row": 11,
       "crop": "maize",
       "source_phase_code": "R3",
       "rule_id": "MAIZE_EARLYFILL_HEAT42_30_6D",
-      "excluded_orange": true
+      "source": "Li et al. 2025",
+      "source_pages": "3",
+      "orange": true,
+      "calendar_phases": [
+        "FIL"
+      ],
+      "reviewed_paper_phases": [
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "Reviewer rejects the experimental temperature contrast as an onset threshold; no accepted occurrence of this rule remains.",
+      "retained_same_evidence": [],
+      "coverage": "No same-source replacement. Other evidence in this phase is not an equivalent substitute."
     },
     {
       "row": 12,
       "crop": "maize",
       "source_phase_code": "R4_R5",
       "rule_id": "MAIZE_HEAT_FILL39_4_41_5",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Zhang et al. 2023",
+      "source_pages": "5",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "maize/FIL/MAIZE_HEAT_FILL39_4_41_5"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/FIL/MAIZE_HEAT_FILL39_4_41_5"
       ]
     },
     {
@@ -119,15 +186,21 @@
       "crop": "maize",
       "source_phase_code": "R4_R5",
       "rule_id": "MAIZE_HNT_FILL28_18D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Wang et al. 2026",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "maize/FIL/MAIZE_HNT_FILL28_18D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/FIL/MAIZE_HNT_FILL28_18D"
       ]
     },
     {
@@ -135,15 +208,21 @@
       "crop": "maize",
       "source_phase_code": "R6",
       "rule_id": "MAIZE_R6_WIND15",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Xue et al. 2020",
+      "source_pages": "7",
+      "orange": false,
+      "calendar_phases": [
         "MAT"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "MAT"
       ],
-      "assigned_phases": [
-        "MAT"
+      "output_ids": [
+        "maize/MAT/MAIZE_R6_WIND15"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "maize/MAT/MAIZE_R6_WIND15"
       ]
     },
     {
@@ -151,15 +230,21 @@
       "crop": "rice",
       "source_phase_code": "BBCH_00_09",
       "rule_id": "RICE_GERMINATION_HEAT38_24H",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Zhang et al. 2022",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "EST"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST"
       ],
-      "assigned_phases": [
-        "EST"
+      "output_ids": [
+        "rice/EST/RICE_GERMINATION_HEAT38_24H"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/EST/RICE_GERMINATION_HEAT38_24H"
       ]
     },
     {
@@ -167,16 +252,22 @@
       "crop": "rice",
       "source_phase_code": "BBCH_10_19",
       "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Bailey-Serres et al. 2010",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "VEG"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST",
         "VEG"
       ],
-      "assigned_phases": [
-        "VEG"
+      "output_ids": [
+        "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
       ]
     },
     {
@@ -184,16 +275,22 @@
       "crop": "rice",
       "source_phase_code": "BBCH_20_29",
       "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Bailey-Serres et al. 2010",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "VEG"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST",
         "VEG"
       ],
-      "assigned_phases": [
-        "VEG"
+      "output_ids": [
+        "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
       ]
     },
     {
@@ -201,20 +298,27 @@
       "crop": "rice",
       "source_phase_code": "BBCH_30_39",
       "rule_id": "RICE_HEAT_MEAN_33",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "VEG",
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "VEG",
         "REP",
         "FLO",
         "FIL"
       ],
-      "assigned_phases": [
-        "VEG",
-        "REP"
+      "output_ids": [
+        "rice/VEG/RICE_HEAT_MEAN_33",
+        "rice/REP/RICE_HEAT_MEAN_33"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/VEG/RICE_HEAT_MEAN_33",
+        "rice/REP/RICE_HEAT_MEAN_33"
       ]
     },
     {
@@ -222,17 +326,23 @@
       "crop": "rice",
       "source_phase_code": "BBCH_30_39",
       "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Bailey-Serres et al. 2010",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "VEG",
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST",
         "VEG"
       ],
-      "assigned_phases": [
-        "VEG"
+      "output_ids": [
+        "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
       ]
     },
     {
@@ -240,18 +350,24 @@
       "crop": "rice",
       "source_phase_code": "BBCH_40_59",
       "rule_id": "RICE_DROUGHT_SM75",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "5",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "VEG",
         "REP",
         "FLO",
         "FIL"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "rice/REP/RICE_DROUGHT_SM75"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/REP/RICE_DROUGHT_SM75"
       ]
     },
     {
@@ -259,16 +375,23 @@
       "crop": "rice",
       "source_phase_code": "BBCH_40_59",
       "rule_id": "RICE_COLD_MEAN20",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "REP",
         "FLO"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "rice/REP/RICE_COLD_MEAN20"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_COLD_MEAN20",
+        "rice/REP/RICE_COLD_MEAN20"
       ]
     },
     {
@@ -276,16 +399,24 @@
       "crop": "rice",
       "source_phase_code": "BBCH_40_59",
       "rule_id": "RICE_RAIN25",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "2",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "REP",
         "FLO"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "rice/REP/RICE_RAIN25"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_RAIN25",
+        "rice/REP/RICE_RAIN25",
+        "rice/FIL/RICE_RAIN25"
       ]
     },
     {
@@ -293,32 +424,46 @@
       "crop": "rice",
       "source_phase_code": "BBCH_40_59",
       "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Bailey-Serres et al. 2010",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST",
         "VEG"
       ],
-      "assigned_phases": [],
-      "excluded_reason": "No supported phase overlap"
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "Seedling/vegetative exposure does not establish a booting REP window.",
+      "retained_same_evidence": [
+        "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 24,
       "crop": "rice",
       "source_phase_code": "BBCH_60_69",
       "rule_id": "RICE_COLD_MEAN20",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "REP",
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "rice/FLO/RICE_COLD_MEAN20"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_COLD_MEAN20",
+        "rice/REP/RICE_COLD_MEAN20"
       ]
     },
     {
@@ -326,16 +471,24 @@
       "crop": "rice",
       "source_phase_code": "BBCH_60_69",
       "rule_id": "RICE_RAIN25",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "2",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "REP",
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "rice/FLO/RICE_RAIN25"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_RAIN25",
+        "rice/REP/RICE_RAIN25",
+        "rice/FIL/RICE_RAIN25"
       ]
     },
     {
@@ -343,15 +496,21 @@
       "crop": "rice",
       "source_phase_code": "BBCH_60_69",
       "rule_id": "RICE_HEAT_DAY37_2",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Liu et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "rice/FLO/RICE_HEAT_DAY37_2"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_HEAT_DAY37_2"
       ]
     },
     {
@@ -359,15 +518,21 @@
       "crop": "rice",
       "source_phase_code": "BBCH_60_69",
       "rule_id": "RICE_HEAT_NIGHT31_2",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Liu et al. 2023",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "rice/FLO/RICE_HEAT_NIGHT31_2"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_HEAT_NIGHT31_2"
       ]
     },
     {
@@ -375,15 +540,21 @@
       "crop": "rice",
       "source_phase_code": "BBCH_60_69",
       "rule_id": "RICE_COLD_ANTHESIS17_5D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Zeng et al. 2017",
+      "source_pages": "7",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "rice/FLO/RICE_COLD_ANTHESIS17_5D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_COLD_ANTHESIS17_5D"
       ]
     },
     {
@@ -391,15 +562,21 @@
       "crop": "rice",
       "source_phase_code": "BBCH_60_69",
       "rule_id": "RICE_DROUGHT_FLOWERING_SWP30",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Yang et al. 2019",
+      "source_pages": "9",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "rice/FLO/RICE_DROUGHT_FLOWERING_SWP30"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_DROUGHT_FLOWERING_SWP30"
       ]
     },
     {
@@ -407,16 +584,22 @@
       "crop": "rice",
       "source_phase_code": "BBCH_70_79",
       "rule_id": "RICE_COLD_MEAN17",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "2",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL",
         "MAT"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "rice/FIL/RICE_COLD_MEAN17"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FIL/RICE_COLD_MEAN17"
       ]
     },
     {
@@ -424,16 +607,24 @@
       "crop": "rice",
       "source_phase_code": "BBCH_70_79",
       "rule_id": "RICE_RAIN25",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Sun et al. 2025",
+      "source_pages": "2",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL",
         "MAT"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "rice/FIL/RICE_RAIN25"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/FLO/RICE_RAIN25",
+        "rice/REP/RICE_RAIN25",
+        "rice/FIL/RICE_RAIN25"
       ]
     },
     {
@@ -441,16 +632,22 @@
       "crop": "rice",
       "source_phase_code": "BBCH_80_99",
       "rule_id": "RICE_RIPENING_HEAT_MEAN28",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Mu et al. 2025",
+      "source_pages": "2",
+      "orange": false,
+      "calendar_phases": [
         "MAT"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL",
         "MAT"
       ],
-      "assigned_phases": [
-        "MAT"
+      "output_ids": [
+        "rice/MAT/RICE_RIPENING_HEAT_MEAN28"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "rice/MAT/RICE_RIPENING_HEAT_MEAN28"
       ]
     },
     {
@@ -458,29 +655,68 @@
       "crop": "soybean",
       "source_phase_code": "VE_VC",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": true
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": true,
+      "calendar_phases": [
+        "EST"
+      ],
+      "reviewed_paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity.",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 34,
       "crop": "soybean",
       "source_phase_code": "VE_VC",
       "rule_id": "SOY_GERMINATION_TMAX46_92",
-      "excluded_orange": true
+      "source": "Alsajri 2018",
+      "source_pages": "3",
+      "orange": true,
+      "calendar_phases": [
+        "EST"
+      ],
+      "reviewed_paper_phases": [
+        "EST"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "A modeled germination cardinal maximum is not a mortality or yield-loss threshold; no accepted occurrence of this rule remains.",
+      "retained_same_evidence": [],
+      "coverage": "No same-source replacement. Other evidence in this phase is not an equivalent substitute."
     },
     {
       "row": 35,
       "crop": "soybean",
       "source_phase_code": "VE_VC",
       "rule_id": "SOY_FLOOD_DURATION3",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "EST"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST"
       ],
-      "assigned_phases": [
-        "EST"
+      "output_ids": [
+        "soybean/EST/SOY_FLOOD_DURATION3"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/EST/SOY_FLOOD_DURATION3",
+        "soybean/VEG/SOY_FLOOD_DURATION3",
+        "soybean/FLO/SOY_FLOOD_DURATION3",
+        "soybean/REP/SOY_FLOOD_DURATION3"
       ]
     },
     {
@@ -488,22 +724,48 @@
       "crop": "soybean",
       "source_phase_code": "V1_VN",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": true
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": true,
+      "calendar_phases": [
+        "VEG"
+      ],
+      "reviewed_paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity.",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 37,
       "crop": "soybean",
       "source_phase_code": "V1_VN",
       "rule_id": "SOY_FLOOD_DURATION3",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "VEG"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "VEG"
       ],
-      "assigned_phases": [
-        "VEG"
+      "output_ids": [
+        "soybean/VEG/SOY_FLOOD_DURATION3"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/EST/SOY_FLOOD_DURATION3",
+        "soybean/VEG/SOY_FLOOD_DURATION3",
+        "soybean/FLO/SOY_FLOOD_DURATION3",
+        "soybean/REP/SOY_FLOOD_DURATION3"
       ]
     },
     {
@@ -511,16 +773,23 @@
       "crop": "soybean",
       "source_phase_code": "R1_R2",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "FIL"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
       ]
     },
     {
@@ -528,15 +797,21 @@
       "crop": "soybean",
       "source_phase_code": "R1_R2",
       "rule_id": "SOY_WATERLOG_R1_3CM_16D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Adegoye et al. 2023",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "soybean/FLO/SOY_WATERLOG_R1_3CM_16D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_WATERLOG_R1_3CM_16D"
       ]
     },
     {
@@ -544,16 +819,25 @@
       "crop": "soybean",
       "source_phase_code": "R1_R2",
       "rule_id": "SOY_FLOOD_DURATION3",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "REP"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "soybean/FLO/SOY_FLOOD_DURATION3"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/EST/SOY_FLOOD_DURATION3",
+        "soybean/VEG/SOY_FLOOD_DURATION3",
+        "soybean/FLO/SOY_FLOOD_DURATION3",
+        "soybean/REP/SOY_FLOOD_DURATION3"
       ]
     },
     {
@@ -561,16 +845,23 @@
       "crop": "soybean",
       "source_phase_code": "R1_R2",
       "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "REP"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "soybean/FLO/SOY_FLOOD_DURATION6_GRAIN"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_FLOOD_DURATION6_GRAIN",
+        "soybean/REP/SOY_FLOOD_DURATION6_GRAIN"
       ]
     },
     {
@@ -578,23 +869,49 @@
       "crop": "soybean",
       "source_phase_code": "R3",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": true
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": true,
+      "calendar_phases": [
+        "REP"
+      ],
+      "reviewed_paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity.",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 43,
       "crop": "soybean",
       "source_phase_code": "R3",
       "rule_id": "SOY_FLOOD_DURATION3",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "REP"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "soybean/REP/SOY_FLOOD_DURATION3"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/EST/SOY_FLOOD_DURATION3",
+        "soybean/VEG/SOY_FLOOD_DURATION3",
+        "soybean/FLO/SOY_FLOOD_DURATION3",
+        "soybean/REP/SOY_FLOOD_DURATION3"
       ]
     },
     {
@@ -602,16 +919,23 @@
       "crop": "soybean",
       "source_phase_code": "R3",
       "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "REP"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "soybean/REP/SOY_FLOOD_DURATION6_GRAIN"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_FLOOD_DURATION6_GRAIN",
+        "soybean/REP/SOY_FLOOD_DURATION6_GRAIN"
       ]
     },
     {
@@ -619,23 +943,49 @@
       "crop": "soybean",
       "source_phase_code": "R4",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": true
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": true,
+      "calendar_phases": [
+        "REP"
+      ],
+      "reviewed_paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity.",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 46,
       "crop": "soybean",
       "source_phase_code": "R4",
       "rule_id": "SOY_FLOOD_DURATION3",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "REP"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "soybean/REP/SOY_FLOOD_DURATION3"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/EST/SOY_FLOOD_DURATION3",
+        "soybean/VEG/SOY_FLOOD_DURATION3",
+        "soybean/FLO/SOY_FLOOD_DURATION3",
+        "soybean/REP/SOY_FLOOD_DURATION3"
       ]
     },
     {
@@ -643,16 +993,23 @@
       "crop": "soybean",
       "source_phase_code": "R4",
       "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "REP"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "soybean/REP/SOY_FLOOD_DURATION6_GRAIN"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_FLOOD_DURATION6_GRAIN",
+        "soybean/REP/SOY_FLOOD_DURATION6_GRAIN"
       ]
     },
     {
@@ -660,16 +1017,23 @@
       "crop": "soybean",
       "source_phase_code": "R5",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "FIL"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
       ]
     },
     {
@@ -677,15 +1041,22 @@
       "crop": "soybean",
       "source_phase_code": "R5",
       "rule_id": "SOY_HNT_FILL28_R5_R7",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Yang et al. 2023",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "soybean/FIL/SOY_HNT_FILL28_R5_R7"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FIL/SOY_HNT_FILL28_R5_R7",
+        "soybean/MAT/SOY_HNT_FILL28_R5_R7"
       ]
     },
     {
@@ -693,32 +1064,74 @@
       "crop": "soybean",
       "source_phase_code": "R5",
       "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
-      "excluded_orange": true
+      "source": "Shen et al. 2023",
+      "source_pages": "1",
+      "orange": true,
+      "calendar_phases": [
+        "FIL"
+      ],
+      "reviewed_paper_phases": [
+        "FLO",
+        "REP"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "The reviewed exposure is flowering/podding, not seed filling.",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_FLOOD_DURATION6_GRAIN",
+        "soybean/REP/SOY_FLOOD_DURATION6_GRAIN"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 51,
       "crop": "soybean",
       "source_phase_code": "R6_R7",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": true
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": true,
+      "calendar_phases": [
+        "FIL",
+        "MAT"
+      ],
+      "reviewed_paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity.",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 52,
       "crop": "soybean",
       "source_phase_code": "R6_R7",
       "rule_id": "SOY_HNT_FILL28_R5_R7",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Yang et al. 2023",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "FIL",
         "MAT"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL",
         "MAT"
       ],
-      "assigned_phases": [
-        "FIL",
-        "MAT"
+      "output_ids": [
+        "soybean/FIL/SOY_HNT_FILL28_R5_R7",
+        "soybean/MAT/SOY_HNT_FILL28_R5_R7"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "soybean/FIL/SOY_HNT_FILL28_R5_R7",
+        "soybean/MAT/SOY_HNT_FILL28_R5_R7"
       ]
     },
     {
@@ -726,22 +1139,45 @@
       "crop": "soybean",
       "source_phase_code": "R8",
       "rule_id": "SOY_SEASONAL_HEAT30",
-      "excluded_orange": true
+      "source": "Schauberger et al. 2017",
+      "source_pages": "1",
+      "orange": true,
+      "calendar_phases": [
+        "MAT"
+      ],
+      "reviewed_paper_phases": [
+        "FLO",
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity.",
+      "retained_same_evidence": [
+        "soybean/FLO/SOY_SEASONAL_HEAT30",
+        "soybean/FIL/SOY_SEASONAL_HEAT30"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 54,
       "crop": "wheat",
       "source_phase_code": "Z00_09",
       "rule_id": "WHEAT_SEEDLING_HEAT42",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
+      "source_pages": "5",
+      "orange": false,
+      "calendar_phases": [
         "EST"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "EST"
       ],
-      "assigned_phases": [
-        "EST"
+      "output_ids": [
+        "wheat/EST/WHEAT_SEEDLING_HEAT42"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/EST/WHEAT_SEEDLING_HEAT42"
       ]
     },
     {
@@ -749,22 +1185,43 @@
       "crop": "wheat",
       "source_phase_code": "Z10_29",
       "rule_id": "WHEAT_SEEDLING_HEAT42",
-      "excluded_orange": true
+      "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
+      "source_pages": "5",
+      "orange": true,
+      "calendar_phases": [
+        "VEG"
+      ],
+      "reviewed_paper_phases": [
+        "EST"
+      ],
+      "output_ids": [],
+      "decision": "reviewed_not_published",
+      "reason": "Seedling evidence belongs to EST; it does not independently support the leaf-development/tillering assignment.",
+      "retained_same_evidence": [
+        "wheat/EST/WHEAT_SEEDLING_HEAT42"
+      ],
+      "coverage": "Same rule/source retained in the listed supported macro-phases."
     },
     {
       "row": 56,
       "crop": "wheat",
       "source_phase_code": "Z30_39",
       "rule_id": "WHEAT_STEM_DROUGHT_VSMC45_14D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Vuković et al. 2023",
+      "source_pages": "15",
+      "orange": false,
+      "calendar_phases": [
         "VEG"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "VEG"
       ],
-      "assigned_phases": [
-        "VEG"
+      "output_ids": [
+        "wheat/VEG/WHEAT_STEM_DROUGHT_VSMC45_14D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/VEG/WHEAT_STEM_DROUGHT_VSMC45_14D"
       ]
     },
     {
@@ -772,15 +1229,21 @@
       "crop": "wheat",
       "source_phase_code": "Z40_49",
       "rule_id": "WHEAT_BOOT_COLD_MINUS2_24H",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Liu et al. 2019",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "REP"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "wheat/REP/WHEAT_BOOT_COLD_MINUS2_24H"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/REP/WHEAT_BOOT_COLD_MINUS2_24H"
       ]
     },
     {
@@ -788,15 +1251,21 @@
       "crop": "wheat",
       "source_phase_code": "Z40_49",
       "rule_id": "WHEAT_BOOT_HEAT35_30_24H",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Barber et al. 2017",
+      "source_pages": "2",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "REP"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "wheat/REP/WHEAT_BOOT_HEAT35_30_24H"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/REP/WHEAT_BOOT_HEAT35_30_24H"
       ]
     },
     {
@@ -804,15 +1273,23 @@
       "crop": "wheat",
       "source_phase_code": "Z50_59",
       "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Frederiks et al. 2015",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "REP"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "REP"
       ],
-      "assigned_phases": [
-        "REP"
+      "output_ids": [
+        "wheat/REP/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/FLO/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "wheat/REP/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "wheat/FIL/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
       ]
     },
     {
@@ -820,15 +1297,21 @@
       "crop": "wheat",
       "source_phase_code": "Z60_69",
       "rule_id": "WHEAT_HEAT_DAY27_3",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Liu et al. 2023",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "wheat/FLO/WHEAT_HEAT_DAY27_3"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/FLO/WHEAT_HEAT_DAY27_3"
       ]
     },
     {
@@ -836,15 +1319,21 @@
       "crop": "wheat",
       "source_phase_code": "Z60_69",
       "rule_id": "WHEAT_HEAT_NIGHT19_6",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Liu et al. 2023",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "wheat/FLO/WHEAT_HEAT_NIGHT19_6"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/FLO/WHEAT_HEAT_NIGHT19_6"
       ]
     },
     {
@@ -852,16 +1341,22 @@
       "crop": "wheat",
       "source_phase_code": "Z60_69",
       "rule_id": "WHEAT_WATERLOG_Z65_3D",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Ma et al. 2022",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO",
         "FIL"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "wheat/FLO/WHEAT_WATERLOG_Z65_3D"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/FLO/WHEAT_WATERLOG_Z65_3D"
       ]
     },
     {
@@ -869,15 +1364,23 @@
       "crop": "wheat",
       "source_phase_code": "Z60_69",
       "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Frederiks et al. 2015",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "FLO"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FLO"
       ],
-      "assigned_phases": [
-        "FLO"
+      "output_ids": [
+        "wheat/FLO/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/FLO/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "wheat/REP/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "wheat/FIL/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
       ]
     },
     {
@@ -885,16 +1388,22 @@
       "crop": "wheat",
       "source_phase_code": "Z70_89",
       "rule_id": "WHEAT_HNT_POSTANTHESIS_DELTA3_8",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Hein et al. 2020",
+      "source_pages": "1",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL",
         "MAT"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "wheat/FIL/WHEAT_HNT_POSTANTHESIS_DELTA3_8"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/FIL/WHEAT_HNT_POSTANTHESIS_DELTA3_8"
       ]
     },
     {
@@ -902,15 +1411,23 @@
       "crop": "wheat",
       "source_phase_code": "Z70_89",
       "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Frederiks et al. 2015",
+      "source_pages": "4",
+      "orange": false,
+      "calendar_phases": [
         "FIL"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "FIL"
       ],
-      "assigned_phases": [
-        "FIL"
+      "output_ids": [
+        "wheat/FIL/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/FLO/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "wheat/REP/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "wheat/FIL/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
       ]
     },
     {
@@ -918,15 +1435,21 @@
       "crop": "wheat",
       "source_phase_code": "Z90_99",
       "rule_id": "WHEAT_RIPENING_RAIN5_8H",
-      "excluded_orange": false,
-      "target_phases": [
+      "source": "Kang et al. 2024",
+      "source_pages": "3",
+      "orange": false,
+      "calendar_phases": [
         "MAT"
       ],
-      "paper_phases": [
+      "reviewed_paper_phases": [
         "MAT"
       ],
-      "assigned_phases": [
-        "MAT"
+      "output_ids": [
+        "wheat/MAT/WHEAT_RIPENING_RAIN5_8H"
+      ],
+      "decision": "grouped",
+      "retained_same_evidence": [
+        "wheat/MAT/WHEAT_RIPENING_RAIN5_8H"
       ]
     },
     {
@@ -934,7 +1457,20 @@
       "crop": "maize",
       "source_phase_code": "R1",
       "rule_id": "MAIZE_REP_LAG_HEAT_ZHANG2023",
-      "excluded_orange": false
+      "source": "Zhang et al. 2023",
+      "source_pages": "2, 5–6",
+      "orange": false,
+      "calendar_phases": [
+        "REP"
+      ],
+      "reviewed_paper_phases": [
+        "REP",
+        "FIL"
+      ],
+      "output_ids": [],
+      "decision": "reserved",
+      "reason": "Literature context only. User will assign the maize REP hazard and threshold.",
+      "retained_same_evidence": []
     }
   ]
 }

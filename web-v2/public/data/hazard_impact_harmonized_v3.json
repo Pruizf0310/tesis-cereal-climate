@@ -1,7 +1,33 @@
 {
-  "version": "v3.0.0-2026-09-15",
-  "source": "Human-reviewed workbook; orange-marked rows excluded; project macro-phase crosswalk",
-  "interpretation": "Rows are candidate rules assigned by crop and technical phase. They do not prove local occurrence.",
+  "version": "v3.1.0-2026-09-15",
+  "source": "REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+  "interpretation": "Grouped by crop, macro-phase and evidence rule. Original assignments and reviewed removals remain traceable. Repeated assignments are not independent evidence.",
+  "phases": [
+    {
+      "code": "EST",
+      "name": "Establishment"
+    },
+    {
+      "code": "VEG",
+      "name": "Vegetative growth"
+    },
+    {
+      "code": "FLO",
+      "name": "Flowering"
+    },
+    {
+      "code": "REP",
+      "name": "Reproductive development"
+    },
+    {
+      "code": "FIL",
+      "name": "Grain/seed filling"
+    },
+    {
+      "code": "MAT",
+      "name": "Maturation"
+    }
+  ],
   "rows": [
     {
       "crop": "maize",
@@ -21,11 +47,23 @@
         "link": "10.1371/journal.pone.0340773",
         "limitations": "Response depends strongly on soil moisture and exposure duration.",
         "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "VE — Germination and emergence",
-        "review_row": "5",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: EST reported in the reviewed study; EST in the original calendar. Assigned overlap: EST."
-      }
+        "source_assignments": [
+          {
+            "review_row": 5,
+            "source_phase": "VE — Germination and emergence",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "EST"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Minimum air temperature",
+      "exact_threshold": "< 6 °C",
+      "consecutive_exposure": "2 h",
+      "id": "maize/EST/MAIZE_EMERGENCE_COLD6"
     },
     {
       "crop": "maize",
@@ -45,11 +83,23 @@
         "link": "10.1093/jxb/erx381",
         "limitations": "The threshold represents leaf-growth inhibition, not a direct yield-loss threshold.",
         "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "V1_V6 — Early vegetative development",
-        "review_row": "6",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: VEG reported in the reviewed study; VEG in the original calendar. Assigned overlap: VEG."
-      }
+        "source_assignments": [
+          {
+            "review_row": 6,
+            "source_phase": "V1_V6 — Early vegetative development",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "VEG"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Soil water potential",
+      "exact_threshold": "≤ -0.51 MPa",
+      "consecutive_exposure": "4 days",
+      "id": "maize/VEG/MAIZE_EARLYVEG_DROUGHT_SWP051_4D"
     },
     {
       "crop": "maize",
@@ -69,11 +119,23 @@
         "link": "https://europepmc.org/articles/PMC6405865",
         "limitations": "A single severe treatment was evaluated; it is not a universal damage-onset threshold.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "V7_VT — Late vegetative growth and tasseling",
-        "review_row": "7",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: VEG reported in the reviewed study; VEG in the original calendar. Assigned overlap: VEG."
-      }
+        "source_assignments": [
+          {
+            "review_row": 7,
+            "source_phase": "V7_VT — Late vegetative growth and tasseling",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "VEG"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Day/night air temperature",
+      "exact_threshold": "38/30 °C",
+      "consecutive_exposure": "15 days",
+      "id": "maize/VEG/MAIZE_TASSEL_HEAT38_30_15D"
     },
     {
       "crop": "maize",
@@ -93,11 +155,23 @@
         "link": "10.1016/j.xplc.2023.100629",
         "limitations": "SE 0.4 °C; modeled threshold for significant seed-set reduction.",
         "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "R1 — Silking, pollination and seed set",
-        "review_row": "8",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO+REP in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 8,
+            "source_phase": "R1 — Silking, pollination and seed set",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daytime air temperature",
+      "exact_threshold": "> 37.9 °C",
+      "consecutive_exposure": null,
+      "id": "maize/FLO/MAIZE_HEAT_DAY37_9"
     },
     {
       "crop": "maize",
@@ -117,11 +191,23 @@
         "link": "10.1016/j.xplc.2023.100629",
         "limitations": "SE 1.3 °C; the reported duration is not a maximum tolerable duration.",
         "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "R1 — Silking, pollination and seed set",
-        "review_row": "9",
-        "source_pages": "2",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO+REP in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 9,
+            "source_phase": "R1 — Silking, pollination and seed set",
+            "source_pages": "2",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Nighttime air temperature",
+      "exact_threshold": "≈ 27.3 °C",
+      "consecutive_exposure": null,
+      "id": "maize/FLO/MAIZE_HEAT_NIGHT27_3"
     },
     {
       "crop": "maize",
@@ -141,11 +227,23 @@
         "link": "10.3390/agronomy13082126",
         "limitations": "The 39.4–41.5 °C treatment caused damage but does not estimate damage onset.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "R4_R5 — Dough to dent stage",
-        "review_row": "12",
-        "source_pages": "5",
-        "homologation": "Project crosswalk: FIL reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
+        "source_assignments": [
+          {
+            "review_row": 12,
+            "source_phase": "R4_R5 — Dough to dent stage",
+            "source_pages": "5",
+            "paper_macro_phases": [
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Maximum air temperature",
+      "exact_threshold": "≥ 39.4 °C",
+      "consecutive_exposure": "6 days",
+      "id": "maize/FIL/MAIZE_HEAT_FILL39_4_41_5"
     },
     {
       "crop": "maize",
@@ -165,11 +263,23 @@
         "link": "10.3389/fpls.2026.1826388",
         "limitations": "28 °C was the lowest treatment producing significant loss in the sensitive hybrid; another hybrid responded significantly at 30 °C.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "R4_R5 — Dough to dent stage",
-        "review_row": "13",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FIL reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
+        "source_assignments": [
+          {
+            "review_row": 13,
+            "source_phase": "R4_R5 — Dough to dent stage",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Nighttime air temperature",
+      "exact_threshold": "≥ 28 °C",
+      "consecutive_exposure": "18 nights",
+      "id": "maize/FIL/MAIZE_HNT_FILL28_18D"
     },
     {
       "crop": "maize",
@@ -189,11 +299,23 @@
         "link": "https://europepmc.org/articles/PMC7641793",
         "limitations": "15 m/s marks increasing cultivar separation, not a universal stalk-breaking threshold.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R6 — Physiological maturity",
-        "review_row": "14",
-        "source_pages": "7",
-        "homologation": "Project crosswalk: MAT reported in the reviewed study; MAT in the original calendar. Assigned overlap: MAT."
-      }
+        "source_assignments": [
+          {
+            "review_row": 14,
+            "source_phase": "R6 — Physiological maturity",
+            "source_pages": "7",
+            "paper_macro_phases": [
+              "MAT"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Wind speed",
+      "exact_threshold": "> 15 m/s",
+      "consecutive_exposure": null,
+      "id": "maize/MAT/MAIZE_R6_WIND15"
     },
     {
       "crop": "rice",
@@ -213,64 +335,28 @@
         "link": "https://europepmc.org/articles/PMC9496009",
         "limitations": "38 °C was the lowest tested treatment with extreme inhibition; 35 °C did not produce a significant effect. Betaine modified the response.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "BBCH_00_09 — Germination and emergence",
-        "review_row": "15",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: EST reported in the reviewed study; EST in the original calendar. Assigned overlap: EST."
-      }
+        "source_assignments": [
+          {
+            "review_row": 15,
+            "source_phase": "BBCH_00_09 — Germination and emergence",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "EST"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Air temperature",
+      "exact_threshold": "≥ 38 °C",
+      "consecutive_exposure": "24 h",
+      "id": "rice/EST/RICE_GERMINATION_HEAT38_24H"
     },
     {
       "crop": "rice",
       "phase_code": "VEG",
       "derived_stage": "Vegetative growth",
-      "hazard": "Flooding / complete submergence",
-      "threshold": "Duration of complete submergence >= 7 days for 7 days of complete submergence",
-      "qualitative_impact": "High mortality in sensitive varieties; SUB1 varieties showed greater survival.",
-      "quantitative_impact": "Popular sensitive varieties commonly died within 7 days; SUB1 conferred an advantage after 7–15 days.",
-      "category": "Genotype-dependent operational threshold",
-      "details": {
-        "phase_order": 2,
-        "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
-        "evidence_type": "Transferred candidate requiring local validation",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Bailey-Serres et al. 2010",
-        "link": "10.1007/s00425-010-1198-z",
-        "limitations": "Apply only when varietal susceptibility is known; sensitive varieties may die within 7 days, whereas SUB1 genotypes can tolerate 7–15 days.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_10_19 — Seedling and early leaves",
-        "review_row": "16",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: EST+VEG reported in the reviewed study; VEG in the original calendar. Assigned overlap: VEG."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "VEG",
-      "derived_stage": "Vegetative growth",
-      "hazard": "Flooding / complete submergence",
-      "threshold": "Duration of complete submergence >= 7 days for 7 days of complete submergence",
-      "qualitative_impact": "High mortality in sensitive varieties; SUB1 varieties showed greater survival.",
-      "quantitative_impact": "Popular sensitive varieties commonly died within 7 days; SUB1 conferred an advantage after 7–15 days.",
-      "category": "Genotype-dependent operational threshold",
-      "details": {
-        "phase_order": 2,
-        "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
-        "evidence_type": "Transferred candidate requiring local validation",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Bailey-Serres et al. 2010",
-        "link": "10.1007/s00425-010-1198-z",
-        "limitations": "Apply only when varietal susceptibility is known; sensitive varieties may die within 7 days, whereas SUB1 genotypes can tolerate 7–15 days.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_20_29 — Tillering",
-        "review_row": "17",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: EST+VEG reported in the reviewed study; VEG in the original calendar. Assigned overlap: VEG."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "VEG+REP",
-      "derived_stage": "Vegetative growth / Reproductive development",
       "hazard": "Heat",
       "threshold": "Daily mean temperature >= 33.0 °C for 1.0 consecutive day",
       "qualitative_impact": "Heat-risk indicator during panicle initiation; the rule does not isolate a universal biological effect size.",
@@ -285,11 +371,26 @@
         "link": "10.5194/esd-16-1971-2025",
         "limitations": "Duration was relaxed relative to the original standard; not a global threshold.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_30_39 — Stem elongation and panicle initiation",
-        "review_row": "18",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: VEG+REP+FLO+FIL reported in the reviewed study; VEG+REP in the original calendar. Assigned overlap: VEG+REP. Shared window; no separate phase duration or independent effect is inferred."
-      }
+        "source_assignments": [
+          {
+            "review_row": 18,
+            "source_phase": "BBCH_30_39 — Stem elongation and panicle initiation",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "VEG",
+              "REP",
+              "FLO",
+              "FIL"
+            ],
+            "assignment_note": "Shared study window; this assignment is not an independent experiment or a phase-specific effect estimate."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily mean temperature",
+      "exact_threshold": "≥ 33 °C",
+      "consecutive_exposure": "1 day",
+      "id": "rice/VEG/RICE_HEAT_MEAN_33"
     },
     {
       "crop": "rice",
@@ -309,179 +410,50 @@
         "link": "10.1007/s00425-010-1198-z",
         "limitations": "Apply only when varietal susceptibility is known; sensitive varieties may die within 7 days, whereas SUB1 genotypes can tolerate 7–15 days.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_30_39 — Stem elongation and panicle initiation",
-        "review_row": "19",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: EST+VEG reported in the reviewed study; VEG+REP in the original calendar. Assigned overlap: VEG."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
-      "hazard": "Drought",
-      "threshold": "Relative soil moisture <= 75.0 % for 10.0 consecutive days",
-      "qualitative_impact": "Sustained soil-moisture deficit can constrain reproductive development and seasonal rice performance.",
-      "quantitative_impact": "Not determined",
-      "category": "Regional indicator",
-      "details": {
-        "phase_order": 4,
-        "rule_id": "RICE_DROUGHT_SM75",
-        "evidence_type": "Regional indicator",
-        "spatial_scope": "Southern China; single rice",
-        "source": "Sun et al. 2025",
-        "link": "10.5194/esd-16-1971-2025",
-        "limitations": "The operational soil-moisture definition must be matched before transfer.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_40_59 — Booting and panicle emergence",
-        "review_row": "20",
-        "source_pages": "5",
-        "homologation": "Project crosswalk: VEG+REP+FLO+FIL reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
-      "hazard": "Cold",
-      "threshold": "Daily mean temperature <= 20.0 °C for 1.0 consecutive day",
-      "qualitative_impact": "Cold exposure around booting or flowering can impair reproductive development and seed set.",
-      "quantitative_impact": "Not determined",
-      "category": "Regional indicator",
-      "details": {
-        "phase_order": 4,
-        "rule_id": "RICE_COLD_MEAN20",
-        "evidence_type": "Regional indicator",
-        "spatial_scope": "Southern China; late rice",
-        "source": "Sun et al. 2025",
-        "link": "10.5194/esd-16-1971-2025",
-        "limitations": "Relaxed duration and regional scope; not globally validated.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_40_59 — Booting and panicle emergence",
-        "review_row": "21",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: REP+FLO reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
-      "hazard": "Heavy rainfall",
-      "threshold": "Daily total precipitation >= 25.0 mm/day for 1.0 consecutive day",
-      "qualitative_impact": "Heavy rainfall can disrupt panicle emergence or flowering and, during filling, reduce radiation and increase lodging or disease pressure.",
-      "quantitative_impact": "Not determined",
-      "category": "Regional indicator",
-      "details": {
-        "phase_order": 4,
-        "rule_id": "RICE_RAIN25",
-        "evidence_type": "Regional indicator",
-        "spatial_scope": "Southern China; late rice",
-        "source": "Sun et al. 2025",
-        "link": "10.5194/esd-16-1971-2025",
-        "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_40_59 — Booting and panicle emergence",
-        "review_row": "22",
-        "source_pages": "2",
-        "homologation": "Project crosswalk: REP+FLO reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "FLO",
-      "derived_stage": "Flowering",
-      "hazard": "Cold",
-      "threshold": "Daily mean temperature <= 20.0 °C for 1.0 consecutive day",
-      "qualitative_impact": "Cold exposure around booting or flowering can impair reproductive development and seed set.",
-      "quantitative_impact": "Not determined",
-      "category": "Regional indicator",
-      "details": {
-        "phase_order": 3,
-        "rule_id": "RICE_COLD_MEAN20",
-        "evidence_type": "Regional indicator",
-        "spatial_scope": "Southern China; late rice",
-        "source": "Sun et al. 2025",
-        "link": "10.5194/esd-16-1971-2025",
-        "limitations": "Relaxed duration and regional scope; not globally validated.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_60_69 — Flowering / anthesis",
-        "review_row": "24",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: REP+FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "FLO",
-      "derived_stage": "Flowering",
-      "hazard": "Heavy rainfall",
-      "threshold": "Daily total precipitation >= 25.0 mm/day for 1.0 consecutive day",
-      "qualitative_impact": "Heavy rainfall can disrupt panicle emergence or flowering and, during filling, reduce radiation and increase lodging or disease pressure.",
-      "quantitative_impact": "Not determined",
-      "category": "Regional indicator",
-      "details": {
-        "phase_order": 3,
-        "rule_id": "RICE_RAIN25",
-        "evidence_type": "Regional indicator",
-        "spatial_scope": "Southern China; late rice",
-        "source": "Sun et al. 2025",
-        "link": "10.5194/esd-16-1971-2025",
-        "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_60_69 — Flowering / anthesis",
-        "review_row": "25",
-        "source_pages": "2",
-        "homologation": "Project crosswalk: REP+FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "FLO",
-      "derived_stage": "Flowering",
-      "hazard": "Daytime heat",
-      "threshold": "Daytime temperature > 37.2 °C",
-      "qualitative_impact": "Seed set is significantly reduced above the modeled daytime flowering threshold.",
-      "quantitative_impact": "Effect size varies among experiments",
-      "category": "Modeled threshold",
-      "details": {
-        "phase_order": 3,
-        "rule_id": "RICE_HEAT_DAY37_2",
-        "evidence_type": "Modeled threshold",
-        "spatial_scope": "Multi-experiment synthesis",
-        "source": "Liu et al. 2023",
-        "link": "10.1016/j.xplc.2023.100629",
-        "limitations": "SE 0.2 °C; significant seed-set reduction; exposure durations differ among experiments.",
-        "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "BBCH_60_69 — Flowering / anthesis",
-        "review_row": "26",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
-    },
-    {
-      "crop": "rice",
-      "phase_code": "FLO",
-      "derived_stage": "Flowering",
-      "hazard": "Nighttime heat",
-      "threshold": "Nighttime temperature > 31.2 °C for 7.0 more than one week",
-      "qualitative_impact": "Night heat during flowering is associated with significantly reduced seed set.",
-      "quantitative_impact": "Effect size varies among experiments",
-      "category": "Modeled threshold — provisional duration",
-      "details": {
-        "phase_order": 3,
-        "rule_id": "RICE_HEAT_NIGHT31_2",
-        "evidence_type": "Provisional modeled threshold",
-        "spatial_scope": "Synthesis; limited nighttime evidence",
-        "source": "Liu et al. 2023",
-        "link": "10.1016/j.xplc.2023.100629",
-        "limitations": "SE 0.2 °C; the reported duration is not a maximum tolerable duration.",
-        "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "BBCH_60_69 — Flowering / anthesis",
-        "review_row": "27",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 16,
+            "source_phase": "BBCH_10_19 — Seedling and early leaves",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "EST",
+              "VEG"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          },
+          {
+            "review_row": 17,
+            "source_phase": "BBCH_20_29 — Tillering",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "EST",
+              "VEG"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          },
+          {
+            "review_row": 19,
+            "source_phase": "BBCH_30_39 — Stem elongation and panicle initiation",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "EST",
+              "VEG"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": [
+          {
+            "review_row": 23,
+            "original_phase": "BBCH_40_59",
+            "reason": "Seedling/vegetative exposure does not establish a booting REP window."
+          }
+        ]
+      },
+      "variable": "Submergence duration",
+      "exact_threshold": "≥ 7 days",
+      "consecutive_exposure": "7 days",
+      "id": "rice/VEG/RICE_SUBMERGENCE_SENSITIVE7D"
     },
     {
       "crop": "rice",
@@ -501,11 +473,60 @@
         "link": "10.3389/fpls.2017.01350",
         "limitations": "17 °C was the treatment mean (20/14 °C maximum/minimum), not a universal threshold; response depended on cultivar.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "BBCH_60_69 — Flowering / anthesis",
-        "review_row": "28",
-        "source_pages": "7",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 28,
+            "source_phase": "BBCH_60_69 — Flowering / anthesis",
+            "source_pages": "7",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Mean air temperature",
+      "exact_threshold": "≤ 17 °C",
+      "consecutive_exposure": "5 days",
+      "id": "rice/FLO/RICE_COLD_ANTHESIS17_5D"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "FLO",
+      "derived_stage": "Flowering",
+      "hazard": "Cold",
+      "threshold": "Daily mean temperature <= 20.0 °C for 1.0 consecutive day",
+      "qualitative_impact": "Cold exposure around booting or flowering can impair reproductive development and seed set.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "RICE_COLD_MEAN20",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Relaxed duration and regional scope; not globally validated.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 24,
+            "source_phase": "BBCH_60_69 — Flowering / anthesis",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "REP",
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily mean temperature",
+      "exact_threshold": "≤ 20 °C",
+      "consecutive_exposure": "1 day",
+      "id": "rice/FLO/RICE_COLD_MEAN20"
     },
     {
       "crop": "rice",
@@ -525,11 +546,284 @@
         "link": "10.1038/s41598-019-40161-0",
         "limitations": "The treatment was maintained at −30 ±5 kPa; it does not estimate the first damaging point or maximum tolerable duration.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "BBCH_60_69 — Flowering / anthesis",
-        "review_row": "29",
-        "source_pages": "9",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 29,
+            "source_phase": "BBCH_60_69 — Flowering / anthesis",
+            "source_pages": "9",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Soil water potential",
+      "exact_threshold": "≤ -30 kPa",
+      "consecutive_exposure": null,
+      "id": "rice/FLO/RICE_DROUGHT_FLOWERING_SWP30"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "FLO",
+      "derived_stage": "Flowering",
+      "hazard": "Daytime heat",
+      "threshold": "Daytime temperature > 37.2 °C",
+      "qualitative_impact": "Seed set is significantly reduced above the modeled daytime flowering threshold.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "RICE_HEAT_DAY37_2",
+        "evidence_type": "Modeled threshold",
+        "spatial_scope": "Multi-experiment synthesis",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 0.2 °C; significant seed-set reduction; exposure durations differ among experiments.",
+        "rule_status": "VERIFIED_THRESHOLD",
+        "source_assignments": [
+          {
+            "review_row": 26,
+            "source_phase": "BBCH_60_69 — Flowering / anthesis",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daytime air temperature",
+      "exact_threshold": "> 37.2 °C",
+      "consecutive_exposure": null,
+      "id": "rice/FLO/RICE_HEAT_DAY37_2"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "FLO",
+      "derived_stage": "Flowering",
+      "hazard": "Nighttime heat",
+      "threshold": "Nighttime temperature > 31.2 °C for 7.0 more than one week",
+      "qualitative_impact": "Night heat during flowering is associated with significantly reduced seed set.",
+      "quantitative_impact": "Effect size varies among experiments",
+      "category": "Modeled threshold — provisional duration",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "RICE_HEAT_NIGHT31_2",
+        "evidence_type": "Provisional modeled threshold",
+        "spatial_scope": "Synthesis; limited nighttime evidence",
+        "source": "Liu et al. 2023",
+        "link": "10.1016/j.xplc.2023.100629",
+        "limitations": "SE 0.2 °C; the reported duration is not a maximum tolerable duration.",
+        "rule_status": "VERIFIED_THRESHOLD",
+        "source_assignments": [
+          {
+            "review_row": 27,
+            "source_phase": "BBCH_60_69 — Flowering / anthesis",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Nighttime air temperature",
+      "exact_threshold": "> 31.2 °C",
+      "consecutive_exposure": "7 days",
+      "id": "rice/FLO/RICE_HEAT_NIGHT31_2"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "FLO",
+      "derived_stage": "Flowering",
+      "hazard": "Heavy rainfall",
+      "threshold": "Daily total precipitation >= 25.0 mm/day for 1.0 consecutive day",
+      "qualitative_impact": "Heavy rainfall can disrupt panicle emergence or flowering and, during filling, reduce radiation and increase lodging or disease pressure.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "RICE_RAIN25",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 25,
+            "source_phase": "BBCH_60_69 — Flowering / anthesis",
+            "source_pages": "2",
+            "paper_macro_phases": [
+              "REP",
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily precipitation",
+      "exact_threshold": "≥ 25 mm/day",
+      "consecutive_exposure": "1 day",
+      "id": "rice/FLO/RICE_RAIN25"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "REP",
+      "derived_stage": "Reproductive development",
+      "hazard": "Cold",
+      "threshold": "Daily mean temperature <= 20.0 °C for 1.0 consecutive day",
+      "qualitative_impact": "Cold exposure around booting or flowering can impair reproductive development and seed set.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "RICE_COLD_MEAN20",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Relaxed duration and regional scope; not globally validated.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 21,
+            "source_phase": "BBCH_40_59 — Booting and panicle emergence",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "REP",
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily mean temperature",
+      "exact_threshold": "≤ 20 °C",
+      "consecutive_exposure": "1 day",
+      "id": "rice/REP/RICE_COLD_MEAN20"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "REP",
+      "derived_stage": "Reproductive development",
+      "hazard": "Drought",
+      "threshold": "Relative soil moisture <= 75.0 % for 10.0 consecutive days",
+      "qualitative_impact": "Sustained soil-moisture deficit can constrain reproductive development and seasonal rice performance.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "RICE_DROUGHT_SM75",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; single rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "The operational soil-moisture definition must be matched before transfer.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 20,
+            "source_phase": "BBCH_40_59 — Booting and panicle emergence",
+            "source_pages": "5",
+            "paper_macro_phases": [
+              "VEG",
+              "REP",
+              "FLO",
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Soil moisture",
+      "exact_threshold": "≤ 75 %",
+      "consecutive_exposure": "10 days",
+      "id": "rice/REP/RICE_DROUGHT_SM75"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "REP",
+      "derived_stage": "Reproductive development",
+      "hazard": "Heat",
+      "threshold": "Daily mean temperature >= 33.0 °C for 1.0 consecutive day",
+      "qualitative_impact": "Heat-risk indicator during panicle initiation; the rule does not isolate a universal biological effect size.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "RICE_HEAT_MEAN_33",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; single rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Duration was relaxed relative to the original standard; not a global threshold.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 18,
+            "source_phase": "BBCH_30_39 — Stem elongation and panicle initiation",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "VEG",
+              "REP",
+              "FLO",
+              "FIL"
+            ],
+            "assignment_note": "Shared study window; this assignment is not an independent experiment or a phase-specific effect estimate."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily mean temperature",
+      "exact_threshold": "≥ 33 °C",
+      "consecutive_exposure": "1 day",
+      "id": "rice/REP/RICE_HEAT_MEAN_33"
+    },
+    {
+      "crop": "rice",
+      "phase_code": "REP",
+      "derived_stage": "Reproductive development",
+      "hazard": "Heavy rainfall",
+      "threshold": "Daily total precipitation >= 25.0 mm/day for 1.0 consecutive day",
+      "qualitative_impact": "Heavy rainfall can disrupt panicle emergence or flowering and, during filling, reduce radiation and increase lodging or disease pressure.",
+      "quantitative_impact": "Not determined",
+      "category": "Regional indicator",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "RICE_RAIN25",
+        "evidence_type": "Regional indicator",
+        "spatial_scope": "Southern China; late rice",
+        "source": "Sun et al. 2025",
+        "link": "10.5194/esd-16-1971-2025",
+        "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 22,
+            "source_phase": "BBCH_40_59 — Booting and panicle emergence",
+            "source_pages": "2",
+            "paper_macro_phases": [
+              "REP",
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily precipitation",
+      "exact_threshold": "≥ 25 mm/day",
+      "consecutive_exposure": "1 day",
+      "id": "rice/REP/RICE_RAIN25"
     },
     {
       "crop": "rice",
@@ -549,11 +843,24 @@
         "link": "10.5194/esd-16-1971-2025",
         "limitations": "Relaxed duration and regional scope; not globally validated.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_70_79 — Grain development and filling",
-        "review_row": "30",
-        "source_pages": "2",
-        "homologation": "Project crosswalk: FIL+MAT reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
+        "source_assignments": [
+          {
+            "review_row": 30,
+            "source_phase": "BBCH_70_79 — Grain development and filling",
+            "source_pages": "2",
+            "paper_macro_phases": [
+              "FIL",
+              "MAT"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily mean temperature",
+      "exact_threshold": "≤ 17 °C",
+      "consecutive_exposure": "1 day",
+      "id": "rice/FIL/RICE_COLD_MEAN17"
     },
     {
       "crop": "rice",
@@ -573,11 +880,24 @@
         "link": "10.5194/esd-16-1971-2025",
         "limitations": "Based on a local Chengdu standard; rainfall is an exposure indicator, not a universal damage threshold.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_70_79 — Grain development and filling",
-        "review_row": "31",
-        "source_pages": "2",
-        "homologation": "Project crosswalk: FIL+MAT reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
+        "source_assignments": [
+          {
+            "review_row": 31,
+            "source_phase": "BBCH_70_79 — Grain development and filling",
+            "source_pages": "2",
+            "paper_macro_phases": [
+              "FIL",
+              "MAT"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily precipitation",
+      "exact_threshold": "≥ 25 mm/day",
+      "consecutive_exposure": "1 day",
+      "id": "rice/FIL/RICE_RAIN25"
     },
     {
       "crop": "rice",
@@ -597,11 +917,24 @@
         "link": "https://europepmc.org/articles/PMC12535988",
         "limitations": "The paper classifies >28 °C as heat during grain filling but does not estimate a duration-specific breakpoint.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "BBCH_80_99 — Ripening",
-        "review_row": "32",
-        "source_pages": "2",
-        "homologation": "Project crosswalk: FIL+MAT reported in the reviewed study; MAT in the original calendar. Assigned overlap: MAT."
-      }
+        "source_assignments": [
+          {
+            "review_row": 32,
+            "source_phase": "BBCH_80_99 — Ripening",
+            "source_pages": "2",
+            "paper_macro_phases": [
+              "FIL",
+              "MAT"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daily mean temperature",
+      "exact_threshold": "> 28 °C",
+      "consecutive_exposure": null,
+      "id": "rice/MAT/RICE_RIPENING_HEAT_MEAN28"
     },
     {
       "crop": "soybean",
@@ -621,11 +954,23 @@
         "link": "10.3390/su15010738",
         "limitations": "Responses varied by year; some short exposures partly offset drought or heat. Hydrologic conditions require local validation.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "VE_VC — Emergence and cotyledons",
-        "review_row": "35",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: EST reported in the reviewed study; EST in the original calendar. Assigned overlap: EST."
-      }
+        "source_assignments": [
+          {
+            "review_row": 35,
+            "source_phase": "VE_VC — Emergence and cotyledons",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "EST"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Flood duration",
+      "exact_threshold": "> 3 days",
+      "consecutive_exposure": "3 days",
+      "id": "soybean/EST/SOY_FLOOD_DURATION3"
     },
     {
       "crop": "soybean",
@@ -645,11 +990,103 @@
         "link": "10.3390/su15010738",
         "limitations": "Responses varied by year; some short exposures partly offset drought or heat. Hydrologic conditions require local validation.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "V1_VN — Vegetative node development",
-        "review_row": "37",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: VEG reported in the reviewed study; VEG in the original calendar. Assigned overlap: VEG."
-      }
+        "source_assignments": [
+          {
+            "review_row": 37,
+            "source_phase": "V1_VN — Vegetative node development",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "VEG"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Flood duration",
+      "exact_threshold": "> 3 days",
+      "consecutive_exposure": "3 days",
+      "id": "soybean/VEG/SOY_FLOOD_DURATION3"
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "FLO",
+      "derived_stage": "Flowering",
+      "hazard": "Flooding",
+      "threshold": "Flood duration > 3 days for 3 critical duration; damage increased beyond 3 days",
+      "qualitative_impact": "Pod number, dry matter and yield declined when flooding exceeded the critical duration.",
+      "quantitative_impact": "After 9 days, relative yield was 7.1% at flowering–pod set, 15.6% at branching and 48.4% at seedling stage.",
+      "category": "Verified duration-response threshold",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "SOY_FLOOD_DURATION3",
+        "evidence_type": "Transferred candidate requiring local validation",
+        "spatial_scope": "Study-specific experimental setting; see the cited source",
+        "source": "Shen et al. 2023",
+        "link": "10.3390/su15010738",
+        "limitations": "Responses varied by year; some short exposures partly offset drought or heat. Hydrologic conditions require local validation.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 40,
+            "source_phase": "R1_R2 — Flowering",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Flood duration",
+      "exact_threshold": "> 3 days",
+      "consecutive_exposure": "3 days",
+      "id": "soybean/FLO/SOY_FLOOD_DURATION3"
+    },
+    {
+      "crop": "soybean",
+      "phase_code": "FLO",
+      "derived_stage": "Flowering",
+      "hazard": "Flooding",
+      "threshold": "Flood duration > 6 days for 6 critical duration for 100-grain weight",
+      "qualitative_impact": "Reduced 100-grain weight, with greatest sensitivity during flowering–pod set.",
+      "quantitative_impact": "After 9 days, 100-grain weight during flowering–pod set was 37.8% of the control.",
+      "category": "Verified duration-response threshold",
+      "details": {
+        "phase_order": 3,
+        "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
+        "evidence_type": "Transferred candidate requiring local validation",
+        "spatial_scope": "Study-specific experimental setting; see the cited source",
+        "source": "Shen et al. 2023",
+        "link": "10.3390/su15010738",
+        "limitations": "The effect depended on year and stage; a clear reduction was generally observed after 9 days.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 41,
+            "source_phase": "R1_R2 — Flowering",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": [
+          {
+            "review_row": 50,
+            "original_phase": "R5",
+            "reason": "The reviewed exposure is flowering/podding, not seed filling."
+          }
+        ]
+      },
+      "variable": "Flood duration",
+      "exact_threshold": "> 6 days",
+      "consecutive_exposure": "6 days",
+      "id": "soybean/FLO/SOY_FLOOD_DURATION6_GRAIN"
     },
     {
       "crop": "soybean",
@@ -669,11 +1106,55 @@
         "link": "10.1038/ncomms13931",
         "limitations": "Seasonal US association, not a phase-specific universal threshold.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R1_R2 — Flowering",
-        "review_row": "38",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+FIL reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 38,
+            "source_phase": "R1_R2 — Flowering",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": [
+          {
+            "review_row": 33,
+            "original_phase": "VE_VC",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 36,
+            "original_phase": "V1_VN",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 42,
+            "original_phase": "R3",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 45,
+            "original_phase": "R4",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 51,
+            "original_phase": "R6_R7",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 53,
+            "original_phase": "R8",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          }
+        ]
+      },
+      "variable": "Daily air temperature",
+      "exact_threshold": "> 30 °C",
+      "consecutive_exposure": "1 day",
+      "id": "soybean/FLO/SOY_SEASONAL_HEAT30"
     },
     {
       "crop": "soybean",
@@ -693,59 +1174,23 @@
         "link": "10.3390/agriculture13040844",
         "limitations": "Only one long treatment was used, so the minimum damaging duration cannot be identified.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "R1_R2 — Flowering",
-        "review_row": "39",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
-    },
-    {
-      "crop": "soybean",
-      "phase_code": "FLO",
-      "derived_stage": "Flowering",
-      "hazard": "Flooding",
-      "threshold": "Flood duration > 3 days for 3 critical duration; damage increased beyond 3 days",
-      "qualitative_impact": "Pod number, dry matter and yield declined when flooding exceeded the critical duration.",
-      "quantitative_impact": "After 9 days, relative yield was 7.1% at flowering–pod set, 15.6% at branching and 48.4% at seedling stage.",
-      "category": "Verified duration-response threshold",
-      "details": {
-        "phase_order": 3,
-        "rule_id": "SOY_FLOOD_DURATION3",
-        "evidence_type": "Transferred candidate requiring local validation",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Shen et al. 2023",
-        "link": "10.3390/su15010738",
-        "limitations": "Responses varied by year; some short exposures partly offset drought or heat. Hydrologic conditions require local validation.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R1_R2 — Flowering",
-        "review_row": "40",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+REP reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
-    },
-    {
-      "crop": "soybean",
-      "phase_code": "FLO",
-      "derived_stage": "Flowering",
-      "hazard": "Flooding",
-      "threshold": "Flood duration > 6 days for 6 critical duration for 100-grain weight",
-      "qualitative_impact": "Reduced 100-grain weight, with greatest sensitivity during flowering–pod set.",
-      "quantitative_impact": "After 9 days, 100-grain weight during flowering–pod set was 37.8% of the control.",
-      "category": "Verified duration-response threshold",
-      "details": {
-        "phase_order": 3,
-        "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
-        "evidence_type": "Transferred candidate requiring local validation",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Shen et al. 2023",
-        "link": "10.3390/su15010738",
-        "limitations": "The effect depended on year and stage; a clear reduction was generally observed after 9 days.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R1_R2 — Flowering",
-        "review_row": "41",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+REP reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 39,
+            "source_phase": "R1_R2 — Flowering",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Water depth",
+      "exact_threshold": "≥ 3 cm",
+      "consecutive_exposure": "16 days",
+      "id": "soybean/FLO/SOY_WATERLOG_R1_3CM_16D"
     },
     {
       "crop": "soybean",
@@ -765,11 +1210,34 @@
         "link": "10.3390/su15010738",
         "limitations": "Responses varied by year; some short exposures partly offset drought or heat. Hydrologic conditions require local validation.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R3 — Early pod formation",
-        "review_row": "43",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+REP reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
+        "source_assignments": [
+          {
+            "review_row": 43,
+            "source_phase": "R3 — Early pod formation",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          },
+          {
+            "review_row": 46,
+            "source_phase": "R4 — Full pod",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Flood duration",
+      "exact_threshold": "> 3 days",
+      "consecutive_exposure": "3 days",
+      "id": "soybean/REP/SOY_FLOOD_DURATION3"
     },
     {
       "crop": "soybean",
@@ -789,59 +1257,86 @@
         "link": "10.3390/su15010738",
         "limitations": "The effect depended on year and stage; a clear reduction was generally observed after 9 days.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R3 — Early pod formation",
-        "review_row": "44",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+REP reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
+        "source_assignments": [
+          {
+            "review_row": 44,
+            "source_phase": "R3 — Early pod formation",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          },
+          {
+            "review_row": 47,
+            "source_phase": "R4 — Full pod",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": [
+          {
+            "review_row": 50,
+            "original_phase": "R5",
+            "reason": "The reviewed exposure is flowering/podding, not seed filling."
+          }
+        ]
+      },
+      "variable": "Flood duration",
+      "exact_threshold": "> 6 days",
+      "consecutive_exposure": "6 days",
+      "id": "soybean/REP/SOY_FLOOD_DURATION6_GRAIN"
     },
     {
       "crop": "soybean",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
-      "hazard": "Flooding",
-      "threshold": "Flood duration > 3 days for 3 critical duration; damage increased beyond 3 days",
-      "qualitative_impact": "Pod number, dry matter and yield declined when flooding exceeded the critical duration.",
-      "quantitative_impact": "After 9 days, relative yield was 7.1% at flowering–pod set, 15.6% at branching and 48.4% at seedling stage.",
-      "category": "Verified duration-response threshold",
+      "phase_code": "FIL",
+      "derived_stage": "Grain/seed filling",
+      "hazard": "High nighttime temperature during seed filling",
+      "threshold": "Night temperature during seed filling >= 28 °C; 12 hours per night during stages R5–R7",
+      "qualitative_impact": "Reduced yield and altered non-structural carbohydrates during seed filling.",
+      "quantitative_impact": "The source reports significant yield and seed-composition responses that varied among three cultivars.",
+      "category": "Damaging two-year experimental treatment",
       "details": {
-        "phase_order": 4,
-        "rule_id": "SOY_FLOOD_DURATION3",
-        "evidence_type": "Transferred candidate requiring local validation",
+        "phase_order": 5,
+        "rule_id": "SOY_HNT_FILL28_R5_R7",
+        "evidence_type": "Damaging experimental treatment",
         "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Shen et al. 2023",
-        "link": "10.3390/su15010738",
-        "limitations": "Responses varied by year; some short exposures partly offset drought or heat. Hydrologic conditions require local validation.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R4 — Full pod",
-        "review_row": "46",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+REP reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
-    },
-    {
-      "crop": "soybean",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
-      "hazard": "Flooding",
-      "threshold": "Flood duration > 6 days for 6 critical duration for 100-grain weight",
-      "qualitative_impact": "Reduced 100-grain weight, with greatest sensitivity during flowering–pod set.",
-      "quantitative_impact": "After 9 days, 100-grain weight during flowering–pod set was 37.8% of the control.",
-      "category": "Verified duration-response threshold",
-      "details": {
-        "phase_order": 4,
-        "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
-        "evidence_type": "Transferred candidate requiring local validation",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Shen et al. 2023",
-        "link": "10.3390/su15010738",
-        "limitations": "The effect depended on year and stage; a clear reduction was generally observed after 9 days.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R4 — Full pod",
-        "review_row": "47",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+REP reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
+        "source": "Yang et al. 2023",
+        "link": "10.3389/fpls.2023.1099621",
+        "limitations": "28 °C was a treatment compared with 18 °C, not an estimated breakpoint; response varied by cultivar.",
+        "rule_status": "DAMAGING_TREATMENT",
+        "source_assignments": [
+          {
+            "review_row": 49,
+            "source_phase": "R5 — Seed filling",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          },
+          {
+            "review_row": 52,
+            "source_phase": "R6_R7 — Full seed to beginning maturity",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "FIL",
+              "MAT"
+            ],
+            "assignment_note": "Shared study window; this assignment is not an independent experiment or a phase-specific effect estimate."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Nighttime air temperature",
+      "exact_threshold": "≥ 28 °C",
+      "consecutive_exposure": "12 h per night",
+      "id": "soybean/FIL/SOY_HNT_FILL28_R5_R7"
     },
     {
       "crop": "soybean",
@@ -861,23 +1356,67 @@
         "link": "10.1038/ncomms13931",
         "limitations": "Seasonal US association, not a phase-specific universal threshold.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "R5 — Seed filling",
-        "review_row": "48",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO+FIL reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
+        "source_assignments": [
+          {
+            "review_row": 48,
+            "source_phase": "R5 — Seed filling",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO",
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": [
+          {
+            "review_row": 33,
+            "original_phase": "VE_VC",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 36,
+            "original_phase": "V1_VN",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 42,
+            "original_phase": "R3",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 45,
+            "original_phase": "R4",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 51,
+            "original_phase": "R6_R7",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          },
+          {
+            "review_row": 53,
+            "original_phase": "R8",
+            "reason": "The review supports flowering and filling; the removed original phase is unsupported or combines filling with unsupported maturity."
+          }
+        ]
+      },
+      "variable": "Daily air temperature",
+      "exact_threshold": "> 30 °C",
+      "consecutive_exposure": "1 day",
+      "id": "soybean/FIL/SOY_SEASONAL_HEAT30"
     },
     {
       "crop": "soybean",
-      "phase_code": "FIL",
-      "derived_stage": "Grain/seed filling",
+      "phase_code": "MAT",
+      "derived_stage": "Maturation",
       "hazard": "High nighttime temperature during seed filling",
       "threshold": "Night temperature during seed filling >= 28 °C; 12 hours per night during stages R5–R7",
       "qualitative_impact": "Reduced yield and altered non-structural carbohydrates during seed filling.",
       "quantitative_impact": "The source reports significant yield and seed-composition responses that varied among three cultivars.",
       "category": "Damaging two-year experimental treatment",
       "details": {
-        "phase_order": 5,
+        "phase_order": 6,
         "rule_id": "SOY_HNT_FILL28_R5_R7",
         "evidence_type": "Damaging experimental treatment",
         "spatial_scope": "Study-specific experimental setting; see the cited source",
@@ -885,35 +1424,24 @@
         "link": "10.3389/fpls.2023.1099621",
         "limitations": "28 °C was a treatment compared with 18 °C, not an estimated breakpoint; response varied by cultivar.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "R5 — Seed filling",
-        "review_row": "49",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: FIL reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
-    },
-    {
-      "crop": "soybean",
-      "phase_code": "FIL+MAT",
-      "derived_stage": "Grain/seed filling / Maturation",
-      "hazard": "High nighttime temperature during seed filling",
-      "threshold": "Night temperature during seed filling >= 28 °C; 12 hours per night during stages R5–R7",
-      "qualitative_impact": "Reduced yield and altered non-structural carbohydrates during seed filling.",
-      "quantitative_impact": "The source reports significant yield and seed-composition responses that varied among three cultivars.",
-      "category": "Damaging two-year experimental treatment",
-      "details": {
-        "phase_order": 5,
-        "rule_id": "SOY_HNT_FILL28_R5_R7",
-        "evidence_type": "Damaging experimental treatment",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Yang et al. 2023",
-        "link": "10.3389/fpls.2023.1099621",
-        "limitations": "28 °C was a treatment compared with 18 °C, not an estimated breakpoint; response varied by cultivar.",
-        "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "R6_R7 — Full seed to beginning maturity",
-        "review_row": "52",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: FIL+MAT reported in the reviewed study; FIL+MAT in the original calendar. Assigned overlap: FIL+MAT. Shared window; no separate phase duration or independent effect is inferred."
-      }
+        "source_assignments": [
+          {
+            "review_row": 52,
+            "source_phase": "R6_R7 — Full seed to beginning maturity",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "FIL",
+              "MAT"
+            ],
+            "assignment_note": "Only the beginning-maturity boundary R7 is supported; do not extend to R8."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Nighttime air temperature",
+      "exact_threshold": "≥ 28 °C",
+      "consecutive_exposure": "12 h per night",
+      "id": "soybean/MAT/SOY_HNT_FILL28_R5_R7"
     },
     {
       "crop": "wheat",
@@ -931,13 +1459,31 @@
         "spatial_scope": "Controlled environment",
         "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
         "link": "10.1007/s13593-017-0443-9",
-        "limitations": "Primary source still required; experimental treatment, not an alert threshold.",
+        "limitations": "Primary source still required; experimental treatment, not an alert threshold. The reviewed experiment concerns seedlings, not specifically germination/emergence; EST is the project-level correspondence.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "Z00_09 — Germination and emergence",
-        "review_row": "54",
-        "source_pages": "5",
-        "homologation": "Project crosswalk: EST reported in the reviewed study; EST in the original calendar. Assigned overlap: EST."
-      }
+        "source_assignments": [
+          {
+            "review_row": 54,
+            "source_phase": "Z00_09 — Germination and emergence",
+            "source_pages": "5",
+            "paper_macro_phases": [
+              "EST"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": [
+          {
+            "review_row": 55,
+            "original_phase": "Z10_29",
+            "reason": "Seedling evidence belongs to EST; it does not independently support the leaf-development/tillering assignment."
+          }
+        ]
+      },
+      "variable": "Air temperature",
+      "exact_threshold": "42 °C",
+      "consecutive_exposure": "24 h",
+      "id": "wheat/EST/WHEAT_SEEDLING_HEAT42"
     },
     {
       "crop": "wheat",
@@ -957,71 +1503,35 @@
         "link": "https://europepmc.org/articles/PMC9921141",
         "limitations": "Expressed as relative VSMC reduction, not an absolute soil-moisture value transferable among soils.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "Z30_39 — Stem elongation",
-        "review_row": "56",
-        "source_pages": "15",
-        "homologation": "Project crosswalk: VEG reported in the reviewed study; VEG in the original calendar. Assigned overlap: VEG."
-      }
+        "source_assignments": [
+          {
+            "review_row": 56,
+            "source_phase": "Z30_39 — Stem elongation",
+            "source_pages": "15",
+            "paper_macro_phases": [
+              "VEG"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Volumetric soil moisture",
+      "exact_threshold": "Reduction ≥ 45 %",
+      "consecutive_exposure": "14 days",
+      "id": "wheat/VEG/WHEAT_STEM_DROUGHT_VSMC45_14D"
     },
     {
       "crop": "wheat",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
-      "hazard": "Frost/chilling during booting",
-      "threshold": "Chamber temperature <= -2 °C for 24 hours of continuous exposure",
-      "qualitative_impact": "Inhibited spikelet development and delayed floret growth.",
-      "quantitative_impact": "Significant changes occurred in enzymes and regulators associated with grain number and weight.",
-      "category": "Damaging experimental treatment",
-      "details": {
-        "phase_order": 4,
-        "rule_id": "WHEAT_BOOT_COLD_MINUS2_24H",
-        "evidence_type": "Damaging experimental treatment",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Liu et al. 2019",
-        "link": "https://europepmc.org/articles/PMC6482243",
-        "limitations": "−2 °C was a severe treatment; 0 and 2 °C were also tested. Chamber temperature is not equivalent to standard weather-station temperature.",
-        "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "Z40_49 — Booting",
-        "review_row": "57",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: REP reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
-    },
-    {
-      "crop": "wheat",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
-      "hazard": "Reproductive heat during booting",
-      "threshold": "Day/night temperature during booting >= 35 °C day for 24 one 24-hour exposure under a 35/30 °C regime",
-      "qualitative_impact": "Reduced seed set and grain number, with a sensitivity peak at GS41–45.",
-      "quantitative_impact": "Relative seed set fell below 80% in sensitive genotypes after a single exposure.",
-      "category": "Damaging experimental treatment",
-      "details": {
-        "phase_order": 4,
-        "rule_id": "WHEAT_BOOT_HEAT35_30_24H",
-        "evidence_type": "Damaging experimental treatment",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Barber et al. 2017",
-        "link": "https://europepmc.org/articles/PMC5263156",
-        "limitations": "Severe regime relative to 20/15 °C; response depended on genotype and exact stage.",
-        "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "Z40_49 — Booting",
-        "review_row": "58",
-        "source_pages": "2",
-        "homologation": "Project crosswalk: REP reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
-    },
-    {
-      "crop": "wheat",
-      "phase_code": "REP",
-      "derived_stage": "Reproductive development",
+      "phase_code": "FLO",
+      "derived_stage": "Flowering",
       "hazard": "Frost after heading",
       "threshold": "Minimum canopy air temperature <= -3.5 °C; nighttime event; critical duration was not quantified",
       "qualitative_impact": "Frost can injure reproductive tissues and developing grain after heading.",
       "quantitative_impact": "Damage was reported between −3.5 and −4.5 °C; plant temperature may be 1–3 °C below measured air temperature.",
       "category": "Transferred frost-damage threshold",
       "details": {
-        "phase_order": 4,
+        "phase_order": 3,
         "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
         "evidence_type": "Transferred candidate requiring local validation",
         "spatial_scope": "Study-specific experimental setting; see the cited source",
@@ -1029,11 +1539,23 @@
         "link": "10.1093/jxb/erv161",
         "limitations": "Severity depends on exposure duration, ice nucleation and the difference between canopy, plant and weather-station temperature.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "Z50_59 — Heading",
-        "review_row": "59",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: REP reported in the reviewed study; REP in the original calendar. Assigned overlap: REP."
-      }
+        "source_assignments": [
+          {
+            "review_row": 63,
+            "source_phase": "Z60_69 — Flowering / anthesis",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Minimum air temperature",
+      "exact_threshold": "≤ -3.5 °C",
+      "consecutive_exposure": null,
+      "id": "wheat/FLO/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
     },
     {
       "crop": "wheat",
@@ -1053,11 +1575,23 @@
         "link": "10.1016/j.xplc.2023.100629",
         "limitations": "SE 0.5 °C; modeled threshold for significant seed-set reduction.",
         "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "Z60_69 — Flowering / anthesis",
-        "review_row": "60",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 60,
+            "source_phase": "Z60_69 — Flowering / anthesis",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Daytime air temperature",
+      "exact_threshold": "> 27.3 °C",
+      "consecutive_exposure": null,
+      "id": "wheat/FLO/WHEAT_HEAT_DAY27_3"
     },
     {
       "crop": "wheat",
@@ -1077,18 +1611,30 @@
         "link": "10.1016/j.xplc.2023.100629",
         "limitations": "SE 2.7 °C; the reported duration is not a maximum tolerable duration.",
         "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "Z60_69 — Flowering / anthesis",
-        "review_row": "61",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 61,
+            "source_phase": "Z60_69 — Flowering / anthesis",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "FLO"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Nighttime air temperature",
+      "exact_threshold": "> 19.6 °C",
+      "consecutive_exposure": "7 days",
+      "id": "wheat/FLO/WHEAT_HEAT_NIGHT19_6"
     },
     {
       "crop": "wheat",
       "phase_code": "FLO",
       "derived_stage": "Flowering",
       "hazard": "Waterlogging",
-      "threshold": "Waterlogging treatments of 3, 6 and 9 days, starting at Zadoks 65, with 2 cm of water above the soil.",
+      "threshold": "Duration of soil waterlogging >= 3 days for 3 consecutive days beginning at Zadoks 65",
       "qualitative_impact": "Accelerated senescence and reduced assimilation and yield.",
       "quantitative_impact": "Three days did not significantly reduce final yield; 6 and 9 days did. Yield decreased by 28.8% after 9 days.",
       "category": "Damaging experimental treatment",
@@ -1099,25 +1645,110 @@
         "spatial_scope": "Study-specific experimental setting; see the cited source",
         "source": "Ma et al. 2022",
         "link": "10.3389/fpls.2022.944308",
-        "limitations": "Three days affected later photosynthesis, but the largest yield damage occurred after 6–9 days; one variety was tested.",
+        "limitations": "Three days affected later photosynthesis, but the largest yield damage occurred after 6–9 days; one variety was tested. The workbook value of 3 days is a treatment duration, not a demonstrated yield-loss onset threshold.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "Z60_69 — Flowering / anthesis",
-        "review_row": "62",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: FLO+FIL reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 62,
+            "source_phase": "Z60_69 — Flowering / anthesis",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "FLO",
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Waterlogging duration",
+      "exact_threshold": "≥ 3 days",
+      "consecutive_exposure": "3 days",
+      "id": "wheat/FLO/WHEAT_WATERLOG_Z65_3D"
     },
     {
       "crop": "wheat",
-      "phase_code": "FLO",
-      "derived_stage": "Flowering",
+      "phase_code": "REP",
+      "derived_stage": "Reproductive development",
+      "hazard": "Frost/chilling during booting",
+      "threshold": "Chamber temperature <= -2 °C for 24 hours of continuous exposure",
+      "qualitative_impact": "Inhibited spikelet development and delayed floret growth.",
+      "quantitative_impact": "Significant changes occurred in enzymes and regulators associated with grain number and weight.",
+      "category": "Damaging experimental treatment",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "WHEAT_BOOT_COLD_MINUS2_24H",
+        "evidence_type": "Damaging experimental treatment",
+        "spatial_scope": "Study-specific experimental setting; see the cited source",
+        "source": "Liu et al. 2019",
+        "link": "https://europepmc.org/articles/PMC6482243",
+        "limitations": "−2 °C was a severe treatment; 0 and 2 °C were also tested. Chamber temperature is not equivalent to standard weather-station temperature.",
+        "rule_status": "DAMAGING_TREATMENT",
+        "source_assignments": [
+          {
+            "review_row": 57,
+            "source_phase": "Z40_49 — Booting",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Air temperature",
+      "exact_threshold": "≤ -2 °C",
+      "consecutive_exposure": "24 h",
+      "id": "wheat/REP/WHEAT_BOOT_COLD_MINUS2_24H"
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "REP",
+      "derived_stage": "Reproductive development",
+      "hazard": "Reproductive heat during booting",
+      "threshold": "Day/night temperature during booting >= 35 °C day for 24 one 24-hour exposure under a 35/30 °C regime",
+      "qualitative_impact": "Reduced seed set and grain number, with a sensitivity peak at GS41–45.",
+      "quantitative_impact": "Relative seed set fell below 80% in sensitive genotypes after a single exposure.",
+      "category": "Damaging experimental treatment",
+      "details": {
+        "phase_order": 4,
+        "rule_id": "WHEAT_BOOT_HEAT35_30_24H",
+        "evidence_type": "Damaging experimental treatment",
+        "spatial_scope": "Study-specific experimental setting; see the cited source",
+        "source": "Barber et al. 2017",
+        "link": "https://europepmc.org/articles/PMC5263156",
+        "limitations": "Severe regime relative to 20/15 °C; response depended on genotype and exact stage.",
+        "rule_status": "DAMAGING_TREATMENT",
+        "source_assignments": [
+          {
+            "review_row": 58,
+            "source_phase": "Z40_49 — Booting",
+            "source_pages": "2",
+            "paper_macro_phases": [
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Day/night air temperature",
+      "exact_threshold": "35/30 °C",
+      "consecutive_exposure": "24 h",
+      "id": "wheat/REP/WHEAT_BOOT_HEAT35_30_24H"
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "REP",
+      "derived_stage": "Reproductive development",
       "hazard": "Frost after heading",
       "threshold": "Minimum canopy air temperature <= -3.5 °C; nighttime event; critical duration was not quantified",
       "qualitative_impact": "Frost can injure reproductive tissues and developing grain after heading.",
       "quantitative_impact": "Damage was reported between −3.5 and −4.5 °C; plant temperature may be 1–3 °C below measured air temperature.",
       "category": "Transferred frost-damage threshold",
       "details": {
-        "phase_order": 3,
+        "phase_order": 4,
         "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
         "evidence_type": "Transferred candidate requiring local validation",
         "spatial_scope": "Study-specific experimental setting; see the cited source",
@@ -1125,11 +1756,59 @@
         "link": "10.1093/jxb/erv161",
         "limitations": "Severity depends on exposure duration, ice nucleation and the difference between canopy, plant and weather-station temperature.",
         "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "Z60_69 — Flowering / anthesis",
-        "review_row": "63",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: FLO reported in the reviewed study; FLO in the original calendar. Assigned overlap: FLO."
-      }
+        "source_assignments": [
+          {
+            "review_row": 59,
+            "source_phase": "Z50_59 — Heading",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "REP"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Minimum air temperature",
+      "exact_threshold": "≤ -3.5 °C",
+      "consecutive_exposure": null,
+      "id": "wheat/REP/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
+    },
+    {
+      "crop": "wheat",
+      "phase_code": "FIL",
+      "derived_stage": "Grain/seed filling",
+      "hazard": "Frost after heading",
+      "threshold": "Minimum canopy air temperature <= -3.5 °C; nighttime event; critical duration was not quantified",
+      "qualitative_impact": "Frost can injure reproductive tissues and developing grain after heading.",
+      "quantitative_impact": "Damage was reported between −3.5 and −4.5 °C; plant temperature may be 1–3 °C below measured air temperature.",
+      "category": "Transferred frost-damage threshold",
+      "details": {
+        "phase_order": 5,
+        "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
+        "evidence_type": "Transferred candidate requiring local validation",
+        "spatial_scope": "Study-specific experimental setting; see the cited source",
+        "source": "Frederiks et al. 2015",
+        "link": "10.1093/jxb/erv161",
+        "limitations": "Severity depends on exposure duration, ice nucleation and the difference between canopy, plant and weather-station temperature.",
+        "rule_status": "TRANSFERRED_CANDIDATE",
+        "source_assignments": [
+          {
+            "review_row": 65,
+            "source_phase": "Z70_89 — Grain development and filling",
+            "source_pages": "4",
+            "paper_macro_phases": [
+              "FIL"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Minimum air temperature",
+      "exact_threshold": "≤ -3.5 °C",
+      "consecutive_exposure": null,
+      "id": "wheat/FIL/WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5"
     },
     {
       "crop": "wheat",
@@ -1149,35 +1828,24 @@
         "link": "10.1038/s41598-020-79179-0",
         "limitations": "+3.8 °C was an experimental treatment, not an absolute threshold; treated mean temperature was 22.1 °C versus 18.4 °C.",
         "rule_status": "DAMAGING_TREATMENT",
-        "source_phase": "Z70_89 — Grain development and filling",
-        "review_row": "64",
-        "source_pages": "1",
-        "homologation": "Project crosswalk: FIL+MAT reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
-    },
-    {
-      "crop": "wheat",
-      "phase_code": "FIL",
-      "derived_stage": "Grain/seed filling",
-      "hazard": "Frost after heading",
-      "threshold": "Minimum canopy air temperature <= -3.5 °C; nighttime event; critical duration was not quantified",
-      "qualitative_impact": "Frost can injure reproductive tissues and developing grain after heading.",
-      "quantitative_impact": "Damage was reported between −3.5 and −4.5 °C; plant temperature may be 1–3 °C below measured air temperature.",
-      "category": "Transferred frost-damage threshold",
-      "details": {
-        "phase_order": 5,
-        "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
-        "evidence_type": "Transferred candidate requiring local validation",
-        "spatial_scope": "Study-specific experimental setting; see the cited source",
-        "source": "Frederiks et al. 2015",
-        "link": "10.1093/jxb/erv161",
-        "limitations": "Severity depends on exposure duration, ice nucleation and the difference between canopy, plant and weather-station temperature.",
-        "rule_status": "TRANSFERRED_CANDIDATE",
-        "source_phase": "Z70_89 — Grain development and filling",
-        "review_row": "65",
-        "source_pages": "4",
-        "homologation": "Project crosswalk: FIL reported in the reviewed study; FIL in the original calendar. Assigned overlap: FIL."
-      }
+        "source_assignments": [
+          {
+            "review_row": 64,
+            "source_phase": "Z70_89 — Grain development and filling",
+            "source_pages": "1",
+            "paper_macro_phases": [
+              "FIL",
+              "MAT"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Nighttime temperature anomaly",
+      "exact_threshold": "≥ +3.8 °C",
+      "consecutive_exposure": "Every night from 50% anthesis to maturity",
+      "id": "wheat/FIL/WHEAT_HNT_POSTANTHESIS_DELTA3_8"
     },
     {
       "crop": "wheat",
@@ -1197,11 +1865,23 @@
         "link": "https://europepmc.org/articles/PMC11172332",
         "limitations": "Applied about 10 days before maturity and followed by >90% humidity; effects depend on cultivar dormancy.",
         "rule_status": "VERIFIED_THRESHOLD",
-        "source_phase": "Z90_99 — Ripening",
-        "review_row": "66",
-        "source_pages": "3",
-        "homologation": "Project crosswalk: MAT reported in the reviewed study; MAT in the original calendar. Assigned overlap: MAT."
-      }
+        "source_assignments": [
+          {
+            "review_row": 66,
+            "source_phase": "Z90_99 — Ripening",
+            "source_pages": "3",
+            "paper_macro_phases": [
+              "MAT"
+            ],
+            "assignment_note": "Biological correspondence from the reviewed paper phase to the project macro-phase."
+          }
+        ],
+        "reviewed_elsewhere": []
+      },
+      "variable": "Precipitation intensity",
+      "exact_threshold": "≥ 5 mm/h",
+      "consecutive_exposure": "8 h",
+      "id": "wheat/MAT/WHEAT_RIPENING_RAIN5_8H"
     }
   ]
 }
