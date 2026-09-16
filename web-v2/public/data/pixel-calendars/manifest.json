@@ -1,0 +1,152 @@
+{
+  "version": "2026-09-16",
+  "source": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+  "source_doi": "10.5281/zenodo.5062513",
+  "phases": [
+    {
+      "code": "EST",
+      "name": "Establishment"
+    },
+    {
+      "code": "VEG",
+      "name": "Vegetative growth"
+    },
+    {
+      "code": "FLO",
+      "name": "Flowering"
+    },
+    {
+      "code": "REP",
+      "name": "Reproductive development"
+    },
+    {
+      "code": "FIL",
+      "name": "Grain/seed filling"
+    },
+    {
+      "code": "MAT",
+      "name": "Maturation"
+    }
+  ],
+  "shared_window_policy": "Unite macro-phases with unresolved internal boundaries into one consecutive interval. Each day is counted exactly once; multiple triggers may be evaluated in the united window. No invented temporal split.",
+  "crops": {
+    "maize": {
+      "label": "Maize",
+      "seasons": {
+        "maize__ir": {
+          "label": "Maize",
+          "water_system": "ir",
+          "water_label": "Irrigated",
+          "url": "/data/pixel-calendars/maize-maize__ir.json",
+          "pixel_count": 10923
+        },
+        "maize__rf": {
+          "label": "Maize",
+          "water_system": "rf",
+          "water_label": "Rainfed",
+          "url": "/data/pixel-calendars/maize-maize__rf.json",
+          "pixel_count": 10923
+        }
+      }
+    },
+    "rice": {
+      "label": "Rice",
+      "seasons": {
+        "rice_1__ir": {
+          "label": "Rice 1",
+          "water_system": "ir",
+          "water_label": "Irrigated",
+          "url": "/data/pixel-calendars/rice-rice_1__ir.json",
+          "pixel_count": 3186
+        },
+        "rice_1__rf": {
+          "label": "Rice 1",
+          "water_system": "rf",
+          "water_label": "Rainfed",
+          "url": "/data/pixel-calendars/rice-rice_1__rf.json",
+          "pixel_count": 3186
+        },
+        "rice_2__ir": {
+          "label": "Rice 2",
+          "water_system": "ir",
+          "water_label": "Irrigated",
+          "url": "/data/pixel-calendars/rice-rice_2__ir.json",
+          "pixel_count": 2884
+        },
+        "rice_2__rf": {
+          "label": "Rice 2",
+          "water_system": "rf",
+          "water_label": "Rainfed",
+          "url": "/data/pixel-calendars/rice-rice_2__rf.json",
+          "pixel_count": 2884
+        }
+      }
+    },
+    "soybean": {
+      "label": "Soybean",
+      "seasons": {
+        "soybean__ir": {
+          "label": "Soybean",
+          "water_system": "ir",
+          "water_label": "Irrigated",
+          "url": "/data/pixel-calendars/soybean-soybean__ir.json",
+          "pixel_count": 4955
+        },
+        "soybean__rf": {
+          "label": "Soybean",
+          "water_system": "rf",
+          "water_label": "Rainfed",
+          "url": "/data/pixel-calendars/soybean-soybean__rf.json",
+          "pixel_count": 4955
+        }
+      }
+    },
+    "wheat": {
+      "label": "Wheat",
+      "seasons": {
+        "spring_wheat__ir": {
+          "label": "Spring Wheat",
+          "water_system": "ir",
+          "water_label": "Irrigated",
+          "url": "/data/pixel-calendars/wheat-spring_wheat__ir.json",
+          "pixel_count": 10505
+        },
+        "spring_wheat__rf": {
+          "label": "Spring Wheat",
+          "water_system": "rf",
+          "water_label": "Rainfed",
+          "url": "/data/pixel-calendars/wheat-spring_wheat__rf.json",
+          "pixel_count": 10505
+        },
+        "winter_wheat__ir": {
+          "label": "Winter Wheat",
+          "water_system": "ir",
+          "water_label": "Irrigated",
+          "url": "/data/pixel-calendars/wheat-winter_wheat__ir.json",
+          "pixel_count": 10505
+        },
+        "winter_wheat__rf": {
+          "label": "Winter Wheat",
+          "water_system": "rf",
+          "water_label": "Rainfed",
+          "url": "/data/pixel-calendars/wheat-winter_wheat__rf.json",
+          "pixel_count": 10505
+        }
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "outputs/fenologia_v1/tabla_maestra_fenologia_global_v1.xlsx",
+      "sha256": "58b8cefe02caf7a2d86c5f0457dd94f4f94d787674904135cebb927a2b2396f8"
+    },
+    {
+      "path": "outputs/fenologia_v1/tabla_maestra_fenologia_global_v1.csv.gz",
+      "sha256": "cbefface1ee98bba129d5deb3dc4d76946826aa809ea07e2db96eeb184b4f4da"
+    },
+    {
+      "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+      "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+    }
+  ]
+}

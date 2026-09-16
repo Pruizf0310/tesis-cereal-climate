@@ -1,5 +1,7 @@
 # Phenological phase harmonization — 15 September 2026
 
+> Calendar display update, 16 September: the first-listed-phase allocation described below is superseded by [coordinate calendars with explicit shared windows](pixel_calendar_method.md). This file preserves the hazard audit history.
+
 ## Research decision
 
 Following the paper-by-paper review and human phase audit, this project adopts six shared macro-phases: EST (Establishment), VEG (Vegetative growth), FLO (Flowering), REP (Reproductive development), FIL (Grain/seed filling), and MAT (Maturation).

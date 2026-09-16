@@ -1,171 +1,49 @@
 "use client";
+import { useEffect, useState } from 'react';
+import { coordinateKey, pixelWindows, referenceDate, type PixelCalendarData, type PixelCalendarManifest } from '@/lib/pixel-phenology';
 
-import { useEffect, useMemo, useState } from "react";
-import { ActivitySquare, Sprout, Waves, Wheat } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { MaizeReproductiveNote } from "./maize-reproductive-note";
-import { groupCalendarForDisplay } from "@/lib/macro-phases";
-
-interface TechnicalPhase {
-  code: string;
-  name: string;
-  order: number;
-  average_duration_days: number;
-  average_days_by_month: number[];
-}
-
-interface CalendarBand {
-  id: string;
-  season: string;
-  season_label: string;
-  water_system: "ir" | "rf";
-  water_label: string;
-  latitude_band: string;
-  latitude_min: number;
-  latitude_max: number;
-  calendar_count: number;
-  phases: TechnicalPhase[];
-}
-
-interface CropCalendar {
-  id: "maize" | "rice" | "soybean" | "wheat";
-  label: string;
-  bands: CalendarBand[];
-}
-
-interface CalendarPayload {
-  version: string;
-  months: string[];
-  source: string;
-  warning: string;
-  crops: CropCalendar[];
-}
-
-const PHASE_COLORS = ["#7FD4DF", "#76B7C5", "#7FAF7B", "#A7C957", "#D7B45A", "#D98B57", "#C08497", "#9F8CC9"];
-
-const CROP_ICONS: Record<CropCalendar["id"], React.ReactNode> = {
-  maize: <Sprout className="h-3.5 w-3.5" />,
-  rice: <Waves className="h-3.5 w-3.5" />,
-  soybean: <ActivitySquare className="h-3.5 w-3.5" />,
-  wheat: <Wheat className="h-3.5 w-3.5" />
-};
+const colors = ['#7FD4DF','#76B7C5','#7FAF7B','#A7C957','#D7B45A','#D98B57'];
+const input = 'rounded-sm border border-line bg-bg-panel px-3 py-2 text-[12px] text-ink';
 
 export function PhenologyCalendar() {
-  const [payload, setPayload] = useState<CalendarPayload | null>(null);
-  const [cropId, setCropId] = useState<CropCalendar["id"]>("maize");
-  const [seasonId, setSeasonId] = useState("");
-  const [waterSystem, setWaterSystem] = useState<"ir" | "rf">("rf");
-
-  useEffect(() => {
-    fetch("/data/phenology_technical_v2.json")
-      .then((res) => res.json())
-      .then((data: CalendarPayload) => {
-        setPayload(data);
-        const maize = data.crops.find((crop) => crop.id === "maize");
-        setSeasonId(maize?.bands[0]?.season ?? "");
-      });
-  }, []);
-
-  const crop = useMemo(() => payload?.crops.find((item) => item.id === cropId) ?? null, [payload, cropId]);
-  const seasons = useMemo(
-    () => Array.from(new Map((crop?.bands ?? []).map((band) => [band.season, band.season_label])).entries()),
-    [crop]
-  );
-  const bands = useMemo(
-    () => (crop?.bands ?? []).filter((band) => band.season === seasonId && band.water_system === waterSystem)
-      .map((band) => ({ ...band, phases: groupCalendarForDisplay(crop!.id, band.phases) })),
-    [crop, seasonId, waterSystem]
-  );
-
-  function selectCrop(next: CropCalendar["id"]) {
-    setCropId(next);
-    const nextCrop = payload?.crops.find((item) => item.id === next);
-    const preferred = nextCrop?.bands.find((band) => band.water_system === waterSystem) ?? nextCrop?.bands[0];
-    setSeasonId(preferred?.season ?? "");
-  }
-
-  if (!payload) return <Loading />;
-
-  return (
-    <div className="mt-6 overflow-hidden rounded-sm border border-line glass animate-fade-up">
-      <div className="flex flex-col gap-4 border-b border-line px-4 py-4 xl:flex-row xl:items-center xl:justify-between">
-        <div className="flex flex-wrap items-center gap-2">
-          {payload.crops.map((item) => (
-            <button key={item.id} type="button" onClick={() => selectCrop(item.id)} className={cropButton(cropId === item.id)}>
-              <span className="text-cool/80">{CROP_ICONS[item.id]}</span>{item.label}
-            </button>
-          ))}
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <select value={seasonId} onChange={(event) => setSeasonId(event.target.value)} className="h-9 rounded-sm border border-line bg-bg-panel px-3 text-[12px] text-ink outline-none">
-            {seasons.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-          </select>
-          {(["rf", "ir"] as const).map((system) => (
-            <button key={system} type="button" onClick={() => setWaterSystem(system)} className={cropButton(waterSystem === system)}>
-              {system === "rf" ? "Rainfed" : "Irrigated"}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="border-b border-line bg-cool/[0.035] px-4 py-3 text-[11px] leading-relaxed text-ink-dim">
-        <span className="font-medium text-ink">Six macro-phases:</span> the original technical calendar is grouped for display only. Files and dates remain unchanged.
-        Cells report average stage-days per month. An asterisk marks an unresolved shared window, counted once under the indicated phase. A dash in a shared-only row means its dates cannot be separated. {payload.warning}
-      </div>
-
-      {cropId === "maize" && <MaizeReproductiveNote />}
-
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[1320px] border-collapse">
-          <thead>
-            <tr className="border-b border-line text-left text-[10px] uppercase tracking-wider text-ink-mute">
-              <Th>Latitude band</Th><Th>n</Th><Th>Macro-phase / original stages</Th><Th>Displayed window duration</Th>
-              {payload.months.map((month) => <Th key={month}>{month}</Th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {bands.flatMap((band) => band.phases.map((phase, phaseIndex) => (
-              <tr key={`${band.id}-${phase.code}`} className={cn("border-b border-line/50 text-[11px] hover:bg-white/[0.02]", phaseIndex === 0 && "border-t border-t-cool/25")}>
-                <Td className="font-medium text-ink">{phaseIndex === 0 ? band.latitude_band : ""}</Td>
-                <Td className="num text-ink-mute">{phaseIndex === 0 ? band.calendar_count : ""}</Td>
-                <Td>
-                  <span className="mr-2 inline-block h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: PHASE_COLORS[phase.order - 1] }} />
-                  <span className="font-mono text-[10px] text-cool">{phase.code}</span>
-                  <span className="ml-2 text-ink-dim">{phase.name}</span>
-                  <span className="mt-1 block max-w-[420px] text-[9px] text-ink-mute">{phase.source_stages.join("; ")}</span>
-                  {phase.shared_notes.map((note) => <span key={note} className="mt-1 block max-w-[420px] text-[9px] text-warm">{note}</span>)}
-                </Td>
-                <Td className="num text-ink-dim">{phase.has_counted_window ? `${phase.average_duration_days.toFixed(1)} d${phase.includes_shared_window ? "*" : ""}` : "Shared window — see note"}</Td>
-                {phase.average_days_by_month.map((days, monthIndex) => (
-                  <td key={monthIndex} className="px-1.5 py-2">
-                    <div
-                      className={cn("grid h-7 min-w-[48px] place-items-center rounded-[2px] border text-[9.5px]", days >= 0.5 ? "border-white/10 text-bg-deep" : phase.has_counted_window ? "border-white/[0.03] bg-white/[0.012] text-transparent" : "border-line text-ink-mute")}
-                      style={days >= 0.5 ? { backgroundColor: PHASE_COLORS[phase.order - 1], opacity: Math.max(0.38, Math.min(1, days / 20)) } : undefined}
-                      title={phase.has_counted_window ? `${phase.code}: ${days.toFixed(1)} average days in ${payload.months[monthIndex]}. ${phase.shared_notes.join(" ")}` : phase.shared_notes.join(" ")}
-                    >
-                      {days >= 0.5 ? `${days.toFixed(0)}d${phase.includes_shared_window ? "*" : ""}` : "—"}
-                    </div>
-                  </td>
-                ))}
-              </tr>
-            )))}
-          </tbody>
-        </table>
-      </div>
-      <div className="border-t border-line px-4 py-3 text-[10.5px] text-ink-mute">
-        Source: {payload.source}. Latitude aggregation is for display only; the master matrix retains every coordinate and its exact DOY window.
-      </div>
+  const [manifest,setManifest]=useState<PixelCalendarManifest|null>(null);
+  const [crop,setCrop]=useState('maize');
+  const [season,setSeason]=useState('maize__rf');
+  const [data,setData]=useState<PixelCalendarData|null>(null);
+  const [lat,setLat]=useState('5.25');
+  const [lon,setLon]=useState('-75.25');
+  const [error,setError]=useState('');
+  useEffect(()=>{fetch('/data/pixel-calendars/manifest.json').then(r=>{if(!r.ok)throw Error();return r.json();}).then(setManifest).catch(()=>setError('Calendar metadata could not be loaded.'));},[]);
+  useEffect(()=>{
+    const entry=manifest?.crops[crop]?.seasons[season];
+    if(!entry)return;
+    let active=true; setData(null); setError('');
+    fetch(entry.url).then(r=>{if(!r.ok)throw Error();return r.json();}).then(d=>{if(active)setData(d);}).catch(()=>{if(active)setError('Coordinate calendar could not be loaded.');});
+    return ()=>{active=false;};
+  },[manifest,crop,season]);
+  function selectCrop(value:string){setCrop(value);const choices=Object.keys(manifest?.crops[value]?.seasons??{});setSeason(choices.find(s=>s.endsWith('__rf'))??choices[0]??'');}
+  const windows=data&&lat.trim()&&lon.trim()&&Number.isFinite(Number(lat))&&Number.isFinite(Number(lon))?pixelWindows(data,Number(lat),Number(lon)):[];
+  const tuple=data?.pixels[coordinateKey(Number(lat),Number(lon))];
+  return <div className="mt-6 rounded-sm border border-line glass">
+    <div className="flex flex-wrap items-end gap-3 border-b border-line p-4">
+      <label className="grid gap-1 text-[11px] text-ink-mute">Crop<select aria-label="Calendar crop" className={input} value={crop} onChange={e=>selectCrop(e.target.value)}>{Object.entries(manifest?.crops??{}).map(([id,c])=><option key={id} value={id}>{c.label}</option>)}</select></label>
+      <label className="grid gap-1 text-[11px] text-ink-mute">Season / water system<select aria-label="Calendar season" className={input} value={season} onChange={e=>setSeason(e.target.value)}>{Object.entries(manifest?.crops[crop]?.seasons??{}).map(([id,s])=><option key={id} value={id}>{s.label} · {s.water_label}</option>)}</select></label>
+      <label className="grid gap-1 text-[11px] text-ink-mute">Pixel centre latitude<input aria-label="Calendar latitude" className={input+' w-32'} type="number" min="-89.75" max="89.75" step="0.5" value={lat} onChange={e=>setLat(e.target.value)}/></label>
+      <label className="grid gap-1 text-[11px] text-ink-mute">Pixel centre longitude<input aria-label="Calendar longitude" className={input+' w-32'} type="number" min="-179.75" max="179.75" step="0.5" value={lon} onChange={e=>setLon(e.target.value)}/></label>
     </div>
-  );
+    <p className="border-b border-line p-4 text-[12px] leading-relaxed text-ink-dim">One coordinate, one consecutive sequence from planting to maturity. Intermediate dates are estimated from the archived crop template. Where a boundary cannot be separated, macro-phases form one combined interval with multiple applicable hazard rules. Intervals never overlap and every cycle day belongs to exactly one interval. Year 0 is the planting year.</p>
+    {error?<p className="p-4 text-warm">{error}</p>:!data?<p className="p-4 text-ink-mute">Loading coordinate calendars…</p>:!windows.length?<p className="p-4 text-warm">No calendar exists at this exact coordinate for the selected crop and season. Use a 0.5° grid centre (for example, 5.25, −75.25). No latitude-band average or neighbouring pixel is substituted.</p>:<>
+      <div className="p-4 text-[12px] text-ink-dim">Pixel {lat}, {lon} · Cycle: {tuple![1]} days in the reference calendar · Timing uncertainty recorded in the source: ±{tuple![2]} days</div>
+      <div className="overflow-x-auto"><table className="w-full min-w-[850px] text-left text-[12px]">
+        <thead className="border-y border-line text-ink-mute"><tr><th className="p-3">Macro-phase / original stages</th><th className="p-3">Reference dates</th><th className="p-3">Days</th><th className="w-[38%] p-3">Continuous interval · day 0 to {tuple![1]} after planting</th></tr></thead>
+        <tbody>{[...windows].sort((a,b)=>a.start_offset-b.start_offset||a.phase_order-b.phase_order).map(w=><tr key={w.phase_code} className="border-b border-line/50">
+          <td className="p-3"><span className="font-medium text-cool">{w.phase_code} — {w.phase_label}</span><span className="mt-1 block max-w-sm text-[10px] text-ink-mute">{w.original_stages.join('; ')}</span>{w.shared&&<span className="mt-1 block max-w-sm text-[10px] text-warm">Combined interval: {w.shared_stages.join('; ')}. Internal boundary unresolved; evaluate the relevant triggers separately within this one window.</span>}</td>
+          <td className="whitespace-nowrap p-3 text-ink-dim">{referenceDate(2001,w.start_doy).toISOString().slice(5,10)} Y{w.start_year_offset} → {referenceDate(2001,w.end_doy).toISOString().slice(5,10)} Y{w.end_year_offset}</td>
+          <td className="p-3 text-ink">{w.duration_days}{w.shared?'*':''}</td>
+          <td className="p-3"><div className="relative h-7 rounded bg-white/[0.04]" aria-label={`${w.phase_code}: days ${w.start_offset} to ${w.end_offset-1} after planting`}><div className="absolute top-0 h-7 rounded" style={{left:`${100*w.start_offset/tuple![1]}%`,width:`${100*w.duration_days/tuple![1]}%`,backgroundColor:colors[w.phase_order-1]}} /></div></td>
+        </tr>)}</tbody>
+      </table></div>
+    </>}
+    <div className="space-y-2 p-4 text-[11px] leading-relaxed text-ink-mute"><p>Source: <a className="text-cool underline" href="https://zenodo.org/records/5062513" target="_blank" rel="noreferrer">GGCMI Phase 3 v1.01 planting and maturity endpoints</a>. The papers support hazard timing and phase correspondence; they do not validate the template fractions or supply annual observed phase dates.</p><p><a className="text-cool underline" href="https://github.com/Pruizf0310/tesis-cereal-climate/blob/main/docs/pixel_calendar_method.md" target="_blank" rel="noreferrer">Method, source Excel files, estimated phases and reproducibility</a></p></div>
+  </div>;
 }
-
-function Loading() {
-  return <div className="mt-6 grid h-[320px] place-items-center rounded-sm border border-line glass"><div className="h-2 w-36 animate-pulse rounded-full bg-cool/40" /></div>;
-}
-
-function cropButton(active: boolean) {
-  return cn("flex h-9 items-center gap-2 rounded-sm border px-3 text-[12px] font-medium transition-colors", active ? "border-cool/40 bg-cool/[0.08] text-ink" : "border-line bg-white/[0.02] text-ink-dim hover:text-ink");
-}
-
-function Th({ children }: { children: React.ReactNode }) { return <th className="px-3 py-3 font-medium">{children}</th>; }
-function Td({ children, className }: { children: React.ReactNode; className?: string }) { return <td className={cn("px-3 py-2 align-middle", className)}>{children}</td>; }

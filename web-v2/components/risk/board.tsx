@@ -21,7 +21,7 @@ export function RiskBoard() {
             </h2>
           </div>
           <p className="max-w-[520px] text-[11.5px] leading-relaxed text-ink-mute sm:text-right">
-            Six shared macro-phase definitions, mapped from crop-specific stages and displayed by latitude band and month. Combined windows retain their original timing.
+            Six macro-phase definitions at the selected coordinate. Consecutive estimated intervals preserve original dates; inseparable phases form one combined window.
           </p>
         </div>
         <PhenologyCalendar />
