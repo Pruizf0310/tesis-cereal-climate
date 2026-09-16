@@ -10,6 +10,8 @@ export interface AuditedRule {
  assignments:unknown[];
 }
 export interface Sample {time:number; value:number|null}
+// Disaggregated rainfall at t describes (t - 1 hour, t]; temperature is instantaneous.
+export function sourceTimestampOffset(spec:TriggerSpec){return spec.band==='total_precipitation_hourly'?3600000:0;}
 export interface AnnualExposure {
  year:number; start:string; end_exclusive:string; resolution:'day'|'hour'; expected_samples:number;
  available_samples:number; complete:boolean; evaluable:boolean; event_occurred:boolean|null;
