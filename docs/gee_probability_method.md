@@ -34,4 +34,6 @@ The UI reports valid years, event years, unavailable years, longest exposure, qu
 
 Configured service-account variables alone do not prove data access. Successful live POST requests verify the requested collection/band, cell and dates only; they do not validate global completeness. See `gee_live_verification.json` when available for recorded deployment checks. Credentials are never included in outputs.
 
+On 16 September 2026, all nine operational rules returned HTTP 200 and complete temporal coverage for the representative coordinates and planting year 2000 recorded in [the live verification](gee_live_verification.json), against commit `f98ce7d`. An additional [unmocked browser check](gee_live_ui_verification.json) evaluated three distinct triggers in one rice VEG+REP interval for planting years 2000 and 2001: all six GEE responses were complete. These checks distinguish successful data access from scientific calibration or exhaustive global validation.
+
 Build the audit with `node scripts/build_gee_rule_audit.mjs`. From `web-v2`, run `node scripts/check-hazard-events.mjs`, `node scripts/check-pixel-calendars.mjs` and `npm run build`. The retired latitude-band `/api/calculate-phase-risk` POST returns HTTP 410; the new endpoint is `/api/hazard-probability`. Cached old clients must reload rather than silently receive incompatible results.

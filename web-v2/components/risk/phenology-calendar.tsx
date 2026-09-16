@@ -22,7 +22,8 @@ export function PhenologyCalendar() {
     return ()=>{active=false;};
   },[manifest,crop,season]);
   function selectCrop(value:string){setCrop(value);const choices=Object.keys(manifest?.crops[value]?.seasons??{});setSeason(choices.find(s=>s.endsWith('__rf'))??choices[0]??'');}
-  const windows=data&&lat.trim()&&lon.trim()&&Number.isFinite(Number(lat))&&Number.isFinite(Number(lon))?pixelWindows(data,Number(lat),Number(lon)):[];
+  const exactCentre=lat.trim()!==''&&lon.trim()!==''&&Number.isFinite(Number(lat))&&Number.isFinite(Number(lon))&&Number(lat)>=-89.75&&Number(lat)<=89.75&&Number(lon)>=-179.75&&Number(lon)<=179.75&&Number.isInteger((Number(lat)-.25)*2)&&Number.isInteger((Number(lon)-.25)*2);
+  const windows=data&&exactCentre?pixelWindows(data,Number(lat),Number(lon)):[];
   const tuple=data?.pixels[coordinateKey(Number(lat),Number(lon))];
   return <div className="mt-6 rounded-sm border border-line glass">
     <div className="flex flex-wrap items-end gap-3 border-b border-line p-4">
