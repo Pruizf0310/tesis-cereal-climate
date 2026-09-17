@@ -121,3 +121,14 @@ The hazard harmonization/orange-exclusion audit is retained separately. GEE conf
 | Regional v4 | Duration-aware screening, time series, probability and exports | Prepare reproducible inputs for subsequent conditional probabilities and parametric triggers. |
 
 Commits preserve the code and generated assets for each decision. Original Excel files are unchanged; correspondence overrides live in a separate versioned file so the human review is not silently rewritten.
+
+## 8. Executed verification — 17 September 2026
+
+- Production build, TypeScript and calendar/event tests passed. All 85,916 calendars have six nonempty, consecutive, non-overlapping windows; leap-year and full-cycle coverage passed. All 1,297 regional groups partition the calendar inventory without duplication.
+- The original phase/hazard audit still reconciles all 63 reviewed source rows and 47 retained evidence groups. Neither original Excel changed.
+- [Local UI verification](regional_ui_verification_v4.json) used synthetic API fixtures to test probability display, candidate screening, processing lock, charts, downloads, external CSV and wrong-unit rejection. These fixtures are not evidence of GEE access.
+- [Actual GEE verification](gee_live_verification_v4.json) queried all 25 GEE rules from deployed commit `0b1f628a5970ded134f3bfaa78e11860b80205a7`. All returned HTTP 200 and complete series. Both ERA5-Land collections and the OpenLandMap auxiliary reference were accessed successfully. Scope is one planting year/location per rule, not global completeness or biological calibration.
+- Rice nighttime heat and wheat nighttime heat returned complete series but phase windows of six and seven days, respectively, shorter than the required eight nights. Their probability outcomes correctly remained null. The UI now explicitly distinguishes a too-short phase from missing data and retains the observed longest run.
+- [Unmocked live UI verification](gee_live_ui_verification_v4.json) exercised regional rice selection, flowering-rain screening in 2000, analysis for 2000–2001, actual GEE series, charts and the complete provenance download. Desktop/mobile and browser-runtime checks passed. The two-year example is a workflow test, not an adequate climatological estimate.
+
+Implementation commit: `0b1f628` (pushed to main; Vercel production deployment succeeded). A follow-up verification commit records these results and the more explicit coverage labels.

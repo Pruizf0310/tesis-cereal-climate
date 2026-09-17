@@ -1,0 +1,2076 @@
+{
+  "checked_at": "2026-09-17T11:00:14.369Z",
+  "url": "https://tesis-cereal-climate-egcl.vercel.app",
+  "scope": "Actual production GEE POST per operational rule, one planting year per rule and a crop-inventory location. Not a global validation or calibration of biological thresholds.",
+  "records": [
+    {
+      "request": {
+        "crop": "maize",
+        "season_id": "maize__rf",
+        "zone_id": "0_-90_1",
+        "phase": "EST",
+        "rule_id": "MAIZE_EMERGENCE_COLD6",
+        "lat": 5.25,
+        "lon": -75.25,
+        "year": 2000,
+        "duration": 2
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.935,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_1",
+        "coordinate": "5.25,-75.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:43.606Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-04-10T00:00:00.000Z",
+        "end_exclusive": "2000-04-19T00:00:00.000Z",
+        "resolution": "hour",
+        "expected_samples": 216,
+        "available_samples": 216,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 955324800000,
+        "value": 15.70671328329795,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 956098800000,
+        "value": 15.273188655660343,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "maize",
+        "season_id": "maize__rf",
+        "zone_id": "0_-90_1",
+        "phase": "VEG",
+        "rule_id": "MAIZE_TASSEL_HEAT38_30_15D",
+        "lat": 5.25,
+        "lon": -75.25,
+        "year": 2000,
+        "duration": 15
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 3.214,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_1",
+        "coordinate": "5.25,-75.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": -5,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:46.788Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-04-19T11:00:00.000Z",
+        "end_exclusive": "2000-06-14T11:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 56,
+        "available_samples": 56,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 1344,
+      "first_sample": {
+        "time": 956142000000,
+        "value": 17.070703327539714,
+        "secondary_value": 13.12168265017233,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 960894000000,
+        "value": 16.87254724737264,
+        "secondary_value": 12.947057718845668,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "maize",
+        "season_id": "maize__rf",
+        "zone_id": "0_-90_1",
+        "phase": "FLO",
+        "rule_id": "MAIZE_HEAT_DAY37_9",
+        "lat": 5.25,
+        "lon": -75.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 2.27,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_1",
+        "coordinate": "5.25,-75.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": -5,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:49.127Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-06-14T11:00:00.000Z",
+        "end_exclusive": "2000-06-22T11:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 8,
+        "available_samples": 8,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 192,
+      "first_sample": {
+        "time": 960980400000,
+        "value": 17.470137693145706,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 961585200000,
+        "value": 18.027153309398553,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "maize",
+        "season_id": "maize__rf",
+        "zone_id": "0_-90_1",
+        "phase": "FLO",
+        "rule_id": "MAIZE_HEAT_NIGHT27_3",
+        "lat": 5.25,
+        "lon": -75.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.621,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_1",
+        "coordinate": "5.25,-75.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": -5,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:49.762Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-06-14T11:00:00.000Z",
+        "end_exclusive": "2000-06-22T11:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 8,
+        "available_samples": 8,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 192,
+      "first_sample": {
+        "time": 960980400000,
+        "value": 13.326607087495177,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 961585200000,
+        "value": 13.415105196942555,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "maize",
+        "season_id": "maize__rf",
+        "zone_id": "0_-90_1",
+        "phase": "FIL",
+        "rule_id": "MAIZE_HEAT_FILL39_4_41_5",
+        "lat": 5.25,
+        "lon": -75.25,
+        "year": 2000,
+        "duration": 6
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.381,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_1",
+        "coordinate": "5.25,-75.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m_max",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:50.180Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-07-01T00:00:00.000Z",
+        "end_exclusive": "2000-08-05T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 35,
+        "available_samples": 35,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 962409600000,
+        "value": 20.712088252866664,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 965347200000,
+        "value": 20.97848175317285,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "maize",
+        "season_id": "maize__rf",
+        "zone_id": "0_-90_1",
+        "phase": "FIL",
+        "rule_id": "MAIZE_HNT_FILL28_18D",
+        "lat": 5.25,
+        "lon": -75.25,
+        "year": 2000,
+        "duration": 18
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 3.293,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_1",
+        "coordinate": "5.25,-75.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m_min",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:53.484Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-07-01T00:00:00.000Z",
+        "end_exclusive": "2000-08-05T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 35,
+        "available_samples": 35,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 962409600000,
+        "value": 10.976170307894101,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 965347200000,
+        "value": 10.450348982839458,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "maize",
+        "season_id": "maize__rf",
+        "zone_id": "0_-90_1",
+        "phase": "MAT",
+        "rule_id": "MAIZE_R6_WIND15",
+        "lat": 5.25,
+        "lon": -75.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.882,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_1",
+        "coordinate": "5.25,-75.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "wind_speed_10m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:55.454Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-08-05T00:00:00.000Z",
+        "end_exclusive": "2000-08-18T00:00:00.000Z",
+        "resolution": "hour",
+        "expected_samples": 312,
+        "available_samples": 312,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 965433600000,
+        "value": 0.6610956891479164,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 966553200000,
+        "value": 0.5919906830654998,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "EST",
+        "rule_id": "RICE_GERMINATION_HEAT38_24H",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 24
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.535,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T10:59:56.056Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-11-18T00:00:00.000Z",
+        "end_exclusive": "2000-11-26T00:00:00.000Z",
+        "resolution": "hour",
+        "expected_samples": 192,
+        "available_samples": 192,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 974505600000,
+        "value": 24.1479212865859,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 975193200000,
+        "value": 24.0211279078292,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "VEG",
+        "rule_id": "RICE_HEAT_MEAN_33",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.669,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T10:59:56.733Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-11-26T00:00:00.000Z",
+        "end_exclusive": "2000-12-25T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 29,
+        "available_samples": 29,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 975196800000,
+        "value": 25.89247926961261,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 977616000000,
+        "value": 23.627759916307312,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "FLO",
+        "rule_id": "RICE_COLD_ANTHESIS17_5D",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 5
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.399,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T10:59:57.135Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2001-01-19T00:00:00.000Z",
+        "end_exclusive": "2001-01-25T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 6,
+        "available_samples": 6,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 979862400000,
+        "value": 25.21943726711412,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 980294400000,
+        "value": 25.82907116550532,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "REP",
+        "rule_id": "RICE_COLD_MEAN20",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.608,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T10:59:57.916Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-12-25T00:00:00.000Z",
+        "end_exclusive": "2001-01-19T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 25,
+        "available_samples": 25,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 977702400000,
+        "value": 25.22699445129917,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 979776000000,
+        "value": 24.140471321501188,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "FLO",
+        "rule_id": "RICE_HEAT_DAY37_2",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.021,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": 7,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T10:59:58.959Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2001-01-18T23:00:00.000Z",
+        "end_exclusive": "2001-01-24T23:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 6,
+        "available_samples": 6,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 144,
+      "first_sample": {
+        "time": 979858800000,
+        "value": 26.229954279811682,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 980290800000,
+        "value": 27.472826350757185,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "FLO",
+        "rule_id": "RICE_HEAT_NIGHT31_2",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 8
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.733,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": 7,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "The reviewed synthesis says more than one week: >=8 complete nights. Original workbook seven-day value is retained as source metadata, with this correction explicit.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T10:59:59.668Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2001-01-18T23:00:00.000Z",
+        "end_exclusive": "2001-01-24T23:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 6,
+        "available_samples": 6,
+        "complete": true,
+        "evaluable": false,
+        "event_occurred": null,
+        "longest_run": null,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 144,
+      "first_sample": {
+        "time": 979858800000,
+        "value": 24.18793889751817,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 980290800000,
+        "value": 24.165588492277763,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "REP",
+        "rule_id": "RICE_RAIN25",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.478,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "total_precipitation_sum",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T11:00:00.169Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-12-25T00:00:00.000Z",
+        "end_exclusive": "2001-01-19T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 25,
+        "available_samples": 25,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 977702400000,
+        "value": 0.6832302726752121,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 979776000000,
+        "value": 0.6335825794289704,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "REP",
+        "rule_id": "RICE_DROUGHT_SM75",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 10
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.937,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "relative_soil_moisture",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": 0.424624725897139,
+        "auxiliary_dataset": "OpenLandMap/SOL/SOL_WATERCONTENT-33KPA_USDA-4B1C_M/v01",
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T11:00:01.095Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-12-25T00:00:00.000Z",
+        "end_exclusive": "2001-01-19T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 25,
+        "available_samples": 25,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 977702400000,
+        "value": 89.78119176804753,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 979776000000,
+        "value": 93.10153088720703,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "FIL",
+        "rule_id": "RICE_COLD_MEAN17",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.486,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T11:00:01.583Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2001-01-25T00:00:00.000Z",
+        "end_exclusive": "2001-02-13T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 19,
+        "available_samples": 19,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 980380800000,
+        "value": 26.065378848607345,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 981936000000,
+        "value": 26.965672052424974,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "zone_id": "10_90_5",
+        "phase": "MAT",
+        "rule_id": "RICE_RIPENING_HEAT_MEAN28",
+        "lat": 10.25,
+        "lon": 105.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.691,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "10_90_5",
+        "coordinate": "10.25,105.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 10,
+        "retrieved_at": "2026-09-17T11:00:02.324Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2001-02-13T00:00:00.000Z",
+        "end_exclusive": "2001-02-23T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 10,
+        "available_samples": 10,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 982022400000,
+        "value": 25.846096570481635,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 982800000000,
+        "value": 27.242698009892596,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "soybean",
+        "season_id": "soybean__rf",
+        "zone_id": "40_-120_2",
+        "phase": "FIL",
+        "rule_id": "SOY_SEASONAL_HEAT30",
+        "lat": 40.25,
+        "lon": -95.25,
+        "year": 2000,
+        "duration": 24
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 3.585,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "40_-120_2",
+        "coordinate": "40.25,-95.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Project event cutoff of one accumulated equivalent exposure day; not a published minimum damaging duration.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:05.959Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-08-27T00:00:00.000Z",
+        "end_exclusive": "2000-09-28T00:00:00.000Z",
+        "resolution": "hour",
+        "expected_samples": 768,
+        "available_samples": 768,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": true,
+        "longest_run": 11,
+        "observed_longest_run": 11,
+        "exposure_samples": 104,
+        "events": [
+          {
+            "start": "2000-08-27T00:00:00.000Z",
+            "end_exclusive": "2000-08-27T01:00:00.000Z",
+            "duration": 1
+          },
+          {
+            "start": "2000-08-27T19:00:00.000Z",
+            "end_exclusive": "2000-08-28T01:00:00.000Z",
+            "duration": 6
+          },
+          {
+            "start": "2000-08-28T16:00:00.000Z",
+            "end_exclusive": "2000-08-29T03:00:00.000Z",
+            "duration": 11
+          },
+          {
+            "start": "2000-08-29T22:00:00.000Z",
+            "end_exclusive": "2000-08-30T00:00:00.000Z",
+            "duration": 2
+          },
+          {
+            "start": "2000-08-30T16:00:00.000Z",
+            "end_exclusive": "2000-08-31T01:00:00.000Z",
+            "duration": 9
+          },
+          {
+            "start": "2000-08-31T16:00:00.000Z",
+            "end_exclusive": "2000-09-01T03:00:00.000Z",
+            "duration": 11
+          },
+          {
+            "start": "2000-09-01T20:00:00.000Z",
+            "end_exclusive": "2000-09-02T01:00:00.000Z",
+            "duration": 5
+          },
+          {
+            "start": "2000-09-02T16:00:00.000Z",
+            "end_exclusive": "2000-09-03T02:00:00.000Z",
+            "duration": 10
+          },
+          {
+            "start": "2000-09-03T18:00:00.000Z",
+            "end_exclusive": "2000-09-04T01:00:00.000Z",
+            "duration": 7
+          },
+          {
+            "start": "2000-09-08T19:00:00.000Z",
+            "end_exclusive": "2000-09-09T00:00:00.000Z",
+            "duration": 5
+          },
+          {
+            "start": "2000-09-09T19:00:00.000Z",
+            "end_exclusive": "2000-09-10T00:00:00.000Z",
+            "duration": 5
+          },
+          {
+            "start": "2000-09-10T18:00:00.000Z",
+            "end_exclusive": "2000-09-11T02:00:00.000Z",
+            "duration": 8
+          },
+          {
+            "start": "2000-09-11T16:00:00.000Z",
+            "end_exclusive": "2000-09-12T00:00:00.000Z",
+            "duration": 8
+          },
+          {
+            "start": "2000-09-13T19:00:00.000Z",
+            "end_exclusive": "2000-09-14T00:00:00.000Z",
+            "duration": 5
+          },
+          {
+            "start": "2000-09-17T19:00:00.000Z",
+            "end_exclusive": "2000-09-18T00:00:00.000Z",
+            "duration": 5
+          },
+          {
+            "start": "2000-09-18T18:00:00.000Z",
+            "end_exclusive": "2000-09-19T00:00:00.000Z",
+            "duration": 6
+          }
+        ]
+      },
+      "first_sample": {
+        "time": 967334400000,
+        "value": 30.886458908594015,
+        "threshold_exceeded": true,
+        "excess": 0.8864589085940153,
+        "in_qualifying_event": true
+      },
+      "last_sample": {
+        "time": 970095600000,
+        "value": 22.54405921794619,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "soybean",
+        "season_id": "soybean__rf",
+        "zone_id": "40_-120_2",
+        "phase": "FIL",
+        "rule_id": "SOY_HNT_FILL28_R5_R7",
+        "lat": 40.25,
+        "lon": -95.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.429,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "40_-120_2",
+        "coordinate": "40.25,-95.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": -6,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "One complete 12-hour experimental-style night. Repetition across nights is an analysis setting, not a published minimum damaging count.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:07.350Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-08-27T12:00:00.000Z",
+        "end_exclusive": "2000-09-28T12:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 32,
+        "available_samples": 32,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 768,
+      "first_sample": {
+        "time": 967377600000,
+        "value": 22.839601180795395,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 970056000000,
+        "value": 12.239294872709415,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "wheat",
+        "season_id": "spring_wheat__rf",
+        "zone_id": "50_0_2",
+        "phase": "EST",
+        "rule_id": "WHEAT_SEEDLING_HEAT42",
+        "lat": 50.25,
+        "lon": 10.25,
+        "year": 2000,
+        "duration": 24
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.08,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "50_0_2",
+        "coordinate": "50.25,10.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:08.454Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-05-01T00:00:00.000Z",
+        "end_exclusive": "2000-05-09T00:00:00.000Z",
+        "resolution": "hour",
+        "expected_samples": 192,
+        "available_samples": 192,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 957139200000,
+        "value": 13.267041525689475,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 957826800000,
+        "value": 14.044401052213134,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "wheat",
+        "season_id": "spring_wheat__rf",
+        "zone_id": "50_0_2",
+        "phase": "FLO",
+        "rule_id": "WHEAT_HEAT_DAY27_3",
+        "lat": 50.25,
+        "lon": 10.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.354,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "50_0_2",
+        "coordinate": "50.25,10.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": 1,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:09.893Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-07-19T05:00:00.000Z",
+        "end_exclusive": "2000-07-26T05:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 7,
+        "available_samples": 7,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 168,
+      "first_sample": {
+        "time": 963982800000,
+        "value": 12.830984110846716,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 964501200000,
+        "value": 16.441151691404432,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "wheat",
+        "season_id": "spring_wheat__rf",
+        "zone_id": "50_0_2",
+        "phase": "FLO",
+        "rule_id": "WHEAT_HEAT_NIGHT19_6",
+        "lat": 50.25,
+        "lon": 10.25,
+        "year": 2000,
+        "duration": 8
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.617,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "50_0_2",
+        "coordinate": "50.25,10.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": 1,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "The reviewed synthesis says more than one week: >=8 complete nights. Original workbook seven-day value is retained as source metadata, with this correction explicit.",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:10.542Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-07-19T05:00:00.000Z",
+        "end_exclusive": "2000-07-26T05:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 7,
+        "available_samples": 7,
+        "complete": true,
+        "evaluable": false,
+        "event_occurred": null,
+        "longest_run": null,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 168,
+      "first_sample": {
+        "time": 963982800000,
+        "value": 12.029653364671512,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 964501200000,
+        "value": 14.241935723828396,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "wheat",
+        "season_id": "spring_wheat__rf",
+        "zone_id": "50_0_2",
+        "phase": "REP",
+        "rule_id": "WHEAT_BOOT_COLD_MINUS2_24H",
+        "lat": 50.25,
+        "lon": 10.25,
+        "year": 2000,
+        "duration": 24
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.77,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "50_0_2",
+        "coordinate": "50.25,10.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:12.325Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-06-28T00:00:00.000Z",
+        "end_exclusive": "2000-07-19T00:00:00.000Z",
+        "resolution": "hour",
+        "expected_samples": 504,
+        "available_samples": 504,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 962150400000,
+        "value": 8.015702462683247,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 963961200000,
+        "value": 10.392842825441088,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "wheat",
+        "season_id": "spring_wheat__rf",
+        "zone_id": "50_0_2",
+        "phase": "REP",
+        "rule_id": "WHEAT_BOOT_HEAT35_30_24H",
+        "lat": 50.25,
+        "lon": 10.25,
+        "year": 2000,
+        "duration": 1
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 1.443,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "50_0_2",
+        "coordinate": "50.25,10.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "timezone": "Fixed local solar-clock cycles, timestamps exported in UTC",
+        "solar_offset_hours": 1,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:13.853Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-06-28T05:00:00.000Z",
+        "end_exclusive": "2000-07-19T05:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 21,
+        "available_samples": 21,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "source_samples": 504,
+      "first_sample": {
+        "time": 962168400000,
+        "value": 14.08340758773993,
+        "secondary_value": 9.154393816848186,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 963896400000,
+        "value": 14.641451704940316,
+        "secondary_value": 10.03283805164048,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    },
+    {
+      "request": {
+        "crop": "wheat",
+        "season_id": "spring_wheat__rf",
+        "zone_id": "50_0_2",
+        "phase": "MAT",
+        "rule_id": "WHEAT_RIPENING_RAIN5_8H",
+        "lat": 50.25,
+        "lon": 10.25,
+        "year": 2000,
+        "duration": 8
+      },
+      "http_status": 200,
+      "ok": true,
+      "elapsed_seconds": 0.386,
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "50_0_2",
+        "coordinate": "50.25,10.25",
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "total_precipitation_hourly",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 3600000,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 12,
+        "retrieved_at": "2026-09-17T11:00:14.302Z"
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-08-17T00:00:00.000Z",
+        "end_exclusive": "2000-08-25T00:00:00.000Z",
+        "resolution": "hour",
+        "expected_samples": 192,
+        "available_samples": 192,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "first_sample": {
+        "time": 966470400000,
+        "value": 0,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      },
+      "last_sample": {
+        "time": 967158000000,
+        "value": 0,
+        "threshold_exceeded": false,
+        "excess": 0,
+        "in_qualifying_event": false
+      }
+    }
+  ]
+}

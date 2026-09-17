@@ -1,0 +1,207 @@
+{
+  "checked_at": "2026-09-17T10:59:50.087Z",
+  "scope": "Unmocked deployed UI: rice flowering rain >=25 mm/day, regional candidate screening in 2000, planting years 2000 and 2001, real GEE series and complete JSON export; six-phase soybean calendar; mobile overflow and runtime checks.",
+  "responses": [
+    {
+      "status": 200,
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "phase": "FLO",
+        "rule_id": "RICE_RAIN25",
+        "lat": 7.25,
+        "lon": -72.25,
+        "year": 2000,
+        "zone_id": "0_-90_0",
+        "duration": 1
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-05-18T00:00:00.000Z",
+        "end_exclusive": "2000-05-25T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 7,
+        "available_samples": 7,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": true,
+        "longest_run": 2,
+        "observed_longest_run": 2,
+        "exposure_samples": 2,
+        "events": [
+          {
+            "start": "2000-05-23T00:00:00.000Z",
+            "end_exclusive": "2000-05-25T00:00:00.000Z",
+            "duration": 2
+          }
+        ]
+      },
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_0",
+        "coordinate": "7.25,-72.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "total_precipitation_sum",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:47.022Z"
+      }
+    },
+    {
+      "status": 200,
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "phase": "FLO",
+        "rule_id": "RICE_RAIN25",
+        "lat": 7.25,
+        "lon": -72.25,
+        "year": 2000,
+        "zone_id": "0_-90_0",
+        "duration": 1
+      },
+      "annual": {
+        "year": 2000,
+        "start": "2000-05-18T00:00:00.000Z",
+        "end_exclusive": "2000-05-25T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 7,
+        "available_samples": 7,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": true,
+        "longest_run": 2,
+        "observed_longest_run": 2,
+        "exposure_samples": 2,
+        "events": [
+          {
+            "start": "2000-05-23T00:00:00.000Z",
+            "end_exclusive": "2000-05-25T00:00:00.000Z",
+            "duration": 2
+          }
+        ]
+      },
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_0",
+        "coordinate": "7.25,-72.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "total_precipitation_sum",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:47.587Z"
+      }
+    },
+    {
+      "status": 200,
+      "request": {
+        "crop": "rice",
+        "season_id": "rice_1__rf",
+        "phase": "FLO",
+        "rule_id": "RICE_RAIN25",
+        "lat": 7.25,
+        "lon": -72.25,
+        "year": 2001,
+        "zone_id": "0_-90_0",
+        "duration": 1
+      },
+      "annual": {
+        "year": 2001,
+        "start": "2001-05-18T00:00:00.000Z",
+        "end_exclusive": "2001-05-25T00:00:00.000Z",
+        "resolution": "day",
+        "expected_samples": 7,
+        "available_samples": 7,
+        "complete": true,
+        "evaluable": true,
+        "event_occurred": false,
+        "longest_run": 0,
+        "observed_longest_run": 0,
+        "exposure_samples": 0,
+        "events": []
+      },
+      "provenance": {
+        "commit": "0b1f628a5970ded134f3bfaa78e11860b80205a7",
+        "audit_inputs": [
+          {
+            "path": "web-v2/public/data/hazard_impact_harmonized_v3.json",
+            "sha256": "eaa723f9081eb170e4d2b7b23cb3f99d2d777b0416646039acdd7d9dbe21838b"
+          },
+          {
+            "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
+            "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+          },
+          {
+            "path": "scripts/build_variable_equivalences.mjs",
+            "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
+          }
+        ],
+        "calendar_version": "regional-v4-2026-09-16",
+        "calendar": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
+        "calendar_doi": "10.5281/zenodo.5062513",
+        "zone_id": "0_-90_0",
+        "coordinate": "7.25,-72.25",
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "total_precipitation_sum",
+        "timezone": "UTC",
+        "solar_offset_hours": 0,
+        "field_capacity_m3_m3": null,
+        "auxiliary_dataset": null,
+        "source_timestamp_offset_ms": 0,
+        "spatial_reducer": "Mean over the selected 0.5 degree cell at 11132 m scale; not a farm observation.",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "calendar_timing": "Estimated climatological boundaries repeated in each planting year.",
+        "uncertainty_days": 13,
+        "retrieved_at": "2026-09-17T10:59:48.364Z"
+      }
+    }
+  ]
+}
