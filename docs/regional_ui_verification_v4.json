@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-09-17T10:52:59.840Z",
+  "scope": "Local production build. Synthetic API fixtures verify UI only; not GEE access.",
+  "checks": [
+    "four crops six calendar windows",
+    "latitude/longitude dropdowns",
+    "screening candidates and locked modal",
+    "two-year probability and chart selection",
+    "CSV and complete JSON downloads",
+    "external exact-variable CSV calculation",
+    "wrong-unit rejection",
+    "desktop and mobile layout",
+    "no browser runtime errors"
+  ],
+  "queries": 14
+}

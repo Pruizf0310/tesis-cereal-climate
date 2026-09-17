@@ -12,7 +12,7 @@ for(const crop of Object.values(manifest.crops)) for(const season of Object.valu
  const data=JSON.parse(fs.readFileSync(new URL(season.url.split('/').pop(),dir)));
  for(const [key,tuple] of Object.entries(data.pixels)) {
   const [lat,lon]=key.split(',').map(Number);const windows=pixelWindows(data,lat,lon);
-  assert.equal(windows.length,data.crop==='wheat'?6:5); const covered=new Set();
+  assert.equal(windows.length,6);assert.equal(new Set(windows.map(w=>w.phase_code)).size,6); const covered=new Set();
   assert.equal(windows[0].start_offset,0);
   for(let i=1;i<windows.length;i++){
    assert.equal(windows[i-1].end_offset,windows[i].start_offset);

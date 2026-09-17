@@ -1,3 +1,5 @@
+> Historical version. The current regional selection, six-phase partition and 35 explicit variable definitions are documented in [Regional workflow v4](regional_workflow_v4.md). Earlier counts and shared-window decisions below are retained as decision history, not current behavior.
+
 # Coordinate calendars and macro-phase correspondence
 
 ## Sources kept in this repository

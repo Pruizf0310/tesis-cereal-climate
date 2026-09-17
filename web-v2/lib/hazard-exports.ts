@@ -1,0 +1,11 @@
+import type {AnnualExposure,AuditedRule,Sample,TriggerSpec} from './hazard-events';
+export interface ExposureResponse {annual:AnnualExposure;rule:AuditedRule;effective_spec:TriggerSpec;provenance:Record<string,unknown>;request:{year:number;crop:string;season_id:string;phase:string;rule_id:string;lat:number;lon:number;zone_id:string;duration:number};source_samples?:Sample[]}
+function cell(v:unknown){if(v==null)return '';let s=String(v);if(typeof v==='string'&&/^[=+@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';}
+export function toCsv(rows:Record<string,unknown>[]){if(!rows.length)return '';const headers=[...new Set(rows.flatMap(r=>Object.keys(r)))];return headers.map(cell).join(',')+'\r\n'+rows.map(r=>headers.map(h=>cell(r[h])).join(',')).join('\r\n');}
+export function exposureRows(results:ExposureResponse[],kind:'series'|'source'|'annual'|'events'){
+ return results.flatMap<Record<string,unknown>>(r=>{const base={...r.request,variable:kind==='source'&&r.rule.spec?.profile?'Hourly source 2 m air temperature':r.rule.equivalence?.variable,source_band:r.rule.spec?.band,unit:r.effective_spec.unit,operator:r.effective_spec.operator,threshold:r.effective_spec.threshold,secondary_threshold:r.effective_spec.secondary_threshold??null,event_mode:r.effective_spec.mode,dataset:r.provenance.dataset,calendar_version:r.provenance.calendar_version,commit:r.provenance.commit,source_file:r.provenance.source_file??null};
+  if(kind==='annual')return [{...base,start:r.annual.start,end_exclusive:r.annual.end_exclusive,expected_samples:r.annual.expected_samples,available_samples:r.annual.available_samples,evaluable:r.annual.evaluable,event_occurred:r.annual.event_occurred,longest_run:r.annual.longest_run,event_count:r.annual.events.length,exceedance_samples:r.annual.exposure_samples}];
+  if(kind==='events')return r.annual.events.map((e,i)=>({...base,event_id:i+1,...e,duration_unit:r.effective_spec.resolution}));
+  return (kind==='source'?r.source_samples??r.annual.samples:r.annual.samples).map(s=>({...base,series_kind:kind,timestamp_utc:new Date(s.time).toISOString(),value:s.value,secondary_value:s.secondary_value??null,threshold_exceeded:s.threshold_exceeded??null,excess:s.excess??null,in_qualifying_event:s.in_qualifying_event??null}));
+ }) as Record<string,unknown>[];
+}

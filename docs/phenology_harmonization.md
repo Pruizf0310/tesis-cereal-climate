@@ -1,3 +1,5 @@
+> Historical version. The current regional selection, six-phase partition and 35 explicit variable definitions are documented in [Regional workflow v4](regional_workflow_v4.md). Earlier counts and shared-window decisions below are retained as decision history, not current behavior.
+
 # Phenological phase harmonization — 15 September 2026
 
 > Calendar display update, 16 September: the first-listed-phase allocation described below is superseded by [coordinate calendars with explicit shared windows](pixel_calendar_method.md). This file preserves the hazard audit history.

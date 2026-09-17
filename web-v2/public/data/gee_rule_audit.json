@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-16",
+  "version": "regional-v4-2026-09-16",
   "meaning": "Historical frequency of an operational meteorological exposure, not crop damage probability.",
   "calendar": "pixel-calendars/manifest.json",
   "inputs": [
@@ -10,11 +10,16 @@
     {
       "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
       "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+    },
+    {
+      "path": "scripts/build_variable_equivalences.mjs",
+      "sha256": "99871efbd13f39af66f91146e2a1680cf4c895f156180f8fe1f823683f5af9c7"
     }
   ],
   "datasets": [
     "ECMWF/ERA5_LAND/DAILY_AGGR",
-    "ECMWF/ERA5_LAND/HOURLY"
+    "ECMWF/ERA5_LAND/HOURLY",
+    "OpenLandMap/SOL/SOL_WATERCONTENT-33KPA_USDA-4B1C_M/v01"
   ],
   "rules": [
     {
@@ -26,9 +31,22 @@
       ],
       "threshold": "< 6 °C",
       "exposure": "2 h",
-      "status": "unavailable",
-      "reason": "Resolve soil chilling versus 2 m air temperature in the reviewed evidence before selecting an ERA5 band.",
-      "spec": null,
+      "status": "operational",
+      "reason": "The source describes a programmed growth-chamber air-temperature cycle. Field 2 m air temperature is an explicit transfer from that treatment, not soil temperature.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "hour",
+        "operator": "<",
+        "threshold": 6,
+        "min_samples": 2,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tair = ERA5 hourly temperature_2m - 273.15; Tair < 6 C for >=2 consecutive hourly samples.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Verified experimental threshold",
       "source": "PLOS ONE 2026",
       "doi": "10.1371/journal.pone.0340773",
@@ -49,7 +67,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Hourly 2 m air temperature",
+        "equation": "Tair = ERA5 hourly temperature_2m - 273.15; Tair < 6 C for >=2 consecutive hourly samples.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "The source describes a programmed growth-chamber air-temperature cycle. Field 2 m air temperature is an explicit transfer from that treatment, not soil temperature.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "hour",
+          "operator": "<",
+          "threshold": 6,
+          "min_samples": 2,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tair = ERA5 hourly temperature_2m - 273.15; Tair < 6 C for >=2 consecutive hourly samples.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": "PLOS ONE 10.1371/journal.pone.0340773, Materials and methods: temperature simulation protocol."
+      }
     },
     {
       "rule_id": "MAIZE_EARLYVEG_DROUGHT_SWP051_4D",
@@ -60,9 +102,22 @@
       ],
       "threshold": "≤ -0.51 MPa",
       "exposure": "4 days",
-      "status": "unavailable",
-      "reason": "Soil water potential requires a soil retention curve; volumetric water content is not an interchangeable measurement.",
-      "spec": null,
+      "status": "external",
+      "reason": "Requires measured/modelled matric potential at a documented root-zone depth. A retention-model conversion must carry its soil-specific parameters; ERA5 volumetric moisture alone cannot determine it.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "soil_matric_potential_mpa",
+        "resolution": "day",
+        "operator": "<=",
+        "threshold": -0.51,
+        "min_samples": 4,
+        "unit": "MPa",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "psi_MPa = psi_kPa / 1000; psi_MPa <= -0.51 MPa for 4 days.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Verified physiological threshold",
       "source": "Voothuluru et al. 2017",
       "doi": "10.1093/jxb/erx381",
@@ -83,7 +138,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily mean soil matric potential",
+        "equation": "psi_MPa = psi_kPa / 1000; psi_MPa <= -0.51 MPa for 4 days.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Requires measured/modelled matric potential at a documented root-zone depth. A retention-model conversion must carry its soil-specific parameters; ERA5 volumetric moisture alone cannot determine it.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "soil_matric_potential_mpa",
+          "resolution": "day",
+          "operator": "<=",
+          "threshold": -0.51,
+          "min_samples": 4,
+          "unit": "MPa",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "psi_MPa = psi_kPa / 1000; psi_MPa <= -0.51 MPa for 4 days.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "soil_matric_potential_mpa",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "MAIZE_TASSEL_HEAT38_30_15D",
@@ -94,9 +173,24 @@
       ],
       "threshold": "38/30 °C",
       "exposure": "15 days",
-      "status": "unavailable",
-      "reason": "Paired experimental day/night temperatures require an explicit local day/night exposure definition.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Fixed 12/12-hour solar-clock cycle is the project field equivalent of the paired experimental regime; it is not astronomical daylight.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 38,
+        "min_samples": 15,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tday = mean of 06:00–18:00; Tnight = mean of 18:00–06:00. Both >=38/30 C on each of 15 consecutive cycles.",
+        "profile": "paired_mean",
+        "secondary_threshold": 30,
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging experimental treatment",
       "source": "Hussain et al. 2019",
       "doi": "https://europepmc.org/articles/PMC6405865",
@@ -117,7 +211,33 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Paired daytime and nighttime mean air temperature",
+        "equation": "Tday = mean of 06:00–18:00; Tnight = mean of 18:00–06:00. Both >=38/30 C on each of 15 consecutive cycles.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Fixed 12/12-hour solar-clock cycle is the project field equivalent of the paired experimental regime; it is not astronomical daylight.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 38,
+          "min_samples": 15,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tday = mean of 06:00–18:00; Tnight = mean of 18:00–06:00. Both >=38/30 C on each of 15 consecutive cycles.",
+          "profile": "paired_mean",
+          "secondary_threshold": 30,
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "MAIZE_HEAT_DAY37_9",
@@ -128,9 +248,23 @@
       ],
       "threshold": "> 37.9 °C",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "Daytime metric and consecutive exposure duration are not specified.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Daytime mean is the explicit project mapping of heterogeneous controlled daytime treatments in the synthesis; daily maximum is not substituted.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">",
+        "threshold": 37.9,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 37.9 C.",
+        "profile": "day_mean",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Modeled threshold",
       "source": "Liu et al. 2023",
       "doi": "10.1016/j.xplc.2023.100629",
@@ -151,7 +285,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daytime mean 2 m air temperature",
+        "equation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 37.9 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "Daytime mean is the explicit project mapping of heterogeneous controlled daytime treatments in the synthesis; daily maximum is not substituted.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">",
+          "threshold": 37.9,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 37.9 C.",
+          "profile": "day_mean",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "MAIZE_HEAT_NIGHT27_3",
@@ -162,9 +321,23 @@
       ],
       "threshold": "≈ 27.3 °C",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "Approximate nighttime threshold has no approved inequality, night definition or consecutive duration.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Fixed local solar-clock night is an operational mapping. The approximate maize estimate is operationalized as >=27.3 C; uncertainty remains in the paper, not a precise universal boundary.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 27.3,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight >= 27.3 C.",
+        "profile": "night_mean",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Modeled threshold — provisional duration",
       "source": "Liu et al. 2023",
       "doi": "10.1016/j.xplc.2023.100629",
@@ -185,7 +358,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Nighttime mean 2 m air temperature",
+        "equation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight >= 27.3 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "Fixed local solar-clock night is an operational mapping. The approximate maize estimate is operationalized as >=27.3 C; uncertainty remains in the paper, not a precise universal boundary.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 27.3,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight >= 27.3 C.",
+          "profile": "night_mean",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "MAIZE_HEAT_FILL39_4_41_5",
@@ -197,18 +395,20 @@
       "threshold": "≥ 39.4 °C",
       "exposure": "6 days",
       "status": "operational",
-      "reason": "Operational six-day mean of daily maxima, aligned with the reported treatment mean; not six separate daily exceedances or a calibrated damage model.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
-        "resolution": "day",
         "band": "temperature_2m_max",
+        "resolution": "day",
         "operator": ">=",
         "threshold": 39.4,
         "min_samples": 6,
         "unit": "C",
         "mode": "rolling_mean",
-        "interpretation": "Operational six-day mean of daily maxima, aligned with the reported treatment mean; not six separate daily exceedances or a calibrated damage model.",
-        "conversion": "kelvin_to_celsius"
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "mean(Tmax[d-5:d]) >=39.4 C. Duration is the union of qualifying complete six-day windows.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Damaging experimental treatment",
       "source": "Zhang et al. 2023",
@@ -230,7 +430,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Six-day mean of daily maximum 2 m air temperature",
+        "equation": "mean(Tmax[d-5:d]) >=39.4 C. Duration is the union of qualifying complete six-day windows.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "temperature_2m_max",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 39.4,
+          "min_samples": 6,
+          "unit": "C",
+          "mode": "rolling_mean",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "mean(Tmax[d-5:d]) >=39.4 C. Duration is the union of qualifying complete six-day windows.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m_max",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "MAIZE_HNT_FILL28_18D",
@@ -241,9 +465,22 @@
       ],
       "threshold": "≥ 28 °C",
       "exposure": "18 nights",
-      "status": "unavailable",
-      "reason": "Define local night hours and within-night exposure before counting 18 consecutive nights.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Daily minimum reproduces the treatment-defining quantity rather than an unspecified nighttime mean. UTC daily grouping is a reanalysis transfer from the local chamber cycle.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m_min",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 28,
+        "min_samples": 18,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tmin >=28 C for 18 consecutive complete UTC days.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging experimental treatment with temperature gradient",
       "source": "Wang et al. 2026",
       "doi": "10.3389/fpls.2026.1826388",
@@ -264,7 +501,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily minimum 2 m air temperature",
+        "equation": "Tmin >=28 C for 18 consecutive complete UTC days.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Daily minimum reproduces the treatment-defining quantity rather than an unspecified nighttime mean. UTC daily grouping is a reanalysis transfer from the local chamber cycle.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "temperature_2m_min",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 28,
+          "min_samples": 18,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tmin >=28 C for 18 consecutive complete UTC days.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m_min",
+        "evidence_update": "Wang et al. 2026, sections 2.2–2.3: treatments were daily minima 24/26/28/30 C, minimum around 05:00–06:00; heating lasted 18 days."
+      }
     },
     {
       "rule_id": "MAIZE_R6_WIND15",
@@ -275,9 +536,22 @@
       ],
       "threshold": "> 15 m/s",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "Exposure duration and wind measurement (gust or sustained speed, height) are unresolved.",
-      "spec": null,
+      "status": "operational",
+      "reason": "10 m wind is a meteorological screening proxy for wind-tunnel loading. It is not a gust or a calibrated stalk-breaking probability; height and canopy transfer remain limitations.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "wind_speed_10m",
+        "resolution": "hour",
+        "operator": ">",
+        "threshold": 15,
+        "min_samples": 1,
+        "unit": "m/s",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "U10 = sqrt(u10^2 + v10^2), computed before spatial reduction; U10 >15 m/s.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Transferred candidate",
       "source": "Xue et al. 2020",
       "doi": "https://europepmc.org/articles/PMC7641793",
@@ -298,7 +572,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Hourly 10 m wind-speed magnitude",
+        "equation": "U10 = sqrt(u10^2 + v10^2), computed before spatial reduction; U10 >15 m/s.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "10 m wind is a meteorological screening proxy for wind-tunnel loading. It is not a gust or a calibrated stalk-breaking probability; height and canopy transfer remain limitations.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "wind_speed_10m",
+          "resolution": "hour",
+          "operator": ">",
+          "threshold": 15,
+          "min_samples": 1,
+          "unit": "m/s",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "U10 = sqrt(u10^2 + v10^2), computed before spatial reduction; U10 >15 m/s.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "wind_speed_10m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_GERMINATION_HEAT38_24H",
@@ -310,18 +608,20 @@
       "threshold": "≥ 38 °C",
       "exposure": "24 h",
       "status": "operational",
-      "reason": "Frequency of 24 consecutive hourly 2 m air temperature samples meeting the reviewed experimental exposure.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/HOURLY",
-        "resolution": "hour",
         "band": "temperature_2m",
+        "resolution": "hour",
         "operator": ">=",
         "threshold": 38,
         "min_samples": 24,
         "unit": "C",
         "mode": "run",
-        "interpretation": "Frequency of 24 consecutive hourly 2 m air temperature samples meeting the reviewed experimental exposure.",
-        "conversion": "kelvin_to_celsius"
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tair >=38 C for 24 consecutive hourly samples.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Damaging experimental treatment",
       "source": "Zhang et al. 2022",
@@ -343,7 +643,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Hourly 2 m air temperature",
+        "equation": "Tair >=38 C for 24 consecutive hourly samples.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "hour",
+          "operator": ">=",
+          "threshold": 38,
+          "min_samples": 24,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tair >=38 C for 24 consecutive hourly samples.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_HEAT_MEAN_33",
@@ -356,18 +680,20 @@
       "threshold": "≥ 33 °C",
       "exposure": "1 day",
       "status": "operational",
-      "reason": "One UTC daily mean meeting the regional threshold.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
-        "resolution": "day",
         "band": "temperature_2m",
+        "resolution": "day",
         "operator": ">=",
         "threshold": 33,
         "min_samples": 1,
         "unit": "C",
         "mode": "run",
-        "interpretation": "One UTC daily mean meeting the regional threshold.",
-        "conversion": "kelvin_to_celsius"
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean >= 33 C.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Regional indicator",
       "source": "Sun et al. 2025",
@@ -410,7 +736,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily mean 2 m air temperature",
+        "equation": "Tmean = daily mean temperature_2m - 273.15; Tmean >= 33 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 33,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean >= 33 C.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_SUBMERGENCE_SENSITIVE7D",
@@ -421,9 +771,22 @@
       ],
       "threshold": "≥ 7 days",
       "exposure": "7 days",
-      "status": "unavailable",
-      "reason": "Requires consecutive daily crop submergence observations. Monthly surface water does not measure duration or crop submergence.",
-      "spec": null,
+      "status": "external",
+      "reason": "Requires daily complete-submergence observations or a water-depth/canopy-height model. Sensitive-variety condition is retained. Monthly water or rainfall is not equivalent.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "complete_submergence",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 1,
+        "min_samples": 7,
+        "unit": "0/1",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "I = 1 when water surface is above the crop canopy for the complete day; run(I=1) >=7 days.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Genotype-dependent operational threshold",
       "source": "Bailey-Serres et al. 2010",
       "doi": "10.1007/s00425-010-1198-z",
@@ -465,7 +828,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily complete-crop-submergence indicator",
+        "equation": "I = 1 when water surface is above the crop canopy for the complete day; run(I=1) >=7 days.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Requires daily complete-submergence observations or a water-depth/canopy-height model. Sensitive-variety condition is retained. Monthly water or rainfall is not equivalent.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "complete_submergence",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 1,
+          "min_samples": 7,
+          "unit": "0/1",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "I = 1 when water surface is above the crop canopy for the complete day; run(I=1) >=7 days.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "complete_submergence",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_COLD_ANTHESIS17_5D",
@@ -477,18 +864,20 @@
       "threshold": "≤ 17 °C",
       "exposure": "5 days",
       "status": "operational",
-      "reason": "Operational five consecutive UTC daily means meeting the experimental cold condition; not a calibrated field damage probability.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
-        "resolution": "day",
         "band": "temperature_2m",
+        "resolution": "day",
         "operator": "<=",
         "threshold": 17,
         "min_samples": 5,
         "unit": "C",
         "mode": "run",
-        "interpretation": "Operational five consecutive UTC daily means meeting the experimental cold condition; not a calibrated field damage probability.",
-        "conversion": "kelvin_to_celsius"
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 17 C.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Damaging experimental treatment",
       "source": "Zeng et al. 2017",
@@ -510,7 +899,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily mean 2 m air temperature",
+        "equation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 17 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": "<=",
+          "threshold": 17,
+          "min_samples": 5,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 17 C.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_COLD_MEAN20",
@@ -523,18 +936,20 @@
       "threshold": "≤ 20 °C",
       "exposure": "1 day",
       "status": "operational",
-      "reason": "One UTC daily mean meeting the regional threshold.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
-        "resolution": "day",
         "band": "temperature_2m",
+        "resolution": "day",
         "operator": "<=",
         "threshold": 20,
         "min_samples": 1,
         "unit": "C",
         "mode": "run",
-        "interpretation": "One UTC daily mean meeting the regional threshold.",
-        "conversion": "kelvin_to_celsius"
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 20 C.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Regional indicator",
       "source": "Sun et al. 2025",
@@ -573,7 +988,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily mean 2 m air temperature",
+        "equation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 20 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": "<=",
+          "threshold": 20,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 20 C.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_DROUGHT_FLOWERING_SWP30",
@@ -584,9 +1023,22 @@
       ],
       "threshold": "≤ -30 kPa",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "Soil water potential cannot be obtained directly from ERA5 volumetric moisture; duration is also unresolved.",
-      "spec": null,
+      "status": "external",
+      "reason": "Supply soil potential, not volumetric moisture. Experimental -30 +/-5 kPa treatment does not establish a damage-onset duration.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "soil_matric_potential_kpa",
+        "resolution": "day",
+        "operator": "<=",
+        "threshold": -30,
+        "min_samples": 1,
+        "unit": "kPa",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "psi_kPa <= -30 kPa. Default one-day exposure is an analysis setting.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging field treatment",
       "source": "Yang et al. 2019",
       "doi": "10.1038/s41598-019-40161-0",
@@ -607,7 +1059,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily mean soil matric potential",
+        "equation": "psi_kPa <= -30 kPa. Default one-day exposure is an analysis setting.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "Supply soil potential, not volumetric moisture. Experimental -30 +/-5 kPa treatment does not establish a damage-onset duration.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "soil_matric_potential_kpa",
+          "resolution": "day",
+          "operator": "<=",
+          "threshold": -30,
+          "min_samples": 1,
+          "unit": "kPa",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "psi_kPa <= -30 kPa. Default one-day exposure is an analysis setting.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "soil_matric_potential_kpa",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_HEAT_DAY37_2",
@@ -618,9 +1094,23 @@
       ],
       "threshold": "> 37.2 °C",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "Daytime metric and consecutive exposure duration are not specified.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Daytime mean is the explicit project mapping of heterogeneous controlled daytime treatments in the synthesis; daily maximum is not substituted.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">",
+        "threshold": 37.2,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 37.2 C.",
+        "profile": "day_mean",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Modeled threshold",
       "source": "Liu et al. 2023",
       "doi": "10.1016/j.xplc.2023.100629",
@@ -641,7 +1131,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daytime mean 2 m air temperature",
+        "equation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 37.2 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "Daytime mean is the explicit project mapping of heterogeneous controlled daytime treatments in the synthesis; daily maximum is not substituted.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">",
+          "threshold": 37.2,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 37.2 C.",
+          "profile": "day_mean",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_HEAT_NIGHT31_2",
@@ -652,9 +1167,23 @@
       ],
       "threshold": "> 31.2 °C",
       "exposure": "7 days",
-      "status": "unavailable",
-      "reason": "Nighttime metric and the tentative duration interpretation require review; daily minimum is not nighttime temperature.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Fixed local solar-clock night is an operational mapping. The approximate maize estimate is operationalized as >=27.3 C; uncertainty remains in the paper, not a precise universal boundary.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">",
+        "threshold": 31.2,
+        "min_samples": 8,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight > 31.2 C.",
+        "profile": "night_mean",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Modeled threshold — provisional duration",
       "source": "Liu et al. 2023",
       "doi": "10.1016/j.xplc.2023.100629",
@@ -675,7 +1204,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Nighttime mean 2 m air temperature",
+        "equation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight > 31.2 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "The reviewed synthesis says more than one week: >=8 complete nights. Original workbook seven-day value is retained as source metadata, with this correction explicit.",
+        "note": "Fixed local solar-clock night is an operational mapping. The approximate maize estimate is operationalized as >=27.3 C; uncertainty remains in the paper, not a precise universal boundary.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">",
+          "threshold": 31.2,
+          "min_samples": 8,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight > 31.2 C.",
+          "profile": "night_mean",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_RAIN25",
@@ -689,18 +1243,20 @@
       "threshold": "≥ 25 mm/day",
       "exposure": "1 day",
       "status": "operational",
-      "reason": "One UTC daily precipitation total meeting the regional threshold.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
-        "resolution": "day",
         "band": "total_precipitation_sum",
+        "resolution": "day",
         "operator": ">=",
         "threshold": 25,
         "min_samples": 1,
         "unit": "mm/day",
         "mode": "run",
-        "interpretation": "One UTC daily precipitation total meeting the regional threshold.",
-        "conversion": "metres_to_mm"
+        "conversion": "metres_to_mm",
+        "interpretation": "Pday = total_precipitation_sum * 1000; Pday >=25 mm/day.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Regional indicator",
       "source": "Sun et al. 2025",
@@ -755,7 +1311,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily accumulated precipitation",
+        "equation": "Pday = total_precipitation_sum * 1000; Pday >=25 mm/day.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "total_precipitation_sum",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 25,
+          "min_samples": 1,
+          "unit": "mm/day",
+          "mode": "run",
+          "conversion": "metres_to_mm",
+          "interpretation": "Pday = total_precipitation_sum * 1000; Pday >=25 mm/day.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "total_precipitation_sum",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_DROUGHT_SM75",
@@ -766,9 +1346,22 @@
       ],
       "threshold": "≤ 75 %",
       "exposure": "10 days",
-      "status": "unavailable",
-      "reason": "The denominator of 75% soil moisture must be identified. ERA5 volumetric moisture is not relative soil moisture.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Sun et al. uses 0–10 cm relative soil moisture. Field capacity at 33 kPa is the declared operational denominator here, not a denominator verified in the paper. Combining ERA5 and OpenLandMap requires local validation. It is not a soil-moisture percentile.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "relative_soil_moisture",
+        "resolution": "day",
+        "operator": "<=",
+        "threshold": 75,
+        "min_samples": 10,
+        "unit": "% of field capacity",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "SMrel = 100 * (0.7*theta_0_7cm + 0.3*theta_7_28cm) / theta_FC; theta_FC = mean(OpenLandMap 33 kPa b0,b10)/100.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Regional indicator",
       "source": "Sun et al. 2025",
       "doi": "10.5194/esd-16-1971-2025",
@@ -792,7 +1385,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Estimated relative surface soil moisture (field-capacity reference)",
+        "equation": "SMrel = 100 * (0.7*theta_0_7cm + 0.3*theta_7_28cm) / theta_FC; theta_FC = mean(OpenLandMap 33 kPa b0,b10)/100.",
+        "access": "gee",
+        "equivalence": "Model-derived proxy; denominator explicitly chosen by the project",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Sun et al. uses 0–10 cm relative soil moisture. Field capacity at 33 kPa is the declared operational denominator here, not a denominator verified in the paper. Combining ERA5 and OpenLandMap requires local validation. It is not a soil-moisture percentile.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "relative_soil_moisture",
+          "resolution": "day",
+          "operator": "<=",
+          "threshold": 75,
+          "min_samples": 10,
+          "unit": "% of field capacity",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "SMrel = 100 * (0.7*theta_0_7cm + 0.3*theta_7_28cm) / theta_FC; theta_FC = mean(OpenLandMap 33 kPa b0,b10)/100.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "relative_soil_moisture",
+        "evidence_update": "Sun et al. 2025 section 2.2 and Table 1; OpenLandMap field-capacity catalogue DOI 10.5281/zenodo.2629589."
+      }
     },
     {
       "rule_id": "RICE_COLD_MEAN17",
@@ -804,18 +1421,20 @@
       "threshold": "≤ 17 °C",
       "exposure": "1 day",
       "status": "operational",
-      "reason": "One UTC daily mean meeting the regional threshold.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
-        "resolution": "day",
         "band": "temperature_2m",
+        "resolution": "day",
         "operator": "<=",
         "threshold": 17,
         "min_samples": 1,
         "unit": "C",
         "mode": "run",
-        "interpretation": "One UTC daily mean meeting the regional threshold.",
-        "conversion": "kelvin_to_celsius"
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 17 C.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Regional indicator",
       "source": "Sun et al. 2025",
@@ -838,7 +1457,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily mean 2 m air temperature",
+        "equation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 17 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed daily exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": "<=",
+          "threshold": 17,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean <= 17 C.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "RICE_RIPENING_HEAT_MEAN28",
@@ -849,9 +1492,22 @@
       ],
       "threshold": "> 28 °C",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "The transferred threshold lacks an approved consecutive exposure duration.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">",
+        "threshold": 28,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean > 28 C.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Transferred candidate",
       "source": "Mu et al. 2025",
       "doi": "https://europepmc.org/articles/PMC12535988",
@@ -873,7 +1529,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily mean 2 m air temperature",
+        "equation": "Tmean = daily mean temperature_2m - 273.15; Tmean > 28 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/DAILY_AGGR",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">",
+          "threshold": 28,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tmean = daily mean temperature_2m - 273.15; Tmean > 28 C.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "SOY_FLOOD_DURATION3",
@@ -887,9 +1567,22 @@
       ],
       "threshold": "> 3 days",
       "exposure": "3 days",
-      "status": "unavailable",
-      "reason": "Requires daily flooding observations; the strict >3-day condition must not be silently changed to >=3 days.",
-      "spec": null,
+      "status": "external",
+      "reason": "The strict >3-day condition is retained; it is not silently changed to three days.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "flooded",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 1,
+        "min_samples": 4,
+        "unit": "0/1",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "I = 1 for a complete flooded day; run(I=1) >3 days, hence >=4 complete daily intervals.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Verified duration-response threshold",
       "source": "Shen et al. 2023",
       "doi": "10.3390/su15010738",
@@ -967,7 +1660,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily continuous flooding indicator",
+        "equation": "I = 1 for a complete flooded day; run(I=1) >3 days, hence >=4 complete daily intervals.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "The strict >3-day condition is retained; it is not silently changed to three days.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "flooded",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 1,
+          "min_samples": 4,
+          "unit": "0/1",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "I = 1 for a complete flooded day; run(I=1) >3 days, hence >=4 complete daily intervals.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "flooded",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "SOY_FLOOD_DURATION6_GRAIN",
@@ -979,9 +1696,22 @@
       ],
       "threshold": "> 6 days",
       "exposure": "6 days",
-      "status": "unavailable",
-      "reason": "Requires daily flooding observations; the strict >6-day condition must not be silently changed to >=6 days.",
-      "spec": null,
+      "status": "external",
+      "reason": "The strict >6-day condition is retained. Supply daily hydrology; rainfall is not flooding.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "flooded",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 1,
+        "min_samples": 7,
+        "unit": "0/1",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "I = 1 for a complete flooded day; run(I=1) >6 days, hence >=7 complete daily intervals.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Verified duration-response threshold",
       "source": "Shen et al. 2023",
       "doi": "10.3390/su15010738",
@@ -1029,7 +1759,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily continuous flooding indicator",
+        "equation": "I = 1 for a complete flooded day; run(I=1) >6 days, hence >=7 complete daily intervals.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "The strict >6-day condition is retained. Supply daily hydrology; rainfall is not flooding.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "flooded",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 1,
+          "min_samples": 7,
+          "unit": "0/1",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "I = 1 for a complete flooded day; run(I=1) >6 days, hence >=7 complete daily intervals.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "flooded",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "SOY_SEASONAL_HEAT30",
@@ -1041,9 +1795,22 @@
       ],
       "threshold": "> 30 °C",
       "exposure": "1 day",
-      "status": "unavailable",
-      "reason": "Seasonal association does not establish that the daily air metric means daily maximum, daily mean or hourly exposure.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Schauberger et al. aggregates fractional exposure days across a fixed growing season using sinusoidal interpolation of daily extrema. Here actual hourly reanalysis samples are accumulated within the selected estimated phase. This preserves accumulated rather than consecutive exposure, but changes temporal source and seasonal scope; no phase-specific yield coefficient is inferred.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "hour",
+        "operator": ">",
+        "threshold": 30,
+        "min_samples": 24,
+        "unit": "C",
+        "mode": "accumulated",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "E = sum(hours with Tair >30 C); E/24 gives equivalent exposure days. Default event: E >=24 hours within the phase; hours need not be consecutive.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Seasonal observational association",
       "source": "Schauberger et al. 2017",
       "doi": "10.1038/ncomms13931",
@@ -1081,7 +1848,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Accumulated hourly temperature exposure above 30 C",
+        "equation": "E = sum(hours with Tair >30 C); E/24 gives equivalent exposure days. Default event: E >=24 hours within the phase; hours need not be consecutive.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project event cutoff of one accumulated equivalent exposure day; not a published minimum damaging duration.",
+        "note": "Schauberger et al. aggregates fractional exposure days across a fixed growing season using sinusoidal interpolation of daily extrema. Here actual hourly reanalysis samples are accumulated within the selected estimated phase. This preserves accumulated rather than consecutive exposure, but changes temporal source and seasonal scope; no phase-specific yield coefficient is inferred.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "hour",
+          "operator": ">",
+          "threshold": 30,
+          "min_samples": 24,
+          "unit": "C",
+          "mode": "accumulated",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "E = sum(hours with Tair >30 C); E/24 gives equivalent exposure days. Default event: E >=24 hours within the phase; hours need not be consecutive.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": "Nature Communications 10.1038/ncomms13931, Methods: temperature-bin exposure days across a fixed growing season."
+      }
     },
     {
       "rule_id": "SOY_WATERLOG_R1_3CM_16D",
@@ -1092,9 +1883,22 @@
       ],
       "threshold": "≥ 3 cm",
       "exposure": "16 days",
-      "status": "unavailable",
-      "reason": "Requires daily water depth >=3 cm above the soil for 16 days; rainfall and monthly surface water cannot supply this.",
-      "spec": null,
+      "status": "external",
+      "reason": "Minimum daily depth preserves continuous inundation; daily mean depth alone does not establish the treatment.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "standing_water_depth_cm",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 3,
+        "min_samples": 16,
+        "unit": "cm",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "h_min >=3 cm for 16 consecutive days.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging experimental treatment",
       "source": "Adegoye et al. 2023",
       "doi": "10.3390/agriculture13040844",
@@ -1115,7 +1919,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily minimum standing-water depth above soil",
+        "equation": "h_min >=3 cm for 16 consecutive days.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Minimum daily depth preserves continuous inundation; daily mean depth alone does not establish the treatment.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "standing_water_depth_cm",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 3,
+          "min_samples": 16,
+          "unit": "cm",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "h_min >=3 cm for 16 consecutive days.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "standing_water_depth_cm",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "SOY_HNT_FILL28_R5_R7",
@@ -1127,9 +1955,23 @@
       ],
       "threshold": "≥ 28 °C",
       "exposure": "12 h per night",
-      "status": "unavailable",
-      "reason": "Experimental 12-hour night regime requires a reviewed mapping to natural local nights.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 28,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "min(Tair[18:00–06:00]) >=28 C; every hourly sample in the fixed 12-hour night must qualify.",
+        "profile": "night_min",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging two-year experimental treatment",
       "source": "Yang et al. 2023",
       "doi": "10.3389/fpls.2023.1099621",
@@ -1176,7 +2018,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Minimum temperature during a complete 12-hour night",
+        "equation": "min(Tair[18:00–06:00]) >=28 C; every hourly sample in the fixed 12-hour night must qualify.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "One complete 12-hour experimental-style night. Repetition across nights is an analysis setting, not a published minimum damaging count.",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 28,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "min(Tair[18:00–06:00]) >=28 C; every hourly sample in the fixed 12-hour night must qualify.",
+          "profile": "night_min",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_SEEDLING_HEAT42",
@@ -1187,9 +2054,22 @@
       ],
       "threshold": "42 °C",
       "exposure": "24 h",
-      "status": "unavailable",
-      "reason": "42 C is an experimental treatment value; an exceedance inequality has not been established.",
-      "spec": null,
+      "status": "operational",
+      "reason": "The paper reports a 42 C treatment. The >= comparator is the project exposure rule, not a measured dose-response breakpoint. Source remains secondary.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "hour",
+        "operator": ">=",
+        "threshold": 42,
+        "min_samples": 24,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tair >=42 C for 24 consecutive hourly samples.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Secondary-source treatment",
       "source": "Akter e Islam 2017 (cita Gupta et al. 2013a)",
       "doi": "10.1007/s13593-017-0443-9",
@@ -1210,7 +2090,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Hourly 2 m air temperature",
+        "equation": "Tair >=42 C for 24 consecutive hourly samples.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "The paper reports a 42 C treatment. The >= comparator is the project exposure rule, not a measured dose-response breakpoint. Source remains secondary.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "hour",
+          "operator": ">=",
+          "threshold": 42,
+          "min_samples": 24,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tair >=42 C for 24 consecutive hourly samples.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_STEM_DROUGHT_VSMC45_14D",
@@ -1221,9 +2125,22 @@
       ],
       "threshold": "Reduction ≥ 45 %",
       "exposure": "14 days",
-      "status": "unavailable",
-      "reason": "A reduction relative to an experimental control is not absolute moisture or a climatological anomaly.",
-      "spec": null,
+      "status": "external",
+      "reason": "Supply matched control and treatment data through this derived variable and document the control in provenance. A climatological anomaly is a different experiment.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "soil_moisture_reduction_percent",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 45,
+        "min_samples": 14,
+        "unit": "% reduction",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "R = 100*(1-theta_treatment/theta_control); R >=45% for 14 consecutive days.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging experimental treatment",
       "source": "Vuković et al. 2023",
       "doi": "https://europepmc.org/articles/PMC9921141",
@@ -1244,7 +2161,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Volumetric soil-moisture reduction relative to a matched control",
+        "equation": "R = 100*(1-theta_treatment/theta_control); R >=45% for 14 consecutive days.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Supply matched control and treatment data through this derived variable and document the control in provenance. A climatological anomaly is a different experiment.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "soil_moisture_reduction_percent",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 45,
+          "min_samples": 14,
+          "unit": "% reduction",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "R = 100*(1-theta_treatment/theta_control); R >=45% for 14 consecutive days.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "soil_moisture_reduction_percent",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_FROST_POSTHEADING_CANOPY_MINUS3_5",
@@ -1257,9 +2198,22 @@
       ],
       "threshold": "≤ -3.5 °C",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "Canopy temperature cannot be replaced by ERA5 2 m air temperature without a validated transfer; duration is unspecified.",
-      "spec": null,
+      "status": "external",
+      "reason": "Requires canopy temperature or a validated station-to-canopy model. 2 m temperature without that model is not an exact equivalent.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "canopy_temperature_min_c",
+        "resolution": "day",
+        "operator": "<=",
+        "threshold": -3.5,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "Tcanopy_min <=-3.5 C; one daily minimum by default.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Transferred frost-damage threshold",
       "source": "Frederiks et al. 2015",
       "doi": "10.1093/jxb/erv161",
@@ -1310,7 +2264,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Minimum air temperature within the crop canopy",
+        "equation": "Tcanopy_min <=-3.5 C; one daily minimum by default.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "Requires canopy temperature or a validated station-to-canopy model. 2 m temperature without that model is not an exact equivalent.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "canopy_temperature_min_c",
+          "resolution": "day",
+          "operator": "<=",
+          "threshold": -3.5,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "Tcanopy_min <=-3.5 C; one daily minimum by default.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "canopy_temperature_min_c",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_HEAT_DAY27_3",
@@ -1321,9 +2299,23 @@
       ],
       "threshold": "> 27.3 °C",
       "exposure": null,
-      "status": "unavailable",
-      "reason": "Daytime metric and consecutive exposure duration are not specified.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Daytime mean is the explicit project mapping of heterogeneous controlled daytime treatments in the synthesis; daily maximum is not substituted.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">",
+        "threshold": 27.3,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 27.3 C.",
+        "profile": "day_mean",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Modeled threshold",
       "source": "Liu et al. 2023",
       "doi": "10.1016/j.xplc.2023.100629",
@@ -1344,7 +2336,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daytime mean 2 m air temperature",
+        "equation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 27.3 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "Daytime mean is the explicit project mapping of heterogeneous controlled daytime treatments in the synthesis; daily maximum is not substituted.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">",
+          "threshold": 27.3,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tday = mean hourly T2m during 06:00–18:00 local solar clock; Tday > 27.3 C.",
+          "profile": "day_mean",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_HEAT_NIGHT19_6",
@@ -1355,9 +2372,23 @@
       ],
       "threshold": "> 19.6 °C",
       "exposure": "7 days",
-      "status": "unavailable",
-      "reason": "Nighttime metric and tentative consecutive exposure interpretation require review.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Fixed local solar-clock night is an operational mapping. The approximate maize estimate is operationalized as >=27.3 C; uncertainty remains in the paper, not a precise universal boundary.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">",
+        "threshold": 19.6,
+        "min_samples": 8,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight > 19.6 C.",
+        "profile": "night_mean",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Modeled threshold — provisional duration",
       "source": "Liu et al. 2023",
       "doi": "10.1016/j.xplc.2023.100629",
@@ -1378,7 +2409,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Nighttime mean 2 m air temperature",
+        "equation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight > 19.6 C.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "The reviewed synthesis says more than one week: >=8 complete nights. Original workbook seven-day value is retained as source metadata, with this correction explicit.",
+        "note": "Fixed local solar-clock night is an operational mapping. The approximate maize estimate is operationalized as >=27.3 C; uncertainty remains in the paper, not a precise universal boundary.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">",
+          "threshold": 19.6,
+          "min_samples": 8,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tnight = mean hourly T2m during 18:00–06:00 local solar clock; Tnight > 19.6 C.",
+          "profile": "night_mean",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_WATERLOG_Z65_3D",
@@ -1389,9 +2445,22 @@
       ],
       "threshold": "≥ 3 days",
       "exposure": "3 days",
-      "status": "unavailable",
-      "reason": "Requires daily waterlogging observations. The three-day experimental treatment is not a validated damage threshold.",
-      "spec": null,
+      "status": "external",
+      "reason": "Daily hydrology or root-zone oxygen/water-table model required. This is a treatment indicator, not a demonstrated three-day yield-loss onset.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "waterlogged",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 1,
+        "min_samples": 3,
+        "unit": "0/1",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "I = 1 for a complete waterlogged day; run(I=1) >=3 days.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging experimental treatment",
       "source": "Ma et al. 2022",
       "doi": "10.3389/fpls.2022.944308",
@@ -1413,7 +2482,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Daily complete root-zone-waterlogging indicator",
+        "equation": "I = 1 for a complete waterlogged day; run(I=1) >=3 days.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Daily hydrology or root-zone oxygen/water-table model required. This is a treatment indicator, not a demonstrated three-day yield-loss onset.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "waterlogged",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 1,
+          "min_samples": 3,
+          "unit": "0/1",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "I = 1 for a complete waterlogged day; run(I=1) >=3 days.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "waterlogged",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_BOOT_COLD_MINUS2_24H",
@@ -1425,18 +2518,20 @@
       "threshold": "≤ -2 °C",
       "exposure": "24 h",
       "status": "operational",
-      "reason": "Frequency of 24 consecutive hourly air temperature samples meeting an experimental exposure; spatial mean at 2 m is a field-scale approximation.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/HOURLY",
-        "resolution": "hour",
         "band": "temperature_2m",
+        "resolution": "hour",
         "operator": "<=",
         "threshold": -2,
         "min_samples": 24,
         "unit": "C",
         "mode": "run",
-        "interpretation": "Frequency of 24 consecutive hourly air temperature samples meeting an experimental exposure; spatial mean at 2 m is a field-scale approximation.",
-        "conversion": "kelvin_to_celsius"
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tair <=-2 C for 24 consecutive hourly samples.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Damaging experimental treatment",
       "source": "Liu et al. 2019",
@@ -1458,7 +2553,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Hourly 2 m air temperature",
+        "equation": "Tair <=-2 C for 24 consecutive hourly samples.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "hour",
+          "operator": "<=",
+          "threshold": -2,
+          "min_samples": 24,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tair <=-2 C for 24 consecutive hourly samples.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_BOOT_HEAT35_30_24H",
@@ -1469,9 +2588,24 @@
       ],
       "threshold": "35/30 °C",
       "exposure": "24 h",
-      "status": "unavailable",
-      "reason": "Paired experimental day/night regime requires a reviewed mapping to local hourly exposures.",
-      "spec": null,
+      "status": "operational",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+      "spec": {
+        "dataset": "ECMWF/ERA5_LAND/HOURLY",
+        "band": "temperature_2m",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 35,
+        "min_samples": 1,
+        "unit": "C",
+        "mode": "run",
+        "conversion": "kelvin_to_celsius",
+        "interpretation": "Tday = mean(06:00–22:00); Tnight = mean(22:00–06:00); paired means >=35/30 C in one complete 24-hour cycle.",
+        "profile": "paired_mean",
+        "secondary_threshold": 30,
+        "day_hours": 16,
+        "night_start": 22
+      },
       "evidence_category": "Damaging experimental treatment",
       "source": "Barber et al. 2017",
       "doi": "https://europepmc.org/articles/PMC5263156",
@@ -1492,7 +2626,33 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Paired 16-hour daytime and 8-hour nighttime mean temperature",
+        "equation": "Tday = mean(06:00–22:00); Tnight = mean(22:00–06:00); paired means >=35/30 C in one complete 24-hour cycle.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "temperature_2m",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 35,
+          "min_samples": 1,
+          "unit": "C",
+          "mode": "run",
+          "conversion": "kelvin_to_celsius",
+          "interpretation": "Tday = mean(06:00–22:00); Tnight = mean(22:00–06:00); paired means >=35/30 C in one complete 24-hour cycle.",
+          "profile": "paired_mean",
+          "secondary_threshold": 30,
+          "day_hours": 16,
+          "night_start": 22
+        },
+        "csv_variable": "temperature_2m",
+        "evidence_update": "Barber et al. 2017 methods: 24 h treatment, 16 h day, night 22:00–06:00; reviewed workbook row 58."
+      }
     },
     {
       "rule_id": "WHEAT_HNT_POSTANTHESIS_DELTA3_8",
@@ -1503,9 +2663,22 @@
       ],
       "threshold": "≥ +3.8 °C",
       "exposure": "Every night from 50% anthesis to maturity",
-      "status": "unavailable",
-      "reason": "Temperature difference is relative to a paired experimental control, not an ERA5 climatological anomaly.",
-      "spec": null,
+      "status": "external",
+      "reason": "The source applies warming every night across the treatment period. One night is an analysis duration, not the duration of the experiment. A climate-normal anomaly is not the experimental counterfactual.",
+      "spec": {
+        "dataset": "User-supplied measured or independently modelled series",
+        "band": "night_temperature_difference_c",
+        "resolution": "day",
+        "operator": ">=",
+        "threshold": 3.8,
+        "min_samples": 1,
+        "unit": "C difference",
+        "mode": "run",
+        "conversion": "identity",
+        "interpretation": "DeltaTnight = mean(Tnight_treatment)-mean(Tnight_control) >=3.8 C.",
+        "day_hours": 12,
+        "night_start": 18
+      },
       "evidence_category": "Damaging field treatment",
       "source": "Hein et al. 2020",
       "doi": "10.1038/s41598-020-79179-0",
@@ -1527,7 +2700,31 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Nighttime mean air-temperature difference against a matched control",
+        "equation": "DeltaTnight = mean(Tnight_treatment)-mean(Tnight_control) >=3.8 C.",
+        "access": "import",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Project analysis duration defaults to one sample because the reviewed paper does not establish a duration-specific breakpoint. Change duration for sensitivity analysis; it is not plant tolerance.",
+        "note": "The source applies warming every night across the treatment period. One night is an analysis duration, not the duration of the experiment. A climate-normal anomaly is not the experimental counterfactual.",
+        "spec": {
+          "dataset": "User-supplied measured or independently modelled series",
+          "band": "night_temperature_difference_c",
+          "resolution": "day",
+          "operator": ">=",
+          "threshold": 3.8,
+          "min_samples": 1,
+          "unit": "C difference",
+          "mode": "run",
+          "conversion": "identity",
+          "interpretation": "DeltaTnight = mean(Tnight_treatment)-mean(Tnight_control) >=3.8 C.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "night_temperature_difference_c",
+        "evidence_update": null
+      }
     },
     {
       "rule_id": "WHEAT_RIPENING_RAIN5_8H",
@@ -1539,18 +2736,20 @@
       "threshold": "≥ 5 mm/h",
       "exposure": "8 h",
       "status": "operational",
-      "reason": "Operational eight consecutive hourly increments meeting the reviewed rainfall treatment. Experimental exposure frequency, not validated sprouting probability.",
+      "reason": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
       "spec": {
         "dataset": "ECMWF/ERA5_LAND/HOURLY",
-        "resolution": "hour",
         "band": "total_precipitation_hourly",
+        "resolution": "hour",
         "operator": ">=",
         "threshold": 5,
         "min_samples": 8,
         "unit": "mm/hour",
         "mode": "run",
-        "interpretation": "Operational eight consecutive hourly increments meeting the reviewed rainfall treatment. Experimental exposure frequency, not validated sprouting probability.",
-        "conversion": "metres_to_mm"
+        "conversion": "metres_to_mm",
+        "interpretation": "Phour = total_precipitation_hourly * 1000; Phour >=5 mm/hour for 8 consecutive hours. Source timestamp is hour-end.",
+        "day_hours": 12,
+        "night_start": 18
       },
       "evidence_category": "Verified operational threshold",
       "source": "Kang et al. 2024",
@@ -1572,7 +2771,32 @@
             }
           ]
         }
-      ]
+      ],
+      "equivalence": {
+        "variable": "Hourly accumulated precipitation",
+        "equation": "Phour = total_precipitation_hourly * 1000; Phour >=5 mm/hour for 8 consecutive hours. Source timestamp is hour-end.",
+        "access": "gee",
+        "equivalence": "Operational transfer of reviewed exposure",
+        "duration_basis": "Reviewed exposure duration; not maximum plant tolerance",
+        "note": "Meteorological exposure frequency; experimental transfer is not calibrated crop damage probability.",
+        "spec": {
+          "dataset": "ECMWF/ERA5_LAND/HOURLY",
+          "band": "total_precipitation_hourly",
+          "resolution": "hour",
+          "operator": ">=",
+          "threshold": 5,
+          "min_samples": 8,
+          "unit": "mm/hour",
+          "mode": "run",
+          "conversion": "metres_to_mm",
+          "interpretation": "Phour = total_precipitation_hourly * 1000; Phour >=5 mm/hour for 8 consecutive hours. Source timestamp is hour-end.",
+          "day_hours": 12,
+          "night_start": 18
+        },
+        "csv_variable": "total_precipitation_hourly",
+        "evidence_update": null
+      }
     }
-  ]
+  ],
+  "interpretation": "Every retained rule has an explicit measurement and event definition. GEE transfers and project proxies are distinguished from exact external measurements. No universal maximum plant tolerance is inferred."
 }

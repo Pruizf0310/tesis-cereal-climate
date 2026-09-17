@@ -4,7 +4,8 @@ export interface PixelCalendarManifest {
   source: string;
   source_doi: string;
   shared_window_policy: string;
-  crops: Record<string, {label: string; seasons: Record<string, {label: string; water_label: string; water_system: string; url: string; pixel_count: number}>}>;
+  version?:string;
+  crops: Record<string, {label: string; seasons: Record<string, {label: string; water_label: string; water_system: string; url: string; regional_url?:string; pixel_count: number}>}>;
 }
 export interface PixelCalendarData {
   crop: string;

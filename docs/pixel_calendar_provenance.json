@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-16",
+  "version": "regional-v4-2026-09-16",
   "source": "GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates",
   "source_doi": "10.5281/zenodo.5062513",
   "phases": [
@@ -28,7 +28,7 @@
       "name": "Maturation"
     }
   ],
-  "shared_window_policy": "Unite macro-phases with unresolved internal boundaries into one consecutive interval. Each day is counted exactly once; multiple triggers may be evaluated in the united window. No invented temporal split.",
+  "shared_window_policy": "Six consecutive operational macro-phases from intact technical blocks. Original boundaries conserved; correspondence revisions and limitations are recorded in six_phase_correspondence_v4.json.",
   "crops": {
     "maize": {
       "label": "Maize",
@@ -38,14 +38,16 @@
           "water_system": "ir",
           "water_label": "Irrigated",
           "url": "/data/pixel-calendars/maize-maize__ir.json",
-          "pixel_count": 10923
+          "pixel_count": 10923,
+          "regional_url": "/data/regional-calendars/maize-maize__ir.json"
         },
         "maize__rf": {
           "label": "Maize",
           "water_system": "rf",
           "water_label": "Rainfed",
           "url": "/data/pixel-calendars/maize-maize__rf.json",
-          "pixel_count": 10923
+          "pixel_count": 10923,
+          "regional_url": "/data/regional-calendars/maize-maize__rf.json"
         }
       }
     },
@@ -57,28 +59,32 @@
           "water_system": "ir",
           "water_label": "Irrigated",
           "url": "/data/pixel-calendars/rice-rice_1__ir.json",
-          "pixel_count": 3186
+          "pixel_count": 3186,
+          "regional_url": "/data/regional-calendars/rice-rice_1__ir.json"
         },
         "rice_1__rf": {
           "label": "Rice 1",
           "water_system": "rf",
           "water_label": "Rainfed",
           "url": "/data/pixel-calendars/rice-rice_1__rf.json",
-          "pixel_count": 3186
+          "pixel_count": 3186,
+          "regional_url": "/data/regional-calendars/rice-rice_1__rf.json"
         },
         "rice_2__ir": {
           "label": "Rice 2",
           "water_system": "ir",
           "water_label": "Irrigated",
           "url": "/data/pixel-calendars/rice-rice_2__ir.json",
-          "pixel_count": 2884
+          "pixel_count": 2884,
+          "regional_url": "/data/regional-calendars/rice-rice_2__ir.json"
         },
         "rice_2__rf": {
           "label": "Rice 2",
           "water_system": "rf",
           "water_label": "Rainfed",
           "url": "/data/pixel-calendars/rice-rice_2__rf.json",
-          "pixel_count": 2884
+          "pixel_count": 2884,
+          "regional_url": "/data/regional-calendars/rice-rice_2__rf.json"
         }
       }
     },
@@ -90,14 +96,16 @@
           "water_system": "ir",
           "water_label": "Irrigated",
           "url": "/data/pixel-calendars/soybean-soybean__ir.json",
-          "pixel_count": 4955
+          "pixel_count": 4955,
+          "regional_url": "/data/regional-calendars/soybean-soybean__ir.json"
         },
         "soybean__rf": {
           "label": "Soybean",
           "water_system": "rf",
           "water_label": "Rainfed",
           "url": "/data/pixel-calendars/soybean-soybean__rf.json",
-          "pixel_count": 4955
+          "pixel_count": 4955,
+          "regional_url": "/data/regional-calendars/soybean-soybean__rf.json"
         }
       }
     },
@@ -109,28 +117,32 @@
           "water_system": "ir",
           "water_label": "Irrigated",
           "url": "/data/pixel-calendars/wheat-spring_wheat__ir.json",
-          "pixel_count": 10505
+          "pixel_count": 10505,
+          "regional_url": "/data/regional-calendars/wheat-spring_wheat__ir.json"
         },
         "spring_wheat__rf": {
           "label": "Spring Wheat",
           "water_system": "rf",
           "water_label": "Rainfed",
           "url": "/data/pixel-calendars/wheat-spring_wheat__rf.json",
-          "pixel_count": 10505
+          "pixel_count": 10505,
+          "regional_url": "/data/regional-calendars/wheat-spring_wheat__rf.json"
         },
         "winter_wheat__ir": {
           "label": "Winter Wheat",
           "water_system": "ir",
           "water_label": "Irrigated",
           "url": "/data/pixel-calendars/wheat-winter_wheat__ir.json",
-          "pixel_count": 10505
+          "pixel_count": 10505,
+          "regional_url": "/data/regional-calendars/wheat-winter_wheat__ir.json"
         },
         "winter_wheat__rf": {
           "label": "Winter Wheat",
           "water_system": "rf",
           "water_label": "Rainfed",
           "url": "/data/pixel-calendars/wheat-winter_wheat__rf.json",
-          "pixel_count": 10505
+          "pixel_count": 10505,
+          "regional_url": "/data/regional-calendars/wheat-winter_wheat__rf.json"
         }
       }
     }
@@ -147,6 +159,15 @@
     {
       "path": "metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx",
       "sha256": "cf4052536715a29402e67f5dcacdefaac10b23fcf6ecbaab4ea4a952e8b60e5f"
+    },
+    {
+      "path": "metadata/six_phase_correspondence_v4.json",
+      "sha256": "77456c753edb9f727b7528b066d4a6bff13ea279939065e6221588c18f1260f9"
+    },
+    {
+      "path": "web-v2/public/data/phase_pixel_inventory.csv",
+      "sha256": "b5250757ff4758754ad32b2701e6b3959f38879f27819c422aa734b091fed1cd"
     }
-  ]
+  ],
+  "regional_selection": "Choose a latitude band, longitude sector and planting regime. Weather and calendar dates can vary within a band."
 }

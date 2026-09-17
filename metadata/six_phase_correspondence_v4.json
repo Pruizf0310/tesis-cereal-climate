@@ -1,0 +1,44 @@
+{
+  "version": "regional-v4-2026-09-16",
+  "decision": "Operational six-phase partition of the eight archived technical intervals. Original dates are conserved. Biological development overlaps; this mutually exclusive partition is an analysis convention, not a claim of non-overlapping physiology or observed intermediate dates.",
+  "overrides": {
+    "maize": {
+      "R1": [
+        "FLO"
+      ],
+      "R2": [
+        "REP"
+      ]
+    },
+    "rice": {
+      "BBCH_30_39": [
+        "REP"
+      ]
+    },
+    "soybean": {
+      "R6_R7": [
+        "FIL"
+      ]
+    }
+  },
+  "rationale": {
+    "maize": "R1 covers silking/flowering. R2 blister is allocated to early kernel development (REP), while R3 and R4_R5 cover subsequent milk/dough/dent filling. Starch accumulation can already begin in R2; the partition is operational. The lag-stage experimental window is not asserted to match R2 exactly. The additional maize REP hazard remains unassigned.",
+    "rice": "BBCH 30 begins panicle initiation, the reproductive transition in IRRI descriptions. Allocate the entire BBCH_30_39 block to REP together with booting/heading, before FLO. VEG retains leaf development and tillering. No internal date is invented.",
+    "soybean": "R5 through the archived R6_R7 interval represents filling up to the onset of maturity; R8 is the archived maturity/dry-down interval. The aggregate R6_R7 boundary does not resolve the exact observed R7 date. MAT is therefore the archived terminal maturity window, an explicitly estimated operational boundary."
+  },
+  "sources": {
+    "maize": [
+      "https://ipmworld.umn.edu/maize-insect-pests-maize-growth-development",
+      "https://www.udel.edu/academics/colleges/canr/cooperative-extension/fact-sheets/corn-growth-stages-and-management/"
+    ],
+    "rice": [
+      "https://www.knowledgebank.irri.org/ericeproduction/0.2._Growth_stages_of_the_rice_plant.htm",
+      "https://books.irri.org/0471097608_content.pdf",
+      "https://books.irri.org/0851996361_content.pdf"
+    ],
+    "soybean": [
+      "https://www.extension.msstate.edu/publications/guide-soybean-growth-stages",
+      "https://cropwatch.unl.edu/setting-yield-soybean-and-avoiding-end-season-plant-stress-unl-cropwatch-aug-23-2013/"
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, createContext, useContext, useEffect, useMemo, useState } from "react";
+import type {AuditedRule} from '@/lib/hazard-events';
 import { ActivitySquare, ChevronDown, ExternalLink, Sprout, Waves, Wheat } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { maizeReproductiveEvidence } from "@/lib/maize-reproductive-evidence";
@@ -46,6 +47,7 @@ const CROPS: { id: HazardRow["crop"]; label: string; icon: React.ReactNode }[] =
   { id: "soybean", label: "Soybean", icon: <ActivitySquare className="h-3.5 w-3.5" /> },
   { id: "wheat", label: "Wheat", icon: <Wheat className="h-3.5 w-3.5" /> }
 ];
+const Equivalences=createContext<Record<string,AuditedRule>>({});
 
 const CATEGORY_CLASS: Record<string, string> = {
   "Modeled threshold": "border-cool/35 bg-cool/[0.08] text-cool",
@@ -69,9 +71,11 @@ export function RiskPivotV2() {
   const [payload, setPayload] = useState<HazardPayload | null>(null);
   const [cropId, setCropId] = useState<HazardRow["crop"]>("maize");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  const [equivalences,setEquivalences]=useState<Record<string,AuditedRule>>({});
 
   useEffect(() => {
     fetch("/data/hazard_impact_harmonized_v3.json").then((res) => res.json()).then((data: HazardPayload) => setPayload(data));
+    fetch('/data/gee_rule_audit.json').then(r=>r.json()).then(a=>setEquivalences(Object.fromEntries(a.rules.map((r:AuditedRule)=>[r.rule_id,r])))).catch(()=>setEquivalences({}));
   }, []);
 
   const rows = useMemo(
@@ -84,7 +88,7 @@ export function RiskPivotV2() {
   if (!payload) return <div className="mt-6 grid h-[280px] place-items-center rounded-sm border border-line glass"><div className="h-2 w-36 animate-pulse rounded-full bg-warm/40" /></div>;
 
   return (
-    <div className="mt-6 overflow-hidden rounded-sm border border-line glass animate-fade-up">
+    <Equivalences.Provider value={equivalences}><div className="mt-6 overflow-hidden rounded-sm border border-line glass animate-fade-up">
       <div className="flex flex-col gap-4 border-b border-line px-4 py-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-wrap items-center gap-2">
           {CROPS.map((crop) => (
@@ -133,7 +137,7 @@ export function RiskPivotV2() {
         </section>)}
       </div>
       <div className="border-t border-line px-4 py-3 text-[10.5px] text-ink-mute">Source: {payload.source}. {payload.interpretation}</div>
-    </div>
+    </div></Equivalences.Provider>
   );
 }
 
@@ -141,7 +145,7 @@ function HazardTableRow({ row, open, onToggle }: { row: HazardRow; open: boolean
   return <>
     <tr className="border-b border-line/55 text-[11.5px] hover:bg-white/[0.02]">
       <Td className="max-w-[210px]"><span className="font-mono text-[9.5px] text-cool">{row.phase_code}</span><span className="mt-1 block font-medium text-ink">{row.derived_stage}</span></Td>
-      <Td className="max-w-[190px] text-ink-dim">{row.hazard}<span className="mt-2 block text-[10px] text-cool">{row.variable ?? "Pending assignment"}</span></Td>
+      <Td className="max-w-[190px] text-ink-dim">{row.hazard}<VariableName row={row}/></Td>
       <Td className="max-w-[280px] text-ink-dim"><Exposure row={row} /></Td>
       <Td className="max-w-[290px] text-ink-dim">{row.qualitative_impact}</Td>
       <Td className="max-w-[230px] font-mono text-[10.5px] text-ink">{row.quantitative_impact}</Td>
@@ -155,7 +159,7 @@ function HazardTableRow({ row, open, onToggle }: { row: HazardRow; open: boolean
 function HazardCard({ row, open, onToggle }: { row: HazardRow; open: boolean; onToggle: () => void }) {
   return <article className="rounded-sm border border-line bg-white/[0.02] p-4">
     <div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[10px] text-cool">{row.phase_code}</p><p className="mt-1 text-[12px] font-medium text-ink">{row.derived_stage}</p></div><CategoryBadge category={row.category} /></div>
-    <p className="mt-3 text-[11px] text-ink-dim"><span className="font-medium text-ink">{row.hazard}</span><span className="mt-1 block text-cool">{row.variable ?? "Pending assignment"}</span></p>
+    <div className="mt-3 text-[11px] text-ink-dim"><span className="font-medium text-ink">{row.hazard}</span><VariableName row={row}/></div>
     <div className="mt-2 text-[11px] text-ink-dim"><Exposure row={row} /></div>
     <div className="mt-3 grid gap-2 text-[10.5px]"><Info label="Qualitative impact" value={row.qualitative_impact} /><Info label="Quantitative impact" value={row.quantitative_impact} /></div>
     <button type="button" onClick={onToggle} className="mt-3 flex h-8 items-center gap-2 rounded-sm border border-line px-2.5 text-[11px] text-ink-dim"><ChevronDown className={cn("h-3.5 w-3.5", open && "rotate-180")} />Details</button>
@@ -164,7 +168,9 @@ function HazardCard({ row, open, onToggle }: { row: HazardRow; open: boolean; on
 }
 
 function Details({ details }: { details: HazardDetails }) {
+  const rule=useContext(Equivalences)[details.rule_id];
   return <div className="grid gap-3 text-[11px] leading-relaxed text-ink-dim lg:grid-cols-3">
+    {rule?.equivalence&&<><Info label="Exact analysis variable" value={rule.equivalence.variable}/><Info label="Operational equation" value={rule.equivalence.equation}/><Info label="Equivalence and required data" value={rule.equivalence.note}/><Info label="Duration interpretation" value={rule.equivalence.duration_basis}/>{rule.equivalence.evidence_update&&<Info label="Evidence clarification" value={rule.equivalence.evidence_update}/>}</>}
     <Info label="Rule ID" value={details.rule_id} /><Info label="Evidence type" value={details.evidence_type} /><Info label="Spatial scope" value={details.spatial_scope} />
     <Info label="Source" value={details.source} />
     {details.source_assignments?.map((assignment) => <Info key={assignment.review_row} label={`Original assignment · review row ${assignment.review_row}`} value={`${assignment.source_phase}. Source pages: ${assignment.source_pages}. Reviewed paper macro-phases: ${assignment.paper_macro_phases.join(" + ")}. ${assignment.assignment_note}`} />)}
@@ -175,12 +181,15 @@ function Details({ details }: { details: HazardDetails }) {
 }
 
 function Exposure({ row }: { row: HazardRow }) {
+  const rule=useContext(Equivalences)[row.details.rule_id];
   return <div className="space-y-1">
     <p className="font-mono text-ink">{row.exact_threshold ?? (row.category === "Pending assignment" ? "Not assigned" : "Not specified")}</p>
     <p>Exposure: {row.consecutive_exposure ?? (row.category === "Pending assignment" ? "Not assigned" : "Not specified in the reviewed workbook")}</p>
+    {rule?.spec&&<p className="text-[10px] text-cool">Calculation default: {rule.spec.min_samples} {rule.spec.mode==='accumulated'?'accumulated':'consecutive'} {rule.spec.resolution==='hour'?'hours':'daily cycles'}. {rule.equivalence?.access==='gee'?'GEE measurement / explicit transfer':'Exact external series'}. See equation and duration basis in Details.</p>}
     <p className="text-[10px] leading-relaxed text-ink-mute">{row.threshold}</p>
   </div>;
 }
+function VariableName({row}:{row:HazardRow}){const rule=useContext(Equivalences)[row.details.rule_id];return <span className="mt-2 block text-[10px] text-cool">{rule?.equivalence?.variable??row.variable??'Pending assignment'}</span>;}
 
 function toHref(value: string) { return value.startsWith("http") ? value : `https://doi.org/${value}`; }
 function CategoryBadge({ category }: { category: string }) { return <span className={cn("inline-flex max-w-[180px] rounded-[2px] border px-2 py-1 text-[9.5px] font-medium", CATEGORY_CLASS[category] ?? CATEGORY_CLASS["Evidence gap"])}>{category}</span>; }

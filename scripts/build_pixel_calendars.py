@@ -7,6 +7,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CALENDAR = ROOT/'outputs/fenologia_v1/tabla_maestra_fenologia_global_v1.xlsx'
 MATRIX = CALENDAR.with_suffix('.csv.gz')
 REVIEW = ROOT/'metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx'
+CORRESPONDENCE = ROOT/'metadata/six_phase_correspondence_v4.json'
+correspondence=json.loads(CORRESPONDENCE.read_text())
 OUT = ROOT/'web-v2/public/data/pixel-calendars'
 OUT.mkdir(exist_ok=True)
 catalog_book = openpyxl.load_workbook(CALENDAR, read_only=True, data_only=True)
@@ -27,7 +29,10 @@ for crop in labels:
   code = row['phase_code']
   mapped = [str(r[0])[:3] for r in crosswalk[10:16] if re.search(r'(?<![A-Z0-9_])'+re.escape(code)+r'(?![A-Z0-9_])',str(r[columns[crop]]))]
   assert mapped, (crop,code)
-  templates[crop].append(dict(code=code,name=phase_names[crop][code],macro_phases=mapped,
+  operational=correspondence['overrides'].get(crop,{}).get(code,mapped)
+  assert len(operational)==1,(crop,code,operational)
+  templates[crop].append(dict(code=code,name=phase_names[crop][code],macro_phases=operational,reviewed_macro_phases=mapped,
+    correspondence_version=correspondence['version'],correspondence_note=correspondence['rationale'].get(crop,'Original reviewed correspondence retained.'),
     fraction_start=float(row['fraction_start']),fraction_end=float(row['fraction_end']),
     timing_basis='Estimated from normalized cycle fractions; not observed phase dates',
     workbook_sheet='Catálogo fases',crosswalk_sheet='Hoja1'))
@@ -53,11 +58,11 @@ for (crop,season_id), pixels in seasons.items():
  compact={k:[v['planting_doy'],v['cycle_days'],v['uncertainty_days'],*[b[0] for b in v['bounds']],v['bounds'][-1][1]] for k,v in pixels.items()}
  payload=dict(crop=crop,season_id=season_id,templates=templates[crop],pixels=compact)
  (OUT/f'{crop}-{season_id}.json').write_text(json.dumps(payload,separators=(',',':'))+'\n')
-manifest=dict(version='2026-09-16',source='GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates',
+manifest=dict(version=correspondence['version'],source='GGCMI Phase 3 v1.01 endpoints and archived normalized phase estimates',
  source_doi='10.5281/zenodo.5062513',phases=[dict(code=k,name=v) for k,v in names.items()],
- shared_window_policy='Unite macro-phases with unresolved internal boundaries into one consecutive interval. Each day is counted exactly once; multiple triggers may be evaluated in the united window. No invented temporal split.',
+ shared_window_policy='Six consecutive operational macro-phases from intact technical blocks. Original boundaries conserved; correspondence revisions and limitations are recorded in six_phase_correspondence_v4.json.',
  crops={crop:dict(label=label,seasons={sid:dict(label=sid.split('__')[0].replace('_',' ').title(),water_system=sid.split('__')[1],water_label='Rainfed' if sid.endswith('__rf') else 'Irrigated',url=f'/data/pixel-calendars/{crop}-{sid}.json',pixel_count=len(pixels)) for (c,sid),pixels in seasons.items() if c==crop}) for crop,label in labels.items()},
- inputs=[dict(path=str(p.relative_to(ROOT)).replace('\\','/'),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in (CALENDAR,MATRIX,REVIEW)])
+ inputs=[dict(path=str(p.relative_to(ROOT)).replace('\\','/'),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in (CALENDAR,MATRIX,REVIEW,CORRESPONDENCE)])
 (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 (ROOT/'docs/pixel_calendar_provenance.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print(f'Validated {count} original phase rows and {sum(len(p) for p in seasons.values())} coordinate calendars; {len(seasons)} season files.')

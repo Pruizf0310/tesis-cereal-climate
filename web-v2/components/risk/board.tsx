@@ -1,6 +1,6 @@
 "use client";
 
-import { PhenologyCalendar } from "./phenology-calendar";
+import { PhenologyCalendar } from "./regional-phenology-calendar";
 import { RiskPivotV2 } from "./risk-pivot-v2";
 
 export function RiskBoard() {
@@ -9,7 +9,7 @@ export function RiskBoard() {
       <aside className="rounded-sm border border-line p-4 text-[12px] leading-relaxed text-ink-dim">
         <h2 className="font-medium text-ink">Scientific basis for phase harmonization</h2>
         <p className="mt-2">The reviewed studies use different stage names, codes and boundaries. We map their biological descriptions to six project macro-phases: EST, VEG, FLO, REP, FIL and MAT. This is a research crosswalk; original crop scales and source evidence remain traceable in the details. REP may occur before or after flowering depending on the crop.</p>
-        <p className="mt-2">Shared calendar windows remain combined when separate dates are unsupported. A phase match does not turn an experimental treatment into a validated damage threshold. Maize REP is reserved pending hazard assignment.</p>
+        <p className="mt-2">The six-phase operational partition preserves the original technical intervals and records correspondence revisions. Intermediate dates remain estimates. A phase match does not turn an experimental treatment into a validated damage threshold. Maize REP is reserved pending hazard assignment.</p>
         <a href="https://doi.org/10.3390/agronomy13082126" target="_blank" rel="noreferrer" className="mt-2 inline-block text-cool underline">Example: Zhang et al. (2023), lag stage versus effective grain filling</a>
       </aside>
       <section>
@@ -21,7 +21,7 @@ export function RiskBoard() {
             </h2>
           </div>
           <p className="max-w-[520px] text-[11.5px] leading-relaxed text-ink-mute sm:text-right">
-            Six macro-phase definitions at the selected coordinate. Consecutive estimated intervals preserve original dates; inseparable phases form one combined window.
+            Six consecutive phases for the selected latitude band and longitude/planting zone. A representative archived calendar preserves original dates; the range of cycle lengths remains visible.
           </p>
         </div>
         <PhenologyCalendar />
