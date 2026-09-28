@@ -1,5 +1,7 @@
 # Territorial exposure atlas
 
+> Navigation restored on 2026-09-28: `/` now redirects to `/risk`, the regional phenology calendar and reviewed hazard/threshold matrix. The unfinished atlas is no longer the home page or a navigation entry. Its implementation is retained for further development; no scientific calendar or hazard assets were removed or reverted. The sections below describe the experimental atlas implementation.
+
 The home page now explores the crop inventory spatially. `/explorer` retains the yield explorer, `/calculator` retains detailed analysis, and `/signals` redirects to `/`.
 
 The interface is in English with consistent system typography and sentence case. A sequential blue scale runs from light (low frequency) to dark (high frequency), using the same boundaries across stages. Pending and insufficient-coverage states use a separate neutral legend. The selected climate variable, threshold, exposure condition and data source remain visible above the map.

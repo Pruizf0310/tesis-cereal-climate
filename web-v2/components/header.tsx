@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const NAV = [
-  { href: "/", label: "Exposure atlas" },
+  { href: "/risk", label: "Calendar & hazards" },
   { href: "/explorer", label: "Yields" },
-  { href: "/calculator", label: "Detailed analysis" },
+  { href: "/calculator", label: "Calculator" },
   { href: "/about", label: "Methods" }
 ];
 

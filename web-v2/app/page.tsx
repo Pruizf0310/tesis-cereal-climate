@@ -1,11 +1,11 @@
-import { ProbabilityAtlas } from "@/components/atlas/probability-atlas";
+import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Hazard occurrence atlas",
+  title: "Crop calendars, hazards and thresholds",
   description:
-    "Explore how climate variability shapes rice, maize, wheat and soybean systems across the world."
+    "Regional crop calendars, phenological stages, reviewed climate hazards and their thresholds."
 };
 
 export default function ExplorerPage() {
-  return <ProbabilityAtlas />;
+  redirect('/risk');
 }

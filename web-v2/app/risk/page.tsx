@@ -1,8 +1,8 @@
 import { RiskBoard } from "@/components/risk/board";
 
 export const metadata = {
-  title: "Risk · Phenology",
-  description: "Typical phenology calendars and crop-stage windows for climate hazard interpretation."
+  title: "Crop calendars, hazards and thresholds",
+  description: "Regional phenology calendars and reviewed crop-stage hazards, variables, thresholds and exposure durations."
 };
 
 export default function RiskPage() {
@@ -11,9 +11,9 @@ export default function RiskPage() {
       <div className="grid-bg absolute inset-0 opacity-40 pointer-events-none" />
       <div className="relative mx-auto max-w-[1400px] px-6 pb-24 pt-16">
         <header className="max-w-[820px] animate-fade-up">
-          <p className="kicker">Risk</p>
-          <h1 className="mt-3 font-display text-[clamp(2.2rem,4.2vw,3.6rem)] font-medium leading-[1] tracking-tightest text-ink">
-            Risk · Phenological hazard windows
+          <p className="kicker">Crop phenology</p>
+          <h1 className="mt-3 font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+            Calendars, hazards and thresholds
           </h1>
           <p className="mt-5 max-w-[640px] text-[14.5px] leading-relaxed text-ink-dim">
             Explore the harmonized phases of maize, rice, soybean and wheat by season,
