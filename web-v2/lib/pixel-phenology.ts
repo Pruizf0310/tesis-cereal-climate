@@ -5,6 +5,7 @@ export interface PixelCalendarManifest {
   source_doi: string;
   shared_window_policy: string;
   version?:string;
+  inputs?: {path:string;sha256:string}[];
   crops: Record<string, {label: string; seasons: Record<string, {label: string; water_label: string; water_system: string; url: string; regional_url?:string; pixel_count: number}>}>;
 }
 export interface PixelCalendarData {
