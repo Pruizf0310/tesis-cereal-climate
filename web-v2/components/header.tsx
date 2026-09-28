@@ -2,22 +2,23 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const NAV = [
-  { href: "/", label: "Explorer" },
-  { href: "/signals", label: "Signals" },
-  { href: "/risk", label: "Risk" },
-  { href: "/calculator", label: "Calculator" },
-  { href: "/about", label: "About" }
+  { href: "/", label: "Exposure atlas" },
+  { href: "/explorer", label: "Yields" },
+  { href: "/calculator", label: "Detailed analysis" },
+  { href: "/about", label: "Methods" }
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const atlas = usePathname() === "/";
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between border-b border-line bg-bg-deep/60 px-6 backdrop-blur-md">
+      <header className={`${atlas ? 'atlas-site-header' : ''} fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between border-b border-line bg-bg-deep/60 px-6 backdrop-blur-md`}>
         <Link href="/" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <img
             src="/cerealrisk-icon.jpg"
@@ -59,7 +60,7 @@ export function Header() {
 
       {/* Mobile nav dropdown */}
       {open && (
-        <div className="fixed inset-x-0 top-14 z-40 border-b border-line bg-bg-deep/95 backdrop-blur-md md:hidden">
+        <div className={`${atlas ? 'atlas-site-header' : ''} fixed inset-x-0 top-14 z-40 border-b border-line bg-bg-deep/95 backdrop-blur-md md:hidden`}>
           <nav className="flex flex-col px-4 py-3">
             {NAV.map(({ href, label }) => (
               <Link
