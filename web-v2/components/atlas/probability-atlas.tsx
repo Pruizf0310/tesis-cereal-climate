@@ -19,9 +19,9 @@ async function readJson(url:string,signal?:AbortSignal){const r=await fetch(url,
 export function ProbabilityAtlas(){
   const [manifest,setManifest]=useState<PixelCalendarManifest|null>(null),[rules,setRules]=useState<AuditedRule[]>([]);
   const [data,setData]=useState<PixelCalendarData|null>(null),[regions,setRegions]=useState<RegionalCalendar|null>(null);
-  const [crop,setCrop]=useState('maize'),[season,setSeason]=useState('maize__rf'),[ruleId,setRuleId]=useState(''),[phase,setPhase]=useState('EST');
+  const [crop,setCrop]=useState('rice'),[season,setSeason]=useState('rice_1__rf'),[ruleId,setRuleId]=useState('RICE_RAIN25'),[phase,setPhase]=useState('REP');
   const [first,setFirst]=useState(1981),[last,setLast]=useState(2016),[range,setRange]=useState(-1),[minimum,setMinimum]=useState(10);
-  const [bounds,setBounds]=useState([-180,-90,180,90]),[scope,setScope]=useState('visible'),[selected,setSelected]=useState('');
+  const [bounds,setBounds]=useState([-180,-90,180,90]),[scope,setScope]=useState('published'),[selected,setSelected]=useState('');
   const [rows,setRows]=useState<Rows>({}),[busy,setBusy]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
   const [configured,setConfigured]=useState<boolean|null>(null),[progress,setProgress]=useState({done:0,total:0});
   const [layers,setLayers]=useState<AtlasLayerEntry[]>([]),[layerState,setLayerState]=useState('loading');
@@ -48,7 +48,7 @@ export function ProbabilityAtlas(){
   },[manifest,crop,season]);
   const choices=useMemo(()=>rules.filter(r=>r.crop===crop),[rules,crop]);
   const rule=choices.find(r=>r.rule_id===ruleId);
-  useEffect(()=>{if(!choices.some(r=>r.rule_id===ruleId))setRuleId(choices.find(r=>r.status==='operational')?.rule_id??choices[0]?.rule_id??'');},[choices,ruleId]);
+  useEffect(()=>{if(choices.length&&!choices.some(r=>r.rule_id===ruleId))setRuleId(choices.find(r=>r.status==='operational')?.rule_id??choices[0]?.rule_id??'');},[choices,ruleId]);
   const cells=useMemo(()=>regions?.bands.flatMap(b=>b.zones.flatMap(z=>z.members.map(cell=>({cell,zone:z.id}))))??[],[regions]);
   const phases=useMemo(()=>{if(!data||!cells.length)return [];const [lat,lon]=cells[0].cell.split(',').map(Number);return pixelWindows(data,lat,lon);},[data,cells]);
   useEffect(()=>{setPhase(current=>phases.some(p=>p.phase_code===current&&rule?.phases.some(c=>p.macro_phases.includes(c)))?current:phases.find(p=>rule?.phases.some(c=>p.macro_phases.includes(c)))?.phase_code??phases[0]?.phase_code??'EST');},[phases,rule]);
@@ -82,17 +82,25 @@ export function ProbabilityAtlas(){
     return()=>clearInterval(timer);
   },[busy]);
   const allRows=useMemo(()=>mergeAtlasRows(published,rows),[published,rows]);
+  const coverageBounds=useMemo<[number,number,number,number]|undefined>(()=>{
+    const coordinates=Object.values(published).filter(r=>r.years.some(y=>typeof y.event==='boolean')).map(r=>r.cell.split(',').map(Number));
+    if(!coordinates.length)return undefined;
+    return [Math.min(...coordinates.map(c=>c[1]))-.25,Math.min(...coordinates.map(c=>c[0]))-.25,Math.max(...coordinates.map(c=>c[1]))+.25,Math.max(...coordinates.map(c=>c[0]))+.25];
+  },[published]);
   const periodRows=useMemo(()=>selectYears(allRows,first,last),[allRows,first,last]);
   const requested=last-first+1;
   const validYears=Number.isInteger(first)&&Number.isInteger(last)&&first>=1981&&last>=first&&last<new Date().getUTCFullYear();
-  const targetCells=useMemo(()=>cells.filter(c=>scope==='all'||withinBounds(c.cell,bounds)),[cells,bounds,scope]);
+  const targetCells=useMemo(()=>{
+    const prepared=new Set(Object.values(published).map(r=>r.cell));
+    return cells.filter(c=>scope==='published'?prepared.has(c.cell):scope==='all'||withinBounds(c.cell,bounds));
+  },[cells,bounds,scope,published]);
   const displayRows=useMemo(()=>cells.map(c=>({...c,...summarizeCell(periodRows[rowKey(c.cell,phase)],requested)})),[cells,periodRows,phase,requested]);
   const qualifies=(s:ReturnType<typeof summarizeCell>)=>!s.partial&&s.valid>=minimum&&s.probability!==null;
   const counts=FREQUENCY_BINS.map((_,i)=>displayRows.filter(s=>qualifies(s)&&frequencyBin(s.probability!)===i).length);
   const ranked=displayRows.filter(s=>qualifies(s)&&(range<0||frequencyBin(s.probability!)===range)).sort((a,b)=>b.probability!-a.probability!||b.valid-a.valid);
   const mapCells:MapCell[]=displayRows.map(s=>{
     const valid=qualifies(s),bin=valid?frequencyBin(s.probability!):-1;
-    return {cell:s.cell,color:valid?FREQUENCY_BINS[bin].color:s.completed?'#747e85':'#aab1b8',opacity:range>=0?(bin===range?.95:.06):valid?.9:.38,label:percentage(s.probability)};
+    return {cell:s.cell,color:valid?FREQUENCY_BINS[bin].color:s.completed?'#747e85':'#aab1b8',opacity:range>=0?(bin===range?.95:.06):valid?.9:.38,label:valid?percentage(s.probability):s.completed?'Insufficient coverage / partial':'Not calculated'};
   });
   const selectedRow=selected?periodRows[rowKey(selected,phase)]:undefined;
   const summary=summarizeCell(selectedRow,requested);
@@ -121,6 +129,7 @@ export function ProbabilityAtlas(){
         const response=await fetch('/api/hazard-probability',{method:'POST',headers:{'Content-Type':'application/json'},signal:c.signal,
           body:JSON.stringify({crop,season_id:season,zone_id:job.zone,phase:job.phase,rule_id:ruleId,lat,lon,year:job.year,summary_only:true})});
         const result=await response.json();if(!response.ok)throw Error(result.error??'Query unavailable');
+        if(atlasSignature(result.rule,result.provenance?.calendar_version,result.provenance?.calendar_inputs)!==signature)throw Error('The source rule or calendar has changed. Reload before calculating.');
         if(typeof result.annual?.evaluable!=='boolean'||(result.annual.evaluable&&typeof result.annual.event_occurred!=='boolean'))throw Error('Incomplete climate response');
         const row=next[key]??{cell:job.cell,phase:job.phase,years:[]};
         row.years=[...row.years.filter(y=>y.year!==job.year),{year:job.year,event:result.annual.evaluable?result.annual.event_occurred:null}];next[key]=row;consecutiveFailures=0;
@@ -142,7 +151,7 @@ export function ProbabilityAtlas(){
     const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`atlas-${crop}-${first}-${last}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
   return <main className="probability-atlas">
-    <header className="atlas-heading"><div><p>CerealRisk / Exposure atlas</p><h1>Historical hazard occurrence</h1><span>Event frequency by crop and growth stage · {first}–{last}</span></div><a href="/about">Methods <ArrowUpRight size={15}/></a></header>
+    <header className="atlas-heading"><div><p>CerealRisk / Historical probability</p><h1>Historical hazard probability</h1><span>Empirical event probability during the growth stage · Planting years {first}–{last}</span></div><a href="/risk">Calendar & hazards <ArrowUpRight size={15}/></a></header>
     <fieldset disabled={busy} className="atlas-toolbar">
       <label>Crop<select value={crop} onChange={e=>{setCrop(e.target.value);const seasons=Object.keys(manifest?.crops[e.target.value]?.seasons??{});setSeason(seasons.find(s=>s.endsWith('__rf'))??seasons[0]??'');setRange(-1);}}>{Object.keys(manifest?.crops??{maize:{}}).map(c=><option key={c} value={c}>{cropNames[c]??c}</option>)}</select></label>
       <label>Season / water system<select value={season} onChange={e=>setSeason(e.target.value)}>{Object.entries(manifest?.crops[crop]?.seasons??{}).map(([id,s])=><option key={id} value={id}>{s.label} · {s.water_label}</option>)}</select></label>
@@ -154,14 +163,15 @@ export function ProbabilityAtlas(){
       <div><span>Threshold</span><strong>{rule.threshold}</strong></div>
       <div><span>Exposure condition</span><strong>{rule.exposure??'Not defined'}</strong></div>
       <div><span>Data source</span><strong>{rule.spec?.dataset??'External time series'}</strong></div>
-      <p>Event frequency = seasons with at least one qualifying event / valid seasons. Percentage ranges describe occurrence, not hazard intensity or crop loss.</p>
+      <p>Historical probability = seasons with at least one qualifying event / evaluable seasons. Estimated phase dates repeat each planting year. This is not a forecast, hazard intensity or crop loss probability.</p>
     </section>}
     {error&&<p className="atlas-message error" role="alert">{error}</p>}
     <div className="atlas-workspace"><section className="atlas-map-section">
       <div className="atlas-phase-tabs" role="tablist" aria-label="Crop growth stages">{phases.map(p=>{const n=cells.filter(c=>{const s=summarizeCell(periodRows[rowKey(c.cell,p.phase_code)],requested);return qualifies(s);}).length;return <button key={p.phase_code} role="tab" aria-selected={phase===p.phase_code} onClick={()=>{setPhase(p.phase_code);setRange(-1);}}><strong>{p.macro_phases.map(c=>phaseNames[c]??c).join(' / ')}</strong><span>{!rule?.phases.some(c=>p.macro_phases.includes(c))?'No assigned rule':`${n.toLocaleString('en-US')} calculated cells`}</span></button>;})}</div>
       <div className="atlas-view-switch"><button aria-pressed={!compare} onClick={()=>setCompare(false)}><Map size={15}/> Map</button><button aria-pressed={compare} onClick={()=>setCompare(true)}><Columns3 size={15}/> Compare stages</button></div>
-      <div hidden={compare}><FrequencyMap cells={mapCells} onSelect={setSelected} onBounds={setBounds}/></div>
-      {compare&&<div className="atlas-small-multiples">{phases.map(p=>{const assigned=rule?.phases.some(c=>p.macro_phases.includes(c));const points=cells.map(c=>{const s=summarizeCell(periodRows[rowKey(c.cell,p.phase_code)],requested),valid=qualifies(s),bin=valid?frequencyBin(s.probability!):-1;return {cell:c.cell,color:valid?FREQUENCY_BINS[bin].color:s.completed?'#747e85':'#aab1b8',opacity:range>=0?(bin===range?.95:.06):valid?.9:.38,label:percentage(s.probability)};});return <section key={p.phase_code}><h3>{p.macro_phases.map(c=>phaseNames[c]??c).join(' / ')}</h3>{assigned?<FrequencyMap compact cells={points} onSelect={cell=>{setPhase(p.phase_code);setSelected(cell);}} onBounds={()=>{}}/>:<div className="atlas-no-rule">No event rule assigned for this hazard</div>}</section>;})}</div>}
+      <div className="atlas-coverage-summary" role="status"><strong>{ranked.length.toLocaleString('en-US')} classified cells{range>=0?' in this range':''}</strong><span>{completedCells.toLocaleString('en-US')} of {cells.length.toLocaleString('en-US')} crop cells processed for this stage. Regional coverage only; gray cells are not low probability.</span></div>
+      <div hidden={compare}><FrequencyMap cells={mapCells} onSelect={setSelected} onBounds={setBounds} coverageBounds={coverageBounds}/></div>
+      {compare&&<div className="atlas-small-multiples">{phases.map(p=>{const assigned=rule?.phases.some(c=>p.macro_phases.includes(c));const points=cells.map(c=>{const s=summarizeCell(periodRows[rowKey(c.cell,p.phase_code)],requested),valid=qualifies(s),bin=valid?frequencyBin(s.probability!):-1;return {cell:c.cell,color:valid?FREQUENCY_BINS[bin].color:s.completed?'#747e85':'#aab1b8',opacity:range>=0?(bin===range?.95:.06):valid?.9:.38,label:percentage(s.probability)};});return <section key={p.phase_code}><h3>{p.macro_phases.map(c=>phaseNames[c]??c).join(' / ')}</h3>{assigned?<FrequencyMap compact cells={points} coverageBounds={coverageBounds} onSelect={cell=>{setPhase(p.phase_code);setSelected(cell);}} onBounds={()=>{}}/>:<div className="atlas-no-rule">No event rule assigned for this hazard</div>}</section>;})}</div>}
       <div className="atlas-legend">
         <div className="atlas-scale-heading"><strong>Historical event frequency</strong><button aria-pressed={range===-1} onClick={()=>setRange(-1)}>All ranges</button></div>
         <div className="atlas-frequency-scale">{FREQUENCY_BINS.map((b,i)=><button key={b.label} aria-pressed={range===i} onClick={()=>setRange(range===i?-1:i)} title={`${b.label}: ${counts[i]} cells`}><i style={{background:b.color}}/><span>{b.label}</span><small>{counts[i].toLocaleString('en-US')} cells</small></button>)}</div>
@@ -170,7 +180,7 @@ export function ProbabilityAtlas(){
       <div className="atlas-map-note"><span>{cells.length.toLocaleString('en-US')} crop cells · {ranked.length.toLocaleString('en-US')} in the selected range</span><label>Minimum valid years <input type="number" min={1} max={Math.max(1,requested)} value={minimum} onChange={e=>setMinimum(Math.max(1,Math.min(Math.max(1,requested),Number(e.target.value)||1)))}/></label></div>
     </section><aside className="atlas-sidebar">
       <h2>Explore an area</h2><p className="atlas-muted">{targetCells.length.toLocaleString('en-US')} cells · {applicable.length} stages with this rule</p>
-      <fieldset disabled={busy}><label>Extent<select value={scope} onChange={e=>setScope(e.target.value)}><option value="visible">Visible map area</option><option value="all">Entire crop inventory</option></select></label></fieldset>
+      <fieldset disabled={busy}><label>Extent<select value={scope} onChange={e=>setScope(e.target.value)}><option value="published">Prepared coverage</option><option value="visible">Visible map area</option><option value="all">Entire crop inventory</option></select></label></fieldset>
       <div className="atlas-layer-status" role="status">
         <strong>{layerState==='loading'?'Loading saved layer…':layerState==='ready'?'Saved annual results loaded':layerState==='error'?'Saved layer could not be loaded':'No published layer for this rule yet'}</strong>
         {savedAt&&<span>Prepared {new Date(savedAt).toLocaleDateString('en-US')}</span>}
@@ -179,7 +189,7 @@ export function ProbabilityAtlas(){
       <div className="atlas-query-count"><strong>{pendingQueries.toLocaleString('en-US')}</strong><span>annual queries still needed · {cachedQueries.toLocaleString('en-US')} already saved</span></div>
       {tooLarge&&<p className="atlas-warning">This area needs a prepared layer. Interactive checks are limited to {MAX_INTERACTIVE_QUERIES} uncached annual queries. Zoom into a smaller area for a local check; global maps require offline preparation.</p>}
       {!validYears&&<p role="alert" className="atlas-warning">Select complete years from 1981 onwards.</p>}
-      {configured===false&&<p className="atlas-warning">Climate data connection is not configured on this server. Crop locations are available; event frequencies require Earth Engine.</p>}
+      {configured===false&&<p className="atlas-warning">Live climate checks are not configured on this server. Published historical probabilities remain available without a new climate query.</p>}
       {rule&&rule.status!=='operational'&&<p className="atlas-warning">This rule requires an external time series. Event frequencies are unavailable with the current connection.</p>}
       <button className="atlas-primary" disabled={busy||!configured||!data||!validYears||!targetCells.length||!applicable.length||rule?.status!=='operational'||tooLarge||pendingQueries===0||layerState==='loading'} onClick={calculate}>{busy?<Loader2 size={16} className="animate-spin"/>:<Play size={16}/>} {busy?'Calculating…':pendingQueries===0?'Saved results ready':tooLarge?'Prepared layer required':'Calculate missing records'}</button>
       {busy&&<button className="atlas-stop" onClick={()=>controller.current?.abort()}><Square size={14}/> Stop and keep results</button>}

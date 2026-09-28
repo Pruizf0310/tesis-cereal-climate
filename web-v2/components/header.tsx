@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 
 const NAV = [
   { href: "/risk", label: "Calendar & hazards" },
+  { href: "/probability", label: "Historical probability" },
   { href: "/explorer", label: "Yields" },
   { href: "/calculator", label: "Calculator" },
   { href: "/about", label: "Methods" }
@@ -14,7 +15,7 @@ const NAV = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const atlas = usePathname() === "/";
+  const atlas = usePathname() === "/probability";
 
   return (
     <>
