@@ -4,7 +4,7 @@
 
 **[Abrir la carpeta de la tesis en Google Drive](https://drive.google.com/drive/folders/1c_VoCbClUht4qut9MWadNe4iRhk5Cq5I)**
 
-En `Tesis_para_director/` está el paquete de revisión: rendimientos GDHY de maíz, arroz, trigo y soya (1981–2016), series originales y procesadas, coordenadas por píxel, mapas, calendarios y código. `Resultados/` reúne los Excel de fenología, calendario y revisión de variables de amenaza. Consultar `LEEME.txt` e `INVENTARIO.csv` antes de trabajar con las bases.
+En `Tesis_Paola_repo/` está el paquete de revisión: rendimientos GDHY de maíz, arroz, trigo y soya (1981–2016), series originales y procesadas, coordenadas por píxel, mapas, calendarios y código. `Resultados/` reúne los Excel de fenología, calendario y revisión de variables de amenaza. Consultar `LEEME.txt` e `INVENTARIO.csv` antes de trabajar con las bases.
 
 El acceso a Drive es restringido a las cuentas autorizadas; iniciar sesión con el correo al que se concedió acceso. Este enlace no hace públicos los datos. Los CSV procesados no sustituyen los rendimientos originales y los puntos seleccionados no representan toda la superficie cultivada. Los datos climáticos y las correlaciones pesadas se conservan por separado.
 
