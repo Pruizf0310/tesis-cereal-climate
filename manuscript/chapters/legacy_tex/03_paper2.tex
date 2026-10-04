@@ -1,0 +1,159 @@
+\chapter{Paper 2: Climate Thresholds and Parametric Trigger Design for Global Cereal Risk}
+
+% TODO: ajustar este capítulo al formato de la revista objetivo cuando se defina.
+
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen Paper 2}
+
+Este artículo propone una metodología para identificar umbrales climáticos asociados a anomalías negativas de rendimiento de cereales y traducirlos en disparadores paramétricos preliminares. A partir de los regímenes agroclimáticos y ventanas fenológicas críticas derivados del Paper 1, se estimarán probabilidades condicionales de pérdida bajo eventos ENSO, fases MJO y eventos compuestos ENSO/MJO. El objetivo es generar insumos técnicos para seguros paramétricos agrícolas orientados a la gestión del riesgo climático y al fortalecimiento de la seguridad alimentaria.
+
+% TODO: completar con resultados propios.
+
+\textbf{Palabras clave:} seguros paramétricos; umbrales climáticos; ENSO; MJO; riesgo agrícola; basis risk; seguridad alimentaria.
+
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract Paper 2}
+
+This paper proposes a methodology to identify climate thresholds associated with negative cereal yield anomalies and translate them into preliminary parametric triggers. Using the agroclimatic regimes and critical phenological windows derived from Paper 1, conditional loss probabilities will be estimated under ENSO events, MJO phases, and compound ENSO/MJO events. The goal is to generate technical inputs for agricultural parametric insurance products aimed at climate risk management and food security.
+
+% TODO: complete with original results.
+
+\textbf{Keywords:} parametric insurance; climate thresholds; ENSO; MJO; agricultural risk; basis risk; food security.
+
+\section{Introducción}
+
+Los seguros paramétricos agrícolas ofrecen una alternativa para transferir riesgo climático cuando la medición directa de pérdidas es costosa, lenta o espacialmente limitada. Estos instrumentos se activan a partir de un índice observable que funciona como aproximación de la pérdida esperada. En agricultura, su utilidad depende de que el índice tenga relación física y estadística con el rendimiento, sea transparente, verificable y reduzca el riesgo base \parencite{carter2017index}.
+
+Este paper aborda el objetivo específico 3 de la tesis: identificar umbrales climáticos asociados a ENSO/MJO y anomalías de rendimiento como insumo para la estructuración de seguros paramétricos agrícolas.
+
+\section{Marco conceptual sobre seguros paramétricos agrícolas}
+
+Un seguro paramétrico se basa en la activación de pagos cuando un índice predeterminado supera o cae por debajo de un umbral contractual. A diferencia del seguro indemnizatorio, no requiere estimar pérdidas parcela por parcela después del evento. Su principal ventaja es la rapidez de activación, pero su principal limitación es el \textit{basis risk}, entendido como la discrepancia entre el pago del seguro y la pérdida real experimentada por el productor o región asegurada.
+
+Los índices paramétricos agrícolas pueden basarse en precipitación, temperatura, sequía, humedad del suelo, rendimiento regional, vegetación satelital o combinaciones de variables. En el contexto de esta tesis, el aporte consiste en explorar disparadores vinculados a modos de variabilidad climática global y a ventanas fenológicas críticas, con el fin de conectar riesgo climático anticipable y pérdida agrícola potencial.
+
+% TODO: ampliar con literatura sobre diseño actuarial, validación, transparencia y regulación de seguros paramétricos.
+
+\section{Datos derivados del Paper 1}
+
+Los insumos del Paper 1 incluirán mapas de sensibilidad por cultivo, clasificación de regímenes agroclimáticos, ventanas fenológicas críticas, métricas ENSO/MJO y anomalías de rendimiento detrendadas. Estos insumos serán la base para seleccionar regiones candidatas donde la relación entre clima y rendimiento sea suficientemente robusta para explorar triggers paramétricos.
+
+% TODO: enlazar con tablas, figuras y productos finales del Paper 1.
+
+\section{Metodología}
+
+\subsection{Definición de anomalías negativas de rendimiento}
+
+Las pérdidas agrícolas se representarán mediante anomalías negativas de rendimiento calculadas respecto a una línea base sin tendencia. Se evaluarán diferentes definiciones de evento de pérdida, por ejemplo anomalías menores a cero, menores al percentil 25, o inferiores a umbrales estandarizados.
+
+% TODO: definir el criterio final de anomalía negativa y justificarlo.
+
+\subsection{Clasificación de eventos ENSO}
+
+Los años o temporadas agrícolas se clasificarán según fase ENSO: El Niño, La Niña o neutral. La clasificación deberá considerar la coincidencia temporal entre el evento climático y el calendario agrícola regional.
+
+% TODO: definir índice ENSO, periodo de agregación y umbrales de clasificación.
+
+\subsection{Clasificación de fases MJO}
+
+La MJO se clasificará por fase y amplitud durante ventanas fenológicas sensibles. Se podrán agrupar fases de acuerdo con su influencia regional sobre precipitación o temperatura, especialmente cuando la frecuencia muestral por fase sea limitada.
+
+% TODO: definir agrupación de fases MJO y criterio de amplitud activa.
+
+\subsection{Construcción de eventos climáticos compuestos ENSO/MJO}
+
+Los eventos compuestos combinarán la fase ENSO con la ocurrencia de fases MJO relevantes durante ventanas fenológicas críticas. Esta aproximación permitirá evaluar si la señal intraestacional incrementa o reduce la probabilidad de pérdida condicionada a ENSO.
+
+% TODO: definir reglas de composición ENSO/MJO y ventanas temporales.
+
+\subsection{Probabilidades condicionales de pérdida}
+
+Para cada cultivo, región y ventana fenológica, se estimarán probabilidades condicionales de anomalías negativas de rendimiento dado un estado climático. Estas probabilidades servirán para priorizar eventos con potencial de activación paramétrica.
+
+% TODO: definir estimador, intervalos de confianza y manejo de muestras pequeñas.
+
+\subsection{Identificación de umbrales climáticos}
+
+Los umbrales climáticos se identificarán a partir de la relación entre índices climáticos y probabilidad de pérdida. Se podrán evaluar umbrales basados en percentiles, valores estandarizados, magnitud de anomalías acumuladas o combinaciones de variables.
+
+% TODO: definir criterios de selección: sensibilidad, especificidad, robustez, interpretabilidad y disponibilidad operacional.
+
+\subsection{Evaluación preliminar de basis risk}
+
+La evaluación preliminar de \textit{basis risk} comparará eventos de activación climática con eventos de pérdida observada. Se analizarán falsos positivos, falsos negativos y consistencia espacial de la señal.
+
+% TODO: incluir matriz de confusión, métricas de desempeño y análisis por cultivo/región.
+
+\subsection{Propuesta de triggers paramétricos}
+
+Los triggers se formularán como combinaciones explícitas de índice, umbral, ventana temporal, cultivo y región. La propuesta deberá priorizar reglas simples, trazables y compatibles con fuentes de datos operacionales.
+
+% TODO: completar con triggers derivados de resultados propios.
+
+\begin{table}[H]
+\centering
+\caption{Plantilla para triggers paramétricos preliminares.}
+\label{tab:triggers}
+\begin{tabular}{p{2cm}p{2.7cm}p{2.5cm}p{2.5cm}p{3.2cm}}
+\toprule
+Cultivo & Región & Ventana fenológica & Índice climático & Regla de activación \\
+\midrule
+Maíz & % TODO: completar
+& Floración & ENSO/MJO & % TODO: completar
+\\
+Arroz & % TODO: completar
+& % TODO: completar
+& % TODO: completar
+& % TODO: completar
+\\
+Trigo & % TODO: completar
+& % TODO: completar
+& % TODO: completar
+& % TODO: completar
+\\
+Soya & % TODO: completar
+& % TODO: completar
+& % TODO: completar
+& % TODO: completar
+\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Resultados esperados / Resultados preliminares}
+
+\subsection{Tabla de triggers por cultivo, región y fase fenológica}
+
+Se espera generar una tabla de triggers candidatos que sintetice cultivo, región, fase fenológica, índice climático, umbral y desempeño preliminar.
+
+% TODO: completar con resultados propios.
+
+\subsection{Mapas de activación potencial}
+
+Los mapas de activación potencial permitirán visualizar regiones donde los triggers climáticos tendrían mayor probabilidad de activación bajo eventos históricos.
+
+% TODO: completar con resultados propios.
+
+\subsection{Ejemplos de triggers climáticos}
+
+Se incluirán ejemplos interpretables de triggers climáticos para regiones agrícolas prioritarias, evitando reglas excesivamente complejas que dificulten su operación.
+
+% TODO: completar con resultados propios.
+
+\subsection{Regiones prioritarias para diseño paramétrico}
+
+La priorización considerará robustez de la relación clima-rendimiento, relevancia productiva, exposición a fallos sincrónicos y potencial de uso por aseguradoras, bancos, gobiernos o entidades de seguridad alimentaria.
+
+% TODO: completar con resultados propios.
+
+\section{Discusión}
+
+La discusión deberá evaluar el potencial y las limitaciones de traducir señales ENSO/MJO a instrumentos paramétricos. Se deberá distinguir entre un insumo científico para diseño de riesgo y una póliza comercial lista para implementación, la cual requeriría validación actuarial, jurídica, financiera y territorial.
+
+% TODO: discutir sensibilidad a la definición de pérdida, estabilidad temporal, incertidumbre de datos y riesgo base.
+
+\section{Conclusiones parciales}
+
+Este paper propondrá una ruta metodológica para transformar regímenes agroclimáticos y ventanas fenológicas críticas en umbrales climáticos útiles para seguros paramétricos. Su principal contribución será vincular teleconexiones climáticas, pérdidas agrícolas y diseño preliminar de triggers dentro de un marco orientado a seguridad alimentaria.
+
+% TODO: completar con conclusiones derivadas de resultados propios.

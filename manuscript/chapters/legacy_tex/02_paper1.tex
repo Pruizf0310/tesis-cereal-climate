@@ -1,0 +1,141 @@
+\chapter{Paper 1: Global Agroclimatic Regimes of Cereal Yield Sensitivity to ENSO and MJO Variability}
+
+% TODO: ajustar este capítulo al formato de la revista objetivo cuando se defina.
+
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen Paper 1}
+
+Este artículo propone caracterizar la sensibilidad del rendimiento de maíz, arroz, trigo y soya frente a la variabilidad climática asociada a ENSO y MJO a escala global. Para ello, se plantea una metodología que integra anomalías de rendimiento, campos climáticos, índices de variabilidad global, selección de píxeles agrícolas robustos y calendarios fenológicos globales. El resultado esperado es una categorización de regímenes agroclimáticos interpretables que permita distinguir regiones dominadas por señales interanuales asociadas a ENSO, regiones moduladas por variabilidad intraestacional asociada a MJO y regiones donde la sensibilidad depende de la coincidencia entre anomalías climáticas y fases fenológicas críticas.
+
+% TODO: completar con resultados propios.
+
+\textbf{Palabras clave:} ENSO; MJO; rendimiento de cereales; fenología; teleconexiones; regímenes agroclimáticos.
+
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract Paper 1}
+
+This paper aims to characterize the sensitivity of maize, rice, wheat, and soybean yields to climate variability associated with ENSO and MJO at the global scale. The proposed methodology integrates yield anomalies, climate fields, global climate variability indices, robust agricultural pixel selection, and global crop calendars. The expected outcome is an interpretable classification of agroclimatic regimes that differentiates regions dominated by interannual ENSO-related signals, regions modulated by intraseasonal MJO variability, and regions where yield sensitivity depends on the overlap between climate anomalies and critical phenological stages.
+
+% TODO: complete with original results.
+
+\textbf{Keywords:} ENSO; MJO; cereal yield; phenology; teleconnections; agroclimatic regimes.
+
+\section{Introducción}
+
+La variabilidad climática de gran escala puede producir anomalías de rendimiento agrícola mediante cambios en la precipitación, la temperatura y la frecuencia de eventos extremos. ENSO ha sido ampliamente estudiado como modulador interanual de rendimientos agrícolas \parencite{iizumi2014enso,anderson2019synchronous}, mientras que la MJO ofrece una ventana de análisis intraestacional que puede ser particularmente relevante durante fases fenológicas sensibles. Este paper aborda los objetivos específicos 1 y 2 mediante una estrategia de integración entre teleconexiones climáticas, datos de rendimiento y calendarios fenológicos.
+
+% TODO: incorporar revisión de literatura específica sobre teleconexiones agrícolas por cultivo y región.
+
+\section{Datos}
+
+Los datos previstos incluyen rendimientos de maíz, arroz, trigo y soya, variables climáticas de precipitación y temperatura, campos de temperatura superficial del mar (SST), índices ENSO, índices MJO y calendarios fenológicos globales. La selección final de fuentes deberá equilibrar cobertura temporal, resolución espacial, consistencia metodológica y disponibilidad pública.
+
+% TODO: especificar bases de datos definitivas, resolución espacial, periodo de análisis y criterios de armonización.
+
+\begin{table}[H]
+\centering
+\caption{Fuentes de datos previstas para el Paper 1.}
+\label{tab:paper1_datos}
+\begin{tabular}{p{3.2cm}p{4.2cm}p{5.2cm}}
+\toprule
+Componente & Fuente candidata & Uso previsto \\
+\midrule
+Rendimiento agrícola & % TODO: completar fuente
+& Cálculo de anomalías de rendimiento por cultivo. \\
+SST & % TODO: completar fuente
+& Correlación punto-campo y caracterización ENSO. \\
+Precipitación y temperatura & % TODO: completar fuente
+& Identificación de anomalías climáticas durante fases fenológicas. \\
+ENSO & Niño 3.4, ONI, MEI u otro índice & Clasificación de fases y magnitud de eventos ENSO. \\
+MJO & RMM u otro índice & Clasificación de fases intraestacionales y amplitud. \\
+Calendarios agrícolas & WorldCereal, ASAP u otros & Ubicación de ventanas fenológicas por cultivo y región. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Metodología}
+
+\subsection{Detrending de rendimientos y variables climáticas}
+
+Los rendimientos agrícolas observados incorporan tendencias asociadas a cambios tecnológicos, manejo agronómico, variedades, fertilización e infraestructura. Para aislar la variabilidad interanual relacionada con el clima, se removerán tendencias de largo plazo mediante métodos estadísticos apropiados.
+
+% TODO: definir método de detrending: tendencia lineal, LOESS, splines, medias móviles u otro.
+% TODO: justificar tratamiento diferenciado por cultivo, país, región o píxel.
+
+\subsection{Selección de píxeles agrícolas robustos}
+
+La selección de píxeles agrícolas buscará evitar interpretaciones espurias en áreas con baja representatividad del cultivo, series temporales incompletas o señales dominadas por cambios de uso del suelo. Se propone filtrar píxeles por área cosechada, persistencia temporal del cultivo, calidad de datos y disponibilidad de información fenológica.
+
+% TODO: definir umbrales mínimos de área cosechada, número de años válidos y criterios de calidad.
+
+\subsection{Correlación punto-campo entre anomalías de rendimiento y SST}
+
+Se calcularán correlaciones entre anomalías de rendimiento y campos de SST para identificar patrones oceánicos asociados a variaciones de rendimiento. Este enfoque permitirá evaluar si la señal de rendimiento está vinculada a regiones oceánicas características de ENSO u otros modos de variabilidad.
+
+% TODO: definir rezagos temporales, ventanas estacionales y corrección por autocorrelación espacial.
+% TODO: incorporar prueba de significancia y control por multiplicidad.
+
+\subsection{Integración de ENSO y MJO}
+
+ENSO se integrará mediante índices de temperatura superficial del mar o índices multivariados que representen la fase y magnitud del evento. La MJO se integrará mediante fase, amplitud y frecuencia de ocurrencia durante ventanas fenológicas relevantes. La combinación de ambas señales permitirá distinguir forzamientos interanuales e intraestacionales, así como posibles interacciones.
+
+% TODO: definir criterios para El Niño, La Niña y neutralidad.
+% TODO: definir fases MJO agrupadas, amplitud mínima y métricas acumuladas por ventana fenológica.
+
+\subsection{Integración del calendario fenológico global}
+
+Los calendarios fenológicos se utilizarán para ubicar las fases de desarrollo del cultivo en cada región. Cuando la información detallada por píxel no esté disponible, se construirá un calendario típico segmentado por intervalos latitudinales y por cultivo. Esto permitirá asignar anomalías climáticas a fases como siembra, establecimiento, crecimiento vegetativo, floración, llenado y madurez.
+
+% TODO: definir intervalos latitudinales y duración típica de fases por cultivo.
+% TODO: documentar supuestos cuando existan calendarios múltiples o doble cosecha.
+
+\subsection{Categorización de regímenes agroclimáticos}
+
+La categorización buscará agrupar regiones agrícolas con respuestas climáticas similares. Los regímenes podrán definirse a partir de métricas como intensidad de correlación con ENSO, frecuencia de fases MJO críticas, coincidencia con fases fenológicas sensibles, dirección de la anomalía de rendimiento y robustez estadística.
+
+% TODO: decidir método de clasificación: reglas interpretables, clustering, árboles de decisión u otro.
+% TODO: definir nombres y criterios finales de cada régimen agroclimático.
+
+\section{Resultados esperados / Resultados preliminares}
+
+\subsection{Mapas de sensibilidad}
+
+Se espera producir mapas globales por cultivo que representen la sensibilidad del rendimiento frente a ENSO, MJO y anomalías climáticas derivadas.
+
+% TODO: completar con resultados propios.
+
+\subsection{Regiones dominadas por ENSO}
+
+Se identificarán regiones donde la variabilidad interanual asociada a ENSO explique una proporción relevante de las anomalías de rendimiento.
+
+% TODO: completar con resultados propios.
+
+\subsection{Regiones moduladas por MJO}
+
+Se analizarán regiones donde la variabilidad intraestacional asociada a la MJO modula la precipitación, temperatura u otras variables climáticas durante ventanas agrícolas críticas.
+
+% TODO: completar con resultados propios.
+
+\subsection{Ventanas fenológicas críticas}
+
+Se espera identificar fases fenológicas en las que las anomalías climáticas presentan mayor asociación con anomalías negativas de rendimiento.
+
+% TODO: completar con resultados propios.
+
+\subsection{Regímenes agroclimáticos interpretables}
+
+La salida principal del paper será una clasificación de regímenes agroclimáticos que sintetice la sensibilidad del cultivo a ENSO, MJO y fenología.
+
+% TODO: completar con resultados propios.
+
+\section{Discusión}
+
+La discusión deberá interpretar los regímenes agroclimáticos identificados, contrastarlos con literatura previa y evaluar su utilidad para anticipación de riesgo agrícola. También deberá distinguir entre correlación climática, plausibilidad física y utilidad operativa.
+
+% TODO: discutir incertidumbres, escalas espaciales, calidad de datos y limitaciones del enfoque correlacional.
+
+\section{Conclusiones parciales}
+
+Este paper aportará una caracterización global de la sensibilidad de cereales a ENSO y MJO, integrando explícitamente la dimensión fenológica. Sus resultados servirán como base para el Paper 2, en el que se traducirán los regímenes y ventanas críticas en insumos para el diseño de disparadores paramétricos.
+
+% TODO: completar con conclusiones derivadas de resultados propios.
