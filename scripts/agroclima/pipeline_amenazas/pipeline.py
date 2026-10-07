@@ -215,6 +215,9 @@ def download(c, out):
     if c['climate_day'] != 'UTC':
         raise ValueError('Este extractor requiere día UTC.')
     ee = initialize(c)
+    rain = c.get('variable') == 'precip_mm'
+    bands = ['total_precipitation_sum'] if rain else BANDS
+    prefix = 'era5_precip_UTC' if rain else 'era5_UTC'
     pixels = list(csv.DictReader((out/'pixels.csv').open(encoding='utf-8-sig')))
     windows = list(csv.DictReader((out/'windows_candidate.csv').open(encoding='utf-8-sig')))
     if not windows:
@@ -226,8 +229,8 @@ def download(c, out):
     cache_dir.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     pending = sum(
-        not ((cache_dir/f"era5_UTC_{int(p['pixel_id'])}_{year}_{month:02d}.csv").exists()
-             and (cache_dir/f"era5_UTC_{int(p['pixel_id'])}_{year}_{month:02d}.json").exists())
+        not ((cache_dir/f"{prefix}_{int(p['pixel_id'])}_{year}_{month:02d}.csv").exists()
+             and (cache_dir/f"{prefix}_{int(p['pixel_id'])}_{year}_{month:02d}.json").exists())
         for p in pixels for year in range(first, last+1) for month in range(1, 13))
     downloaded = 0
     download_seconds = 0.0
@@ -243,11 +246,11 @@ def download(c, out):
         for year in range(first, last+1):
             for month in range(1, 13):
                 number += 1
-                path = cache_dir/f'era5_UTC_{pid}_{year}_{month:02d}.csv'
+                path = cache_dir/f'{prefix}_{pid}_{year}_{month:02d}.csv'
                 meta_path = path.with_suffix('.json')
                 if path.exists() and meta_path.exists():
                     meta = json.loads(meta_path.read_text(encoding='utf8'))
-                    if meta.get('dataset') == DATASET and meta.get('bands') == BANDS and meta.get('sha256') == hashlib.sha256(path.read_bytes()).hexdigest():
+                    if meta.get('dataset') == DATASET and meta.get('bands') == bands and meta.get('sha256') == hashlib.sha256(path.read_bytes()).hexdigest():
                         print(f'[{number}/{total}] Caché: {path.name}', flush=True)
                         continue
                     raise ValueError(f'Caché incompatible o alterada: {path}')
@@ -255,11 +258,12 @@ def download(c, out):
                 end = date(year+1, 1, 1) if month == 12 else date(year, month+1, 1)
                 print(f'[{number}/{total}] GEE: {path.name}', flush=True)
                 block_started = time.monotonic()
-                images = ee.ImageCollection(DATASET).filterDate(start.isoformat(), end.isoformat()).select(BANDS)
+                images = ee.ImageCollection(DATASET).filterDate(start.isoformat(), end.isoformat()).select(bands)
                 projection = ee.Image(images.first()).select(0).projection()
                 def sample(image):
                     image = ee.Image(image)
-                    values = image.subtract(273.15).rename(['tmax_c', 'tmean_c', 'tmin_c'])
+                    values = (image.multiply(1000).rename(['precip_mm']) if rain else
+                              image.subtract(273.15).rename(['tmax_c', 'tmean_c', 'tmin_c']))
                     values = values.addBands(ee.Image.pixelLonLat()).addBands(ee.Image.pixelCoordinates(projection))
                     return values.sample(region=region, projection=projection, dropNulls=False,
                         geometries=False, tileScale=4).map(lambda f: f.set({
@@ -268,14 +272,14 @@ def download(c, out):
                 records = fetch_pages(ee, expression)
                 if not records:
                     raise RuntimeError(f'GEE no devolvió celdas en {path.name}; no se registra como cero eventos.')
-                fields = ['pixel_id','date','x','y','longitude','latitude','tmax_c','tmean_c','tmin_c']
+                fields = ['pixel_id','date','x','y','longitude','latitude'] + (['precip_mm'] if rain else ['tmax_c','tmean_c','tmin_c'])
                 rows = [{key: r.get(key) for key in fields} for r in records]
                 if len({(r['date'],r['x'],r['y']) for r in rows}) != len(rows):
                     raise ValueError('GEE devolvió celdas/fechas duplicadas.')
                 temporary = path.with_suffix('.csv.tmp')
                 save_csv(temporary, rows)
                 temporary.replace(path)
-                meta = {'dataset':DATASET,'bands':BANDS,'day':'UTC','pixel_id':pid,
+                meta = {'dataset':DATASET,'bands':bands,'day':'UTC','pixel_id':pid,
                         'start':start.isoformat(),'end_exclusive':end.isoformat(),'rows':len(rows),
                         'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
                 meta_path.write_text(json.dumps(meta,indent=2),encoding='utf8')
@@ -294,7 +298,7 @@ def download(c, out):
                       f'| Descarga restante estimada: {duration(eta)} '
                       f'| Media: {download_seconds/downloaded:.1f} s/bloque '
                       f'({downloaded} bloques medidos)', flush=True)
-    print('Descarga terminada; las tres temperaturas quedan disponibles para otras reglas.',flush=True)
+    print('Descarga terminada; datos disponibles para reutilizar.',flush=True)
 
 
 def export(c, out):
@@ -350,13 +354,14 @@ def analyze(c, out):
         raise ValueError('Confirma calendario antes de interpretar resultados.')
     windows = pd.read_csv(out/'windows_candidate.csv')
     cache_dir = Path(c.get('climate_cache', out/'clima'))
+    prefix = 'era5_precip_UTC' if c['variable'] == 'precip_mm' else 'era5_UTC'
     files = []
     for pid in windows.pixel_id.unique():
         sub = windows[windows.pixel_id == pid]
         first, last = date.fromisoformat(sub.start.min()).year, date.fromisoformat(sub.end.max()).year
         for year in range(first, last+1):
-            files.extend(cache_dir.glob(f'era5_UTC_{int(pid)}_{year}_*.csv'))
-            legacy = cache_dir/f'era5_UTC_{int(pid)}_{year}.csv'
+            files.extend(cache_dir.glob(f'{prefix}_{int(pid)}_{year}_*.csv'))
+            legacy = cache_dir/f'{prefix}_{int(pid)}_{year}.csv'
             if legacy.exists(): files.append(legacy)
     files = sorted(files)
     if not files:
@@ -374,6 +379,8 @@ def analyze(c, out):
         for (x, y), sub in pixel.groupby(['x', 'y']):
             series = sub.set_index('date')[c['variable']].reindex(full_dates)
             found = runs([t.date() for t in full_dates], series.tolist(), c['threshold'], c['operator'], c['min_days'])
+            if c.get('count_unit') == 'days':
+                found = [[day] for episode in found for day in episode]
             complete = bool(series.notna().all())
             base = dict(crop=c['crop'], pixel_id=w['pixel_id'], x=int(x), y=int(y),
                         season_year=w['season_year'], phase=c['phase'], source=c['source'])
@@ -414,7 +421,7 @@ def analyze(c, out):
     for pid, sub in agg.groupby('pixel_id'):
         ax.plot(sub.season_year, sub.mean_events_per_native_cell, marker='o', label=str(pid))
     ax.set(xlabel='Año base del calendario', ylabel='Eventos medios por celda climática',
-           title=f"{c['crop']} — {c['phase']}: {c['variable']} {c['operator']} {c['threshold']} °C, ≥{c['min_days']} días")
+           title=f"{c['crop']} — {c['phase']}: {c['variable']} {c['operator']} {c['threshold']} {'mm' if c['variable']=='precip_mm' else '°C'}, ≥{c['min_days']} días")
     ax.legend(title='Píxel GDHY'); fig.tight_layout(); fig.savefig(out/'frecuencia_anual.png', dpi=160)
     plt.close(fig)
     fig, ax = plt.subplots(figsize=(8, 4))
