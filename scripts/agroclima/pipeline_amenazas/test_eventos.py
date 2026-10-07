@@ -1,6 +1,7 @@
 import unittest
 from datetime import date, timedelta
-from pipeline import runs, phase_date, absolute_reference_date, pixel_phase_windows, fetch_pages
+from pipeline import runs, phase_date, absolute_reference_date, pixel_phase_windows, fetch_pages, authenticate_gee
+from unittest.mock import Mock, patch
 from types import SimpleNamespace
 import csv
 import tempfile
@@ -8,6 +9,12 @@ from pathlib import Path
 from pipeline import analyze
 
 class EventTests(unittest.TestCase):
+    def test_authentication_cloud_only(self):
+        fake=SimpleNamespace(Authenticate=Mock())
+        with patch.dict('sys.modules',{'ee':fake}), patch('shutil.which',return_value='gcloud.cmd'):
+            authenticate_gee(force=True)
+        fake.Authenticate.assert_called_once_with(auth_mode='gcloud',
+            scopes=['https://www.googleapis.com/auth/cloud-platform'], force=True)
     def test_duration_and_threshold_equality(self):
         ds = [date(2000,1,1)+timedelta(days=i) for i in range(7)]
         es = runs(ds,[34,34,34,20,34,20,34],34,'>=',2)

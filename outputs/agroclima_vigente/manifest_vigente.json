@@ -65,9 +65,9 @@
     "diagnosticos/pixeles_GDHY.csv": "db8cc51a2337ff6d4018308d4013ecd06cdda31831e0eadb90236b331f0917c0",
     "ejecuciones/piloto_maize_EST/pixels.csv": "2268f8c40ee69c1647c554737a4e12382236027669c269142f23c7c407fc0a08",
     "ejecuciones/piloto_maize_EST/preparation.json": "aaf8c63647f4a0b214996296aacebef51e3389e1cea182cf73ff31db916f0962",
-    "ejecuciones/piloto_maize_EST/validacion_codigo.json": "a4e9a5e25ca2ed3e11706060c967d7c1fc0754bb992fa3ebbd239195a4928ab3",
+    "ejecuciones/piloto_maize_EST/validacion_codigo.json": "7ed71181e9c9a07d86e9a03c58a3ce32c200b6f14bd6a94c7fcec7b5c80c8701",
     "ejecuciones/piloto_maize_EST/windows_candidate.csv": "b2c8acd7352553109f40648e83110e973792287cf7f7686c3497a38c3ec7d1ba"
   },
   "pilot_preparation": "PASS: 3/3 exact pixels, maize__rf, six-phase v4",
-  "unit_tests": "PASS: 8 tests, including synthetic analysis and paginated download"
+  "unit_tests": "PASS: 9 tests, including authentication scope selection"
 }

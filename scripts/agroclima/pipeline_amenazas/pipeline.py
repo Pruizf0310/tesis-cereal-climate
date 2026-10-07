@@ -11,6 +11,24 @@ from pathlib import Path
 
 DATASET = 'ECMWF/ERA5_LAND/DAILY_AGGR'
 BANDS = ['temperature_2m_max', 'temperature_2m', 'temperature_2m_min']
+AUTH_SCOPES = ['https://www.googleapis.com/auth/cloud-platform']
+
+
+def authenticate_gee(force=False):
+    """Cloud-only OAuth: direct downloads do not require Google Drive access."""
+    import ee
+    import shutil
+    if not shutil.which('gcloud'):
+        candidates = [Path.home()/'AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin',
+                      Path('C:/Program Files (x86)/Google/Cloud SDK/google-cloud-sdk/bin'),
+                      Path('C:/Program Files/Google/Cloud SDK/google-cloud-sdk/bin')]
+        for directory in candidates:
+            if (directory/'gcloud.cmd').exists():
+                os.environ['PATH'] = str(directory)+os.pathsep+os.environ.get('PATH','')
+                break
+    mode = 'gcloud' if shutil.which('gcloud') else 'localhost'
+    print(f'Autenticación {mode}: Google Cloud; no se solicita acceso a Google Drive.',flush=True)
+    ee.Authenticate(auth_mode=mode, scopes=AUTH_SCOPES, force=force)
 
 
 def save_csv(path, rows, fields=None):
@@ -405,7 +423,7 @@ def main():
         status_path = out/'run_status.json'
         status_path.write_text(json.dumps({'status':'RUNNING','config':c},indent=2),encoding='utf8')
         try:
-            ee.Authenticate()
+            authenticate_gee()
             prepare(c, out)
             download(c, out)
             analyze(c, out)
@@ -418,8 +436,7 @@ def main():
     elif args.command == 'export': export(c, out)
     elif args.command == 'analyze': analyze(c, out)
     elif args.command == 'authenticate':
-        import ee
-        ee.Authenticate()
+        authenticate_gee(force=True)
     else:
         ee = initialize(c)
         tasks = json.loads((out/'tasks.json').read_text())

@@ -9,6 +9,17 @@ cd C:\Users\paola\Tesis\02_Scripts\agroclima\pipeline_amenazas
 
 La primera vez solicita el ID de proyecto habilitado en GEE y la autenticación de Google. El ID no es una contraseña. También puedes pasar `--project TU_ID` o definir `EE_PROJECT`. No se incluyen credenciales en el repositorio.
 
+Si Google muestra “Esta aplicación está bloqueada”, detén el proceso anterior con Ctrl+C y ejecuta:
+
+```powershell
+.\.venv\Scripts\python.exe .\pipeline.py authenticate
+.\.venv\Scripts\python.exe .\pipeline.py run
+```
+
+La autenticación corregida usa Google Cloud CLI cuando está instalado y solicita únicamente `cloud-platform`, aceptado por Earth Engine. No solicita Google Drive ni el permiso adicional de Storage de la configuración predeterminada. Se conserva el control IAM del proyecto. Esta corrección aborda una causa documentada de bloqueo OAuth; una política de cuenta/organización puede requerir revisión adicional. No se ha confirmado que resuelva la cuenta del usuario hasta completar el consentimiento.
+
+Referencia: https://docs.cloud.google.com/docs/authentication/troubleshoot-adc#access_blocked_when_using_scopes
+
 El comando prepara las ventanas de calendario, descarga automáticamente las tres temperaturas por meses y píxel, calcula eventos y genera CSV y gráficos. No requiere exportar ni descargar manualmente desde Drive. No cerrar la terminal mientras corre; si se interrumpe, repetir el mismo comando reutiliza los meses completos que ya están guardados y verificados por hash.
 
 ## Ubicaciones

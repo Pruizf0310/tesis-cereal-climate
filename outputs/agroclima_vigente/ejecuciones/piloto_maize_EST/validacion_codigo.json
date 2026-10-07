@@ -1,9 +1,10 @@
 {
   "status": "PASS",
-  "tests": 8,
+  "tests": 9,
   "real_calendar_pixels_matched": 3,
   "live_gee": "NOT_RUN: user project and authentication required",
   "climate_cache": "C:/Users/paola/Tesis/02_Procesados/Clima_ERA5_Land_cache/diario_UTC",
   "command": "pipeline.py run",
-  "synthetic_tests_are_not_climate_results": true
+  "synthetic_tests_are_not_climate_results": true,
+  "auth_change": "Cloud-only OAuth; Google Drive scope removed; user consent not yet verified"
 }
