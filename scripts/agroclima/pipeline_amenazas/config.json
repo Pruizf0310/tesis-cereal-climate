@@ -20,5 +20,6 @@
   "climate_day": "UTC",
   "output": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\piloto_maize_EST",
   "calendar_dir": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\calendario",
-  "repository_results": "C:\\Users\\paola\\Tesis\\Repositorio\\tesis-cereal-climate\\outputs\\agroclima_vigente\\ejecuciones\\piloto_maize_EST"
+  "repository_results": "C:\\Users\\paola\\Tesis\\Repositorio\\tesis-cereal-climate\\outputs\\agroclima_vigente\\ejecuciones\\piloto_maize_EST",
+  "climate_cache": "C:/Users/paola/Tesis/02_Procesados/Clima_ERA5_Land_cache/diario_UTC"
 }

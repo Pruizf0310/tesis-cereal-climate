@@ -4,6 +4,8 @@ import calendar
 import csv
 import hashlib
 import json
+import os
+import time
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -11,11 +13,11 @@ DATASET = 'ECMWF/ERA5_LAND/DAILY_AGGR'
 BANDS = ['temperature_2m_max', 'temperature_2m', 'temperature_2m_min']
 
 
-def save_csv(path, rows):
-    if not rows:
+def save_csv(path, rows, fields=None):
+    if not rows and fields is None:
         return
     with path.open('w', newline='', encoding='utf-8-sig') as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w = csv.DictWriter(f, fieldnames=fields or list(rows[0]))
         w.writeheader()
         w.writerows(rows)
 
@@ -73,6 +75,8 @@ def prepare_versioned_calendar(c, selected, out):
                 start=start.isoformat(), end=(end_exclusive-timedelta(days=1)).isoformat(),
                 calendar_id=season_id, timing_method='archived_blocks_six_phase_v4',
                 calendar_quality='estimated_intermediate_dates', calendar_version=manifest['version']))
+    if not windows:
+        raise ValueError('Ningún píxel tiene la fase seleccionada en el calendario vigente.')
     save_csv(out/'windows_candidate.csv', windows)
     return dict(selected=len(selected), matched=len(selected)-len(unmatched), unmatched=unmatched,
         calendar_selection_confirmed=c['calendar_selection_confirmed'], calendar_version=manifest['version'],
@@ -157,10 +161,94 @@ def prepare(c, out):
 
 def initialize(c):
     import ee
-    if c['project'].startswith('PONER_'):
-        raise ValueError('Configura project con tu ID de GEE.')
-    ee.Initialize(project=c['project'])
+    project = c['project']
+    if not project or project.startswith('PONER_'):
+        project = os.environ.get('EE_PROJECT') or os.environ.get('GOOGLE_CLOUD_PROJECT') or project
+    if not project or project.startswith('PONER_'):
+        raise ValueError('Indica --project ID_PROYECTO, EE_PROJECT o project en config.json.')
+    ee.Initialize(project=project)
     return ee
+
+
+def fetch_pages(ee, expression):
+    """Fetch every computeFeatures page; bounded retries for transient errors."""
+    params = {'expression': expression, 'pageSize': 1000}
+    records = []
+    while True:
+        for attempt in range(4):
+            try:
+                response = ee.data.computeFeatures(params)
+                break
+            except Exception:
+                if attempt == 3:
+                    raise
+                time.sleep([2, 5, 10][attempt])
+        records.extend(feature['properties'] for feature in response.get('features', []))
+        token = response.get('nextPageToken')
+        if not token:
+            return records
+        params = params | {'pageToken': token}
+
+
+def download(c, out):
+    """Automatic local climate cache; monthly native-grid chunks, no Drive step."""
+    if not c['calendar_selection_confirmed']:
+        raise ValueError('Falta confirmar calendario.')
+    if c['climate_day'] != 'UTC':
+        raise ValueError('Este extractor requiere día UTC.')
+    ee = initialize(c)
+    pixels = list(csv.DictReader((out/'pixels.csv').open(encoding='utf-8-sig')))
+    windows = list(csv.DictReader((out/'windows_candidate.csv').open(encoding='utf-8-sig')))
+    if not windows:
+        raise ValueError('No hay ventanas de calendario.')
+    first = date.fromisoformat(min(w['start'] for w in windows)).year
+    last = date.fromisoformat(max(w['end'] for w in windows)).year
+    total = len(pixels)*(last-first+1)*12
+    cache_dir = Path(c.get('climate_cache', out/'clima'))
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    number = 0
+    for p in pixels:
+        lat, lon, pid = float(p['lat']), float(p['lon']), int(p['pixel_id'])
+        region = ee.Geometry.Rectangle([lon-.25, lat-.25, lon+.25, lat+.25], geodesic=False)
+        for year in range(first, last+1):
+            for month in range(1, 13):
+                number += 1
+                path = cache_dir/f'era5_UTC_{pid}_{year}_{month:02d}.csv'
+                meta_path = path.with_suffix('.json')
+                if path.exists() and meta_path.exists():
+                    meta = json.loads(meta_path.read_text(encoding='utf8'))
+                    if meta.get('dataset') == DATASET and meta.get('bands') == BANDS and meta.get('sha256') == hashlib.sha256(path.read_bytes()).hexdigest():
+                        print(f'[{number}/{total}] Caché: {path.name}', flush=True)
+                        continue
+                    raise ValueError(f'Caché incompatible o alterada: {path}')
+                start = date(year, month, 1)
+                end = date(year+1, 1, 1) if month == 12 else date(year, month+1, 1)
+                print(f'[{number}/{total}] GEE: {path.name}', flush=True)
+                images = ee.ImageCollection(DATASET).filterDate(start.isoformat(), end.isoformat()).select(BANDS)
+                projection = ee.Image(images.first()).select(0).projection()
+                def sample(image):
+                    image = ee.Image(image)
+                    values = image.subtract(273.15).rename(['tmax_c', 'tmean_c', 'tmin_c'])
+                    values = values.addBands(ee.Image.pixelLonLat()).addBands(ee.Image.pixelCoordinates(projection))
+                    return values.sample(region=region, projection=projection, dropNulls=False,
+                        geometries=False, tileScale=4).map(lambda f: f.set({
+                            'pixel_id': pid, 'date': image.date().format('YYYY-MM-dd')}))
+                expression = ee.FeatureCollection(images.toList(images.size()).map(sample)).flatten()
+                records = fetch_pages(ee, expression)
+                if not records:
+                    raise RuntimeError(f'GEE no devolvió celdas en {path.name}; no se registra como cero eventos.')
+                fields = ['pixel_id','date','x','y','longitude','latitude','tmax_c','tmean_c','tmin_c']
+                rows = [{key: r.get(key) for key in fields} for r in records]
+                if len({(r['date'],r['x'],r['y']) for r in rows}) != len(rows):
+                    raise ValueError('GEE devolvió celdas/fechas duplicadas.')
+                temporary = path.with_suffix('.csv.tmp')
+                save_csv(temporary, rows)
+                temporary.replace(path)
+                meta = {'dataset':DATASET,'bands':BANDS,'day':'UTC','pixel_id':pid,
+                        'start':start.isoformat(),'end_exclusive':end.isoformat(),'rows':len(rows),
+                        'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
+                meta_path.write_text(json.dumps(meta,indent=2),encoding='utf8')
+    print('Descarga terminada; las tres temperaturas quedan disponibles para otras reglas.',flush=True)
 
 
 def export(c, out):
@@ -214,15 +302,24 @@ def analyze(c, out):
     import matplotlib.pyplot as plt
     if not c['calendar_selection_confirmed']:
         raise ValueError('Confirma calendario antes de interpretar resultados.')
-    files = sorted((out/'clima').glob('era5_UTC_*.csv'))
+    windows = pd.read_csv(out/'windows_candidate.csv')
+    cache_dir = Path(c.get('climate_cache', out/'clima'))
+    files = []
+    for pid in windows.pixel_id.unique():
+        sub = windows[windows.pixel_id == pid]
+        first, last = date.fromisoformat(sub.start.min()).year, date.fromisoformat(sub.end.max()).year
+        for year in range(first, last+1):
+            files.extend(cache_dir.glob(f'era5_UTC_{int(pid)}_{year}_*.csv'))
+            legacy = cache_dir/f'era5_UTC_{int(pid)}_{year}.csv'
+            if legacy.exists(): files.append(legacy)
+    files = sorted(files)
     if not files:
-        raise ValueError('Descarga los CSV exportados desde Drive a salidas/clima/.')
+        raise ValueError('No hay clima guardado: ejecuta run o download.')
     df = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)
     df['date'] = pd.to_datetime(df['date'])
     keys = ['pixel_id', 'x', 'y', 'date']
     if df.duplicated(keys).any():
         raise ValueError('Hay fechas/celdas duplicadas; revisar archivos de clima.')
-    windows = pd.read_csv(out/'windows_candidate.csv')
     annual, events = [], []
     for w in windows.to_dict('records'):
         start, end = pd.Timestamp(w['start']), pd.Timestamp(w['end'])
@@ -247,7 +344,7 @@ def analyze(c, out):
         raise ValueError('No hay celdas climáticas coincidentes.')
     result = pd.DataFrame(annual)
     result.to_csv(out/'frecuencia_por_celda_fase.csv', index=False)
-    save_csv(out/'eventos.csv', events)
+    save_csv(out/'eventos.csv', events, fields=['crop','pixel_id','x','y','season_year','phase','source','start','end','days','peak','quality'])
     # Frequency across available complete seasons; zero events remain in denominator.
     ok = result[result.quality == 'OK'].copy()
     if ok.empty:
@@ -288,14 +385,36 @@ def analyze(c, out):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('command', choices=['prepare', 'export', 'status', 'analyze', 'authenticate'])
+    ap.add_argument('command', choices=['run', 'prepare', 'download', 'export', 'status', 'analyze', 'authenticate'])
     ap.add_argument('--config', default=str(Path(__file__).with_name('config.json')))
+    ap.add_argument('--project', help='ID del proyecto GEE; sustituye config solo durante esta ejecución')
     args = ap.parse_args()
     config_path = Path(args.config).resolve()
     c = json.loads(config_path.read_text(encoding='utf8'))
+    if args.project: c['project'] = args.project
     out = config_path.parent / c['output']; out.mkdir(parents=True, exist_ok=True)
     (out/'clima').mkdir(exist_ok=True)
-    if args.command == 'prepare': prepare(c, out)
+    if args.command == 'run':
+        import ee
+        project = args.project or os.environ.get('EE_PROJECT') or os.environ.get('GOOGLE_CLOUD_PROJECT') or c['project']
+        if not project or project.startswith('PONER_'):
+            project = input('ID de tu proyecto habilitado en GEE: ').strip()
+            if not project:
+                raise ValueError('El ID de proyecto es obligatorio.')
+        c['project'] = project
+        status_path = out/'run_status.json'
+        status_path.write_text(json.dumps({'status':'RUNNING','config':c},indent=2),encoding='utf8')
+        try:
+            ee.Authenticate()
+            prepare(c, out)
+            download(c, out)
+            analyze(c, out)
+        except Exception as exc:
+            status_path.write_text(json.dumps({'status':'FAILED','error':str(exc),'config':c},indent=2),encoding='utf8')
+            raise
+        status_path.write_text(json.dumps({'status':'COMPLETED','config':c},indent=2),encoding='utf8')
+    elif args.command == 'prepare': prepare(c, out)
+    elif args.command == 'download': download(c, out)
     elif args.command == 'export': export(c, out)
     elif args.command == 'analyze': analyze(c, out)
     elif args.command == 'authenticate':

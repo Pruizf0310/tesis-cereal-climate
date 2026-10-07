@@ -1,5 +1,7 @@
 # Piloto de frecuencia histórica: maíz, establecimiento, calor
 
+**Ejecución vigente:** consulta [GUIA_EJECUCION.md](GUIA_EJECUCION.md). El comando `run` ya descarga directamente desde GEE y calcula los resultados. Los comandos `export/status` descritos abajo son la alternativa anterior mediante Drive.
+
 Este paquete conserva los NetCDF/HDF5 originales. Parte de los índices H5 existentes y consulta la grilla ERA5-Land nativa dentro de cada celda GDHY de 0,5°. Guarda tres temperaturas diarias para reutilizarlas con otras reglas. No descarga la matriz de correlaciones.
 
 ## Antes de ejecutar

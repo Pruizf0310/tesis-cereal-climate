@@ -29,3 +29,8 @@ Todos los nuevos archivos del piloto se escriben en `ejecuciones/piloto_maize_ES
 El repositorio actualizado de trabajo está en `C:/Users/paola/Tesis/Repositorio/tesis-cereal-climate/`. No continuar desde la copia antigua de Documents/Codex sin actualizarla. Versionar las nuevas salidas requiere commit/push; el pipeline no publica automáticamente resultados no revisados. La web no se modifica con esta consolidación.
 
 `diagnosticos/` contiene inventarios GDHY y la comparación con los píxeles de correlación. No son conteos climáticos.
+
+
+## Ejecución automática desde terminal
+
+Comando vigente: `.venv/Scripts/python.exe pipeline.py run`, desde `C:/Users/paola/Tesis/02_Scripts/agroclima/pipeline_amenazas/`. Consulta `GUIA_EJECUCION.md` en esa carpeta. Descarga directamente desde GEE, conserva caché compartida en `02_Procesados/Clima_ERA5_Land_cache/diario_UTC/`, calcula y guarda CSV/gráficos en resultados. No requiere descargar manualmente desde Drive. Necesita ID de proyecto y autenticación del usuario.

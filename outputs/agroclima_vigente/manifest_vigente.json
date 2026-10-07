@@ -42,7 +42,7 @@
   "documentary_difference_cells": 37,
   "gee_execution": "NOT_STARTED",
   "outputs": {
-    "LEEME_VIGENTE.md": "d6832e280e3ac059d4d6a1ad4a8f718b869a9d6557ee1e82584f79e18f405b66",
+    "LEEME_VIGENTE.md": "aa008b155aca661991ddd074d654771b00edc450fbfd48a902f761cdd1aeae3b",
     "amenazas/diferencias_revision_documental.csv": "01a3763553101fece6e71f05fa4ab3d5c6c116f94e5c3bd31a1c04026b8ba35f",
     "amenazas/reglas_24_fases_vigentes.csv": "a996470f27fd126156140da03132578bd4bb4baf1deb3664ce61992b7e21f448",
     "amenazas/revision_documental_24_fragmentos_exactos.xlsx": "07f37a2a8d586237b4ec6654e45a60d39eb5797527bd1fd89e22f329d9f98806",
@@ -65,8 +65,9 @@
     "diagnosticos/pixeles_GDHY.csv": "db8cc51a2337ff6d4018308d4013ecd06cdda31831e0eadb90236b331f0917c0",
     "ejecuciones/piloto_maize_EST/pixels.csv": "2268f8c40ee69c1647c554737a4e12382236027669c269142f23c7c407fc0a08",
     "ejecuciones/piloto_maize_EST/preparation.json": "aaf8c63647f4a0b214996296aacebef51e3389e1cea182cf73ff31db916f0962",
+    "ejecuciones/piloto_maize_EST/validacion_codigo.json": "a4e9a5e25ca2ed3e11706060c967d7c1fc0754bb992fa3ebbd239195a4928ab3",
     "ejecuciones/piloto_maize_EST/windows_candidate.csv": "b2c8acd7352553109f40648e83110e973792287cf7f7686c3497a38c3ec7d1ba"
   },
   "pilot_preparation": "PASS: 3/3 exact pixels, maize__rf, six-phase v4",
-  "unit_tests": "PASS: 6 event/calendar tests"
+  "unit_tests": "PASS: 8 tests, including synthetic analysis and paginated download"
 }
