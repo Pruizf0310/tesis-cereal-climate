@@ -1,5 +1,5 @@
 {
-  "project": "PONER_ID_PROYECTO_GEE",
+  "project": "jovial-opus-394022",
   "crop": "maize",
   "h5": "D:/maize_correlacion_vectorizada.h5",
   "yield_nc": "C:/Users/paola/Tesis/02_Procesados/GDHY_detrend/maize_yield_1981_2016_DETREND_clean.nc",
