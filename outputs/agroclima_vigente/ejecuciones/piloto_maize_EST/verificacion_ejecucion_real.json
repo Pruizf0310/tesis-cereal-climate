@@ -1,0 +1,21 @@
+{
+  "verified_at_utc": "2026-10-07T22:17:17.154496+00:00",
+  "verification": "Inspection of completed real GEE run outputs; not a new cloud execution",
+  "status": "PASS",
+  "crop": "maize",
+  "phase": "EST",
+  "years": [
+    1981,
+    1982,
+    1983
+  ],
+  "GDHY_pixels": 3,
+  "native_ERA_cells": 75,
+  "cell_year_phase_rows": 225,
+  "valid_daily_observations_in_phase": 2325,
+  "expected_daily_observations_in_phase": 2325,
+  "complete_coverage_fraction": 1.0,
+  "events": 0,
+  "rule": "Daily UTC Tmax >=34 C for >=2 consecutive days",
+  "scope_note": "Pilot only; does not establish frequencies for 1981-2016 or all maize pixels. Yield-year alignment and yield association remain to be evaluated."
+}

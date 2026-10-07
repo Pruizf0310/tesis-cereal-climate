@@ -40,9 +40,8 @@
   "rules": 24,
   "workbook_originals_preserved": true,
   "documentary_difference_cells": 37,
-  "gee_execution": "NOT_STARTED",
+  "gee_execution": "PILOT_COMPLETED: maize EST, 3 GDHY pixels, 1981-1983; full coverage; 0 events",
   "outputs": {
-    "LEEME_VIGENTE.md": "aa008b155aca661991ddd074d654771b00edc450fbfd48a902f761cdd1aeae3b",
     "amenazas/diferencias_revision_documental.csv": "01a3763553101fece6e71f05fa4ab3d5c6c116f94e5c3bd31a1c04026b8ba35f",
     "amenazas/reglas_24_fases_vigentes.csv": "a996470f27fd126156140da03132578bd4bb4baf1deb3664ce61992b7e21f448",
     "amenazas/revision_documental_24_fragmentos_exactos.xlsx": "07f37a2a8d586237b4ec6654e45a60d39eb5797527bd1fd89e22f329d9f98806",
@@ -63,11 +62,42 @@
     "diagnosticos/comparacion_pixeles_correlacion.json": "6ef2000f2ae7e52355f16aad48eff4a15faa24222dbafffc0d3c09e16f86744d",
     "diagnosticos/netcdf_inventory.json": "6b9293ac379f32d56b2671a8792203d7770cf17088c20340d9e7637c8d7edc2d",
     "diagnosticos/pixeles_GDHY.csv": "db8cc51a2337ff6d4018308d4013ecd06cdda31831e0eadb90236b331f0917c0",
+    "ejecuciones/piloto_maize_EST/distribucion_frecuencias.png": "7cb3c442fe9a89d8cf037c3fe6db2aa97e40fbd5db029e97e00638a9334d9197",
+    "ejecuciones/piloto_maize_EST/eventos.csv": "97564f79635a169d85d5cdfa45946655e4e716fcd38dc23e90fa1a50b720cb7c",
+    "ejecuciones/piloto_maize_EST/frecuencia_anual.png": "0456fde6b692a3fbaa74dd1cc2dbbe9698706d1d75a9246473b89308029cd90a",
+    "ejecuciones/piloto_maize_EST/frecuencia_historica.csv": "9cfaf1d70cfaa354d8309c627a143359b15bf501dc3cc7a42433f1e7f7bdd547",
+    "ejecuciones/piloto_maize_EST/frecuencia_por_celda_fase.csv": "f53084dd6814229384b28beb3fcee026bd42d426fb2a81eaf285ff9c60499bbf",
     "ejecuciones/piloto_maize_EST/pixels.csv": "2268f8c40ee69c1647c554737a4e12382236027669c269142f23c7c407fc0a08",
     "ejecuciones/piloto_maize_EST/preparation.json": "aaf8c63647f4a0b214996296aacebef51e3389e1cea182cf73ff31db916f0962",
+    "ejecuciones/piloto_maize_EST/provenance.json": "ecf4cf90cb66796c61a8d587b7897209f58465f907749f7ca020fd4570b9b487",
+    "ejecuciones/piloto_maize_EST/resumen_GDHY.csv": "d8166a3c73d5b4f45dcbceed374f1c1faac690e36991b6b0bab095d9374a7959",
+    "ejecuciones/piloto_maize_EST/run_status.json": "0b8eb1327c10201a162ceb43f315892969760c76f44b7db579807cb6a3bcc692",
     "ejecuciones/piloto_maize_EST/validacion_codigo.json": "7ed71181e9c9a07d86e9a03c58a3ce32c200b6f14bd6a94c7fcec7b5c80c8701",
-    "ejecuciones/piloto_maize_EST/windows_candidate.csv": "b2c8acd7352553109f40648e83110e973792287cf7f7686c3497a38c3ec7d1ba"
+    "ejecuciones/piloto_maize_EST/verificacion_ejecucion_real.json": "f5b43d3cf2e8fdea55622ab9ee42196eee559cad435f1360cc5023de73ecb134",
+    "ejecuciones/piloto_maize_EST/windows_candidate.csv": "b2c8acd7352553109f40648e83110e973792287cf7f7686c3497a38c3ec7d1ba",
+    "LEEME_VIGENTE.md": "aa008b155aca661991ddd074d654771b00edc450fbfd48a902f761cdd1aeae3b"
   },
   "pilot_preparation": "PASS: 3/3 exact pixels, maize__rf, six-phase v4",
-  "unit_tests": "PASS: 9 tests, including authentication scope selection"
+  "unit_tests": "PASS: 9 tests, including authentication scope selection",
+  "pilot_real_run_verification": {
+    "verified_at_utc": "2026-10-07T22:17:17.154496+00:00",
+    "verification": "Inspection of completed real GEE run outputs; not a new cloud execution",
+    "status": "PASS",
+    "crop": "maize",
+    "phase": "EST",
+    "years": [
+      1981,
+      1982,
+      1983
+    ],
+    "GDHY_pixels": 3,
+    "native_ERA_cells": 75,
+    "cell_year_phase_rows": 225,
+    "valid_daily_observations_in_phase": 2325,
+    "expected_daily_observations_in_phase": 2325,
+    "complete_coverage_fraction": 1.0,
+    "events": 0,
+    "rule": "Daily UTC Tmax >=34 C for >=2 consecutive days",
+    "scope_note": "Pilot only; does not establish frequencies for 1981-2016 or all maize pixels. Yield-year alignment and yield association remain to be evaluated."
+  }
 }
