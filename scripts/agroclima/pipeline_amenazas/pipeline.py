@@ -224,6 +224,18 @@ def download(c, out):
     total = len(pixels)*(last-first+1)*12
     cache_dir = Path(c.get('climate_cache', out/'clima'))
     cache_dir.mkdir(parents=True, exist_ok=True)
+    started = time.monotonic()
+    pending = sum(
+        not ((cache_dir/f"era5_UTC_{int(p['pixel_id'])}_{year}_{month:02d}.csv").exists()
+             and (cache_dir/f"era5_UTC_{int(p['pixel_id'])}_{year}_{month:02d}.json").exists())
+        for p in pixels for year in range(first, last+1) for month in range(1, 13))
+    downloaded = 0
+    download_seconds = 0.0
+    def duration(seconds):
+        seconds = int(round(seconds))
+        return f'{seconds//86400}d {(seconds%86400)//3600:02d}h {(seconds%3600)//60:02d}m {seconds%60:02d}s'
+    print(f'Descarga: {total} bloques mensuales; {pending} pendientes. '
+          'Estimación disponible después del primer bloque nuevo; no incluye análisis final.', flush=True)
     number = 0
     for p in pixels:
         lat, lon, pid = float(p['lat']), float(p['lon']), int(p['pixel_id'])
@@ -242,6 +254,7 @@ def download(c, out):
                 start = date(year, month, 1)
                 end = date(year+1, 1, 1) if month == 12 else date(year, month+1, 1)
                 print(f'[{number}/{total}] GEE: {path.name}', flush=True)
+                block_started = time.monotonic()
                 images = ee.ImageCollection(DATASET).filterDate(start.isoformat(), end.isoformat()).select(BANDS)
                 projection = ee.Image(images.first()).select(0).projection()
                 def sample(image):
@@ -266,6 +279,21 @@ def download(c, out):
                         'start':start.isoformat(),'end_exclusive':end.isoformat(),'rows':len(rows),
                         'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
                 meta_path.write_text(json.dumps(meta,indent=2),encoding='utf8')
+                downloaded += 1
+                download_seconds += time.monotonic()-block_started
+                remaining = max(0, pending-downloaded)
+                eta = remaining*download_seconds/downloaded
+                progress = {'stage':'download', 'blocks_visited':number, 'total_blocks':total,
+                            'new_blocks_completed':downloaded, 'pending_new_blocks':remaining,
+                            'elapsed_seconds':time.monotonic()-started,
+                            'mean_seconds_per_new_block':download_seconds/downloaded,
+                            'estimated_download_remaining_seconds':eta,
+                            'note':'Estimate updates after each new block; excludes final analysis and future quota delays.'}
+                (out/'progreso_descarga.json').write_text(json.dumps(progress,indent=2),encoding='utf8')
+                print(f'Progreso {number}/{total} | Transcurrido: {duration(progress["elapsed_seconds"])} '
+                      f'| Descarga restante estimada: {duration(eta)} '
+                      f'| Media: {download_seconds/downloaded:.1f} s/bloque '
+                      f'({downloaded} bloques medidos)', flush=True)
     print('Descarga terminada; las tres temperaturas quedan disponibles para otras reglas.',flush=True)
 
 
