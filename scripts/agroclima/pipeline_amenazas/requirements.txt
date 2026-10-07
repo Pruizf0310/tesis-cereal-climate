@@ -1,0 +1,5 @@
+earthengine-api
+h5py
+numpy
+pandas
+matplotlib

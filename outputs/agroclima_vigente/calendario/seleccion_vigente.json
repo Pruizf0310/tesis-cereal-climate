@@ -1,0 +1,25 @@
+{
+  "version": "2026-10-07",
+  "water_system": "rf",
+  "water_label": "Secano",
+  "seasons": {
+    "maize": [
+      "maize__rf"
+    ],
+    "soybean": [
+      "soybean__rf"
+    ],
+    "rice": [
+      "rice_1__rf",
+      "rice_2__rf"
+    ],
+    "wheat": [
+      "spring_wheat__rf",
+      "winter_wheat__rf"
+    ]
+  },
+  "wheat_status": "Spring/winter alternatives retained; one type must be selected for the calculation, not both as independent yields.",
+  "rice_note": "Two source seasons retained as temporada 1 and temporada 2. They are not asserted to be meteorological summer/winter everywhere.",
+  "yield_note": "GDHY input is annual and does not separate these rice seasons; calculate exposures separately and do not duplicate the annual yield as independent observations.",
+  "calendar_status": "Current adopted operational calendar; intermediate phase dates are estimates, not annual observations."
+}

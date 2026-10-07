@@ -1,0 +1,10 @@
+﻿pixel_id,season_year,phase,start,end,calendar_id,timing_method,calendar_quality,calendar_version
+71854,1981,EST,1981-10-30,1981-11-07,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+71854,1982,EST,1982-10-30,1982-11-07,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+71854,1983,EST,1983-10-30,1983-11-07,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+74033,1981,EST,1981-11-01,1981-11-11,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+74033,1982,EST,1982-11-01,1982-11-11,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+74033,1983,EST,1983-11-01,1983-11-11,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+74758,1981,EST,1981-10-23,1981-11-02,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+74758,1982,EST,1982-10-23,1982-11-02,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16
+74758,1983,EST,1983-10-23,1983-11-02,maize__rf,archived_blocks_six_phase_v4,estimated_intermediate_dates,regional-v4-2026-09-16

@@ -77,3 +77,8 @@ La arquitectura prevista separa tres roles:
 - **Zenodo**: archivo científico futuro para releases estables, DOI citable, preservación de resultados reproducibles y conexión con publicaciones académicas.
 
 La integración con Zenodo no está implementada todavía. El proyecto queda preparado conceptualmente para publicar versiones estables mediante releases de GitHub y archivarlas en Zenodo cuando existan resultados validados.
+
+
+## Calendario y amenazas vigentes
+
+La consolidación del 7 de octubre de 2026, la selección de secano y las dos temporadas de arroz están en [Agroclima vigente](docs/AGROCLIMA_VIGENTE.md). Incluye código del piloto, calendarios por píxel, reglas y evidencia documental.

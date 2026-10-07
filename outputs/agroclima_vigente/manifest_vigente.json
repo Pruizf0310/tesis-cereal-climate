@@ -1,0 +1,72 @@
+{
+  "version": "2026-10-07",
+  "repository_base_commit": "4fe1be652b8cc0ae94aa785feb05f5ef9686c4e3",
+  "selection": {
+    "version": "2026-10-07",
+    "water_system": "rf",
+    "water_label": "Secano",
+    "seasons": {
+      "maize": [
+        "maize__rf"
+      ],
+      "soybean": [
+        "soybean__rf"
+      ],
+      "rice": [
+        "rice_1__rf",
+        "rice_2__rf"
+      ],
+      "wheat": [
+        "spring_wheat__rf",
+        "winter_wheat__rf"
+      ]
+    },
+    "wheat_status": "Spring/winter alternatives retained; one type must be selected for the calculation, not both as independent yields.",
+    "rice_note": "Two source seasons retained as temporada 1 and temporada 2. They are not asserted to be meteorological summer/winter everywhere.",
+    "yield_note": "GDHY input is annual and does not separate these rice seasons; calculate exposures separately and do not duplicate the annual yield as independent observations.",
+    "calendar_status": "Current adopted operational calendar; intermediate phase dates are estimates, not annual observations."
+  },
+  "calendar_version": "regional-v4-2026-09-16",
+  "calendar_counts": {
+    "maize__rf": 10923,
+    "soybean__rf": 4955,
+    "rice_1__rf": 3186,
+    "rice_2__rf": 2884,
+    "spring_wheat__rf": 10505,
+    "winter_wheat__rf": 10505
+  },
+  "calendar_rows": 257748,
+  "calendar_continuity": "PASS",
+  "rules": 24,
+  "workbook_originals_preserved": true,
+  "documentary_difference_cells": 37,
+  "gee_execution": "NOT_STARTED",
+  "outputs": {
+    "LEEME_VIGENTE.md": "d6832e280e3ac059d4d6a1ad4a8f718b869a9d6557ee1e82584f79e18f405b66",
+    "amenazas/diferencias_revision_documental.csv": "01a3763553101fece6e71f05fa4ab3d5c6c116f94e5c3bd31a1c04026b8ba35f",
+    "amenazas/reglas_24_fases_vigentes.csv": "a996470f27fd126156140da03132578bd4bb4baf1deb3664ce61992b7e21f448",
+    "amenazas/revision_documental_24_fragmentos_exactos.xlsx": "07f37a2a8d586237b4ec6654e45a60d39eb5797527bd1fd89e22f329d9f98806",
+    "amenazas/tabla_maestra_revision_humana.xlsx": "acaef01884aab70f7d76f4108c32145efbb51eef4536f9e58d5b81edf2c49cd3",
+    "calendario/calendario_seis_fases_secano.csv": "4dec5ef6e96ba33df85458b305729205749d443dc7c6cb427107a9b90cd36e6a",
+    "calendario/maize-maize__rf.json": "61a765776be31244c5fce002dfc43d4cb6053a6cedd84680ab5d3d1e915c4c6c",
+    "calendario/manifest.json": "dc6e3ef5602097cdbfcacdd681346869721136c0c5705b2b5dd62cbc961efc43",
+    "calendario/metodo_fuente.md": "94a47e20b51ae385ef9e073e0c1ac04ff9ea5d77f2ecb9e9ccabbe39af2fcda9",
+    "calendario/metodo_vigente_v4.md": "38bdf564bba692b2dbaaee135883b56765da875700841ae4ea16c1bf482a2391",
+    "calendario/provenance_fuente.json": "dc6e3ef5602097cdbfcacdd681346869721136c0c5705b2b5dd62cbc961efc43",
+    "calendario/rice-rice_1__rf.json": "44ddc3bd9f37f77041e221daca393ad85a873df413c75404ec7e67969d0398d5",
+    "calendario/rice-rice_2__rf.json": "a7abc02dd02e6870f041f954e93c8da512ce148fe7f7774d2b6081d7523c339b",
+    "calendario/seleccion_vigente.json": "1197b5936a2225cb18974926d8732c2bce4dd686402b3a402f833c78b5d6c292",
+    "calendario/six_phase_correspondence_v4.json": "77456c753edb9f727b7528b066d4a6bff13ea279939065e6221588c18f1260f9",
+    "calendario/soybean-soybean__rf.json": "0892c14c867e7b89d654c4f40c7eb138a9a7560953cde89cb9fd698dd28d330a",
+    "calendario/wheat-spring_wheat__rf.json": "f1b0f831d332babaa29755efcb9419f389e8d8fe214611bfe22a9d5310697015",
+    "calendario/wheat-winter_wheat__rf.json": "f79ddce8e4f8e8aea48e575ab516e5f094d7ad083c62e62ac0b8256f11616d3f",
+    "diagnosticos/comparacion_pixeles_correlacion.json": "6ef2000f2ae7e52355f16aad48eff4a15faa24222dbafffc0d3c09e16f86744d",
+    "diagnosticos/netcdf_inventory.json": "6b9293ac379f32d56b2671a8792203d7770cf17088c20340d9e7637c8d7edc2d",
+    "diagnosticos/pixeles_GDHY.csv": "db8cc51a2337ff6d4018308d4013ecd06cdda31831e0eadb90236b331f0917c0",
+    "ejecuciones/piloto_maize_EST/pixels.csv": "2268f8c40ee69c1647c554737a4e12382236027669c269142f23c7c407fc0a08",
+    "ejecuciones/piloto_maize_EST/preparation.json": "aaf8c63647f4a0b214996296aacebef51e3389e1cea182cf73ff31db916f0962",
+    "ejecuciones/piloto_maize_EST/windows_candidate.csv": "b2c8acd7352553109f40648e83110e973792287cf7f7686c3497a38c3ec7d1ba"
+  },
+  "pilot_preparation": "PASS: 3/3 exact pixels, maize__rf, six-phase v4",
+  "unit_tests": "PASS: 6 event/calendar tests"
+}
