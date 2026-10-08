@@ -1,0 +1,187 @@
+{
+  "status": {
+    "status": "COMPLETED",
+    "completed_batches": 98307,
+    "total_batches": 98307
+  },
+  "workbook": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\amenazas\\tabla_maestra_revision_humana.xlsx",
+  "workbook_sha256": "acaef01884aab70f7d76f4108c32145efbb51eef4536f9e58d5b81edf2c49cd3",
+  "results": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_seis_fases_GEE_1981_2016\\resumen_GDHY_anual.csv",
+  "selected_pixels": 10923,
+  "years": [
+    1981,
+    2016
+  ],
+  "expected_rows": 2359368,
+  "actual_rows": 2359368,
+  "missing_pixel_year_phase": 0,
+  "duplicate_rows": 0,
+  "invalid_keys": 0,
+  "complete_coverage_inconsistencies": 0,
+  "phases": {
+    "EST": {
+      "rows": 393228,
+      "complete": 391140,
+      "incomplete": 2088,
+      "positive_complete": 85521,
+      "expected_rows": 393228,
+      "values": {
+        "variable": [
+          "tmax_c"
+        ],
+        "threshold": [
+          34.0
+        ],
+        "operator": [
+          ">="
+        ],
+        "min_days": [
+          2
+        ],
+        "count_unit": [
+          "episodes"
+        ],
+        "source": [
+          "Li et al. 2025a"
+        ]
+      }
+    },
+    "VEG": {
+      "rows": 393228,
+      "complete": 391140,
+      "incomplete": 2088,
+      "positive_complete": 101539,
+      "expected_rows": 393228,
+      "values": {
+        "variable": [
+          "tmax_c"
+        ],
+        "threshold": [
+          34.6
+        ],
+        "operator": [
+          ">="
+        ],
+        "min_days": [
+          2
+        ],
+        "count_unit": [
+          "episodes"
+        ],
+        "source": [
+          "Li et al. 2025a"
+        ]
+      }
+    },
+    "REP": {
+      "rows": 393228,
+      "complete": 391140,
+      "incomplete": 2088,
+      "positive_complete": 92433,
+      "expected_rows": 393228,
+      "values": {
+        "variable": [
+          "tmax_c"
+        ],
+        "threshold": [
+          33.7
+        ],
+        "operator": [
+          ">="
+        ],
+        "min_days": [
+          2
+        ],
+        "count_unit": [
+          "episodes"
+        ],
+        "source": [
+          "Li et al. (2025b)"
+        ]
+      }
+    },
+    "FLO": {
+      "rows": 393228,
+      "complete": 391140,
+      "incomplete": 2088,
+      "positive_complete": 88442,
+      "expected_rows": 393228,
+      "values": {
+        "variable": [
+          "tmax_c"
+        ],
+        "threshold": [
+          33.7
+        ],
+        "operator": [
+          ">="
+        ],
+        "min_days": [
+          2
+        ],
+        "count_unit": [
+          "episodes"
+        ],
+        "source": [
+          "Li et al. (2025b)"
+        ]
+      }
+    },
+    "FIL": {
+      "rows": 393228,
+      "complete": 391140,
+      "incomplete": 2088,
+      "positive_complete": 168392,
+      "expected_rows": 393228,
+      "values": {
+        "variable": [
+          "tmax_c"
+        ],
+        "threshold": [
+          32.7
+        ],
+        "operator": [
+          ">="
+        ],
+        "min_days": [
+          2
+        ],
+        "count_unit": [
+          "episodes"
+        ],
+        "source": [
+          "Li et al. (2025b)"
+        ]
+      }
+    },
+    "MAT": {
+      "rows": 393228,
+      "complete": 391140,
+      "incomplete": 2088,
+      "positive_complete": 239023,
+      "expected_rows": 393228,
+      "values": {
+        "variable": [
+          "precip_mm"
+        ],
+        "threshold": [
+          10.0
+        ],
+        "operator": [
+          ">"
+        ],
+        "min_days": [
+          1
+        ],
+        "count_unit": [
+          "days"
+        ],
+        "source": [
+          "Ortega Gómez et al. (2019)"
+        ]
+      }
+    }
+  },
+  "output_semantics": "GEE queried daily maximum air temperature and daily precipitation; annual summaries downloaded. Daily arrays and episode dates not downloaded by this engine.",
+  "caveats": "Variable/threshold match does not establish exact paper-window equivalence. VEG proxy V7-VT; REP R2 and FLO R1 split source R1-R3 and clip runs; MAT terminal R6 proxy for post-R6 dry-down. FIL table 32.7 vs documentary 32.9 remains unresolved."
+}
