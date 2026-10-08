@@ -1,0 +1,7 @@
+complete_cells,count_unit,coverage_fraction,end,evaluated_area_fraction_with_event,expected_cell_days,mean_count_per_native_cell,min_days,native_cells,operator,phase,pixel_id,quality,season_year,source,start,threshold,valid_cell_days,variable,weight,weighted_count,weighted_exposed
+25,episodes,1.0,1981-11-07,0.0,225,0.0,2,25,>=,EST,71854,OK,1981,Li et al. 2025a,1981-10-30,34,225,tmax_c,19.094842549522383,0,0
+25,episodes,1.0,1982-01-03,0.0,725,0.0,2,25,>=,VEG,71854,OK,1981,Li et al. 2025a,1981-12-06,34.6,725,tmax_c,19.094842549522383,0,0
+25,episodes,1.0,1982-01-20,0.0,225,0.0,2,25,>=,REP,71854,OK,1981,Li et al. (2025b),1982-01-12,33.7,225,tmax_c,19.094842549522383,0,0
+25,episodes,1.0,1982-01-11,0.0,200,0.0,2,25,>=,FLO,71854,OK,1981,Li et al. (2025b),1982-01-04,33.7,200,tmax_c,19.094842549522383,0,0
+25,episodes,1.0,1982-02-25,0.0,900,0.0,2,25,>=,FIL,71854,OK,1981,Li et al. (2025b),1982-01-21,32.7,900,tmax_c,19.094842549522383,0,0
+25,days,1.0,1982-03-10,0.0,325,0.0,1,25,>,MAT,71854,OK,1981,Ortega Gómez et al. (2019),1982-02-26,10,325,precip_mm,19.094842549522383,0,0

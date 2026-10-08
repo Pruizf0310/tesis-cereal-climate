@@ -1,0 +1,15 @@
+{
+  "real_GEE_rows": 180,
+  "pixels": 10,
+  "years": 3,
+  "phases": 6,
+  "quality_OK": 180,
+  "positive_rows": 71,
+  "compared_to_existing_local_rows": 51,
+  "max_mean_count_difference": 8.881784197001252e-16,
+  "downloaded_daily_series": false,
+  "server_synthetic_cases": 5,
+  "local_tests": 15,
+  "cloud_compute_elapsed_seconds": 8.405999999959022,
+  "note": "Benchmark of 10 southern maize pixels and 3 years; does not guarantee full-run duration. No full run started."
+}

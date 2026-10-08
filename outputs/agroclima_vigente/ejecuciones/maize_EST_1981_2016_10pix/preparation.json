@@ -1,0 +1,11 @@
+{
+  "selected": 10,
+  "matched": 10,
+  "unmatched": [],
+  "calendar_selection_confirmed": true,
+  "calendar_version": "regional-v4-2026-09-16",
+  "season_id": "maize__rf",
+  "phase_year_label": "planting year; yield-year alignment not yet verified",
+  "calendar_date_convention": "365-day reference, half-open boundary preserves leap days",
+  "h5_pixels": 10923
+}

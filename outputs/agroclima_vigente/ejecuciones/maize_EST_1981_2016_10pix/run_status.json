@@ -1,0 +1,28 @@
+{
+  "status": "COMPLETED",
+  "config": {
+    "project": "jovial-opus-394022",
+    "crop": "maize",
+    "h5": "D:/maize_correlacion_vectorizada.h5",
+    "yield_nc": "C:/Users/paola/Tesis/02_Procesados/GDHY_detrend/maize_yield_1981_2016_DETREND_clean.nc",
+    "calendar_selection_confirmed": true,
+    "season": "maize",
+    "water_system": "rf",
+    "crop_type": "maize_unspecified_type",
+    "calendar_phase": "VE",
+    "phase": "EST",
+    "variable": "tmax_c",
+    "operator": ">=",
+    "threshold": 34.0,
+    "min_days": 2,
+    "source": "https://doi.org/10.1016/j.eja.2025.127729",
+    "start_year": 1981,
+    "end_year": 2016,
+    "pixel_limit": 10,
+    "climate_day": "UTC",
+    "output": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_EST_1981_2016_10pix",
+    "calendar_dir": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\calendario",
+    "repository_results": "C:\\Users\\paola\\Tesis\\Repositorio\\tesis-cereal-climate\\outputs\\agroclima_vigente\\ejecuciones\\maize_EST_1981_2016_10pix",
+    "climate_cache": "C:/Users/paola/Tesis/02_Procesados/Clima_ERA5_Land_cache/diario_UTC"
+  }
+}

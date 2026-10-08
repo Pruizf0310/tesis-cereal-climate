@@ -163,4 +163,6 @@ def main():
     print('Paquete completo. Resultados:',root/'consolidado',flush=True)
 
 
-if __name__=='__main__': main()
+if __name__=='__main__':
+    from maize_gee import main as main_gee
+    main_gee()
