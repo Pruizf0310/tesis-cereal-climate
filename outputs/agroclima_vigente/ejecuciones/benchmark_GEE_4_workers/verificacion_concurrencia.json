@@ -1,0 +1,9 @@
+{
+  "workers": 4,
+  "batches": 45,
+  "elapsed_seconds": 27.18700000003446,
+  "batches_per_second": 1.6552028543032686,
+  "rows": 1080,
+  "quality": "ALL_OK",
+  "status": "COMPLETED"
+}

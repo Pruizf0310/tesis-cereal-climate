@@ -4,6 +4,30 @@
 .\.venv\Scripts\python.exe .\maize_seis_fases.py
 ```
 
+Para aumentar la concurrencia, detener primero la instancia anterior con Ctrl+C,
+esperar el prompt y ejecutar **una sola instancia**:
+
+```powershell
+.\.venv\Scripts\python.exe .\maize_seis_fases.py --workers 8
+```
+
+Se admiten de 1 a 8 solicitudes simultáneas. Mantener `--batch-size 4` (valor
+predeterminado) conserva la partición de los lotes ya calculados. La versión
+actual reconoce expresamente la huella científica de su versión anterior,
+verifica el hash de cada CSV y reutiliza esos lotes; no permite mezclar reglas
+o calendarios distintos. El algoritmo de conteo no cambió.
+
+Si el H5 externo no está conectado, lee automáticamente la selección guardada
+en `02_Procesados/Pixeles_correlacion_vigentes`, comprobando su hash, procedencia,
+orden y coordenadas contra GDHY. La configuración y las identidades de los
+lotes originales se conservan. Los resultados siguen en la misma carpeta.
+
+Pruebas del 7 de octubre de 2026: 45 lotes / 5 píxeles / 36 años / seis fases
+en 27,187 segundos con 4 solicitudes y 16,172 segundos con 8. Cobertura completa
+en ambas pruebas; 17 pruebas locales pasan. Fueron selecciones distintas y la
+ejecución original continuaba activa; no garantizan el tiempo del paquete
+completo. Mediciones en `ejecuciones/comparacion_concurrencia_GEE.json`.
+
 El comando ahora usa `maize_gee.py` y `config_maize_seis_fases_gee.json`. Procesa todos los píxeles H5 de maíz, 1981–2016, seis fases. Conserva el extractor local anterior y su caché; este motor no necesita descargar las series diarias. Los resultados anteriores no se borran ni se mezclan con los nuevos.
 
 GEE transforma cada ventana en arrays diarios sobre la cuadrícula nativa de ERA5-Land, aplica el umbral y cuenta la racha cuando llega a su segundo día, solo si los dos anteriores no eran ya parte de una racha. Una racha larga se cuenta una sola vez. Para MAT cuenta cada día >10 mm. Días enteramente ausentes y máscaras son huecos, nunca ceros válidos. Convierte kelvin a Celsius y metros a milímetros. Evalúa por celda ANTES de promediar en el píxel GDHY. Devuelve conteo medio, fracción espacial con eventos y cobertura por píxel, año de siembra y fase. Excluye celdas incompletas del promedio y conserva su indicador de cobertura.

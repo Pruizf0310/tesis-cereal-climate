@@ -3,7 +3,9 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 import numpy as np
-from maize_gee import count_arrays, consolidate
+from maize_gee import count_arrays, consolidate, compute_batch, read_pixels
+import hashlib
+import json
 import pipeline
 
 
@@ -20,6 +22,34 @@ class ArrayImage:
 
 
 class GEETests(unittest.TestCase):
+    def test_checkpoint_compatibility_still_checks_integrity(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);items=[({'pixel_id':7,'lat':1.25,'lon':2.25},1981)]
+            key=hashlib.sha256(json.dumps(items,sort_keys=True).encode()).hexdigest()[:20]
+            path=root/f'batch_{key}.csv';path.write_text('pixel_id\n7\n')
+            path.with_suffix('.json').write_text(json.dumps(dict(fingerprint='old',sha256=hashlib.sha256(path.read_bytes()).hexdigest())))
+            self.assertTrue(compute_batch(None,items,[],{},root,'new',('old',))[1])
+            with self.assertRaises(ValueError):compute_batch(None,items,[],{},root,'different-science')
+            path.write_text('altered')
+            with self.assertRaises(ValueError):compute_batch(None,items,[],{},root,'new',('old',))
+
+    def test_local_indices_fallback_checks_source_hash_and_coordinates(self):
+        import h5py
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);nc=root/'02_Procesados/GDHY_detrend/yield.nc';nc.parent.mkdir(parents=True)
+            with h5py.File(nc,'w') as h:h['lat']=[1.25,1.75];h['lon']=[2.25,2.75]
+            directory=root/'02_Procesados/Pixeles_correlacion_vigentes';directory.mkdir()
+            path=directory/'pixeles_maize.csv'
+            pipeline.save_csv(path,[dict(pixel_id=1,h5_index=0,lat_idx=0,lon_idx=1,latitude=1.25,longitude=2.75)])
+            c=dict(h5=str(root/'disconnected.h5'),yield_nc=str(nc))
+            meta=dict(crops={'maize':dict(source_h5=c['h5'],source_yield=c['yield_nc'],csv=path.name,
+                                         pixels=1,sha256=hashlib.sha256(path.read_bytes()).hexdigest())})
+            (directory/'manifest.json').write_text(json.dumps(meta))
+            pixels,origin=read_pixels(c)
+            self.assertEqual(pixels,[dict(pixel_id=1,lat=1.25,lon=2.75)])
+            path.write_text('altered')
+            with self.assertRaisesRegex(ValueError,'alterada'):read_pixels(c)
+
     def test_run_arrays_against_local_reference(self):
         from datetime import date,timedelta
         ee=SimpleNamespace(Image=SimpleNamespace(constant=ArrayImage),Array=lambda x:x,

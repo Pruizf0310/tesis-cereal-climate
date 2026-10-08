@@ -13,6 +13,43 @@ from pathlib import Path
 import pipeline as core
 from maize_seis_fases import load_rules, windows, STAGES
 
+# This predecessor uses the identical scientific algorithm. Changes below only
+# affect scheduling, ETA and verified input fallback; existing batches remain valid.
+COMPATIBLE_CODE_SHA256=('88c958ec34580175cc625f78456e6c5b7a8f27c4f84b7976edf4d12deda1a48b',)
+
+
+def read_pixels(c):
+    import h5py
+    import numpy as np
+    if Path(c['h5']).exists():
+        with h5py.File(c['h5']) as f:ii,jj=f['lat_idx'][...],f['lon_idx'][...]
+        origin=c['h5']
+    else:
+        directory=Path(c['yield_nc']).parent.parent/'Pixeles_correlacion_vigentes'
+        meta=json.loads((directory/'manifest.json').read_text(encoding='utf-8'))['crops']['maize']
+        path=directory/meta['csv']
+        if Path(meta['source_h5'])!=Path(c['h5']) or Path(meta['source_yield'])!=Path(c['yield_nc']):
+            raise ValueError('La lista local no corresponde a los archivos configurados')
+        if hashlib.sha256(path.read_bytes()).hexdigest()!=meta['sha256']:
+            raise ValueError('La lista local de píxeles fue alterada')
+        with path.open(encoding='utf-8-sig') as f:rows=list(csv.DictReader(f))
+        if len(rows)!=meta['pixels'] or [int(r['h5_index']) for r in rows]!=list(range(len(rows))):
+            raise ValueError('Cantidad u orden de píxeles local incompatible')
+        ii=np.array([int(r['lat_idx']) for r in rows]);jj=np.array([int(r['lon_idx']) for r in rows])
+        origin=str(path)
+    with h5py.File(c['yield_nc']) as f:lat,lon=f['lat'][...],f['lon'][...]
+    if len(ii)!=len(jj) or len(set(zip(ii.tolist(),jj.tolist())))!=len(ii):
+        raise ValueError('Selección de píxeles duplicada o incompatible')
+    if not (np.all(ii>=0) and np.all(ii<len(lat)) and np.all(jj>=0) and np.all(jj<len(lon))):
+        raise ValueError('Índices de píxeles fuera de GDHY')
+    pixels=[dict(pixel_id=int(i)*len(lon)+int(j),lat=float(lat[i]),lon=float((lon[j]+180)%360-180)) for i,j in zip(ii,jj)]
+    if not Path(c['h5']).exists():
+        for saved,p in zip(rows,pixels):
+            if (int(saved['pixel_id'])!=p['pixel_id'] or
+                abs(float(saved['latitude'])-p['lat'])>1e-6 or abs(float(saved['longitude'])-p['lon'])>1e-6):
+                raise ValueError('Coordenadas locales incompatibles con GDHY')
+    return pixels,origin
+
 
 def count_arrays(ee, hits, valid, min_days, count_unit):
     """Count each qualifying run at its Nth day; missing days are false hits."""
@@ -72,12 +109,12 @@ def phase_feature(ee,pixel,rule,window):
         count_unit=rule['count_unit'],source=rule['source']))
 
 
-def compute_batch(ee,items,rules,data,folder,fingerprint):
+def compute_batch(ee,items,rules,data,folder,fingerprint,compatible_fingerprints=()):
     key=hashlib.sha256(json.dumps(items,sort_keys=True).encode()).hexdigest()[:20]
     path=folder/f'batch_{key}.csv'; marker=path.with_suffix('.json')
     if path.exists() and marker.exists():
         meta=json.loads(marker.read_text())
-        if meta['fingerprint']!=fingerprint or meta['sha256']!=hashlib.sha256(path.read_bytes()).hexdigest():
+        if meta['fingerprint'] not in (fingerprint,*compatible_fingerprints) or meta['sha256']!=hashlib.sha256(path.read_bytes()).hexdigest():
             raise ValueError(f'Lote incompatible o alterado: {path}')
         return path,True
     features=[]
@@ -153,23 +190,22 @@ def main():
     parser.add_argument('--workers',type=int,default=2)
     parser.add_argument('--batch-size',type=int,default=4,help='Píxel-años por solicitud; seis fases por píxel-año')
     args=parser.parse_args()
-    if args.limit<0 or not 1<=args.workers<=4 or not 1<=args.batch_size<=16:parser.error('Límites: workers 1–4, batch-size 1–16, limit >=0')
+    if args.limit<0 or not 1<=args.workers<=8 or not 1<=args.batch_size<=16:parser.error('Límites: workers 1–8, batch-size 1–16, limit >=0')
     c=json.loads(Path(args.config).read_text(encoding='utf-8'))
     first=args.start_year or c['start_year'];last=args.end_year or c['end_year']
     if not c['start_year']<=first<=last<=c['end_year']:parser.error('Años fuera del periodo configurado')
-    import h5py
-    with h5py.File(c['h5']) as f:ii,jj=f['lat_idx'][...],f['lon_idx'][...]
-    with h5py.File(c['yield_nc']) as f:lat,lon=f['lat'][...],f['lon'][...]
-    pixels=[dict(pixel_id=int(i)*len(lon)+int(j),lat=float(lat[i]),lon=float((lon[j]+180)%360-180)) for i,j in zip(ii,jj)]
+    pixels,pixel_origin=read_pixels(c)
     if args.limit:pixels=pixels[:args.limit]
     rules=load_rules(Path(c['rules_csv']))
     calendar=Path(c['calendar_dir'])/'maize-maize__rf.json';data=json.loads(calendar.read_text(encoding='utf-8'))
     scientific=dict(config=c,rules=rules,stages=STAGES,calendar_sha256=hashlib.sha256(calendar.read_bytes()).hexdigest(),
                     algorithm='native_arrays_run_Nth_day_v1',code_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
     fingerprint=hashlib.sha256(json.dumps(scientific,sort_keys=True).encode()).hexdigest()
+    compatible_fingerprints=tuple(hashlib.sha256(json.dumps(scientific|{'code_sha256':old},sort_keys=True).encode()).hexdigest()
+                                 for old in COMPATIBLE_CODE_SHA256)
     root=Path(c['output']);root.mkdir(parents=True,exist_ok=True)
     folder=root/'lotes';folder.mkdir(exist_ok=True)
-    plan=scientific|dict(selected_pixels=len(pixels),first_year=first,last_year=last,workers=args.workers,batch_size=args.batch_size,
+    plan=scientific|dict(selected_pixels=len(pixels),pixel_selection_read_from=pixel_origin,first_year=first,last_year=last,workers=args.workers,batch_size=args.batch_size,
         limitations='UTC days; estimated phase dates; same operational source proxies as legacy runner. Count each native cell before spatial mean; incomplete cells excluded. MAT counts individual days. No unique weather-system count or yield association. Daily series and event dates are not exported by this summary engine.')
     (root/'plan_ejecucion.json').write_text(json.dumps(plan,ensure_ascii=False,indent=2),encoding='utf-8')
     import ee
@@ -179,7 +215,7 @@ def main():
     print(f'GEE: {len(pixels)} píxeles × {last-first+1} años × 6 fases; {len(batches)} lotes. No se descargan series diarias.',flush=True)
     started=time.monotonic();done=0;new=0;paths=[]
     iterator=iter(batches); pool=futures.ThreadPoolExecutor(max_workers=args.workers)
-    pending={pool.submit(compute_batch,ee,b,rules,data,folder,fingerprint) for b in [next(iterator,None) for _ in range(args.workers)] if b is not None}
+    pending={pool.submit(compute_batch,ee,b,rules,data,folder,fingerprint,compatible_fingerprints) for b in [next(iterator,None) for _ in range(args.workers)] if b is not None}
     status='RUNNING'
     try:
         while pending:
@@ -190,7 +226,6 @@ def main():
             for job in ready:
                 path,cached=job.result();paths.append(path);done+=1;new+=not cached
                 elapsed=time.monotonic()-started
-                eta=elapsed/new*(len(batches)-done)/args.workers if new else None
                 # Throughput already includes parallel execution; do not divide ETA twice.
                 eta=elapsed/new*(len(batches)-done) if new else None
                 progress=dict(status='RUNNING',completed_batches=done,total_batches=len(batches),new_batches=new,
@@ -200,7 +235,7 @@ def main():
                       f'transcurrido {elapsed/60:.1f} min | restante aprox. {eta/3600:.2f} h' if eta is not None else
                       f'Lotes {done}/{len(batches)} | caché',flush=True)
                 batch=next(iterator,None)
-                if batch is not None:pending.add(pool.submit(compute_batch,ee,batch,rules,data,folder,fingerprint))
+                if batch is not None:pending.add(pool.submit(compute_batch,ee,batch,rules,data,folder,fingerprint,compatible_fingerprints))
         status='COMPLETED'
     except KeyboardInterrupt:
         status='INTERRUPTED';print('Interrumpido. Los lotes completos se conservan; solicitudes en curso pueden tardar en cerrar.',flush=True)

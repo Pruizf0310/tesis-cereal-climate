@@ -1,0 +1,30 @@
+{
+  "baseline_user_run": {
+    "workers": 2,
+    "completed_batches": 932,
+    "elapsed_minutes": 20.3,
+    "batches_per_second": 0.7651888341543513
+  },
+  "benchmarks": [
+    {
+      "workers": 4,
+      "batches": 45,
+      "elapsed_seconds": 27.18700000003446,
+      "batches_per_second": 1.6552028543032686,
+      "rows": 1080,
+      "quality": "ALL_OK",
+      "status": "COMPLETED"
+    },
+    {
+      "workers": 8,
+      "batches": 45,
+      "elapsed_seconds": 16.17200000002049,
+      "batches_per_second": 2.782587187728357,
+      "rows": 1080,
+      "quality": "ALL_OK",
+      "status": "COMPLETED"
+    }
+  ],
+  "limitations": "Short tests use different nearby 5-pixel selections (H5 positions 200:205 and 205:210), 36 years and 6 phases. The original 2-worker run remained active. This is an indicative throughput comparison, not a controlled scaling or full-runtime guarantee.",
+  "verification": "17 unit tests passed; first original production batch reused with verified predecessor fingerprint; local index fallback verified for all 10923 pixels."
+}
