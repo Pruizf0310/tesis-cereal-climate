@@ -15,7 +15,8 @@ from maize_seis_fases import load_rules, windows, STAGES
 
 # This predecessor uses the identical scientific algorithm. Changes below only
 # affect scheduling, ETA and verified input fallback; existing batches remain valid.
-COMPATIBLE_CODE_SHA256=('88c958ec34580175cc625f78456e6c5b7a8f27c4f84b7976edf4d12deda1a48b',)
+COMPATIBLE_CODE_SHA256=('88c958ec34580175cc625f78456e6c5b7a8f27c4f84b7976edf4d12deda1a48b',
+                        'f0e3f4dba174a5e3f94a9057334d7942e2a369a8acabe78eecea196e543341ae')
 
 
 def read_pixels(c):
@@ -190,7 +191,7 @@ def main():
     parser.add_argument('--workers',type=int,default=2)
     parser.add_argument('--batch-size',type=int,default=4,help='Píxel-años por solicitud; seis fases por píxel-año')
     args=parser.parse_args()
-    if args.limit<0 or not 1<=args.workers<=8 or not 1<=args.batch_size<=16:parser.error('Límites: workers 1–8, batch-size 1–16, limit >=0')
+    if args.limit<0 or not 1<=args.workers<=12 or not 1<=args.batch_size<=16:parser.error('Límites: workers 1–12, batch-size 1–16, limit >=0')
     c=json.loads(Path(args.config).read_text(encoding='utf-8'))
     first=args.start_year or c['start_year'];last=args.end_year or c['end_year']
     if not c['start_year']<=first<=last<=c['end_year']:parser.error('Años fuera del periodo configurado')

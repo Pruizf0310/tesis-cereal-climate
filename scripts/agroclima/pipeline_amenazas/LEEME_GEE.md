@@ -11,7 +11,11 @@ esperar el prompt y ejecutar **una sola instancia**:
 .\.venv\Scripts\python.exe .\maize_seis_fases.py --workers 8
 ```
 
-Se admiten de 1 a 8 solicitudes simultáneas. Mantener `--batch-size 4` (valor
+Se admiten de 1 a 12 solicitudes simultáneas. Prueba adicional con 12: 90 lotes
+en 19,234 segundos, 2.160 resultados con cobertura completa, sin errores. Es
+una prueba corta con otros píxeles; no garantiza el ritmo del paquete completo.
+Para usarla: `python maize_seis_fases.py --workers 12` con el Python de `.venv`.
+Mantener `--batch-size 4` (valor
 predeterminado) conserva la partición de los lotes ya calculados. La versión
 actual reconoce expresamente la huella científica de su versión anterior,
 verifica el hash de cada CSV y reutiliza esos lotes; no permite mezclar reglas

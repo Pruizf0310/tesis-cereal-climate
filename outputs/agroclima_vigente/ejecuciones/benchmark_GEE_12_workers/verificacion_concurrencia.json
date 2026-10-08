@@ -1,0 +1,10 @@
+{
+  "workers": 12,
+  "batches": 90,
+  "elapsed_seconds": 19.234000000054948,
+  "batches_per_second": 4.679213892052765,
+  "result_rows": 2160,
+  "quality": "ALL_OK",
+  "unit_tests": 17,
+  "note": "Short test on different pixels, with original 8-worker process active; no guarantee of sustained speed or full duration."
+}
