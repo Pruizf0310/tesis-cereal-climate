@@ -36,7 +36,8 @@ def windows(data, pixel, phase, first, last):
 
 
 def load_rules(path):
-    rows = [r for r in csv.DictReader(path.open(encoding='utf-8-sig')) if r['cultivo']=='Maíz']
+    with path.open(encoding='utf-8-sig') as source:
+        rows = [r for r in csv.DictReader(source) if r['cultivo']=='Maíz']
     if len(rows)!=6 or {r['fase'] for r in rows}!=set(STAGES):
         raise ValueError('Se requieren exactamente seis reglas vigentes de maíz')
     rules = []
@@ -44,7 +45,7 @@ def load_rules(path):
         rain = row['fase']=='MAT'
         if ('Precipitación' if rain else 'Tmax') not in row['variable_estadistico']:
             raise ValueError(f"Variable no implementada: {row['variable_estadistico']}")
-        if row['estado']!='REGLA DEFINIDA':
+        if row['estado'].strip() not in {'REGLA DEFINIDA', 'REGLA DEFINIDA · indicador'}:
             raise ValueError(f"Regla pendiente: {row['fase']}")
         number = re.search(r'(\d+(?:[.,]\d+)?)', row['umbral'])
         if not number:

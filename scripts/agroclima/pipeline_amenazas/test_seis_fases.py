@@ -4,10 +4,24 @@ import unittest
 from pathlib import Path
 import pandas as pd
 import pipeline
-from maize_seis_fases import windows, aggregate
+from maize_seis_fases import windows, aggregate, load_rules
 
 
 class SixPhaseTests(unittest.TestCase):
+    def test_defined_indicator_is_accepted_but_pending_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'rules.csv'
+            rows=[dict(cultivo='Maíz',fase=phase,variable_estadistico='Precipitación' if phase=='MAT' else 'Tmax',
+                       estado='REGLA DEFINIDA · indicador' if phase=='MAT' else 'REGLA DEFINIDA',
+                       umbral='>10 mm' if phase=='MAT' else '≥34°C',fuente='SYNTHETIC')
+                  for phase in ['EST','VEG','REP','FLO','FIL','MAT']]
+            pipeline.save_csv(path,rows)
+            self.assertEqual(len(load_rules(path)),6)
+            rows[-1]['estado']='PENDIENTE'
+            pipeline.save_csv(path,rows)
+            with self.assertRaisesRegex(ValueError,'Regla pendiente: MAT'):
+                load_rules(path)
+
     def test_source_subphase_and_cross_year(self):
         codes=['VE','V1_V6','V7_VT','R1','R2','R3','R4_R5','R6']
         data={'templates':[{'code':x} for x in codes],
