@@ -1,0 +1,17 @@
+{
+  "crop": "maize",
+  "start_year": 1981,
+  "end_year": 2016,
+  "min_years": 20,
+  "oni_version": "ONI ERSSTv6",
+  "oni_path": "C:\\Users\\paola\\Tesis\\01_Data\\ONI\\ONI_v6_2026-10-08.html",
+  "oni_source_url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/oni/v6/",
+  "pixels_csv": "C:\\Users\\paola\\Tesis\\02_Procesados\\Pixeles_correlacion_vigentes\\pixeles_maize.csv",
+  "hazard_results": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_seis_fases_GEE_1981_2016\\resumen_GDHY_anual.csv",
+  "output": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\correlaciones\\maize_ONI_v6",
+  "repository_results": "C:\\Users\\paola\\Tesis\\Repositorio\\tesis-cereal-climate\\outputs\\agroclima_vigente\\correlaciones\\maize_ONI_v6",
+  "world_outline": "C:\\Users\\paola\\Tesis\\Repositorio\\tesis-cereal-climate\\web-v2\\public\\data\\world_outline.geojson",
+  "permutations": 999,
+  "block_years": 3,
+  "seed": 20261008
+}

@@ -1,0 +1,83 @@
+{
+  "config": {
+    "crop": "maize",
+    "start_year": 1981,
+    "end_year": 2016,
+    "min_years": 20,
+    "oni_version": "ONI ERSSTv6",
+    "oni_path": "C:\\Users\\paola\\Tesis\\01_Data\\ONI\\ONI_v6_2026-10-08.html",
+    "oni_source_url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/oni/v6/",
+    "pixels_csv": "C:\\Users\\paola\\Tesis\\02_Procesados\\Pixeles_correlacion_vigentes\\pixeles_maize.csv",
+    "hazard_results": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_seis_fases_GEE_1981_2016\\resumen_GDHY_anual.csv",
+    "output": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\correlaciones\\maize_ONI_v6",
+    "repository_results": "C:\\Users\\paola\\Tesis\\Repositorio\\tesis-cereal-climate\\outputs\\agroclima_vigente\\correlaciones\\maize_ONI_v6",
+    "world_outline": "C:\\Users\\paola\\Tesis\\Repositorio\\tesis-cereal-climate\\web-v2\\public\\data\\world_outline.geojson",
+    "permutations": 999,
+    "block_years": 3,
+    "seed": 20261008
+  },
+  "benchmark_only": false,
+  "preparation_seconds": 97.65584240003955,
+  "estimated_preparation_plus_permutations_seconds": 144.594503110369,
+  "benchmarks": [
+    {
+      "phase": "EST",
+      "valid_pixels": 4958,
+      "sample_pixels": 128,
+      "sample_permutations": 99,
+      "benchmark_seconds": 0.01528999989386648,
+      "estimated_permutation_seconds": 5.976326677266115
+    },
+    {
+      "phase": "VEG",
+      "valid_pixels": 6882,
+      "sample_pixels": 128,
+      "sample_permutations": 99,
+      "benchmark_seconds": 0.013058000011369586,
+      "estimated_permutation_seconds": 7.084540003327592
+    },
+    {
+      "phase": "REP",
+      "valid_pixels": 6483,
+      "sample_pixels": 128,
+      "sample_permutations": 99,
+      "benchmark_seconds": 0.013853900018148124,
+      "estimated_permutation_seconds": 7.080572836477007
+    },
+    {
+      "phase": "FLO",
+      "valid_pixels": 6560,
+      "sample_pixels": 128,
+      "sample_permutations": 99,
+      "benchmark_seconds": 0.012889800011180341,
+      "estimated_permutation_seconds": 6.666077255782015
+    },
+    {
+      "phase": "FIL",
+      "valid_pixels": 8104,
+      "sample_pixels": 128,
+      "sample_permutations": 99,
+      "benchmark_seconds": 0.013977699913084507,
+      "estimated_permutation_seconds": 8.93008245072137
+    },
+    {
+      "phase": "MAT",
+      "valid_pixels": 10267,
+      "sample_pixels": 128,
+      "sample_permutations": 99,
+      "benchmark_seconds": 0.013838700018823147,
+      "estimated_permutation_seconds": 11.201061486755366
+    }
+  ],
+  "elapsed_seconds": 156.1290796000976,
+  "rows_read": 2359368,
+  "incomplete_hazard_rows": 12528,
+  "missing_ONI_rows": 0,
+  "pixel_phase_tests": 65538,
+  "hashes": {
+    "oni_path": "55986fc964a875e866f5e13418f93551ef68f7a0c252ef542b7ed0cdf13a6d6e",
+    "pixels_csv": "cd17fd15de85118e4a9cf8e56691241b48dfaecc58d4ecb1ecf67153ea081f0c"
+  },
+  "methods": "Pearson and Spearman; ONI phase mean weighted by calendar days, centered monthly 3-month indices; lag 0. Constant series undefined; incomplete hazard windows excluded. P-values: common random permutations of 3-year ONI blocks, full 36-year pairs only; BH FDR across all pixels and six phases separately for each method.",
+  "limitations": "Exploratory association, not causal or predictive validation. Block exchangeability/stationarity and block-length sensitivity require evaluation; no trend adjustment. Finite permutation resolution. Existing hazard-window approximations and FIL threshold discrepancy retained. Dates label planting year, not yield year. No MJO or yield correlation in this run."
+}
