@@ -22,7 +22,7 @@ Es un calendario operativo coherente adoptado para el cálculo, no fenología an
 
 ## Código, resultados y repositorio
 
-Código ejecutable: `C:/Users/paola/Tesis/02_Scripts/agroclima/pipeline_amenazas/`.
+Código ejecutable: `C:/Users/paola/Tesis/Repositorio/tesis-cereal-climate/scripts/agroclima/pipeline_amenazas/`. Es la única ubicación del código desde el 24 oct 2026; `02_Scripts` ya no se usa.
 
 Piloto: maíz EST, Tmax >=34 °C, >=2 días consecutivos; tres píxeles, 1981–1983. Usa calendario por píxel de secano, con la correspondencia v4. Falta configurar ID de proyecto GEE y autenticar. El día climático de este piloto es UTC.
 
@@ -35,4 +35,4 @@ El repositorio actualizado de trabajo está en `C:/Users/paola/Tesis/Repositorio
 
 ## Ejecución automática desde terminal
 
-Comando vigente: `.venv/Scripts/python.exe pipeline.py run`, desde `C:/Users/paola/Tesis/02_Scripts/agroclima/pipeline_amenazas/`. Consulta `GUIA_EJECUCION.md` en esa carpeta. Descarga directamente desde GEE, conserva caché compartida en `02_Procesados/Clima_ERA5_Land_cache/diario_UTC/`, calcula y guarda CSV/gráficos en resultados. No requiere descargar manualmente desde Drive. Necesita ID de proyecto y autenticación del usuario.
+Comando vigente: `.venv/Scripts/python.exe pipeline.py run`, desde `C:/Users/paola/Tesis/Repositorio/tesis-cereal-climate/scripts/agroclima/pipeline_amenazas/`. Consulta `GUIA_EJECUCION.md` en esa carpeta. Descarga directamente desde GEE, conserva caché compartida en `02_Procesados/Clima_ERA5_Land_cache/diario_UTC/`, calcula y guarda CSV/gráficos en resultados. No requiere descargar manualmente desde Drive. Necesita ID de proyecto y autenticación del usuario.
