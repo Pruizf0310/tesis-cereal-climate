@@ -75,7 +75,7 @@
     "ejecuciones/piloto_maize_EST/validacion_codigo.json": "7ed71181e9c9a07d86e9a03c58a3ce32c200b6f14bd6a94c7fcec7b5c80c8701",
     "ejecuciones/piloto_maize_EST/verificacion_ejecucion_real.json": "f5b43d3cf2e8fdea55622ab9ee42196eee559cad435f1360cc5023de73ecb134",
     "ejecuciones/piloto_maize_EST/windows_candidate.csv": "b2c8acd7352553109f40648e83110e973792287cf7f7686c3497a38c3ec7d1ba",
-    "LEEME_VIGENTE.md": "aa008b155aca661991ddd074d654771b00edc450fbfd48a902f761cdd1aeae3b",
+    "LEEME_VIGENTE.md": "9de79fc40707ee22702149b3452af9cd7fbcccff9473cdd892235a18b72d4d42",
     "ejecuciones/maize_EST_1981_2016_10pix/distribucion_frecuencias.png": "d5f54750dd82470f2c2e0800117e8b4338f8f6bc4e07a569106cf3f527df0de4",
     "ejecuciones/maize_EST_1981_2016_10pix/eventos.csv": "97564f79635a169d85d5cdfa45946655e4e716fcd38dc23e90fa1a50b720cb7c",
     "ejecuciones/maize_EST_1981_2016_10pix/frecuencia_anual.png": "6d70ef7f0f8e44822f8bf7668dd5c00b4b0eca220e694c6a054d336d6ae1032c",
@@ -102,7 +102,8 @@
     "ejecuciones/validacion_maize_GEE_10pix_1981_1983/plan_ejecucion.json": "48e984f6048aad7fba80daf37bfc103082d89e9f96984597f358eca4ebead282",
     "ejecuciones/validacion_maize_GEE_10pix_1981_1983/progreso_paquete.json": "8227f9bd8e85639cefe1bcfa9864e37388c7e3ef56c5a4f5d4273552dfe462d5",
     "ejecuciones/validacion_maize_GEE_10pix_1981_1983/resumen_GDHY_anual.csv": "4e13e7d8bf645d45fc1d9ff6cabba956e404c68999ca7d9a7b6f3c5eece21341",
-    "ejecuciones/validacion_maize_GEE_10pix_1981_1983/verificacion_motor_GEE.json": "2876fb0d2b2dbed9a7d422c5e7f4751f3203231fd5d871c250901bf4d113bb1b"
+    "ejecuciones/validacion_maize_GEE_10pix_1981_1983/verificacion_motor_GEE.json": "2876fb0d2b2dbed9a7d422c5e7f4751f3203231fd5d871c250901bf4d113bb1b",
+    "amenazas/tabla_maestra_v2_maiz.xlsx": "bce71a1a52683d3cd9694cc0da83bcd80c58c43e3e3499e7a45b7bdc80a85cf8"
   },
   "pilot_preparation": "PASS: 3/3 exact pixels, maize__rf, six-phase v4",
   "unit_tests": "PASS: 9 tests, including authentication scope selection",
@@ -143,5 +144,11 @@
     "cloud_compute_elapsed_seconds": 8.405999999959022,
     "note": "Benchmark of 10 southern maize pixels and 3 years; does not guarantee full-run duration. No full run started."
   },
-  "full_maize_six_phase_execution": "NOT_STARTED; only validation runs completed"
+  "full_maize_six_phase_execution": "NOT_STARTED; only validation runs completed",
+  "maize_hazard_table_v2": {
+    "file": "amenazas/tabla_maestra_v2_maiz.xlsx",
+    "version": "v2-2026-10-23",
+    "rules": 12,
+    "status": "Current maize rules used by the v2 run; v1 workbook preserved unchanged."
+  }
 }

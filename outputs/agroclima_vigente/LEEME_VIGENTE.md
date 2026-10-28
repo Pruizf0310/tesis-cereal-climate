@@ -1,6 +1,6 @@
 # Resultados vigentes: amenazas y calendario
 
-Versión de consolidación: 2026-10-07. Esta carpeta es el punto de entrada vigente de la tesis.
+Versión de consolidación: 2026-10-07; tabla de amenazas v2 de maíz agregada el 2026-10-28. Esta carpeta es el punto de entrada vigente de la tesis.
 
 ## Calendario adoptado
 
@@ -12,7 +12,9 @@ Es un calendario operativo coherente adoptado para el cálculo, no fenología an
 
 ## Amenazas
 
-`amenazas/tabla_maestra_revision_humana.xlsx` preserva la versión actual de la carpeta Fenologia y toda la auditoría, comentarios y colores, sin alteraciones.
+**Maíz — tabla vigente v2 (23 oct 2026):** `amenazas/tabla_maestra_v2_maiz.xlsx`. Doce reglas por fase (EST, VEG, FLO, REP, FIL, MAT): calor con umbral de Tmax por etapa (≥ 2 días consecutivos), déficit hídrico P − ETP Hargreaves por debajo del primer cuartil 1981–2016, grados-día extremos EDD con Tc = 29 °C, evento seco-cálido compuesto y lluvia en secado. Cada regla indica su estado (principal o sensibilidad), cita, página y lo que falta verificar. Es la tabla que usa la corrida v2 (`secuencia_v2_maiz.py`). Se generó sin modificar la v1.
+
+**Tabla v1 (24 reglas, todos los cultivos):** `amenazas/tabla_maestra_revision_humana.xlsx` preserva la versión actual de la carpeta Fenologia y toda la auditoría, comentarios y colores, sin alteraciones.
 
 `amenazas/revision_documental_24_fragmentos_exactos.xlsx` recupera la entrega con citas literales, páginas y procedencia por componente que había quedado fuera de la carpeta de tesis.
 
