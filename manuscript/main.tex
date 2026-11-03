@@ -19,6 +19,19 @@
 \usepackage{cleveref}
 \usepackage{titlesec}
 \usepackage{tocloft}
+\usepackage{calc}
+
+% Lo que necesita el LaTeX que genera pandoc desde los capítulos en Markdown
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+% Símbolos Unicode que pdflatex no trae declarados
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{03A3}{\ensuremath{\Sigma}}
+\DeclareUnicodeCharacter{221A}{\ensuremath{\surd}}
 
 \geometry{
   letterpaper,
@@ -69,11 +82,15 @@
 \listoftables
 
 \mainmatter
-\input{chapters/01_introduccion}
-\input{chapters/02_paper1}
-\input{chapters/03_paper2}
-\input{chapters/04_conclusiones}
-\input{chapters/05_recomendaciones}
+% Los capítulos se escriben en chapters/*.md; convertir_capitulos.sh genera chapters/tex/*.tex antes de compilar.
+\input{chapters/tex/01_introduccion}
+\input{chapters/tex/02_marco_teorico}
+\input{chapters/tex/03_datos}
+\input{chapters/tex/04_metodologia}
+\input{chapters/tex/05_resultados}
+\input{chapters/tex/06_discusion}
+\input{chapters/tex/07_seguros_parametricos}
+\input{chapters/tex/08_conclusiones}
 
 \backmatter
 \chapter*{Bibliografía completa}

@@ -15,6 +15,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Convert Markdown chapters to LaTeX
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq pandoc
+          bash manuscript/convertir_capitulos.sh
+
       - name: Compile LaTeX manuscript
         uses: xu-cheng/latex-action@v3
         with:
