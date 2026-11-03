@@ -67,3 +67,6 @@ notebooks/importantes/Creación_Clústeres.ipynb
 
 # Salidas pesadas que se regeneran con los scripts (ver docs/REPRODUCIR.md)
 outputs/agroclima_vigente/probabilidades/
+
+# Capítulos en LaTeX generados desde Markdown (manuscript/convertir_capitulos.sh)
+manuscript/chapters/tex/

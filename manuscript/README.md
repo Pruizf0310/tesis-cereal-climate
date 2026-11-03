@@ -26,10 +26,13 @@ main.pdf
 
 ## Compilar localmente
 
-Si tienes MiKTeX o TeX Live instalado:
+Los capítulos se escriben en `chapters/*.md`. Antes de compilar hay que convertirlos a LaTeX con pandoc; los `.tex` quedan en `chapters/tex/` y no se versionan.
+
+Si tienes pandoc y MiKTeX o TeX Live instalados:
 
 ```powershell
 cd manuscript
+bash convertir_capitulos.sh
 pdflatex main.tex
 biber main
 pdflatex main.tex
