@@ -1,0 +1,33 @@
+{
+ "pixel": 191325,
+ "anios": 36,
+ "r_critico_p05": 0.3291110432228884,
+ "clima_pruebas": 17,
+ "clima_p05": 9,
+ "indices_rend_pruebas": 44,
+ "indices_rend_p05": 0,
+ "indices_clima_pruebas": 153,
+ "indices_clima_p05": 3,
+ "kruskal_enso_julio_p": 0.48737101938825333,
+ "dias_rmm_faltantes": 0,
+ "trayectoria_1950_2024": {
+  "Otro": 37,
+  "Niño en verano": 17,
+  "Niño→Niña": 11,
+  "Niña persistente": 10
+ },
+ "transicion_1950_2024": [
+  1954,
+  1964,
+  1970,
+  1973,
+  1988,
+  1995,
+  1998,
+  2007,
+  2010,
+  2016,
+  2020
+ ],
+ "nota_rmm": "BoM: ENSO retirado de RMM hasta 2013-12-31; desde 2014 solo se retira la media de 120 días."
+}

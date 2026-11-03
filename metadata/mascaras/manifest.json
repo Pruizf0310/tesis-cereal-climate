@@ -1,0 +1,39 @@
+{
+  "purpose": "Exact original H5 selections; not new significance or yield-completeness filtering",
+  "pixel_id_formula": "lat_idx * number_of_longitudes + lon_idx; longitude normalized to [-180,180)",
+  "note": "h5_index preserves original H5 row order. No correlation dataset was loaded or copied.",
+  "crops": {
+    "maize": {
+      "pixels": 10923,
+      "source_h5": "D:\\maize_correlacion_vectorizada.h5",
+      "source_yield": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_detrend\\maize_yield_1981_2016_DETREND_clean.nc",
+      "source_h5_bytes": 86140544776,
+      "csv": "pixeles_maize.csv",
+      "sha256": "cd17fd15de85118e4a9cf8e56691241b48dfaecc58d4ecb1ecf67153ea081f0c"
+    },
+    "soybean": {
+      "pixels": 4955,
+      "source_h5": "D:\\soybean_correlacion_vectorizada.h5",
+      "source_yield": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_detrend\\soybean_yield_1981_2016_DETREND_clean.nc",
+      "source_h5_bytes": 39302114921,
+      "csv": "pixeles_soybean.csv",
+      "sha256": "ba14fa043c62ccb1b59e96096df461cf91a10e1733512e1523875c79f9ef75bc"
+    },
+    "rice": {
+      "pixels": 3186,
+      "source_h5": "D:\\rice_correlacion_vectorizada.h5",
+      "source_yield": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_detrend\\rice_yield_1981_2016_DETREND_clean.nc",
+      "source_h5_bytes": 25282967504,
+      "csv": "pixeles_rice.csv",
+      "sha256": "28a7f772209af689c4edaff79d304b27d25c50bc8c061888d6ff6cfa3c84f2bf"
+    },
+    "wheat": {
+      "pixels": 10505,
+      "source_h5": "D:\\wheat_correlacion_vectorizada.h5",
+      "source_yield": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_detrend\\wheat_yield_1981_2016_DETREND_clean.nc",
+      "source_h5_bytes": 73949748101,
+      "csv": "pixeles_wheat.csv",
+      "sha256": "cff124a7abf89a845dea875314a444fefd30c3db16470c8a846ae7217556f22a"
+    }
+  }
+}

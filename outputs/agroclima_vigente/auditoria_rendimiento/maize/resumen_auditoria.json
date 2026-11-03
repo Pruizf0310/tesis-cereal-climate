@@ -1,0 +1,31 @@
+{
+  "cultivo": "maize",
+  "pixeles": 10923,
+  "unidades_gdhy": "t/ha (documentación DIAS GDHY v1.2+v1.3; el NetCDF crudo no trae atributo units)",
+  "unidades_detrendido": "SIN_UNIDADES",
+  "raw_percentiles_t_ha": {
+    "p50": 2.72,
+    "p95": 12.36,
+    "p99": 15.85,
+    "p99_9": 25.25,
+    "max": 31.28
+  },
+  "umbral_absoluto_t_ha": 15.0,
+  "umbral_ratio_fao": 3.0,
+  "pixel_anios_sobre_umbral_abs": 6037,
+  "pixel_anios_ratio_fao_mayor_3": 2596,
+  "pixel_anios_marcados": 8137,
+  "pixeles_con_algun_anio_marcado": 1023,
+  "clases_pixel": {
+    "OK": 9900,
+    "ANIOS_INVEROSIMILES_ENMASCARADOS": 533,
+    "DUDOSO_RATIO_FAO": 362,
+    "EXCLUIDO_MENOS_20_ANIOS_TRAS_MASCARA": 128
+  },
+  "pixeles_sin_pais": 0,
+  "pixeles_sin_fao": 15,
+  "detrend_pixeles_con_huecos": 6388,
+  "detrend_maxdiff_sin_huecos": 2.6333439677728165e-06,
+  "detrend_maxdiff_con_huecos": 2.984439504416514e-06,
+  "segundos": 4.1
+}

@@ -1,0 +1,9 @@
+{
+ "pixel": 191325,
+ "lat": 42.75,
+ "lon": -97.25,
+ "h5_index": 9430,
+ "sst": "C:\\Users\\paola\\Tesis\\02_Procesados\\SST_monthly_detrended_1981_2025_0p5deg35.nc",
+ "rendimiento": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_detrend\\maize_yield_1981_2016_DETREND_clean.nc",
+ "h5": "D:/maize_correlacion_vectorizada.h5"
+}
