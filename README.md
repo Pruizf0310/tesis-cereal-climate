@@ -25,6 +25,22 @@ El foco operativo actual está en:
 
 El repositorio no afirma todavía triggers definitivos ni resultados validados para seguros. La plataforma está diseñada para evolucionar desde exploración científica hacia insumos paramétricos reproducibles.
 
+## Recorrido del análisis
+
+Sigue el orden de la presentación de avance (`presentacion/Avance_tesis.pptx`). Todo el recorrido se cuenta con un solo píxel: maíz de secano en Nebraska (`pixel_id` 191325, 42,75° N, 97,25° O). Cada paso indica dónde están sus datos, su código y sus resultados.
+
+| Paso | Diapositivas | Datos y resultados | Código |
+|---|---|---|---|
+| 1. Datos e índices | 7–8 | `data_info/`, `metadata/reference/` (ONI y RONI v6) | — |
+| 2. Qué píxeles entran (máscaras) | 5, 14 | `metadata/mascaras/` | `pipeline_amenazas/maize_gee.py` (`read_pixels`) |
+| 3. Calendario de seis fases | 9–14 | `outputs/agroclima_vigente/calendario/`, `docs/nomenclatura_fases.md` | Método: `docs/pixel_calendar_method.md` |
+| 4. Correlación y tendencia | 15–19 | `outputs/agroclima_vigente/pixel_tipico/` (tendencia, SST) | `pipeline_amenazas/pixel_tipico_tendencia.py`, `pixel_tipico_sst.py` |
+| 5. Amenazas y umbrales | 20–24 | `outputs/agroclima_vigente/amenazas/` (reglas v1 y tabla v2 de maíz), `metadata/reviewed_sources/` | `pipeline_amenazas/maize_gee_variables_v2.py` |
+| 6. Amenaza → rendimiento y ONI → amenaza | 25–28 | `outputs/agroclima_vigente/pixel_tipico/correlaciones_*` | `pipeline_amenazas/pixel_tipico_correlaciones.py` |
+| 7. Hacia el seguro | 29–30 | En construcción | — |
+
+Las diapositivas se generan con `scripts/presentacion/`. Qué falta para repetir los cálculos en otra máquina: `docs/REPRODUCIR.md`.
+
 ## Arquitectura del proyecto
 
 ```text

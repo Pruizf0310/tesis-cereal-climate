@@ -1,0 +1,74 @@
+{
+  "pixels": 10923,
+  "years": [
+    1981,
+    2016
+  ],
+  "modes": [
+    "same-label",
+    "maturity-year"
+  ],
+  "elapsed_seconds": 169.934481699951,
+  "yield_units": "UNSPECIFIED_IN_DETRENDED_FILE",
+  "source": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_seis_fases_GEE_1981_2016\\resumen_GDHY_anual.csv",
+  "yield_source": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_detrend\\maize_yield_1981_2016_DETREND_clean.nc",
+  "source_sha256": "0ebff649cc5d30a48bef486822b40110bdae0101f71e52cbda42463e2b4c5986",
+  "yield_sha256": "129600db49ea92cb82e64e6b733109acf669ebf75c5e37633e363cc1649bce97",
+  "code_sha256": "61bfa249b08ff2a6039e6ca919e8d68f4e1ea777131d1c8b609961c1146578b3",
+  "rules": {
+    "EST": [
+      "tmax_c",
+      ">=",
+      34.0,
+      2,
+      "episodes"
+    ],
+    "VEG": [
+      "tmax_c",
+      ">=",
+      34.6,
+      2,
+      "episodes"
+    ],
+    "REP": [
+      "tmax_c",
+      ">=",
+      33.7,
+      2,
+      "episodes"
+    ],
+    "FLO": [
+      "tmax_c",
+      ">=",
+      33.7,
+      2,
+      "episodes"
+    ],
+    "FIL": [
+      "tmax_c",
+      ">=",
+      32.7,
+      2,
+      "episodes"
+    ],
+    "MAT": [
+      "precip_mm",
+      ">",
+      10.0,
+      1,
+      "days"
+    ]
+  },
+  "interpretation": "Per-pixel observational OLS with all variable phases simultaneously. Pearson is marginal. No p-values or causal/financial loss attribution.",
+  "caveats": [
+    "Detrended yield file lacks units and harvest-year convention metadata. No percentage or monetary loss conversion.",
+    "Both year mappings are sensitivity scenarios, not alternatives chosen for best fit. Maturity end-year is a harvest proxy, not a verified GDHY year convention.",
+    "Rank-deficient phase designs are not assigned separate coefficients. Constants have no estimated coefficient; collinearity warnings remain.",
+    "Centered phase deviations sum to fitted yield minus fitted mean; they are model terms, not independent causal shares.",
+    "Partial R2 values are unique conditional associations and do not sum to total R2. Shared explained variation is not allocated.",
+    "Six-year held-out blocks by default; no validation leakage from fitting/scaling on held-out blocks. Original detrending may have used all years, so CV is exploratory.",
+    "Zero counts are retained; incomplete climate and missing yield are excluded. No no-event reference is invented where none exists.",
+    "Calendar/threshold approximations and spatial-mean units retained. MAT counts rain days, not heat episodes. FIL 32.7 source discrepancy remains.",
+    "35–36 annual samples limit precision; no modeled phase interactions or causal identification. Global spatial dependence not assessed."
+  ]
+}

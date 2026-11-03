@@ -1,0 +1,36 @@
+{
+  "index": "C:\\Users\\paola\\Tesis\\01_Data\\RMM\\rmm_official.txt",
+  "index_kind": "RMM",
+  "index_sha256": "4e5757c7104ca3063a051bb6fa8f7ffd56e81a01bcc3b67c0fe4bf720761af11",
+  "plan_sha256": "7064ebc79f0797fd527f8fd8a03d342a1318047566408d585c591250b017050f",
+  "code_sha256": "8b43d0ad18ff771ab87bc45da292a271ae85dabe81b9d629a0fa23759c40770e",
+  "pixels": 10,
+  "years": [
+    1981,
+    2016
+  ],
+  "aggregation_days": 1,
+  "lag_days": 0,
+  "min_days": 20,
+  "climate_cache": "C:\\Users\\paola\\Tesis\\02_Procesados\\Clima_ERA5_Land_cache\\MJO_fechas\\68edd2df38381dce",
+  "elapsed_seconds": 119.6964465000201,
+  "annual_count_verification": {
+    "checked": 2160,
+    "mismatches": 0,
+    "table": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\correlaciones\\maize_MJO_diario\\RMM_10pix_20261008_110552\\verification_against_original_annual_counts.csv"
+  },
+  "dated_outputs": {
+    "daily": "daily_occurrences_with_MJO.csv.gz",
+    "native_events": "native_events_with_dates_MJO.csv.gz",
+    "native_states": "Per-job native.json.gz in climate_cache contains daily threshold hits and validity for each native cell."
+  },
+  "limitations": [
+    "Exploratory simple Pearson; no p-values, detrending or seasonal adjustment. Temporal dependence and shared seasonality require assessment.",
+    "All valid phase days included, including zero-event days and final partial weeks. No 7-day grouping.",
+    "Native events give observed phase-clipped start/end, qualification date and boundary flags; they are not unique events across phases or adjacent pixels.",
+    "Heat episodes counted on qualification day; precipitation occurrences are individual threshold days. Source phase boundary clipping retained.",
+    "Only complete native-cell coverage over the whole phase included; missing MJO dates excluded. No missing dates bridged.",
+    "Same-day RMM1/RMM2 values, no averaging. Separate coefficients do not establish a joint MJO effect.",
+    "No OLR, ONI-conditioned probabilities, loss validation or prediction. No significance claim based on daily sample size."
+  ]
+}

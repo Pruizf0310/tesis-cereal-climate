@@ -1,0 +1,31 @@
+{
+  "run": "20261008_095854_51632d",
+  "source": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_seis_fases_GEE_1981_2016\\resumen_GDHY_anual.csv",
+  "pixels": "C:\\Users\\paola\\Tesis\\02_Procesados\\Pixeles_correlacion_vigentes\\pixeles_maize.csv",
+  "oni": "C:\\Users\\paola\\Tesis\\01_Data\\ONI\\ONI_v6_2026-10-08.html",
+  "oni_version": "ERSSTv6",
+  "rows_read": 2359368,
+  "expected_pixel_phase_rows": 65538,
+  "incomplete_climate_rows": 12528,
+  "missing_ONI_rows": 0,
+  "min_years": 20,
+  "preparation_seconds": 42.59001630009152,
+  "hashes": {
+    "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_seis_fases_GEE_1981_2016\\resumen_GDHY_anual.csv": "0ebff649cc5d30a48bef486822b40110bdae0101f71e52cbda42463e2b4c5986",
+    "C:\\Users\\paola\\Tesis\\02_Procesados\\Pixeles_correlacion_vigentes\\pixeles_maize.csv": "cd17fd15de85118e4a9cf8e56691241b48dfaecc58d4ecb1ecf67153ea081f0c",
+    "C:\\Users\\paola\\Tesis\\01_Data\\ONI\\ONI_v6_2026-10-08.html": "55986fc964a875e866f5e13418f93551ef68f7a0c252ef542b7ed0cdf13a6d6e",
+    "C:\\Users\\paola\\Tesis\\02_Scripts\\agroclima\\pipeline_amenazas\\maize_oni_pearson.py": "5ac33cad745e5f58220996bdad98243ac465d346cd0cf7c99f86f862e2ff5d35"
+  },
+  "method": "Pearson across annual pairs, separately per pixel and phase; raw counts and ONI; no detrending, significance tests or lag search.",
+  "temporal_matching": "Daily-weighted mean of centered monthly ONI indices within inclusive actual hazard-window start/end dates; cross-year windows use the following year as needed.",
+  "definitions": "Response: area-weighted mean native-cell count within GDHY pixel. ONI positive >0, negative <0, zero ==0; these groups are not official ENSO episode classifications.",
+  "limitations": [
+    "Contemporaneous association, not causation or forecast. Centered ONI can include information after the phase.",
+    "Constant series undefined; genuine zeros retained, incomplete or absent values excluded.",
+    "Simple Pearson coefficients only: temporal dependence, trends and multiple comparisons still require uncertainty assessment.",
+    "Current calendar approximations, source thresholds and phase-window clipping retained; no rule correction.",
+    "Any positive mean indicates occurrence in some native cells, not exposure of the whole GDHY pixel.",
+    "Years label planting season, not necessarily harvest; yield and MJO not analyzed."
+  ],
+  "elapsed_seconds": 44.75530300009996
+}

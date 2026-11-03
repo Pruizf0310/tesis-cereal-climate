@@ -1,0 +1,45 @@
+{
+  "run_id": "maturity-year_20261023_164328",
+  "alineacion": "maturity-year",
+  "pixeles": 10923,
+  "parametros": {
+    "alineacion": "maturity-year",
+    "piloto": 0,
+    "bloque": 500,
+    "n_perm": 2000,
+    "perm_batch": 100,
+    "n_field": 1000,
+    "min_years": 20,
+    "min_event_years": 3,
+    "q": 0.05,
+    "run_id": "maturity-year_20261023_164328",
+    "etiqueta": "",
+    "no_copiar": false,
+    "seed": 20261023
+  },
+  "fuentes": {
+    "amenazas_csv": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\ejecuciones\\maize_seis_fases_GEE_1981_2016\\resumen_GDHY_anual.csv",
+    "amenazas_sha256": "0ebff649cc5d30a48bef486822b40110bdae0101f71e52cbda42463e2b4c5986",
+    "rendimiento_nc": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_detrend\\maize_yield_1981_2016_DETREND_clean.nc",
+    "rendimiento_sha256": "129600db49ea92cb82e64e6b733109acf669ebf75c5e37633e363cc1649bce97",
+    "pixeles_csv": "C:\\Users\\paola\\Tesis\\02_Procesados\\Pixeles_correlacion_vigentes\\pixeles_maize.csv",
+    "codigo_sha256": "724c61c689b621dfb4847c3968eceb444456d45b11d55eac3e5f8b7316822e98"
+  },
+  "unidades": "Rendimiento: t/ha detrendido (anomalía respecto a tendencia lineal 1981–2016 por píxel). EST–FIL: episodios de Tmax ≥ umbral con racha ≥2 días (media de celdas nativas). MAT: días con P>10 mm.",
+  "autocorrelacion_lag1_rendimiento_mediana": 0.15204065625469756,
+  "pruebas_validas": 36800,
+  "sig_bh_global_total": 765,
+  "sig_campo_wilks_total": 1528,
+  "segundos": 310.4,
+  "segundos_bloques": 100.4,
+  "segundos_campo": 201.3,
+  "memoria_pico_mb": 340.4,
+  "equipo": "Intel Core Ultra 7 155U, 15,3 GB RAM, sin GPU (portátil)",
+  "limitaciones": [
+    "Correlación marginal por fase: las fases comparten calor y no se separan aquí (ver OLS previo).",
+    "Detrend lineal con los 36 años: no afecta la correlación (no hay predicción fuera de muestra).",
+    "GDHY sin enmascarar: hay píxel-año >15 t/ha; ver clase_auditoria_rendimiento para sensibilidad.",
+    "Año de madurez aproxima el año de cosecha; GDHY no documenta explícitamente su convención.",
+    "p_t asume rendimiento ~normal e independencia entre años; p_perm no asume normalidad."
+  ]
+}

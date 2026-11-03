@@ -1,0 +1,68 @@
+{
+  "source": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\correlaciones\\maize_ONI_Pearson\\20261008_095854_51632d\\pearson_by_pixel_phase.csv",
+  "source_sha256": "9f479d02ef88f2743360fb21d950ed766ecd86565533d5b498b155bbd05bb40c",
+  "figures": [
+    "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\correlaciones\\maize_ONI_Pearson\\20261008_095854_51632d\\figures\\pearson_ONI_maize_six_phases_20261008_101250_3a82ae.png",
+    "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\correlaciones\\maize_ONI_Pearson\\20261008_095854_51632d\\figures\\pearson_ONI_maize_six_phases_20261008_101250_3a82ae.pdf"
+  ],
+  "scale": [
+    -1,
+    1
+  ],
+  "color_intervals": [
+    -1,
+    -0.6,
+    -0.4,
+    -0.2,
+    -0.1,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    1
+  ],
+  "summary": [
+    {
+      "phase": "EST",
+      "valid_pearson": 4958,
+      "undefined": 5965,
+      "min_valid_years": 36,
+      "max_valid_years": 36
+    },
+    {
+      "phase": "VEG",
+      "valid_pearson": 6882,
+      "undefined": 4041,
+      "min_valid_years": 36,
+      "max_valid_years": 36
+    },
+    {
+      "phase": "REP",
+      "valid_pearson": 6483,
+      "undefined": 4440,
+      "min_valid_years": 36,
+      "max_valid_years": 36
+    },
+    {
+      "phase": "FLO",
+      "valid_pearson": 6560,
+      "undefined": 4363,
+      "min_valid_years": 36,
+      "max_valid_years": 36
+    },
+    {
+      "phase": "FIL",
+      "valid_pearson": 8104,
+      "undefined": 2819,
+      "min_valid_years": 36,
+      "max_valid_years": 36
+    },
+    {
+      "phase": "MAT",
+      "valid_pearson": 10267,
+      "undefined": 656,
+      "min_valid_years": 36,
+      "max_valid_years": 36
+    }
+  ]
+}

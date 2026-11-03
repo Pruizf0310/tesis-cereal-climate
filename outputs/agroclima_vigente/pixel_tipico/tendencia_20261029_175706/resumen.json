@@ -1,0 +1,17 @@
+{
+ "pixel": {
+  "pixel_id": 191325,
+  "lat": 42.75,
+  "lon": -97.25,
+  "region": "América del Norte",
+  "pendiente_t_ha_anio": 0.13763971543526862,
+  "p_pendiente": 3.451940342271121e-09,
+  "r2_tendencia": 0.6467784697361164,
+  "tendencia_1981": 5.477282764675408,
+  "tendencia_2016": 10.294672804909794,
+  "media_cruda": 7.8859777847925825,
+  "verificacion_residuo_max_dif": 9.73005853666109e-08
+ },
+ "sqlite": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\rendimiento\\cruce_v2_20261024_184932\\cruce_rendimiento_v2.sqlite",
+ "rendimiento_crudo": "C:\\Users\\paola\\Tesis\\02_Procesados\\GDHY_timeseries\\maize_yield_1981_2016_RAW.nc"
+}

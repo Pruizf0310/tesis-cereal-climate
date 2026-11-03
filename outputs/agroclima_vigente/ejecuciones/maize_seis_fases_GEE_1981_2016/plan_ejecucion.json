@@ -224,11 +224,12 @@
   },
   "calendar_sha256": "61a765776be31244c5fce002dfc43d4cb6053a6cedd84680ab5d3d1e915c4c6c",
   "algorithm": "native_arrays_run_Nth_day_v1",
-  "code_sha256": "88c958ec34580175cc625f78456e6c5b7a8f27c4f84b7976edf4d12deda1a48b",
-  "selected_pixels": 1,
+  "code_sha256": "80dda053cd083a60728cd97cd4c1438b58b86e803b4b42852963f42556ffdb05",
+  "selected_pixels": 10923,
+  "pixel_selection_read_from": "C:\\Users\\paola\\Tesis\\02_Procesados\\Pixeles_correlacion_vigentes\\pixeles_maize.csv",
   "first_year": 1981,
-  "last_year": 1981,
-  "workers": 1,
-  "batch_size": 1,
+  "last_year": 2016,
+  "workers": 12,
+  "batch_size": 4,
   "limitations": "UTC days; estimated phase dates; same operational source proxies as legacy runner. Count each native cell before spatial mean; incomplete cells excluded. MAT counts individual days. No unique weather-system count or yield association. Daily series and event dates are not exported by this summary engine."
 }

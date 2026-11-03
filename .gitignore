@@ -61,3 +61,9 @@ notebooks/importantes/Puntos relevantes.ipynb
 notebooks/importantes/CorrelacionesconSST.ipynb
 notebooks/importantes/Creación_Clústeres.ipynb
 .vercel
+
+# Notas locales de Obsidian
+.obsidian/
+
+# Salidas pesadas que se regeneran con los scripts (ver docs/REPRODUCIR.md)
+outputs/agroclima_vigente/probabilidades/
