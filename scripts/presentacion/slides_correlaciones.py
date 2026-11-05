@@ -753,3 +753,60 @@ def s_paso1(prs, paso1):
                                  [(f'Color solo si p < 0,05. {res["pruebas"]} pruebas: {res["p05"]} con p < 0,05 (por azar ~{num(res["esperado_azar"], 1)}); '
                                    f'{res["q05"]} se sostienen. «malas 5/5»: cuántas de las 5 malas cosechas tuvieron la amenaza en esa fase.', SANS, 12, SRC)]])
     return s
+
+
+# ---------- paso 2: ONI con amenaza ----------
+CLASE_COLOR = {'Niña': '60A5FA', 'Neutro': '94A3B8', 'Niño': 'E5484D'}
+
+
+def s_paso2(prs, paso2):
+    """Paso 2: % de años con amenaza alta en Niña, neutro y Niño (pixel_tipico_paso2.py)."""
+    r = pd.read_excel(paso2 / 'paso2.xlsx', sheet_name='resumen')
+    fr = pd.read_excel(paso2 / 'paso2.xlsx', sheet_name='frecuencias')
+    res = json.loads((paso2 / 'resumen.json').read_text(encoding='utf-8'))
+    d = fr[fr.oni == 'durante']
+    grupos = list(dict.fromkeys(zip(d.amenaza, d.fase)))
+    s = nueva(prs, 'Qué hace el ENSO con esas amenazas',
+              'Paso 2. Las amenazas que pasaron el paso 1, en años Niña, neutros y Niño (ONI durante la fase), 1950–2024.',
+              f'Fuente: pixel_tipico/{paso2.name}/paso2.xlsx · ONI v6 del CPC (cpc_oni_v6_1950_2026.csv) · eventos de '
+              'conteo_reglas_20261105_150123 · píxel 191325.',
+              'Qué se compara: para cada amenaza que pasó el paso 1, cada año 1950–2024 se marca con amenaza alta si su valor sin tendencia '
+              'cae en el tercio superior (por azar, 33 % de los años). Los años se clasifican por el ONI medio de los meses de la fase: '
+              'Niño ≥ +0,5; Niña ≤ −0,5; neutro el resto (sin la regla de persistencia del CPC). Barras: % de años con amenaza alta en cada '
+              'clase. Además, ρ de Spearman entre el ONI y la amenaza, con el ONI durante la fase y 3 meses antes de que empiece. '
+              f'{res["pruebas"]} pruebas: {res["p05"]} con p < 0,05 (por azar ~{num(res["esperado_azar"], 1)}); {res["q05"]} con q < 0,05. '
+              'Lectura: la dirección se repite en las amenazas del llenado (La Niña, más años de calor y sequedad; El Niño, menos), pero con un '
+              'solo píxel no alcanza a separarse del azar. Hace falta el conteo global para ver si el patrón se mantiene en la región.')
+    xg0, yb, yt, wgrp = 2.3, 8.15, 3.35, 2.0
+    esc = (yb - yt) / 70
+    rect(s, xg0 - 0.2, yb - 33.3 * esc, len(grupos) * wgrp + 0.2, 0.015, TXT2)
+    caja(s, 1.55, yb - 33.3 * esc - 0.32, 0.6, 0.6, [[('azar', SANS, 10, TXT2)], [('33 %', SANS, 10, TXT2)]], align=PP_ALIGN.RIGHT)
+    for g, (nom, f) in enumerate(grupos):
+        xg = xg0 + g * wgrp
+        for k, cl in enumerate(['Niña', 'Neutro', 'Niño']):
+            o = d[(d.amenaza == nom) & (d.fase == f) & (d.clase == cl)].iloc[0]
+            h = o.pct_alta * esc; x = xg + k * 0.52
+            rect(s, x, yb - h, 0.46, h, CLASE_COLOR[cl])
+            caja(s, x - 0.15, yb - h - 0.33, 0.76, 0.3, [[(f'{o.pct_alta:.0f}', SANSB, 11.5, TXT)]], align=PP_ALIGN.CENTER)
+            caja(s, x - 0.15, yb + 0.02, 0.76, 0.25, [[(f'{int(o.anios_alta)}/{int(o.anios)}', SANS, 9.5, SRC)]], align=PP_ALIGN.CENTER)
+        caja(s, xg - 0.1, yb + 0.3, 1.75, 0.6, [[(nom, SANSB, 12, TXT)], [('REP-pos' if f == 'REP' else f, SANS, 11, SRC)]], align=PP_ALIGN.CENTER)
+    rect(s, xg0 - 0.2, yb, len(grupos) * wgrp + 0.2, 0.015, '475569')
+    caja(s, 1.98, 2.9, 10, 0.35, [[('% de años con amenaza alta', SANSB, 12.5, SRC), ('   ', SANS, 12, SRC)] +
+                                   sum(([('■', SANSB, 13, CLASE_COLOR[cl]), (f' {cl}   ', SANS, 12, TXT2)] for cl in ['Niña', 'Neutro', 'Niño']), [])])
+    caja(s, 1.98, 9.25, 10.2, 0.55, [[('Debajo de cada barra: años con amenaza alta / años de esa clase. Amenaza alta = tercio superior '
+                                       'de la serie sin tendencia.', SANS, 11.5, SRC)]])
+    xp, wp = 12.55, 5.47
+    rect(s, xp, 2.9, wp, 6.9, PANEL); rect(s, xp, 2.9, 0.07, 6.9, CIAN)
+    lineas = [[('ρ de Spearman con el ONI', SANSB, 13, TXT)], [('durante la fase · 3 meses antes', SANS, 11, SRC)]]
+    for nom, f in grupos:
+        a_ = r[(r.amenaza == nom) & (r.fase == f) & (r.oni == 'durante')].iloc[0]; b_ = r[(r.amenaza == nom) & (r.fase == f) & (r.oni == 'antes')].iloc[0]
+        lineas.append([(f'{nom} {f}: ', SANS, 11.5, TXT2), (num(a_.rho, 2) + ('*' if a_.p < .05 else ''), SANSB, 11.5, TXT),
+                       ('  ·  ' + num(b_.rho, 2) + ('*' if b_.p < .05 else ''), SANS, 11.5, TXT2)])
+    lineas += [[('* p < 0,05. Ninguna con q < 0,05.', SANS, 10.5, SRC)], [('', SANS, 6, TXT)],
+               [('Qué dice', SANSB, 14, TXT)],
+               [('Con La Niña en el verano, el llenado tiene más años de calor y sequedad; con El Niño, menos. La dirección se repite en las '
+                 'cuatro amenazas de FIL.', SANS, 12, TXT2)], [('', SANS, 6, TXT)],
+               [('Con un solo píxel no alcanza a separarse del azar: ', SANSB, 12, AMARILLO),
+                ('hace falta el conteo global para ver si el patrón se sostiene en la región.', SANS, 12, TXT2)]]
+    caja(s, xp + 0.25, 3.05, wp - 0.4, 6.6, lineas)
+    return s

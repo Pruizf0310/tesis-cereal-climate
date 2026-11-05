@@ -1,0 +1,15 @@
+{
+ "pixel": 191325,
+ "conteo": "conteo_reglas_20261105_150123",
+ "oni": "cpc_oni_v6_1950_2026.csv",
+ "anios": [
+  1950,
+  2024
+ ],
+ "pruebas": 10,
+ "p05": 1,
+ "q05": 0,
+ "esperado_azar": 0.5,
+ "clases": "Niño ≥ +0,5; Niña ≤ −0,5 (valor del ONI, sin persistencia)",
+ "alta": "tercio superior de la serie sin tendencia"
+}
