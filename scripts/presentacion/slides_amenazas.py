@@ -43,7 +43,7 @@ FAMILIAS = [  # (nombre, color, categorías de la hoja «Auditoría web», ejemp
 # ---------- 17 ----------
 def s17(prs):
     s, n0 = preparar(prs, ('Cómo construimos las reglas de amenaza',), 'De la literatura a las amenazas')
-    caja(s, 1.98, 2.28, 16, 0.4, [[('Una búsqueda dirigida por cultivo y fase, en varias rondas, que fue dejando por fuera lo que no se podía medir.', SANS, 19.5, TXT2)]])
+    caja(s, 1.98, 2.28, 16, 0.4, [[('Una búsqueda dirigida por cultivo y fase, en varias rondas, hasta 36 reglas con cita, página y evento definido.', SANS, 19.5, TXT2)]])
     # izquierda: cómo se buscó
     rect(s, 1.98, 3.0, 6.6, 5.9, PANEL); rect(s, 1.98, 3.0, 0.07, 5.9, CIAN)
     caja(s, 2.35, 3.2, 6.0, 0.45, [[('Cómo se buscó', SANSB, 18, TXT)]])
@@ -59,23 +59,29 @@ def s17(prs):
              ('Cada valor quedó ', 'con su fase, exposición, impacto y página del artículo.')]
     for k, (cab, txt) in enumerate(pasos):
         caja(s, 2.35, 5.65 + k * 1.0, 6.0, 0.9, [[(f'{k + 1}. ', SANSB, 15, CIAN), (cab, SANSB, 15, TXT), (txt, SANS, 15, TXT2)]])
-    # derecha: embudo
-    etapas = [('63', 'filas de evidencia', '27 fuentes de la primera matriz'),
-              ('35', 'reglas con definición exacta', 'cada fragmento verificado contra el PDF'),
-              ('25', 'medibles con datos diarios', '10 piden datos sin serie global'),
-              ('24', 'reglas v1', 'una por cultivo y fase'),
-              ('12', 'reglas de maíz v2', 'se suman sequía y calor continuo')]
+    # derecha: línea de construcción (AMENAZAS_vigente.xlsx, hoja «0 Cómo se construyó»)
+    etapas = [('63', 'filas de evidencia', 'primera búsqueda: 27 fuentes (17 ago 2026)'),
+              ('111', 'filas de evidencia', 'rondas de octubre: 48 nuevas para los vacíos'),
+              ('5', 'tipos de evidencia', 'no todo valor publicado es un umbral'),
+              ('24', 'reglas v1', 'una por cultivo y fase, con seis criterios'),
+              ('36', 'reglas vigentes, validadas', 'texto exacto del PDF y evento definido (5 nov 2026)')]
     x0, y0, alto = 8.95, 3.0, 1.02
     for i, (n, cab, txt) in enumerate(etapas):
-        w = 9.07 - i * 0.5; x = x0 + i * 0.25; y = y0 + i * 1.22
+        w = 9.07; x = x0; y = y0 + i * 1.22
         ult = i == 4
         rect(s, x, y, w, alto, '3A3410' if ult else PANEL); rect(s, x, y, 0.07, alto, AMARILLO if ult else CIAN)
         caja(s, x + 0.25, y, 1.25, alto, [[(n, SERIF, 30, AMARILLO if ult else CIAN)]], anchor=MSO_ANCHOR.MIDDLE)
         caja(s, x + 1.55, y, w - 1.7, alto, [[(cab, SANSB, 16, TXT)], [(txt, SANS, 14, TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
     caja(s, 1.98, 9.2, 16, 0.75, [[('No es una revisión sistemática: ', SANSB, 15, MAG),
                                    ('no hubo una ecuación única ni un conteo de resultados por base. Lo que sí hay es trazabilidad de cada valor hasta su página.', SANS, 15, TXT2)]])
-    enlaces(s, 10.12, [('Auditoría de fuentes (Excel)', None), ('reglas_24_fases_vigentes.csv', None), ('tabla_maestra_v2_maiz.xlsx', None)], prefijo='Trazabilidad: ')
+    enlaces(s, 10.12, [('AMENAZAS_vigente.xlsx (hoja 0: cómo se construyó)', None), ('reglas_vigentes.csv', None)], prefijo='Trazabilidad: ')
     s.notes_slide.notes_text_frame.text = (
+        'Línea de construcción vigente (5 nov 2026), hoja «0 Cómo se construyó» de AMENAZAS_vigente.xlsx: 63 filas de la primera búsqueda (17 ago 2026) → '
+        '111 filas con las rondas de octubre (48 nuevas para vacíos de frío, helada, lluvia y sequía) → cinco tipos de evidencia (asociación 29, tratamiento 25, '
+        'transferido 24, umbral verificado 23, modelo 10) → 24 reglas v1 con los criterios C1–C6 (7 oct 2026) → maíz v2 con sequía y EDD29 (23 oct 2026) → '
+        'revisión trazable con texto exacto del PDF y fuentes nuevas solo donde la regla no se medía con dato diario → 36 reglas vigentes, todas validadas '
+        '(5 nov 2026; se eliminó R15 de soya en VEG). El evento de cada regla sale de la fuente; solo sin unidad de tiempo, racha ≥ 2 días.\n'
+        'Notas anteriores (2 nov 2026):\n'
         'Cómo se buscó (reconstrucción del 2 nov 2026: Documents/ChatGPT/Tesis/BUSQUEDA_LITERATURA_AMENAZAS_Y_UMBRALES.md):\n'
         '- Encargo inicial: umbrales críticos de estrés abiótico en arroz, trigo, maíz y soya; calor diurno y nocturno, frío y helada, sequía y lluvia excesiva; '
         'fase real (BBCH, Zadoks), umbral numérico, duración, impacto y trazabilidad. Fases prioritarias: antesis, llenado y emergencia.\n'
