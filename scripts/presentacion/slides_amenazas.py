@@ -21,6 +21,7 @@ from slides_calendario import preparar, enlaces, REP_COLOR
 
 REPO = Path(__file__).resolve().parents[2]
 AUDIT = REPO / 'metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx'
+VIGENTE = Path('C:/Users/paola/Tesis/03_Resultados/Agroclima/vigente/amenazas/AMENAZAS_vigente.xlsx')
 CALOR, FRIO, AGUA = 'E5484D', '818CF8', CIAN
 FAMILIAS = [  # (nombre, color, categorías de la hoja «Auditoría web», ejemplo, cómo se usa)
     ('Umbral verificado', AMARILLO,
@@ -107,8 +108,10 @@ def s17(prs):
 # ---------- 18 ----------
 def s18(prs):
     s, n0 = preparar(prs, ('La decisión: una amenaza por fase',), 'No todo valor publicado es un umbral')
-    a = pd.read_excel(AUDIT, sheet_name='Auditoría web', header=3)
-    cuenta = a['Categoría de evidencia'].value_counts()
+    # desde el 5 nov 2026: las 111 filas de evidencia de AMENAZAS_vigente.xlsx (63 del primer corte + 48 de las rondas de octubre)
+    a = pd.read_excel(VIGENTE, sheet_name='1 Evidencia', header=3).dropna(how='all')
+    cuenta = a['Tipo de evidencia'].value_counts()
+    por_ronda = a.groupby(['Tipo de evidencia', a.Ronda.str.startswith('Corte')]).size()
     caja(s, 1.98, 2.28, 16, 0.4, [[('Muchos valores eran tratamientos u observaciones: hubo un resultado con ese valor, pero no es el punto de daño ni de tolerancia.', SANS, 18, TXT2)]])
     total = len(a); y = 3.05
     caja(s, 1.98, y, 4, 0.35, [[('Tipo de evidencia', SANSB, 14, SRC)]])
@@ -116,11 +119,11 @@ def s18(prs):
     caja(s, 7.5, y, 7.4, 0.35, [[('Ejemplo', SANSB, 14, SRC)]])
     caja(s, 15.2, y, 2.8, 0.35, [[('Cómo se usa', SANSB, 14, SRC)]])
     for i, (nom, color, cats, ej, uso) in enumerate(FAMILIAS):
-        n = int(sum(cuenta.get(c, 0) for c in cats)); yy = y + 0.5 + i * 0.98
+        n = int(cuenta.get(nom, 0)); yy = y + 0.5 + i * 0.98
         rect(s, 1.98, yy, 0.12, 0.85, color)
         caja(s, 2.3, yy, 3.8, 0.85, [[(nom, SANSB, 17, TXT)]], anchor=MSO_ANCHOR.MIDDLE)
         caja(s, 5.75, yy, 0.75, 0.85, [[(str(n), SERIF, 24, color)]], align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-        rect(s, 6.6, yy + 0.29, 0.75 * n / 19, 0.28, color)
+        rect(s, 6.6, yy + 0.29, 0.75 * n / cuenta.max(), 0.28, color)
         caja(s, 7.5, yy, 7.4, 0.85, [[(ej, SANS, 14.5, TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
         caja(s, 15.2, yy, 2.8, 0.85, [[(uso, SANSB, 14.5, color if color not in ('64748B',) else TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
         rect(s, 1.98, yy + 0.91, 16.04, 0.01, LINE)
@@ -129,7 +132,11 @@ def s18(prs):
                                       ('mecanismo en esa fase con cita y página; variable global equivalente (ERA5-Land); nivel de evidencia declarado; '
                                        'que varíe entre años; una principal por fase y familia; unidad comparable.', SANS, 15, TXT2)]])
     s.notes_slide.notes_text_frame.text = (
-        'Conteo sobre las 63 filas de la hoja «Auditoría web» (columna «Categoría de evidencia»), agrupadas en cinco familias para la exposición:\n'
+        f'Conteo sobre las {total} filas de evidencia de AMENAZAS_vigente.xlsx (hoja «1 Evidencia», columna «Tipo de evidencia»), 5 nov 2026: '
+        + '; '.join(f'{nom} {int(cuenta.get(nom, 0))} ({int(por_ronda.get((nom, True), 0))} del primer corte + '
+                    f'{int(por_ronda.get((nom, False), 0))} de octubre)' for nom, *_ in FAMILIAS) + '.\n'
+        'Las categorías de octubre las asignó tabla_amenazas_vigente.py a las mismas cinco familias. Antes (primer corte, 63 filas de la hoja '
+        '«Auditoría web»), agrupadas así:\n'
         '- Umbral verificado (16): duración–respuesta 9, operativo dependiente del genotipo 4, fisiológico 1, operativo 1, experimental verificado 1.\n'
         '- Modelo o parámetro (6): umbral modelado 3, modelado con duración provisional 2, parámetro cardinal 1.\n'
         '- Tratamiento experimental (19): tratamiento perjudicial 10, de campo 3, de dos años 2, con gradiente 1, sin umbral establecido 1, de fuente secundaria 2.\n'
