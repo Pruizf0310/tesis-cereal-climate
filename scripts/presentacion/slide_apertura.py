@@ -39,7 +39,7 @@ def construir(prs):
          'El mar se calienta frente a Perú, sobre una pesquería que ya estaba sobreexplotada.', CIAN),
         ('02 · PESCA', '13,1 → 1,7', 'millones de t de anchoveta, 1970 → 1973',
          'La captura cae 87 % y se reduce el suministro mundial de harina de pescado.', CIAN),
-        ('03 · PIENSO', '180 → 450', 'USD por t de harina de pescado',
+        ('03 · PIENSO (CONCENTRADO)', '180 → 450', 'USD por t de harina de pescado',
          'De sep. 1972 a sep. 1973: +150 %. Falta proteína para alimentar ganado.', CIAN),
         ('04 · SOYA', '3,30 → 10,10', 'USD por bushel al productor, Iowa',
          'De jun. 1972 a jun. 1973. La soya reemplaza a la harina de pescado y EE. UU. embarga sus exportaciones.', MAG)]
@@ -48,7 +48,7 @@ def construir(prs):
         x = x0 + i * (w + gap)
         rect(s, x, y0, w, h, PANEL)
         rect(s, x, y0, w, 0.07, color)
-        caja(s, x + 0.3, y0 + 0.35, w - 0.6, 0.35, [[(eti, SANSB, 15, SRC)]])
+        caja(s, x + 0.3, y0 + 0.35, w - 0.45, 0.35, [[(eti, SANSB, 13 if len(eti) > 14 else 15, SRC)]])
         caja(s, x + 0.25, y0 + 0.85, w - 0.35, 0.9, [[(grande, SERIF, 34, color)]])
         caja(s, x + 0.3, y0 + 1.75, w - 0.6, 0.7, [[(unidad, SANSB, 16, TXT)]])
         caja(s, x + 0.3, y0 + 2.55, w - 0.6, 1.5, [[(texto, SANS, 16, TXT2)]])
@@ -58,6 +58,8 @@ def construir(prs):
     caja(s, 1.98, 8.45, 16.0, 0.5, [[('Una anomalía del océano viajó por la cadena de proteína: ', SANSB, 21, TXT),
                                      ('del mar peruano al precio de la soya.', SANS, 21, TXT2)]])
     caja(s, 1.98, 9.0, 16.0, 0.45, [[('El Niño fue un detonante, no la única causa: en 1972–1973 también pesaron la compra soviética de granos y la devaluación del dólar.', SANS, 15, SRC)]])
+    caja(s, 1.98, 9.5, 16.0, 0.45, [[('Pregunta abierta: ', SANSB, 16, MAG),
+                                    ('si una anomalía del mar movió así una cadena de suministro de alimentos, ¿qué cadenas se mueven hoy con el clima del campo?', SANS, 16, TXT)]])
     caja(s, 1.98, 10.05, 15.6, 0.4, [[('Fuentes: FAO (1975), SOFA 1974; FAO, Examen de los recursos pesqueros marinos; '
                                        'USDA NASS, precios recibidos (Iowa); Coppess (2019), farmdoc daily 9:99; USDA ERS (2009).', SANS, 13, SRC)]])
     for k, sh in enumerate(list(s.shapes)[n0:]):

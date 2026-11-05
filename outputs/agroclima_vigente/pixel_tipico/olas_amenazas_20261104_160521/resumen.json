@@ -1,0 +1,39 @@
+{
+ "pixel": 191325,
+ "anios": [
+  1981,
+  2016
+ ],
+ "diario": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\pixel_tipico\\pixel_191325\\diario_celdas_nativas_1950_2024.csv.gz",
+ "criterio_ola": "días seguidos con ≥ 50 % de las celdas (ponderadas por cos(lat)) en racha de la amenaza; la ola se asigna a la fase con más días",
+ "reglas": {
+  "calor": {
+   "regla": "Tmax ≥ umbral del bloque (v3)",
+   "min_dias": 2
+  },
+  "seco": {
+   "regla": "P < 1 mm (ETCCDI CDD)",
+   "min_dias": 2
+  },
+  "calor29": {
+   "regla": "Tmax > 29 °C (Schlenker y Roberts 2009)",
+   "min_dias": 2
+  },
+  "lluvia": {
+   "regla": "P > 10 mm en MAT (Ortega Gómez et al. 2019)",
+   "min_dias": 1
+  }
+ },
+ "olas_por_amenaza": {
+  "seco": 714,
+  "calor29": 326,
+  "calor": 65,
+  "lluvia": 35
+ },
+ "cruzan_borde": {
+  "calor": 8,
+  "calor29": 56,
+  "lluvia": 0,
+  "seco": 95
+ }
+}

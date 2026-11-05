@@ -1,8 +1,11 @@
 """Serie diaria ERA5-Land de UN píxel GDHY (0,5°) para el análisis pedagógico del píxel típico.
 
-Baja Tmax, Tmin (°C) y precipitación (mm/día) de cada celda nativa de ERA5-Land (~0,1°) cuyo centro cae dentro
+Baja Tmax, Tmin, Tmedia (°C) y precipitación (mm/día) de cada celda nativa de ERA5-Land (~0,1°) cuyo centro cae dentro
 del píxel GDHY, con la misma colección, proyección y recorte que maize_gee_variables_v2.py. Uno por año
 (1981–2016 por defecto; --desde 1950 --hasta 2024 para el tramo ONI → amenaza, que no necesita rendimiento), meses marzo–noviembre (la ventana del maíz de secano en el hemisferio norte cabe holgada).
+Con --meses 1-12 --nombre anual baja el año completo (trigo de invierno: siembra en octubre, helada en diciembre–febrero)
+en archivos aparte, sin tocar la serie marzo–noviembre. Tmedia = temperature_2m (media diaria de ERA5-Land; la usan
+Teff de soya, el frío de trigo en EST y el seco-cálido compuesto de maíz).
 Uso:
   .venv/Scripts/python.exe pixel_tipico_descarga.py --pixel 191325
 """
@@ -23,6 +26,7 @@ def main():
     ap.add_argument('--meses', default='3-11', help='rango de meses inclusivo, p. ej. 3-11')
     ap.add_argument('--desde', type=int, default=1981)
     ap.add_argument('--hasta', type=int, default=2016)
+    ap.add_argument('--nombre', default='diario', help="prefijo de los archivos; 'anual' para el año completo")
     a = ap.parse_args()
     c = json.loads(Path(a.config).read_text(encoding='utf-8'))
     from maize_gee import read_pixels
@@ -36,23 +40,25 @@ def main():
     region = ee.Geometry.Rectangle([p['lon'] - .25, p['lat'] - .25, p['lon'] + .25, p['lat'] + .25], geodesic=False)
     partes = []
     for y in range(a.desde, a.hasta + 1):
-        f = out / f'diario_{y}.csv'
+        f = out / f'{a.nombre}_{y}.csv'
         if f.exists():
             partes.append(pd.read_csv(f)); continue
         end = f'{y + 1}-01-01' if m1 == 12 else f'{y}-{m1 + 1:02d}-01'
         col = (ee.ImageCollection(core.DATASET).filterDate(f'{y}-{m0:02d}-01', end)
-               .select(['temperature_2m_max', 'temperature_2m_min', 'total_precipitation_sum']))
+               .select(['temperature_2m_max', 'temperature_2m_min', 'temperature_2m', 'total_precipitation_sum']))
         rows = col.getRegion(region, crs=info['crs'], crsTransform=info['transform']).getInfo()
         d = pd.DataFrame(rows[1:], columns=rows[0])
         d['fecha'] = pd.to_datetime(d['time'], unit='ms').dt.strftime('%Y-%m-%d')
         d = pd.DataFrame(dict(fecha=d.fecha, lon=d.longitude.round(4), lat=d.latitude.round(4),
                               tmax_c=d.temperature_2m_max - 273.15, tmin_c=d.temperature_2m_min - 273.15,
+                              tmean_c=d.temperature_2m - 273.15,
                               p_mm=d.total_precipitation_sum * 1000))
         d.to_csv(f, index=False); partes.append(d)
         print(y, len(d), 'filas', d[['lon', 'lat']].drop_duplicates().shape[0], 'celdas', flush=True)
     todo = pd.concat(partes, ignore_index=True)
-    todo.to_csv(out / f'diario_celdas_nativas_{a.desde}_{a.hasta}.csv.gz', index=False)
-    (out / 'procedencia.json').write_text(json.dumps(dict(
+    sufijo = '' if a.nombre == 'diario' else f'_{a.nombre}'
+    todo.to_csv(out / f'diario_celdas_nativas{sufijo}_{a.desde}_{a.hasta}.csv.gz', index=False)
+    (out / f'procedencia{sufijo}.json').write_text(json.dumps(dict(
         pixel_id=a.pixel, lat=p['lat'], lon=p['lon'], dataset=core.DATASET, proyeccion=info,
         caja=[p['lon'] - .25, p['lat'] - .25, p['lon'] + .25, p['lat'] + .25], meses=[m0, m1], anios=[a.desde, a.hasta],
         celdas=int(todo[['lon', 'lat']].drop_duplicates().shape[0]), filas=len(todo),

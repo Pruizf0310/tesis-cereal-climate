@@ -2,7 +2,7 @@
 amenazas del píxel de Nebraska y sustento de los umbrales de maíz.
 
 Busca cada diapositiva por su título (viejo o nuevo), cambia el título, conserva subrayado y número, y redibuja.
-Datos: reglas_24_fases_vigentes.csv, tabla_maestra_v2_maiz.xlsx, REVISION_HUMANA_…xlsx (hoja «Auditoría web»),
+Datos: AMENAZAS_vigente.xlsx (matriz, desde el 5 nov 2026), reglas_24_fases_vigentes.csv, tabla_maestra_v2_maiz.xlsx, REVISION_HUMANA_…xlsx (hoja «Auditoría web»),
 calendario_seis_fases_secano.csv. Uso (con el .venv del pipeline):  python slides_amenazas.py [--salida ruta.pptx]
 """
 import argparse
@@ -21,6 +21,7 @@ from slides_calendario import preparar, enlaces, REP_COLOR
 
 REPO = Path(__file__).resolve().parents[2]
 AUDIT = REPO / 'metadata/reviewed_sources/REVISION_HUMANA_fases_macro_completada_SOLO_3_COLUMNAS.xlsx'
+VIGENTE = Path('C:/Users/paola/Tesis/03_Resultados/Agroclima/vigente/amenazas/AMENAZAS_vigente.xlsx')
 CALOR, FRIO, AGUA = 'E5484D', '818CF8', CIAN
 FAMILIAS = [  # (nombre, color, categorías de la hoja «Auditoría web», ejemplo, cómo se usa)
     ('Umbral verificado', AMARILLO,
@@ -37,13 +38,13 @@ FAMILIAS = [  # (nombre, color, categorías de la hoja «Auditoría web», ejemp
     ('Asociación o indicador regional', '94A3B8', ['Seasonal observational association', 'Regional indicator'],
      'Schauberger et al. (2017): cada día > 30 °C se asocia a menos rendimiento en EE. UU.', 'Indicador; transferir con cuidado'),
     ('Transferido o tentativo', '64748B', ['Transferred frost-damage threshold', 'Transferred candidate', 'Review-derived tentative HNT threshold'],
-     'Umbrales de helada tomados de otra región o cultivo.', 'Solo sensibilidad')]
+     'Umbrales de helada tomados de otra región o cultivo.', 'Entra, declarando la transferencia')]
 
 
 # ---------- 17 ----------
 def s17(prs):
     s, n0 = preparar(prs, ('Cómo construimos las reglas de amenaza',), 'De la literatura a las amenazas')
-    caja(s, 1.98, 2.28, 16, 0.4, [[('Una búsqueda dirigida por cultivo y fase, en varias rondas, que fue dejando por fuera lo que no se podía medir.', SANS, 19.5, TXT2)]])
+    caja(s, 1.98, 2.28, 16, 0.4, [[('Una búsqueda dirigida por cultivo y fase, en varias rondas, hasta 36 reglas con cita, página y evento definido.', SANS, 19.5, TXT2)]])
     # izquierda: cómo se buscó
     rect(s, 1.98, 3.0, 6.6, 5.9, PANEL); rect(s, 1.98, 3.0, 0.07, 5.9, CIAN)
     caja(s, 2.35, 3.2, 6.0, 0.45, [[('Cómo se buscó', SANSB, 18, TXT)]])
@@ -59,23 +60,29 @@ def s17(prs):
              ('Cada valor quedó ', 'con su fase, exposición, impacto y página del artículo.')]
     for k, (cab, txt) in enumerate(pasos):
         caja(s, 2.35, 5.65 + k * 1.0, 6.0, 0.9, [[(f'{k + 1}. ', SANSB, 15, CIAN), (cab, SANSB, 15, TXT), (txt, SANS, 15, TXT2)]])
-    # derecha: embudo
-    etapas = [('63', 'filas de evidencia', '27 fuentes de la primera matriz'),
-              ('35', 'reglas con definición exacta', 'cada fragmento verificado contra el PDF'),
-              ('25', 'medibles con datos diarios', '10 piden datos sin serie global'),
-              ('24', 'reglas v1', 'una por cultivo y fase'),
-              ('12', 'reglas de maíz v2', 'se suman sequía y calor continuo')]
+    # derecha: línea de construcción (AMENAZAS_vigente.xlsx, hoja «0 Cómo se construyó»)
+    etapas = [('63', 'filas de evidencia', 'primera búsqueda: 27 fuentes (17 ago 2026)'),
+              ('111', 'filas de evidencia', 'rondas de octubre: 48 nuevas para los vacíos'),
+              ('5', 'tipos de evidencia', 'no todo valor publicado es un umbral'),
+              ('24', 'reglas v1', 'una por cultivo y fase, con seis criterios'),
+              ('36', 'reglas vigentes, validadas', 'texto exacto del PDF y evento definido (5 nov 2026)')]
     x0, y0, alto = 8.95, 3.0, 1.02
     for i, (n, cab, txt) in enumerate(etapas):
-        w = 9.07 - i * 0.5; x = x0 + i * 0.25; y = y0 + i * 1.22
+        w = 9.07; x = x0; y = y0 + i * 1.22
         ult = i == 4
         rect(s, x, y, w, alto, '3A3410' if ult else PANEL); rect(s, x, y, 0.07, alto, AMARILLO if ult else CIAN)
         caja(s, x + 0.25, y, 1.25, alto, [[(n, SERIF, 30, AMARILLO if ult else CIAN)]], anchor=MSO_ANCHOR.MIDDLE)
         caja(s, x + 1.55, y, w - 1.7, alto, [[(cab, SANSB, 16, TXT)], [(txt, SANS, 14, TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
     caja(s, 1.98, 9.2, 16, 0.75, [[('No es una revisión sistemática: ', SANSB, 15, MAG),
                                    ('no hubo una ecuación única ni un conteo de resultados por base. Lo que sí hay es trazabilidad de cada valor hasta su página.', SANS, 15, TXT2)]])
-    enlaces(s, 10.12, [('Auditoría de fuentes (Excel)', None), ('reglas_24_fases_vigentes.csv', None), ('tabla_maestra_v2_maiz.xlsx', None)], prefijo='Trazabilidad: ')
+    enlaces(s, 10.12, [('AMENAZAS_vigente.xlsx (hoja 0: cómo se construyó)', None), ('reglas_vigentes.csv', None)], prefijo='Trazabilidad: ')
     s.notes_slide.notes_text_frame.text = (
+        'Línea de construcción vigente (5 nov 2026), hoja «0 Cómo se construyó» de AMENAZAS_vigente.xlsx: 63 filas de la primera búsqueda (17 ago 2026) → '
+        '111 filas con las rondas de octubre (48 nuevas para vacíos de frío, helada, lluvia y sequía) → cinco tipos de evidencia (asociación 29, tratamiento 25, '
+        'transferido 24, umbral verificado 23, modelo 10) → 24 reglas v1 con los criterios C1–C6 (7 oct 2026) → maíz v2 con sequía y EDD29 (23 oct 2026) → '
+        'revisión trazable con texto exacto del PDF y fuentes nuevas solo donde la regla no se medía con dato diario → 36 reglas vigentes, todas validadas '
+        '(5 nov 2026; se eliminó R15 de soya en VEG). El evento de cada regla sale de la fuente; solo sin unidad de tiempo, racha ≥ 2 días.\n'
+        'Notas anteriores (2 nov 2026):\n'
         'Cómo se buscó (reconstrucción del 2 nov 2026: Documents/ChatGPT/Tesis/BUSQUEDA_LITERATURA_AMENAZAS_Y_UMBRALES.md):\n'
         '- Encargo inicial: umbrales críticos de estrés abiótico en arroz, trigo, maíz y soya; calor diurno y nocturno, frío y helada, sequía y lluvia excesiva; '
         'fase real (BBCH, Zadoks), umbral numérico, duración, impacto y trazabilidad. Fases prioritarias: antesis, llenado y emergencia.\n'
@@ -101,8 +108,10 @@ def s17(prs):
 # ---------- 18 ----------
 def s18(prs):
     s, n0 = preparar(prs, ('La decisión: una amenaza por fase',), 'No todo valor publicado es un umbral')
-    a = pd.read_excel(AUDIT, sheet_name='Auditoría web', header=3)
-    cuenta = a['Categoría de evidencia'].value_counts()
+    # desde el 5 nov 2026: las 111 filas de evidencia de AMENAZAS_vigente.xlsx (63 del primer corte + 48 de las rondas de octubre)
+    a = pd.read_excel(VIGENTE, sheet_name='1 Evidencia', header=3).dropna(how='all')
+    cuenta = a['Tipo de evidencia'].value_counts()
+    por_ronda = a.groupby(['Tipo de evidencia', a.Ronda.str.startswith('Corte')]).size()
     caja(s, 1.98, 2.28, 16, 0.4, [[('Muchos valores eran tratamientos u observaciones: hubo un resultado con ese valor, pero no es el punto de daño ni de tolerancia.', SANS, 18, TXT2)]])
     total = len(a); y = 3.05
     caja(s, 1.98, y, 4, 0.35, [[('Tipo de evidencia', SANSB, 14, SRC)]])
@@ -110,20 +119,24 @@ def s18(prs):
     caja(s, 7.5, y, 7.4, 0.35, [[('Ejemplo', SANSB, 14, SRC)]])
     caja(s, 15.2, y, 2.8, 0.35, [[('Cómo se usa', SANSB, 14, SRC)]])
     for i, (nom, color, cats, ej, uso) in enumerate(FAMILIAS):
-        n = int(sum(cuenta.get(c, 0) for c in cats)); yy = y + 0.5 + i * 0.98
+        n = int(cuenta.get(nom, 0)); yy = y + 0.5 + i * 0.98
         rect(s, 1.98, yy, 0.12, 0.85, color)
         caja(s, 2.3, yy, 3.8, 0.85, [[(nom, SANSB, 17, TXT)]], anchor=MSO_ANCHOR.MIDDLE)
         caja(s, 5.75, yy, 0.75, 0.85, [[(str(n), SERIF, 24, color)]], align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
-        rect(s, 6.6, yy + 0.29, 0.75 * n / 19, 0.28, color)
+        rect(s, 6.6, yy + 0.29, 0.75 * n / cuenta.max(), 0.28, color)
         caja(s, 7.5, yy, 7.4, 0.85, [[(ej, SANS, 14.5, TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
         caja(s, 15.2, yy, 2.8, 0.85, [[(uso, SANSB, 14.5, color if color not in ('64748B',) else TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
         rect(s, 1.98, yy + 0.91, 16.04, 0.01, LINE)
     rect(s, 1.98, 8.6, 16.04, 1.3, PANEL); rect(s, 1.98, 8.6, 0.07, 1.3, MAG)
     caja(s, 2.35, 8.75, 15.5, 1.05, [[('Para entrar, una regla debe cumplir seis criterios: ', SANSB, 15, TXT),
                                       ('mecanismo en esa fase con cita y página; variable global equivalente (ERA5-Land); nivel de evidencia declarado; '
-                                       'que varíe entre años; una principal por fase y familia (las demás, sensibilidad); unidad comparable.', SANS, 15, TXT2)]])
+                                       'que varíe entre años; una principal por fase y familia; unidad comparable.', SANS, 15, TXT2)]])
     s.notes_slide.notes_text_frame.text = (
-        'Conteo sobre las 63 filas de la hoja «Auditoría web» (columna «Categoría de evidencia»), agrupadas en cinco familias para la exposición:\n'
+        f'Conteo sobre las {total} filas de evidencia de AMENAZAS_vigente.xlsx (hoja «1 Evidencia», columna «Tipo de evidencia»), 5 nov 2026: '
+        + '; '.join(f'{nom} {int(cuenta.get(nom, 0))} ({int(por_ronda.get((nom, True), 0))} del primer corte + '
+                    f'{int(por_ronda.get((nom, False), 0))} de octubre)' for nom, *_ in FAMILIAS) + '.\n'
+        'Las categorías de octubre las asignó tabla_amenazas_vigente.py a las mismas cinco familias. Antes (primer corte, 63 filas de la hoja '
+        '«Auditoría web»), agrupadas así:\n'
         '- Umbral verificado (16): duración–respuesta 9, operativo dependiente del genotipo 4, fisiológico 1, operativo 1, experimental verificado 1.\n'
         '- Modelo o parámetro (6): umbral modelado 3, modelado con duración provisional 2, parámetro cardinal 1.\n'
         '- Tratamiento experimental (19): tratamiento perjudicial 10, de campo 3, de dos años 2, con gradiente 1, sin umbral establecido 1, de fuente secundaria 2.\n'
@@ -139,63 +152,90 @@ def s18(prs):
 
 
 # ---------- 19 ----------
-SEQ, EDD = ('a', 'Sequía P − ETP < Q1'), ('c', 'EDD29 °C·día')
-MATRIZ = {  # cultivo: [(fase, familia, texto)]; en maíz v2 una fase puede tener varias reglas: [(familia, texto), …]
-    'Maíz': [('EST', [('c', 'Calor ≥ 34,0 °C ≥ 2 d'), SEQ]), ('VEG', [('c', 'Calor ≥ 34,6 °C ≥ 2 d'), SEQ]),
+# Matriz vigente (5 nov 2026): 36 reglas validadas de AMENAZAS_vigente.xlsx, hoja «3 Tabla vigente».
+# cultivo: [(fase, [(familia, texto), …])]; lista vacía = fase sin regla con fuente.
+SEQ, EDD = ('a', 'Sequía P − ETP < Q1'), ('c', 'EDD29 (°C·día)')
+CADA = ', cada día'
+MATRIZ = {
+    'Maíz': [('EST', [('c', 'Calor ≥ 34,0 °C ≥ 2 d'), SEQ]), ('VEG', [('c', 'Calor ≥ 34,1/34,6 °C ≥ 2 d'), SEQ]),
              ('FLO', [('c', 'Calor ≥ 33,7 °C ≥ 2 d'), SEQ, EDD]), ('REP-pos', [('c', 'Calor ≥ 33,7 °C ≥ 2 d'), EDD]),
-             ('FIL', [('c', 'Calor ≥ 32,9 °C ≥ 2 d'), SEQ, EDD]), ('MAT', [('a', 'Lluvia P > 10 mm/día')])],
-    'Arroz': [('EST', 'c', 'Calor Tmedia > 35 °C'), ('VEG', 'c', 'Calor Tmax > 36 °C ≥ 3 d'), ('FLO', 'c', 'Calor Tmedia ≥ 33 °C'),
-              ('REP-pre', 'c', 'Calor Tmedia ≥ 33 °C'), ('FIL', 'c', 'Calor Tmedia ≥ 33 °C'), ('MAT', 'c', 'Calor Tmedia > 30 °C')],
-    'Soya': [('EST', 'f', 'Helada Tmin < 0 °C'), ('VEG', 'c', 'Calor ≥ 45 °C 4 h/d × 7 d'), ('FLO', 'c', 'Calor Teff > 35 °C'),
-             ('REP-pos', 'c', 'Calor Teff > 35 °C'), ('FIL', 'a', 'Lluvia > 100 mm (R6–R8)'), ('MAT', 'a', 'Lluvia > 100 mm (R6–R8)')],
-    'Trigo': [('EST', 'f', 'Frío Tmedia < 2 °C ≥ 3 d'), ('VEG', 'f', 'Helada ≤ −4,4 °C 2 h'), ('FLO', 'f', 'Helada ≤ −1,1 °C 2 h'),
-              ('REP-pre', 'f', 'Helada ≤ −1,1 °C 2 h'), ('FIL', 'f', 'Helada ≤ −2,2 °C 2 h'), ('MAT', 'a', 'Lluvia ≥ 25 mm/d 2 d')]}
+             ('FIL', [('c', 'Calor ≥ 32,9 °C ≥ 2 d'), SEQ, EDD]), ('MAT', [('a', 'Lluvia P > 10 mm' + CADA)])],
+    'Arroz': [('EST', [('c', 'Calor Tmedia > 35 °C ≥ 2 d'), ('f', 'Frío Tmin (30 d) < 12 °C')]),
+              ('VEG', [('c', 'Calor Tmax > 36 °C ≥ 3 d')]),
+              ('REP-pre', [('c', 'Calor Tmax > 35 °C ≥ 3 d'), ('f', 'Frío Tmin < 13,8 °C')]),
+              ('FLO', [('c', 'Calor Tmax > 35 °C ≥ 3 d'), ('f', 'Frío Tmin < 11,6 °C')]),
+              ('FIL', [('c', 'Calor Tmax > 38 °C ≥ 3 d')]), ('MAT', [('c', 'Calor Tmedia > 30 °C ≥ 2 d')])],
+    'Soya': [('EST', [('f', 'Helada Tmin < 0 °C' + CADA)]), ('VEG', []),
+             ('FLO', [('c', 'Calor Teff > 35 °C' + CADA)]), ('REP-pos', [('c', 'Calor Teff > 35 °C' + CADA)]),
+             ('FIL', [('c', 'Calor Tmax media > 30 °C'), ('a', 'Lluvia > 100 mm (R6–R8)')]),
+             ('MAT', [('a', 'Lluvia > 100 mm (R6–R8)')])],
+    'Trigo': [('EST', [('f', 'Frío Tmedia < 2 °C ≥ 3 d')]), ('VEG', [('f', 'Helada Tmin ≤ −4,2 a 0 °C' + CADA)]),
+              ('REP-pre', [('f', 'Helada Tmin < 0 °C' + CADA)]), ('FLO', [('f', 'Helada Tmin < 0 °C' + CADA)]),
+              ('FIL', [('f', 'Helada Tmin < 0 °C' + CADA)]), ('MAT', [('a', 'Lluvia ≥ 25 mm/d, 2 d')])]}
+ALTO = {'Maíz': 1.45, 'Arroz': 1.1, 'Soya': 1.1, 'Trigo': 0.95}
 FAM = {'c': CALOR, 'f': FRIO, 'a': AGUA}
+
+
+def pegado(txt):
+    """Espacios duros para que «≥ 2 d», «35 °C» y «cada día» no se partan."""
+    for a in (' °C', ' d', ' mm', 'cada día', '≥ ', '> ', '< ', '≤ '):
+        txt = txt.replace(a, a.replace(' ', chr(160)))
+    return txt
 
 
 def s19(prs):
     s, n0 = preparar(prs, ('De la literatura a reglas reproducibles',), 'Amenazas y umbrales por cultivo y fase')
-    caja(s, 1.98, 2.28, 16, 0.4, [[('v1 dejó una regla por cultivo y fase. En maíz (v2) se sumaron la sequía y el calor continuo: una fase puede tener hasta tres.', SANS, 18, TXT2)]])
+    caja(s, 1.98, 2.28, 16, 0.4, [[('36 reglas validadas en los cuatro cultivos. Cada una dice qué se mide, desde qué valor y qué cuenta como evento.', SANS, 18, TXT2)]])
     cols = ['EST', 'VEG', 'FLO', 'REP', 'FIL', 'MAT']
-    x0, wc, y0 = 3.75, 2.36, 3.0
+    x0, wc, y0 = 3.75, 2.36, 2.95
     for j, f in enumerate(cols):
         x = x0 + j * wc
-        rect(s, x, y0, wc - 0.06, 0.42, FASE_COLOR[f] if f != 'REP' else FASE_COLOR['REP'])
+        rect(s, x, y0, wc - 0.06, 0.42, FASE_COLOR[f])
         caja(s, x, y0, wc - 0.06, 0.42, [[(f if f != 'REP' else 'REP (pre / pos)', SANSB, 14, BG)]], align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    y = y0 + 0.6
+    y = y0 + 0.55
     for cultivo, celdas in MATRIZ.items():
-        maiz = cultivo == 'Maíz'; alto = 1.6 if maiz else 1.0
-        caja(s, 1.98, y, 1.7, alto, [[(cultivo, SANSB, 19, AMARILLO)], [('v2' if maiz else 'v1', SANS, 12, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
-        orden = {c[0]: (c[1] if maiz else [(c[1], c[2])]) for c in celdas}
+        alto = ALTO[cultivo]
+        caja(s, 1.98, y, 1.7, alto, [[(cultivo, SANSB, 19, AMARILLO)]], anchor=MSO_ANCHOR.MIDDLE)
+        orden = dict(celdas)
         for j, f in enumerate(cols):
             clave = next(k for k in orden if k.startswith(f))
             reglas = orden[clave]; x = x0 + j * wc
             rect(s, x, y, wc - 0.06, alto, PANEL)
-            if len(reglas) == 1: rect(s, x, y, 0.06, alto, FAM[reglas[0][0]])
-            partes = [[('▌' if len(reglas) > 1 else '', SANSB, 13.5, FAM[fam]), (txt, SANS, 13.5 if maiz else 13, TXT)] for fam, txt in reglas]
+            partes = [[('▌', SANSB, 13, FAM[fam]), (pegado(txt), SANS, 12, TXT)] for fam, txt in reglas] or [[('Sin regla con fuente', SANS, 12.5, SRC)]]
             if f == 'REP': partes.insert(0, [(clave, SANSB, 11, REP_COLOR[clave])])
-            caja(s, x + 0.15, y + 0.05, wc - 0.3, alto - 0.1, partes, anchor=MSO_ANCHOR.MIDDLE)
-        y += alto + 0.15
-    caja(s, 1.98, 9.0, 16, 0.4, [[('▌', SANSB, 15, CALOR), (' calor   ', SANS, 14, TXT2), ('▌', SANSB, 15, FRIO), (' frío o helada   ', SANS, 14, TXT2),
-                                  ('▌', SANSB, 15, AGUA), (' agua: lluvia o sequía', SANS, 14, TXT2), ('     d = días consecutivos; h = horas', SANS, 14, SRC)]])
-    caja(s, 1.98, 9.5, 16, 0.45, [[('Arroz, soya y trigo siguen con una sola regla por fase: ', SANSB, 14, TXT),
-                                   ('la sequía todavía no se ha llevado a esos cultivos.', SANS, 14, TXT2)]])
-    enlaces(s, 10.12, [('reglas_24_fases_vigentes.csv', None), ('tabla_maestra_v2_maiz.xlsx', None)], prefijo='Tablas: ')
+            caja(s, x + 0.1, y + 0.04, wc - 0.2, alto - 0.08, partes, anchor=MSO_ANCHOR.MIDDLE)
+        y += alto + 0.1
+    rect(s, 1.98, y + 0.02, 16.04, 0.62, PANEL)
+    caja(s, 2.1, y + 0.02, 15.8, 0.62, [
+        [('Maíz, en toda la temporada: ', SANSB, 13, TXT), ('▌', SANSB, 13, AGUA), ('racha seca P < 1 mm ≥ 2 d   ', SANS, 13, TXT),
+         ('▌', SANSB, 13, CALOR), ('racha Tmax > 29 °C ≥ 2 d (soya 30 °C)   ', SANS, 13, TXT),
+         ('▌', SANSB, 13, CALOR), ('seco-cálido compuesto FLO–FIL: P < p20 y T > p80', SANS, 13, TXT)]], anchor=MSO_ANCHOR.MIDDLE)
+    caja(s, 1.98, y + 0.72, 16, 0.4, [[('▌', SANSB, 14, CALOR), (' calor   ', SANS, 13, TXT2), ('▌', SANSB, 14, FRIO), (' frío o helada   ', SANS, 13, TXT2),
+                                       ('▌', SANSB, 14, AGUA), (' agua   ', SANS, 13, TXT2),
+                                       ('≥ n d = racha de n días seguidos · cada día = un día basta · sin duración = sí o no por temporada', SANS, 13, SRC)]])
+    enlaces(s, 10.12, [('AMENAZAS_vigente.xlsx (hoja 3: cita y página de cada regla)', None)], prefijo='Tabla: ')
     s.notes_slide.notes_text_frame.text = (
-        'Fuente: 03_Resultados/Agroclima/vigente/amenazas/reglas_24_fases_vigentes.csv (v1: 24 reglas, una por cultivo y fase) y, para maíz, la tabla v2 '
-        '(12 reglas: FIL ajustado de 32,7 a 32,9 °C; sequía P − ETP < Q1 nueva en EST, VEG, FLO y FIL; EDD29 en FLO, REP y FIL). '
-        'Reglas de maíz por fase: EST 2, VEG 2, FLO 3, REP-pos 2, FIL 3, MAT 1; además, el evento seco-cálido compuesto (sensibilidad) cubre FLO, REP y FIL, '
-        'de modo que con él una fase llega a cuatro. El criterio C5 es una regla principal por fase Y por familia, no una por fase.\n'
-        'Fuentes por cultivo: maíz Li et al. 2025 (calor), Le Roux et al. 2024 (sequía), Ortega Gómez et al. 2019 (lluvia en MAT); arroz Yoshida 1981, Jiang et al. 2023, '
-        'Sun et al. 2025; soya Mourtzinis et al. 2019, Herritt y Fritschi 2020 (experimental), Deryng et al. 2014 (modelo), Weerasekara et al. 2021; '
-        'trigo Le Roux et al. 2024, Shroyer et al. 1995 (K-State C646), Ellis y Yadav 2016 (experimental).\n'
+        'Fuente: 03_Resultados/Agroclima/vigente/amenazas/AMENAZAS_vigente.xlsx, hoja «3 Tabla vigente»: 36 reglas, todas validadas por Paola '
+        '(maíz el 4 nov 2026; las 28 restantes el 5 nov 2026). La R15 de soya en VEG (≥ 45 °C 4 h/d × 7 d, tratamiento experimental) se eliminó: '
+        'soya no tiene regla con fuente en VEG.\n'
+        'Cómo se cuenta (jerarquía): si la fuente da duración, se usa (arroz, Jiang 2023: al menos 3 días; trigo EST: más de 2 días); '
+        'si la fuente evalúa la condición día a día, cada día es un evento (helada, Teff de soya, lluvia de maíz en MAT); '
+        'solo si la fuente no da duración, racha ≥ 2 días (criterio de la tesis, transferido de Li 2025b p. 4); '
+        'las condiciones de ventana (P − ETP < Q1, frío de arroz, calor medio de soya en FIL, lluvia R6–R8) son sí o no por temporada. EDD29 no es evento: es °C·día.\n'
+        'Arroz frío: Espe et al. 2017 (Tabla 1) da un umbral por tipo de grano (REP-pre 17,2 / 13,0 / 13,8 °C y FLO 11,9 / 10,9 / 11,6 °C para largo / medio / corto). '
+        'GDHY no distingue el tipo de grano: se usa un solo umbral, el valor central de los tres (13,8 °C en REP-pre y 11,6 °C en FLO; decisión del 5 nov 2026). '
+        'Soya FIL: media de la Tmax de la fase > 30 °C, valor fijo (Hoffman et al. 2020, p. 9: «approximately 29 °C and 30 °C for maize and soybean»; decisión del 5 nov 2026). Lluvia de soya R6–R8: una sola ventana para FIL y MAT, se cuenta una vez.\n'
+        'Fuentes: maíz Li et al. 2025a (calor), Le Roux et al. 2024 (sequía), Anderson et al. 2020 (EDD29), Ortega Gómez et al. 2019 (lluvia MAT), '
+        'Wu et al. 2025 (compuesto), ETCCDI (P < 1 mm), Schlenker y Roberts 2009 (29 °C); arroz Yoshida 1981, Jiang et al. 2023, Sipaseuth et al. 2007, Espe et al. 2017; '
+        'soya Mourtzinis et al. 2019, Deryng et al. 2014, Hoffman et al. 2020, Weerasekara et al. 2021; trigo Le Roux et al. 2024, Feng et al. 1999, '
+        'Zheng et al. 2012, Ellis y Yadav 2016.\n'
         'Teff = (Tmedia + Tmax)/2. En arroz y trigo REP-pre va antes de FLO; en maíz y soya REP-pos va después (columna común por equivalencia).')
     nombrar(s, n0)
 
 
 # ---------- 20 ----------
-NEBRASKA = [('EST', '26 abr – 5 may', ('≥ 34,0 °C', False), (True,), False),
-            ('VEG', '6 may – 8 jul *', ('≥ 34,6 °C', False), (True,), False),
+NEBRASKA = [('EST', '26 abr – 5 may', ('≥ 34,0 °C', True), (True,), False),
+            ('VEG', '6 may – 8 jul *', ('≥ 34,6 °C', True), (True,), False),
             ('FLO', '9 – 17 jul', ('≥ 33,7 °C †', True), (True,), True),
             ('REP-pos', '18 – 27 jul', ('≥ 33,7 °C', True), None, True),
             ('FIL', '28 jul – 5 sep', ('≥ 32,9 °C', True), (True,), True),
@@ -204,7 +244,7 @@ NEBRASKA = [('EST', '26 abr – 5 may', ('≥ 34,0 °C', False), (True,), False)
 
 def s20(prs):
     s, n0 = preparar(prs, ('Qué estamos contando',), 'Las amenazas de nuestro píxel')
-    caja(s, 1.98, 2.28, 16, 0.4, [[('Maíz de secano, Nebraska: de una a tres reglas por fase. Lleno = principal; contorno = sensibilidad.', SANS, 19.5, TXT2)]])
+    caja(s, 1.98, 2.28, 16, 0.4, [[('Maíz de secano, Nebraska: de una a tres reglas por fase, todas vigentes.', SANS, 19.5, TXT2)]])
     hdr = [(1.98, 1.7, 'Fase'), (3.75, 2.6, 'Ventana'), (6.5, 3.4, 'Calor · Tmax ≥ 2 días'), (10.05, 3.2, 'Sequía · P − ETP < Q1'),
            (13.4, 2.4, 'Calor continuo · EDD29'), (15.95, 2.07, 'Lluvia · MAT')]
     for x, w, t in hdr:
@@ -221,13 +261,13 @@ def s20(prs):
         if calor: chip(6.5, 3.2, calor[0], CALOR, calor[1])
         if seq: chip(10.05, 3.1, 'bandera por temporada', AGUA, True)
         if edd: chip(13.4, 2.35, '°C·día sobre 29', 'F59E0B', True)
-        if fase == 'MAT': chip(15.95, 2.07, 'P > 10 mm/día', AGUA, False)
+        if fase == 'MAT': chip(15.95, 2.07, 'P > 10 mm/día', AGUA, True)
     rect(s, 1.98, 8.75, 16.04, 0.012, '334155')
     caja(s, 1.98, 8.85, 16, 0.55, [[('Qué se cuenta: ', SANSB, 15, TXT),
                                     ('rachas de calor (episodios y % de días de la fase), una bandera de sequía por temporada, °C·día de calor continuo y días de lluvia. '
                                      'Lo siguiente: cada evento con su duración e intensidad.', SANS, 15, TXT2)]])
     caja(s, 1.98, 9.55, 16, 0.4, [[('* El conteo de calor de VEG usó solo V7–VT (6 jun – 8 jul).   † FLO: 34,8 °C (VT–R1) sigue por decidir.   '
-                                    'También en sensibilidad: evento seco-cálido compuesto en FLO, REP-pos y FIL.', SANS, 13, SRC)]])
+                                    'En toda la temporada: racha seca P < 1 mm y racha Tmax > 29 °C; en FLO–FIL, seco-cálido compuesto.', SANS, 13, SRC)]])
     enlaces(s, 10.12, [('tabla_maestra_v2_maiz.xlsx', None), ('calendario_seis_fases_secano.csv', None)], prefijo='Tablas: ')
     s.notes_slide.notes_text_frame.text = (
         'Reglas de maíz v2 aplicadas al píxel 191325 (Nebraska). Estado según la tabla v2: principales MAI-EST-SEQ, MAI-VEG-SEQ, MAI-FLO-CAL, MAI-FLO-SEQ, MAI-REP-CAL, '
@@ -250,7 +290,7 @@ FUENTES_MAIZ = [
     ('Ortega Gómez et al. (2019)', 'Nova Scientia', 'https://doi.org/10.21640/ns.v11i22.1682', 'Lluvia en maduración: P > 10 mm/día',
      'Maíz de temporal, Bajo Balsas, México', 'b/d', 'La tabla dice > 10 y el resumen ≥ 10: fijar uno'),
     ('Wu et al. (2025)', 'Global and Planetary Change', 'https://doi.org/10.1016/j.gloplacha.2025.104828', 'Seco-cálido: P < p20 y T > p80',
-     'China, 1961–2020', 'd', 'Sensibilidad; útil para ENSO')]
+     'China, 1961–2020', 'd', 'Regla vigente; útil para ENSO')]
 
 
 def s21(prs):

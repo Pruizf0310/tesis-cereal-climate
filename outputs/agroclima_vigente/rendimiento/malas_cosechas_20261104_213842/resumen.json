@@ -1,0 +1,122 @@
+{
+ "criterio": "mala cosecha = z robusto (mediana y 1,4826·MAD de la anomalía relativa del píxel) ≤ -1 y pérdida ≥ 5 % frente a la tendencia lineal 1981–2016",
+ "fuentes": [
+  "Leys et al. 2013, J. Exp. Soc. Psychol. 49:764 (mediana y MAD, b = 1,4826)",
+  "Utku et al. 2026, Sci. Rep. 16:25339 (choque negativo: Z < −1; sensibilidad −0,5 y −1,5)",
+  "GEOGLAM Crop Monitor, clase Poor (≥ 5 % bajo el promedio)"
+ ],
+ "min_anios_validos": 30,
+ "cultivos": [
+  {
+   "cultivo": "Maíz",
+   "pixeles": 10923,
+   "validos": 10763,
+   "sin_mala_cosecha": 90,
+   "con_1_o_2": 914,
+   "mediana_malas": 5.0,
+   "p10_malas": 3.0,
+   "p90_malas": 8.0,
+   "max_malas": 13,
+   "mediana_pct_anios": 14.285714285714286,
+   "distribucion": {
+    "0": 90,
+    "1": 277,
+    "2": 637,
+    "3": 1070,
+    "4": 1613,
+    "5": 1934,
+    "6": 1802,
+    "7": 1536,
+    "8": 1062,
+    "9": 515,
+    "10": 176,
+    "11": 45,
+    "12": 5,
+    "13": 1
+   }
+  },
+  {
+   "cultivo": "Arroz",
+   "pixeles": 3186,
+   "validos": 3179,
+   "sin_mala_cosecha": 10,
+   "con_1_o_2": 142,
+   "mediana_malas": 6.0,
+   "p10_malas": 3.0,
+   "p90_malas": 8.0,
+   "max_malas": 13,
+   "mediana_pct_anios": 16.666666666666668,
+   "distribucion": {
+    "0": 10,
+    "1": 40,
+    "2": 102,
+    "3": 269,
+    "4": 442,
+    "5": 593,
+    "6": 581,
+    "7": 534,
+    "8": 319,
+    "9": 180,
+    "10": 80,
+    "11": 21,
+    "12": 6,
+    "13": 2
+   }
+  },
+  {
+   "cultivo": "Trigo",
+   "pixeles": 10505,
+   "validos": 10430,
+   "sin_mala_cosecha": 51,
+   "con_1_o_2": 683,
+   "mediana_malas": 5.0,
+   "p10_malas": 3.0,
+   "p90_malas": 8.0,
+   "max_malas": 14,
+   "mediana_pct_anios": 14.705882352941176,
+   "distribucion": {
+    "0": 51,
+    "1": 187,
+    "2": 496,
+    "3": 1034,
+    "4": 1553,
+    "5": 2015,
+    "6": 1989,
+    "7": 1484,
+    "8": 948,
+    "9": 445,
+    "10": 178,
+    "11": 38,
+    "12": 11,
+    "14": 1
+   }
+  },
+  {
+   "cultivo": "Soya",
+   "pixeles": 4955,
+   "validos": 4950,
+   "sin_mala_cosecha": 11,
+   "con_1_o_2": 232,
+   "mediana_malas": 6.0,
+   "p10_malas": 3.0,
+   "p90_malas": 8.0,
+   "max_malas": 12,
+   "mediana_pct_anios": 16.666666666666668,
+   "distribucion": {
+    "0": 11,
+    "1": 58,
+    "2": 174,
+    "3": 432,
+    "4": 742,
+    "5": 961,
+    "6": 955,
+    "7": 748,
+    "8": 486,
+    "9": 260,
+    "10": 92,
+    "11": 27,
+    "12": 4
+   }
+  }
+ ]
+}
