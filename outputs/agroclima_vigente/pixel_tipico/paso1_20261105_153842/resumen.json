@@ -1,0 +1,10 @@
+{
+ "pixel": 191325,
+ "conteo": "conteo_reglas_20261105_150123",
+ "malas": "malas_cosechas_20261104_213842",
+ "pruebas": 25,
+ "p05": 13,
+ "q05": 5,
+ "esperado_azar": 1.2,
+ "criterio": "Spearman entre la amenaza sin tendencia y la pérdida relativa; q de Benjamini–Hochberg"
+}

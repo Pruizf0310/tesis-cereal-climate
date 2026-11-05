@@ -684,3 +684,72 @@ def s_mala(prs, carpeta, pixel=191325):
                                           ('mediana de ' + ', '.join(f'{v} en {k.lower()}' for k, v in m.items()) +
                                            ' malas cosechas en 36 años. El número sale de cada píxel, no de un percentil fijo.', SANS, 14, TXT2)]])
     return s
+
+
+# ---------- paso 1: amenaza con rendimiento ----------
+FILAS_P1 = [('Calor', 'días en evento', CALOR), ('Calor sobre 29 °C', 'días en evento', CALOR), ('Racha seca', 'días en evento', CIAN),
+            ('Lluvia', 'días en evento', CIAN), ('Sequía', 'déficit P − ETP', CIAN), ('Seco-cálido', 'sí o no, FLO–FIL', CALOR),
+            ('EDD29', '°C·día, no es evento', CALOR)]
+AZUL = '60A5FA'
+
+
+def s_paso1(prs, paso1):
+    """Paso 1: qué amenaza, en qué fase, acompaña las pérdidas (pixel_tipico_paso1.py)."""
+    c = pd.read_excel(paso1 / 'paso1.xlsx', sheet_name='celdas')
+    res = json.loads((paso1 / 'resumen.json').read_text(encoding='utf-8'))
+    fuertes = c[c.q_bh < .05]
+    s = nueva(prs, 'Qué amenaza acompaña las pérdidas',
+              'Paso 1. Cada amenaza, fase por fase, frente a la pérdida del año. Ambos sin tendencia; 36 cosechas.',
+              f'Fuente: pixel_tipico/{paso1.name}/paso1.xlsx · eventos de conteo_reglas_20261105_150123 · pérdida relativa de '
+              'malas_cosechas_20261104_213842 · píxel 191325.',
+              'Qué se compara: por amenaza y fase, una variable por año en la que más amenaza = valor mayor (días en evento; en sequía, '
+              'déficit = −Σ(P − ETP); en seco-cálido, 1 o 0; EDD29 en °C·día), frente a la pérdida relativa del año (rendimiento / '
+              'tendencia − 1, la misma de la mala cosecha). La amenaza se deja sin tendencia con una recta 1981–2016. ρ de Spearman: '
+              'negativa = más amenaza, menos cosecha. Para qué: es el filtro; solo lo que acompaña las pérdidas pasa al paso 2 (ONI). '
+              f'{res["pruebas"]} pruebas; {res["p05"]} con p < 0,05 (por azar ~{num(res["esperado_azar"], 1)}); {res["q05"]} se sostienen con la '
+              'corrección de Benjamini–Hochberg (q < 0,05, borde amarillo). «Malas» = de las 5 malas cosechas (1983, 1988, 1991, 1995, 2012), '
+              'cuántas tuvieron la amenaza en esa fase. Racha seca y calor sobre 29 °C ocurren todos los años: ahí cuenta cuántos días, no si hubo. '
+              'En EST la relación es positiva: más días secos al establecer acompañan mejores cosechas.')
+    x0, y0, wl, wc, hf = 1.98, 2.95, 3.15, 1.6, 0.72
+    for k, f in enumerate(FASES6):
+        x = x0 + wl + k * wc
+        rect(s, x, y0, wc - 0.06, 0.4, FASE_COLOR[f])
+        caja(s, x, y0, wc - 0.06, 0.4, [[('REP-pos' if f == 'REP' else f, SANSB, 13, BG)]], align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    for r, (nom, var, color) in enumerate(FILAS_P1):
+        y = y0 + 0.48 + r * (hf + 0.06)
+        rect(s, x0, y, 0.1, hf, color)
+        caja(s, x0 + 0.2, y, wl - 0.25, hf, [[(nom, SANSB, 14, TXT)], [(var, SANS, 10.5, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
+        for k, f in enumerate(FASES6):
+            x = x0 + wl + k * wc
+            fila = c[(c.amenaza == nom) & (c.fase == f)]
+            if fila.empty or pd.isna(fila.rho.iloc[0]):
+                rect(s, x, y, wc - 0.06, hf, '0B1328')
+                caja(s, x, y, wc - 0.06, hf, [[('sin eventos' if not fila.empty else '—', SANS, 10.5, '475569')]],
+                     align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+                continue
+            o = fila.iloc[0]
+            a = min(abs(o.rho) / 0.65, 1) * 0.85
+            caja_r = rect(s, x, y, wc - 0.06, hf, mezcla(CALOR if o.rho < 0 else AZUL, a) if o.p < .05 else PANEL,
+                          linea=AMARILLO if o.q_bh < .05 else None)
+            if o.q_bh < .05: caja_r.line.width = Pt(2)
+            abajo = f'malas {int(o.malas_con_amenaza)}/{int(o.malas)}' if pd.notna(o.malas_con_amenaza) else f'sin 2012: {num(o.rho_sin_2012, 2)}'
+            caja(s, x, y, wc - 0.06, hf, [[(num(o.rho, 2), SERIF if o.p < .05 else SANS, 18 if o.p < .05 else 15, TXT if o.p < .05 else SRC)],
+                                          [(abajo, SANS, 10, TXT2)]], align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    xp = x0 + wl + 6 * wc + 0.25; wp = 18.02 - xp
+    rect(s, xp, y0, wp, 5.8, PANEL); rect(s, xp, y0, 0.07, 5.8, AMARILLO)
+    pasan = ' · '.join(f'{o.amenaza} {("REP-pos" if o.fase == "REP" else o.fase)}' for o in fuertes.itertuples())
+    caja(s, xp + 0.25, y0 + 0.15, wp - 0.4, 5.5, [
+        [('Qué dice', SANSB, 15, TXT)],
+        [('El llenado concentra la señal: calor, días sobre 29 °C, racha seca y EDD29 en FIL.', SANS, 12.5, TXT2)],
+        [('', SANS, 6, TXT)],
+        [('Las 5 malas cosechas tuvieron calor en FIL, pero también 15 años normales: cuentan los días, no el sí o no.', SANS, 12.5, TXT2)],
+        [('', SANS, 6, TXT)],
+        [('Pasan al paso 2 (ONI)', SANSB, 13, AMARILLO)],
+        [(pasan, SANS, 12, TXT2)]])
+    yl = y0 + 0.48 + len(FILAS_P1) * (hf + 0.06) + 0.02
+    caja(s, x0, yl, 16.04, 0.6, [[('▌', SANSB, 13, CALOR), (' más amenaza, menos cosecha   ', SANS, 12, TXT2), ('▌', SANSB, 13, AZUL),
+                                  (' más amenaza, más cosecha   ', SANS, 12, TXT2), ('▢', SANSB, 13, AMARILLO),
+                                  (' se sostiene tras corregir por azar (q < 0,05)', SANS, 12, TXT2)],
+                                 [(f'Color solo si p < 0,05. {res["pruebas"]} pruebas: {res["p05"]} con p < 0,05 (por azar ~{num(res["esperado_azar"], 1)}); '
+                                   f'{res["q05"]} se sostienen. «malas 5/5»: cuántas de las 5 malas cosechas tuvieron la amenaza en esa fase.', SANS, 12, SRC)]])
+    return s
