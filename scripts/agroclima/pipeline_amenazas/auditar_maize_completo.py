@@ -16,7 +16,7 @@ def main():
     run=base/'ejecuciones/maize_seis_fases_GEE_1981_2016'
     plan=json.loads((run/'plan_ejecucion.json').read_text(encoding='utf-8'))
     status=json.loads((run/'estado_paquete.json').read_text())
-    workbook=base/'amenazas/tabla_maestra_revision_humana.xlsx'
+    workbook=base/'amenazas/_construccion/tabla_maestra_revision_humana.xlsx'
     ns={'m':'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
     master={}
     with zipfile.ZipFile(workbook) as z:

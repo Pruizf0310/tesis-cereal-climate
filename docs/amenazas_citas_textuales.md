@@ -1,6 +1,6 @@
 # Amenazas: citas textuales por regla
 
-Generado el 2026-11-04 desde `validacion_umbrales_20261104.xlsx` (hoja «Reglas», 31 reglas). Cada cita se re-extrajo del PDF al generar este documento, recortando entre un inicio y un fin literales; si no aparecía, el script se detenía. Las traducciones son de Claude y no son cita. Las fases siguen `docs/nomenclatura_fases.md` (REP-pre en arroz y trigo; REP-pos en maíz y soya).
+Generado el 2026-11-05 desde `validacion_umbrales_20261104.xlsx` (hoja «Reglas», 31 reglas). Cada cita se re-extrajo del PDF al generar este documento, recortando entre un inicio y un fin literales; si no aparecía, el script se detenía. Las traducciones son de Claude y no son cita. Las fases siguen `docs/nomenclatura_fases.md` (REP-pre en arroz y trigo; REP-pos en maíz y soya).
 
 Convenciones de transcripción: saltos de línea → espacio; el guion suave de fin de línea se elimina; el guion normal de fin de línea se deja pegado (p. ej. «sever-ity»); ligaduras (ﬁ, ﬂ) → fi, fl; símbolos como «◦C», «℃» y «8C» (Sipaseuth, por «°C») se dejan como los imprime el PDF.
 
@@ -46,7 +46,7 @@ Convenciones de transcripción: saltos de línea → espacio; el guion suave de 
 - **Umbral, variable y duración según la fuente:** Tmax diaria (Td max) ≥ 34 °C como umbral de disparo (Youden). Duración: Li 2025b toma eventos de 2 días o más.
 - **Regla en el Excel:** Tmax ≥ 34 °C; Racha ≥ 2 días consecutivos (criterio de inclusión de Li 2025b); variable: Tmax diaria del aire a 2 m (ERA5-Land, temperature_2m_max)
 - **Severidad:** Tabla 2 Li 2025b, V0–VE: leve 2.5~4.7 d; moderada 4.7~7.7 d; severa >7.7 d
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026). Validada con la definición de evento: racha ≥ 2 d (Li 2025b p. 4) y grados de la Tabla 2 de Li 2025b (p. 7) en días enteros (techo): menor que leve 2 d; leve 3–4 d; moderado 5–7 d; severo ≥ 8 d (V0–VE).
 
 **Fuentes:**
 
@@ -197,7 +197,7 @@ _Traducción (no es cita):_ Los umbrales de estas categorías se determinaron as
 - **Umbral, variable y duración según la fuente:** Tmax diaria ≥ 34,6 °C. Duración: ≥ 2 días (Li 2025b).
 - **Regla en el Excel:** Tmax ≥ 34.6 °C; Racha ≥ 2 días consecutivos; variable: Tmax diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Tabla 2 Li 2025b, V6–VT: leve 3.5~5.4 d; moderada 5.4~7.5 d; severa >7.5 d
-- **Estado:** No (se acota a V7–VT). Validación Paola: (vacío)
+- **Estado:** No (se acota a V7–VT). Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -269,7 +269,7 @@ _Traducción (no es cita):_ Los umbrales de estas categorías se determinaron as
 - **Umbral, variable y duración según la fuente:** Tmax diaria ≥ 33,7 °C. Duración: ≥ 2 días (Li 2025b).
 - **Regla en el Excel:** Tmax ≥ 33.7 °C; Racha ≥ 2 días consecutivos; variable: Tmax diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Tabla 2 Li 2025b, R1–R3: leve 2.8~4.7 d; moderada 4.7~8.3 d; severa >8.3 d
-- **Estado:** No (valor); sí la cita primaria. Validación Paola: (vacío)
+- **Estado:** No (valor); sí la cita primaria. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -348,7 +348,7 @@ _Traducción (no es cita):_ Estudios previos identificaron distintas etapas del 
 - **Umbral, variable y duración según la fuente:** Tmax diaria ≥ 33,7 °C. Duración: ≥ 2 días (Li 2025b).
 - **Regla en el Excel:** Tmax ≥ 33.7 °C; Racha ≥ 2 días consecutivos; variable: Tmax diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Tabla 2 Li 2025b, R1–R3: leve 2.8~4.7 d; moderada 4.7~8.3 d; severa >8.3 d
-- **Estado:** No (valor); sí la cita primaria. Validación Paola: (vacío)
+- **Estado:** No (valor); sí la cita primaria. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -520,7 +520,7 @@ _Traducción (no es cita):_ Referencia 9 de Li 2025b: evaluación de amenaza de 
 - **Umbral, variable y duración según la fuente:** Número de días con precipitación mayor que 10 mm (Tabla 2; el resumen dice «igual o mayor»). La fuente no define duración mínima ni racha.
 - **Regla en el Excel:** P diaria > 10 mm; Conteo de días; la fuente no publica racha mínima; variable: Precipitación diaria (ERA5-Land, total_precipitation_sum)
 - **Severidad:** No publicada
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -559,7 +559,7 @@ _Traducción (no es cita):_ Las etapas del maíz son (Figura 2): 1) fase vegetat
 - **Umbral, variable y duración según la fuente:** Temperatura media diaria, valor «High» = 35 °C (celda de tabla, sin operador). La fuente no da duración.
 - **Regla en el Excel:** Tmedia > 35 °C; La fuente no publica duración; variable: Tmedia diaria del aire a 2 m (ERA5-Land, temperature_2m)
 - **Severidad:** No publicada
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -591,7 +591,7 @@ _Traducción (no es cita):_ Las temperaturas críticas bajas y altas, normalment
 - **Umbral, variable y duración según la fuente:** Tmax diaria; umbral 36 °C. Duración: proceso con Tmax sobre el umbral «at least 3 days» (p. 7).
 - **Regla en el Excel:** Tmax > 36 °C; Proceso ≥ 3 días consecutivos; variable: Tmax diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Jiang 2024 (macollamiento): leve 3–6 d; moderada 7–9 d; severa >9 d
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -661,9 +661,9 @@ _Traducción (no es cita):_ Además, sin importar las características del arroz
 - **Etapa en la fuente:** «booting» (Jiang 2023); «jointing–booting (#1)» (Sun 2025)
 - **Cobertura:** Jiang cubre menos: solo el embuche (BBCH 40–49), no la iniciación de panícula ni el espigado. Sun #1 va del encañado al día antes del espigado (≈ BBCH 30–49).
 - **Umbral, variable y duración según la fuente:** Jiang: Tmax diaria, 35 °C; duración «at least 3 days» (p. 7) o «more than 3 consecutive days» (p. 2, convención citada). Sun: Tmedia ≥ 33 °C, ≥ 1 día.
-- **Regla en el Excel:** Tmax > 35 °C; Proceso ≥ 3 días consecutivos; variable: Tmax diaria del aire a 2 m (ERA5-Land)
+- **Regla en el Excel:** Tmax > 35 °C; ≥ 3 días consecutivos con Tmax sobre el umbral (Jiang 2023, p. 7 §2.5.2: «exceeds the critical threshold for at least 3 days»); variable: Tmax diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Jiang 2024: leve 3~5 d; moderada 6~8 d; severa > 8 d
-- **Estado:** Propuesta — decide Paola. Validación Paola: Aprobada: Jiang 2023 (Tmax 35/35/38 °C, más de 3 días consecutivos según la convención citada en Jiang 2023 p. 2). Se descartan los grados de Jiang 2024 porque su duración cuenta días con HCIId > 0, no días con Tmax sobre el umbral. (Decisión de Paola, 4 nov 2026.)
+- **Estado:** Propuesta — decide Paola. Validación Paola: Aprobada: Jiang 2023 (Tmax 35/35/38 °C, más de 3 días consecutivos según la convención citada en Jiang 2023 p. 2). Se descartan los grados de Jiang 2024 porque su duración cuenta días con HCIId > 0, no días con Tmax sobre el umbral. (Decisión de Paola, 4 nov 2026.) | 5 nov 2026: Paola registra la duración como ≥ 3 días con la cita de la p. 7 (método); la p. 2 («more than 3 consecutive days», convención citada) queda como valor en conflicto.
 
 **Fuentes:**
 
@@ -771,9 +771,9 @@ _Traducción (no es cita):_ HCIId = 0 se determina como el valor crítico de cau
 - **Etapa en la fuente:** «flowering» (Jiang 2023); «heading–flowering (#2)» (Sun 2025)
 - **Cobertura:** Jiang ≈ equivalente. Sun #2 cubre más: incluye el espigado (BBCH 50–59, REP-pre) y dura unos 10 d.
 - **Umbral, variable y duración según la fuente:** Jiang: Tmax diaria, 35 °C; duración como R10. Sun: Tmedia ≥ 33 °C, ≥ 1 día.
-- **Regla en el Excel:** Tmax > 35 °C; Proceso ≥ 3 días consecutivos; variable: Tmax diaria del aire a 2 m (ERA5-Land)
+- **Regla en el Excel:** Tmax > 35 °C; ≥ 3 días consecutivos con Tmax sobre el umbral (Jiang 2023, p. 7 §2.5.2: «exceeds the critical threshold for at least 3 days»); variable: Tmax diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Jiang 2024: leve 3~5 d; moderada 6~8 d; severa > 8 d
-- **Estado:** Propuesta — decide Paola. Validación Paola: Aprobada: Jiang 2023 (Tmax 35/35/38 °C, más de 3 días consecutivos según la convención citada en Jiang 2023 p. 2). Se descartan los grados de Jiang 2024 porque su duración cuenta días con HCIId > 0, no días con Tmax sobre el umbral. (Decisión de Paola, 4 nov 2026.)
+- **Estado:** Propuesta — decide Paola. Validación Paola: Aprobada: Jiang 2023 (Tmax 35/35/38 °C, más de 3 días consecutivos según la convención citada en Jiang 2023 p. 2). Se descartan los grados de Jiang 2024 porque su duración cuenta días con HCIId > 0, no días con Tmax sobre el umbral. (Decisión de Paola, 4 nov 2026.) | 5 nov 2026: Paola registra la duración como ≥ 3 días con la cita de la p. 7 (método); la p. 2 («more than 3 consecutive days», convención citada) queda como valor en conflicto.
 
 **Fuentes:**
 
@@ -881,9 +881,9 @@ _Traducción (no es cita):_ HCIId = 0 se determina como el valor crítico de cau
 - **Etapa en la fuente:** «filling» (Jiang 2023); «grain filling (#3)», del día 11 después del espigado a la madurez (Sun 2025); «post-heading» (Shi 2015)
 - **Cobertura:** Jiang ≈ equivalente. Sun #3 y Shi cubren más: llegan hasta la madurez (MAT); Shi empieza en el espigado.
 - **Umbral, variable y duración según la fuente:** Jiang: Tmax diaria, 38 °C; duración como R10. Shi: Tmax 35 °C (sin rachas). Sun: Tmedia ≥ 33 °C, ≥ 1 día.
-- **Regla en el Excel:** Tmax > 38 °C; Proceso ≥ 3 días consecutivos; variable: Tmax diaria del aire a 2 m (ERA5-Land)
+- **Regla en el Excel:** Tmax > 38 °C; ≥ 3 días consecutivos con Tmax sobre el umbral (Jiang 2023, p. 7 §2.5.2: «exceeds the critical threshold for at least 3 days»); variable: Tmax diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Jiang 2024 (llenado): leve 3–6 d; moderada 7–9 d; severa >9 d
-- **Estado:** Propuesta — decide Paola. Validación Paola: Aprobada: Jiang 2023 (Tmax 35/35/38 °C, más de 3 días consecutivos según la convención citada en Jiang 2023 p. 2). Se descartan los grados de Jiang 2024 porque su duración cuenta días con HCIId > 0, no días con Tmax sobre el umbral. (Decisión de Paola, 4 nov 2026.)
+- **Estado:** Propuesta — decide Paola. Validación Paola: Aprobada: Jiang 2023 (Tmax 35/35/38 °C, más de 3 días consecutivos según la convención citada en Jiang 2023 p. 2). Se descartan los grados de Jiang 2024 porque su duración cuenta días con HCIId > 0, no días con Tmax sobre el umbral. (Decisión de Paola, 4 nov 2026.) | 5 nov 2026: Paola registra la duración como ≥ 3 días con la cita de la p. 7 (método); la p. 2 («more than 3 consecutive days», convención citada) queda como valor en conflicto.
 
 **Fuentes:**
 
@@ -998,7 +998,7 @@ _Traducción (no es cita):_ HCIId = 0 se determina como el valor crítico de cau
 - **Umbral, variable y duración según la fuente:** Temperatura media diaria, valor «High» = 30 °C. La fuente no da duración.
 - **Regla en el Excel:** Tmedia > 30 °C; La fuente no publica duración; variable: Tmedia diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** No publicada
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1030,7 +1030,7 @@ _Traducción (no es cita):_ Las temperaturas críticas bajas y altas, normalment
 - **Umbral, variable y duración según la fuente:** Temperatura mínima diaria < 0 °C (probabilidad de helada). La fuente no da duración (solo «prolonged periods» para −2 °C, sin cifra).
 - **Regla en el Excel:** Tmin < 0 °C; Diaria; sin horas mínimas publicadas; variable: Tmin diaria del aire a 2 m (ERA5-Land, temperature_2m_min)
 - **Severidad:** No publicada (el texto menciona daño mayor bajo −2 °C «for prolonged periods», sin cifra de duración)
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1062,7 +1062,7 @@ _Traducción (no es cita):_ Un aspecto importante de la siembra temprana es la h
 - **Umbral, variable y duración según la fuente:** Tratamiento de 45 °C de 9:00 a. m. a 1:00 p. m. (4 h/día) durante 7 días. No es un umbral de campo.
 - **Regla en el Excel:** 45 °C (tratamiento); 4 h/día durante 7 días; variable: Temperatura horaria del aire (no disponible como regla diaria)
 - **Severidad:** No publicada
-- **Estado:** No (ver Hoja 3). Validación Paola: (vacío)
+- **Estado:** Eliminada. Validación Paola: ELIMINADA (decisión de Paola, 5 nov 2026): sin regla diaria con fuente verificable.
 
 **Fuentes:**
 
@@ -1087,7 +1087,7 @@ _Traducción (no es cita):_ Las plantas crecieron tres semanas más hasta tener 
 - **Umbral, variable y duración según la fuente:** Teff diaria = (Tmedia + Tmax)/2 > 35 °C (Tcr); Tlim = 40 °C. Sin duración mínima: el factor es diario y se promedia en el TSP.
 - **Regla en el Excel:** Teff > 35 °C (Tcr); límite 40 °C (Tlim); Diaria; sin racha mínima; variable: Teff diaria = (Tmedia + Tmax)/2 (ERA5-Land)
 - **Severidad:** Función lineal entre Tcr y Tlim (ec. A.6)
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1126,7 +1126,7 @@ _Traducción (no es cita):_ Tabla A.1. Temperatura crítica (Tcr) y límite (Tli
 - **Umbral, variable y duración según la fuente:** Igual que R16.
 - **Regla en el Excel:** Teff > 35 °C (Tcr); límite 40 °C (Tlim); Diaria; sin racha mínima; variable: Teff diaria = (Tmedia + Tmax)/2 (ERA5-Land)
 - **Severidad:** Función lineal entre Tcr y Tlim (ec. A.6)
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1165,7 +1165,7 @@ _Traducción (no es cita):_ Tabla A.1. Temperatura crítica (Tcr) y límite (Tli
 - **Umbral, variable y duración según la fuente:** Más de 100 mm de lluvia acumulada en R6–R8. La duración es la ventana completa.
 - **Regla en el Excel:** > 100 mm acumulados en R6–R8; Ventana completa R6–R8; variable: Precipitación acumulada en la ventana (suma de P diaria ERA5-Land)
 - **Severidad:** No publicada
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1197,7 +1197,7 @@ _Traducción (no es cita):_ Para entender la influencia del ambiente de producci
 - **Umbral, variable y duración según la fuente:** Igual que R18.
 - **Regla en el Excel:** > 100 mm acumulados en R6–R8; Ventana completa R6–R8; variable: Precipitación acumulada en la ventana (suma de P diaria ERA5-Land)
 - **Severidad:** No publicada
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1229,7 +1229,7 @@ _Traducción (no es cita):_ Para entender la influencia del ambiente de producci
 - **Umbral, variable y duración según la fuente:** Temperatura media diaria < 2 °C durante más de 2 días sucesivos.
 - **Regla en el Excel:** Tmedia < 2 °C; Más de 2 días seguidos (≥ 3 d); variable: Tmedia diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** No publicada
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1261,7 +1261,7 @@ _Traducción (no es cita):_ Referencia 33: Jame y Cutforth (2004), simulación d
 - **Umbral, variable y duración según la fuente:** Feng: temperatura mínima diaria de estación ≤ −4,2 / −3,5 / −2,5 / −1,0 / 0 °C según días desde el encañado; un día basta (el dato es la Tmin del día con helada). Shroyer: 24 °F durante 2 horas.
 - **Regla en el Excel:** Tmin ≤ −4.2 / −3.5 / −2.5 / −1.0 / 0 °C según días desde el encañado; 1 día (sin racha mínima); variable: Tmin diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Feng 1999: solo umbral de helada grave (≥5 % de plantas con espiga joven dañada); Shroyer: «Moderate to severe» (cualitativo)
-- **Estado:** Propuesta — decide Paola. Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1324,7 +1324,7 @@ _Traducción (no es cita):_ Según el daño, la helada se divide en leve y grave
 - **Umbral, variable y duración según la fuente:** Zheng: temperatura mínima de abrigo < 0 °C; cada día cuenta. Shroyer: 28 °F (embuche) y 30 °F (espigado) durante 2 h.
 - **Regla en el Excel:** Tmin < 0 °C; Cada día cuenta (sin racha mínima); variable: Tmin diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Modelo: multiplicador de rendimiento 0,1 por día con helada en Z49–Z80 (rampa 1→0,1 en Z45–Z55)
-- **Estado:** Propuesta — decide Paola. Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1373,7 +1373,7 @@ _Traducción (no es cita):_ El grado de daño al trigo por heladas de primavera 
 - **Umbral, variable y duración según la fuente:** Zheng: Tmin de abrigo < 0 °C, cada día. Shroyer: 30 °F durante 2 h.
 - **Regla en el Excel:** Tmin < 0 °C; Cada día cuenta (sin racha mínima); variable: Tmin diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Modelo: multiplicador 0,1 por día con helada
-- **Estado:** Propuesta — decide Paola. Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1422,7 +1422,7 @@ _Traducción (no es cita):_ El grado de daño al trigo por heladas de primavera 
 - **Umbral, variable y duración según la fuente:** Zheng: Tmin de abrigo < 0 °C, cada día. Shroyer: 28 °F durante 2 h.
 - **Regla en el Excel:** Tmin < 0 °C; Cada día cuenta (sin racha mínima); variable: Tmin diaria del aire a 2 m (ERA5-Land)
 - **Severidad:** Modelo: multiplicador 0,1 hasta Z80; luego sube linealmente hasta 1 en Z89
-- **Estado:** Propuesta — decide Paola. Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1471,7 +1471,7 @@ _Traducción (no es cita):_ El grado de daño al trigo por heladas de primavera 
 - **Umbral, variable y duración según la fuente:** Dos lluvias simuladas de 25 mm con 1 día de separación (tratamiento, no umbral).
 - **Regla en el Excel:** 25 mm/día (tratamiento); filtro propuesto P ≥ 25 mm/día; 2 días consecutivos; variable: Precipitación diaria (ERA5-Land)
 - **Severidad:** No publicada
-- **Estado:** No. Validación Paola: (vacío)
+- **Estado:** No. Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1503,7 +1503,7 @@ _Traducción (no es cita):_ la lluvia que moja la espiga en la planta al final d
 - **Umbral, variable y duración según la fuente:** Media de la temperatura mínima de los 30 días después de la siembra: < 12 °C crítico; 12–16 °C riesgo; > 16 °C seguro.
 - **Regla en el Excel:** < 12 °C = alto riesgo de fracaso; 12–16 °C = riesgo; > 16 °C = seguro; Ventana fija de 30 días; variable: Media de la Tmin diaria en los 30 d después de la siembra (ERA5-Land)
 - **Severidad:** Tres clases (seguro, riesgo, fracaso)
-- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1533,9 +1533,9 @@ _Traducción (no es cita):_ Cuando la temperatura mínima media fue menor de 12 
 - **Etapa en la fuente:** Embuche: de 7 días después de la iniciación de panícula a 7 días antes del 50 % de espigado (Espe 2017)
 - **Cobertura:** La fuente cubre menos: excluye la iniciación de panícula y el espigado.
 - **Umbral, variable y duración según la fuente:** Grados acumulados de Tmin diaria por debajo del umbral: 17,2 °C (largo), 13 °C (medio), 13,8 °C (corto) (Tabla 1). Sin duración mínima.
-- **Regla en el Excel:** Tmin < 17.2 °C (grano largo); 13.0 °C (medio); 13.8 °C (corto); Sin racha mínima (grados acumulados en la fase); variable: Tmin diaria del aire a 2 m (ERA5-Land); grados acumulados bajo el umbral
+- **Regla en el Excel:** Tmin < 13,8 °C (un solo umbral para arroz: valor central de largo 17,2 / medio 13,0 / corto 13,8 °C; decisión de Paola, 5 nov 2026); Sin racha mínima (grados acumulados en la fase); variable: Tmin diaria del aire a 2 m (ERA5-Land); grados acumulados bajo el umbral
 - **Severidad:** Pérdida por °C acumulado (Tabla 1, medianas): largo 14.4, medio 64.7, corto 24.2 kg ha⁻¹ °C⁻¹
-- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1581,9 +1581,9 @@ _Traducción (no es cita):_ La estimación para el grano medio (14 °C) es simil
 - **Etapa en la fuente:** Floración: de 7 días antes a 7 días después del 50 % de espigado (Espe 2017)
 - **Cobertura:** La fuente cubre otra ventana: empieza 7 días antes del 50 % de espigado (parte del espigado, BBCH 50s, REP-pre).
 - **Umbral, variable y duración según la fuente:** Grados acumulados de Tmin diaria por debajo de 11,9 °C (largo), 10,9 °C (medio), 11,6 °C (corto) (Tabla 1). Sin duración mínima.
-- **Regla en el Excel:** Tmin < 11.9 °C (largo); 10.9 °C (medio); 11.6 °C (corto); Sin racha mínima (grados acumulados en la fase); variable: Tmin diaria del aire a 2 m (ERA5-Land); grados acumulados bajo el umbral
+- **Regla en el Excel:** Tmin < 11,6 °C (un solo umbral para arroz: valor central de largo 11,9 / medio 10,9 / corto 11,6 °C; decisión de Paola, 5 nov 2026); Sin racha mínima (grados acumulados en la fase); variable: Tmin diaria del aire a 2 m (ERA5-Land); grados acumulados bajo el umbral
 - **Severidad:** Pérdida por °C acumulado (Tabla 1, medianas): largo 38, medio 34.3, corto 25.4 kg ha⁻¹ °C⁻¹
-- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
@@ -1627,9 +1627,9 @@ _Traducción (no es cita):_ La estimación para el grano medio (14 °C) es simil
 - **Etapa en la fuente:** «grain filling» del modelo de Hoffman 2020
 - **Cobertura:** La fuente cubre mucho más: los autores reconocen que su llenado representa todas las fases reproductivas R1–R8.
 - **Umbral, variable y duración según la fuente:** Media de la Tmax diaria en la fase; umbral aproximado 30 °C para soya (29 °C maíz). Sin duración: es un promedio de la fase.
-- **Regla en el Excel:** Tmax media de la fase > ~30 °C; Toda la fase (promedio); variable: Media de la Tmax diaria en la fase (ERA5-Land)
+- **Regla en el Excel:** Tmax media de la fase > 30 °C (valor fijo; la fuente dice «approximately 30 °C»; decisión de Paola, 5 nov 2026); Toda la fase (promedio); variable: Media de la Tmax diaria en la fase (ERA5-Land)
 - **Severidad:** No publicada como clases
-- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: (vacío)
+- **Estado:** Propuesta — decide Paola (regla nueva). Validación Paola: VALIDADA (decisión de Paola, 5 nov 2026: «Sí, las 28»).
 
 **Fuentes:**
 
