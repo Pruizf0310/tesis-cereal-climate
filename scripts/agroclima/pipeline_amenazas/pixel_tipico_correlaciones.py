@@ -57,9 +57,16 @@ def leer_rmm():
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--pixel', type=int, default=191325)
+    ap.add_argument('--fases', help='fases.csv de pixel_tipico_reglas_v3.py (reemplaza episodios, EDD29, P − ETP y ventanas)')
     a = ap.parse_args()
     c = sqlite3.connect(SQLITE)
     d = pd.read_sql("select * from pares_v2 where pixel_id=? and alineacion='maturity-year'", c, params=(a.pixel,))
+    if a.fases:  # variables por fase recalculadas (pixel_tipico_reglas_v3.py) en lugar de las de pares_v2
+        nuevas = pd.read_csv(a.fases).set_index(['anio_rendimiento', 'fase'])
+        d = d.set_index(['anio_rendimiento', 'fase'])
+        for col in ('inicio', 'fin', *VARS):
+            d.loc[nuevas.index, col] = nuevas[col]
+        d = d.reset_index()
     y = d.drop_duplicates('anio_rendimiento').set_index('anio_rendimiento').rendimiento_sin_tendencia.loc[ANIOS].values
     oni = pd.read_csv(ONI).set_index(['anio', 'mes'])
     rmm = leer_rmm()
@@ -160,7 +167,7 @@ def main():
 
     validas = lambda t: t.dropna(subset=['r'])
     resumen = dict(
-        pixel=a.pixel, anios=len(ANIOS), r_critico_p05=float(stats.t.ppf(0.975, 34) / np.sqrt(34 + stats.t.ppf(0.975, 34) ** 2)),
+        pixel=a.pixel, fases=a.fases or "pares_v2 (SQLite)", anios=len(ANIOS), r_critico_p05=float(stats.t.ppf(0.975, 34) / np.sqrt(34 + stats.t.ppf(0.975, 34) ** 2)),
         clima_pruebas=len(validas(clima)), clima_p05=int((validas(clima).p < 0.05).sum()),
         indices_rend_pruebas=int(validas(indices[indices.objetivo == 'rendimiento']).shape[0]),
         indices_rend_p05=int((validas(indices[indices.objetivo == 'rendimiento']).p < 0.05).sum()),

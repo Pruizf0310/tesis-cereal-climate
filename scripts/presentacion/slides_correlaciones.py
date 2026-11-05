@@ -6,7 +6,7 @@ Reejecutable: borra las diapositivas con la forma PX_numero y las vuelve a crear
 pixel_tipico/correlaciones_<fecha>/correlaciones.xlsx (pixel_tipico_correlaciones.py).
 Uso (con el .venv del pipeline):  python slides_correlaciones.py --corr <carpeta correlaciones_...> [--salida ruta.pptx]
 """
-import argparse, json
+import argparse, json, math
 from pathlib import Path
 
 import numpy as np
@@ -179,7 +179,7 @@ def s_cadena(prs, x, res, tag):
 
 
 # ---------- fase por fase: amenaza → rendimiento ----------
-VENTANA = dict(EST=('26 abr – 5 may', 10), VEG=('6 jun – 8 jul', 33), FLO=('9 – 17 jul', 9), REP=('18 – 27 jul', 10),
+VENTANA = dict(EST=('26 abr – 5 may', 10), VEG=('6 may – 8 jul', 64), FLO=('9 – 17 jul', 9), REP=('18 – 27 jul', 10),
                FIL=('28 jul – 5 sep', 40), MAT=('6 – 20 sep', 15))  # calendario_pixel de tendencia_20261029_175706 (VEG = V7–VT)
 VAR_COL = {'conteo_original': CALOR, 'edd29': 'F59E0B', 'p_menos_et0': CIAN}
 
@@ -396,9 +396,162 @@ def s_enso(prs, x, res, tag):
     return s
 
 
+# ---------- eventos por gravedad (Li et al. 2025b, Tabla 2) ----------
+GRADOS = [('bajo_leve', 'Menor que leve', 0.15), ('leve', 'Leve', 0.35), ('moderado', 'Moderado', 0.6), ('severo', 'Severo', 0.9)]
+# Tabla 2 de Li et al. (2025b): leve, moderado y severo desde esos días; etapas de la fuente que usa cada fase
+LI_DIAS = {'VE–V6': (3.7, 5.9, 8.6), 'V6–VT': (3.5, 5.4, 7.5), 'R1–R3': (2.8, 4.7, 8.3), 'R3–R6': (3.2, 5.3, 8.1)}
+ETAPAS_FASE = dict(VEG=['VE–V6', 'V6–VT'], FLO=['R1–R3'], REP=['R1–R3'], FIL=['R3–R6'])
+UMBRAL_TXT = dict(VEG='Tmax ≥ 34,1 / 34,6 °C', FLO='Tmax ≥ 33,7 °C', REP='Tmax ≥ 33,7 °C', FIL='Tmax ≥ 32,9 °C')
+
+
+def dias_grado(etapa):
+    """Días enteros que caen en cada grado (las rachas duran días completos, desde 2)."""
+    lv, md, sv = (math.ceil(v) for v in LI_DIAS[etapa])
+    r = lambda a, b: f'{a} d' if a == b else f'{a}–{b} d'
+    return [r(2, lv - 1) if lv > 2 else '—', r(lv, md - 1), r(md, sv - 1), f'≥ {sv} d']
+
+
+def rango_fase(f, j):
+    vals = list(dict.fromkeys(dias_grado(e)[j] for e in ETAPAS_FASE[f]))
+    return ' / '.join(v.replace(' d', '') for v in vals[:-1]) + (' / ' if len(vals) > 1 else '') + vals[-1]
+
+
+def s_eventos(prs, reglas, x):
+    from scipy import stats
+    sev = pd.read_csv(reglas / 'severidad.csv')
+    tot = sev.groupby('fase')[[g for g, _, _ in GRADOS]].sum()
+    se = x['serie'].set_index('anio'); y = se.rendimiento_sin_tendencia_t_ha
+    fuerte = sev.assign(m=sev.moderado + sev.severo).groupby('anio').m.sum() >= 0.5
+    anios = list(fuerte[fuerte].index)
+    con, sin = y[fuerte.reindex(y.index, fill_value=False)], y[~fuerte.reindex(y.index, fill_value=False)]
+    p_todo = stats.mannwhitneyu(con, sin).pvalue
+    p_sin12 = stats.mannwhitneyu(con.drop(2012, errors='ignore'), sin).pvalue
+    edd88 = se.loc[1988, 'FIL_edd29_sin_tendencia']
+    s = nueva(prs, 'Cuántas rachas y cuánto duran',
+              'El grado de una racha mide solo su duración en días seguidos. No mira el rendimiento de ese año.',
+              f'Fuente: pixel_tipico/{reglas.name}/severidad.csv · Li et al. (2025b), Agronomy 15:1545, Tabla 2 · píxel 191325, 1981–2016.',
+              'Grado por duración (días seguidos sobre el umbral de la fase), con los límites leve/moderado/severo de la Tabla 2 de '
+              'Li et al. (2025b), estimados con K-means sobre 184 registros de daño en la llanura de Huang-Huai-Hai (China). La escala no '
+              'usa el rendimiento: el rendimiento se compara después. «Menor que leve»: racha de 2 días o más que no llega al mínimo de '
+              'leve de la etapa. Las rachas se cortan en el borde de la fase. Los conteos son el promedio de las 25 celdas de ERA5-Land '
+              'del píxel, por eso tienen decimales. EST no tuvo rachas; MAT cuenta días de lluvia y no se clasifica.')
+    x0, y0, wf, wc, hf = 1.98, 3.05, 2.5, 1.55, 0.9
+    caja(s, x0, y0, wf, 0.45, [[('Rachas en 36 años', SANSB, 13, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
+    for j, (g, nom, a) in enumerate(GRADOS):
+        rect(s, x0 + wf + j * wc, y0, wc - 0.08, 0.45, mezcla(CALOR, a))
+        caja(s, x0 + wf + j * wc, y0, wc - 0.08, 0.45, [[(nom, SANSB, 13 if len(nom) > 10 else 14, TXT)]], align=PP_ALIGN.CENTER,
+             anchor=MSO_ANCHOR.MIDDLE)
+    for i, f in enumerate(['VEG', 'FLO', 'REP', 'FIL']):
+        yy = y0 + 0.6 + i * (hf + 0.1)
+        rect(s, x0, yy, 0.12, hf, FASE_COLOR[f])
+        caja(s, x0 + 0.25, yy, wf - 0.3, hf, [[('REP-pos' if f == 'REP' else f, SANSB, 17, TXT)], [(UMBRAL_TXT[f], SANS, 11, SRC)]] +
+             ([[('VE–V6 / V6–VT', SANS, 11, SRC)]] if f == 'VEG' else []), anchor=MSO_ANCHOR.MIDDLE)
+        for j, (g, _, a) in enumerate(GRADOS):
+            v = float(tot.loc[f, g]); xx = x0 + wf + j * wc
+            rect(s, xx, yy, wc - 0.08, hf, mezcla(CALOR, a * min(v / 8, 1)) if v >= 0.05 else PANEL)
+            caja(s, xx, yy + 0.06, wc - 0.08, 0.5, [[(num(v, 1) if v >= 0.05 else '0', SERIF if v >= 0.05 else SANS,
+                                                       22 if v >= 0.05 else 16, TXT if v >= 0.05 else SRC)]],
+                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+            caja(s, xx, yy + 0.56, wc - 0.08, 0.28, [[(rango_fase(f, j), SANS, 11.5, TXT2)]], align=PP_ALIGN.CENTER,
+                 anchor=MSO_ANCHOR.MIDDLE)
+    caja(s, x0, y0 + 0.6 + 4 * (hf + 0.1) + 0.05, wf + 4 * wc, 0.6,
+         [[('Arriba, cuántas rachas en 36 años; abajo, cuántos días seguidos dura una racha de ese grado (Li et al., 2025b, '
+            'Tabla 2, por etapa). Decimales: promedio de las 25 celdas del píxel.', SANS, 12, SRC)]])
+    xr, wr = x0 + wf + 4 * wc + 0.5, 18.0 - (x0 + wf + 4 * wc + 0.5)
+    rect(s, xr, y0, wr, 4.55, PANEL)
+    caja(s, xr + 0.3, y0 + 0.2, wr - 0.6, 4.2, [
+        [('Años con una racha moderada o más', SANSB, 16, TXT)],
+        [(', '.join(map(str, anios)), SERIF, 20, AMARILLO)], [('', SANS, 10, TXT)],
+        [(f'Rinden {num(con.mean(), 2)} t/ha frente a {num(sin.mean(), 2)} t/ha los demás, pero la diferencia la hace 2012: '
+          f'p = {num(p_todo, 2)} con 2012 y {num(p_sin12, 2)} sin 2012.', SANS, 15, TXT2)], [('', SANS, 10, TXT)],
+        [('1988 no aparece: en el llenado tuvo rachas leves (5 y 4 días), pero acumuló '
+          f'{num(edd88, 0)} °C·día más de lo normal.', SANS, 15, TXT2)],
+    ])
+    caja(s, x0, y0 + 0.6 + 4 * (hf + 0.1) + 0.62, 16.0, 0.5,
+         [[('La duración sola no separa las malas cosechas; el calor acumulado (EDD29) se asocia más con ellas. ', SANSB, 16, CALOR),
+           ('Los límites vienen de China: se transfieren.', SANS, 16, TXT2)]])
+    # Cómo se cuenta y se clasifica: tres pasos al pie
+    pasos = [('1', 'Contar', 'Cada día de la fase: ¿Tmax ≥ umbral? Los días seguidos que lo cumplen (2 o más) son una racha; '
+                             'su duración, esos días. Se corta en el borde de la fase.'),
+             ('2', 'Clasificar', 'La duración se compara con los días de Li et al. Ej.: 1987, FIL, 7 días ≥ 32,9 °C desde el '
+                                 '28 jul → moderado (6 a 8 d en FIL).'),
+             ('3', 'Correlacionar', 'Con el rendimiento entra cuántas rachas hubo en la fase, no su duración ni su grado. '
+                                    'Todo se hace en las 25 celdas y se promedia.')]
+    for k, (n, cab, txt) in enumerate(pasos):
+        xx, yy = x0 + k * 5.4, 8.75
+        rect(s, xx, yy, 5.2, 1.2, PANEL)
+        caja(s, xx + 0.15, yy + 0.1, 0.5, 0.6, [[(n, SERIF, 28, CIAN)]])
+        caja(s, xx + 0.7, yy + 0.1, 4.35, 1.05, [[(cab, SANSB, 14, TXT)], [(txt, SANS, 12, TXT2)]])
+    return s
+
+
+def s_olas(prs, olas, x):
+    """Olas de calor de toda la temporada, año por año (pixel_tipico_rachas_temporada.py)."""
+    ol = pd.read_csv(olas / 'rachas.csv'); dd = pd.read_csv(olas / 'dias.csv')
+    y = x['serie'].set_index('anio').rendimiento_sin_tendencia_t_ha
+    lim = dd[dd.anio == dd.anio.min()].groupby('fase').agg(i=('dia_ciclo', 'min'), f=('dia_ciclo', 'max'))
+    d0, d1 = int(lim.loc['VEG', 'i']), int(lim.loc['FIL', 'f']) + 1
+    cruzan = ol[ol.cruza_borde]; dos = cruzan[cruzan.pedazos_v3 > 1]; corta = cruzan[cruzan.dias_fuera_v3 > 0]
+    s = nueva(prs, 'Las olas de calor, año por año',
+              'Cada barra es una ola: días seguidos con calor en al menos la mitad del píxel. Su color es el grado por la duración completa.',
+              f'Fuente: pixel_tipico/{olas.name}/rachas.csv (umbrales de reglas v3 por subfase, sin cortar en el borde de la fase) · '
+              'rendimiento GDHY sin tendencia.',
+              'Aquí la racha se evalúa en toda la temporada seguida, de VEG a FIL, con el umbral de cada subfase; en las reglas por fase '
+              'la racha se corta en el borde. Una ola cuenta si al menos la mitad de las 25 celdas del píxel está en racha ese día. '
+              f'{len(ol)} olas en 36 años; {len(cruzan)} cruzan el borde entre dos fases. Las reglas por fase cuentan '
+              f'{len(dos)} de ellas dos veces ({", ".join(map(str, dos.anio))}) y a las otras {len(corta)} les quitan el día que cae '
+              'del otro lado.')
+    xl, xg0, xg1, xy, yt, yb = 1.98, 2.75, 12.35, 12.5, 3.25, 9.75
+    esc = (xg1 - xg0) / (d1 - d0); h = (yb - yt) / 36
+
+    def xd(d): return xg0 + (d - d0) * esc
+    for f in ['VEG', 'FLO', 'REP', 'FIL']:
+        a, b = int(lim.loc[f, 'i']), int(lim.loc[f, 'f']) + 1
+        rect(s, xd(a) + 0.02, yt - 0.42, (b - a) * esc - 0.04, 0.07, FASE_COLOR[f])
+        caja(s, xd(a), yt - 0.34, (b - a) * esc, 0.3, [[('REP-pos' if f == 'REP' else f, SANSB, 12, TXT)]], align=PP_ALIGN.CENTER)
+        if f != 'VEG': rect(s, xd(a) - 0.005, yt - 0.05, 0.01, yb - yt + 0.05, '1E293B')
+    for fecha, d in [('6 may', d0), ('9 jul', int(lim.loc['FLO', 'i'])), ('28 jul', int(lim.loc['FIL', 'i'])), ('5 sep', d1)]:
+        caja(s, xd(d) - 0.5, yb + 0.03, 1.0, 0.25, [[(fecha, SANS, 10.5, SRC)]], align=PP_ALIGN.CENTER)
+    caja(s, xy - 0.1, yt - 0.42, 1.0, 0.4, [[('Rend.', SANSB, 11, SRC)], [('t/ha', SANS, 10, SRC)]], align=PP_ALIGN.CENTER)
+    alfa = {'bajo_leve': 0.25, 'leve': 0.5, 'moderado': 0.75, 'severo': 1.0}  # más contraste que la tabla: barras delgadas
+    for k, anio in enumerate(range(1981, 2017)):
+        yy = yt + k * h
+        if k % 2 == 0: rect(s, xg0, yy, xg1 - xg0, h, '08122A')
+        caja(s, xl, yy, 0.65, h, [[(str(anio), SANS, 9.5, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
+        r = float(y.loc[anio])
+        caja(s, xy, yy, 0.8, h, [[(num(r, 1), SANSB if r <= -1 else SANS, 9.5, TXT if r <= -1 else SRC)]], align=PP_ALIGN.CENTER,
+             anchor=MSO_ANCHOR.MIDDLE)
+        for o in ol[ol.anio == anio].itertuples():
+            b = rect(s, xd(o.dia_ini), yy + 0.03, max(o.dias * esc - 0.02, 0.05), h - 0.06,
+                     mezcla(CALOR, alfa[o.grado_completa]), linea=AMARILLO if o.cruza_borde else None)
+            if o.cruza_borde: b.line.width = Pt(1.75)
+    xp, wp = 13.6, 4.4
+    rect(s, xp, yt - 0.42, wp, yb - yt + 0.42, PANEL)
+    caja(s, xp + 0.3, yt - 0.25, wp - 0.6, 6.5, [
+        [(f'{len(cruzan)} de {len(ol)}', SERIF, 30, AMARILLO)], [('olas cruzan el borde entre dos fases', SANSB, 14, TXT)],
+        [('Las reglas por fase cortan la racha en ese borde:', SANS, 13, TXT2)], [('', SANS, 6, TXT)],
+        [(f'{len(dos)} se cuentan dos veces: ', SANSB, 13, TXT),
+         (', '.join(f'{o.anio} ({o.dias} d = {o.dias_por_fase})' for o in dos.itertuples()) + '.', SANS, 13, TXT2)],
+        [('Cada pedazo queda con un grado menor que la ola completa.', SANS, 13, TXT2)], [('', SANS, 6, TXT)],
+        [(f'{len(corta)} pierden el día que cae del otro lado: ', SANSB, 13, TXT), (', '.join(map(str, corta.anio)) + '.', SANS, 13, TXT2)],
+        [('', SANS, 10, TXT)],
+        [('Un mismo verano puede tener varias olas separadas; esas sí son eventos distintos.', SANS, 13, TXT2)],
+    ])
+    caja(s, xp + 0.3, 7.85, 3.0, 0.3, [[('Leyenda', SANSB, 12, SRC)]])
+    for j, (g, nom, a) in enumerate(GRADOS):
+        yy = 8.2 + j * 0.3
+        rect(s, xp + 0.3, yy + 0.06, 0.5, 0.16, mezcla(CALOR, alfa[g]))
+        caja(s, xp + 0.95, yy, 1.6, 0.28, [[(nom, SANS, 11.5, TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
+    r_ = rect(s, xp + 2.6, 8.26, 0.5, 0.16, None, linea=AMARILLO); r_.line.width = Pt(1.75)
+    caja(s, xp + 3.2, 8.2, 1.1, 0.28, [[('cruza borde', SANS, 11.5, TXT2)]], anchor=MSO_ANCHOR.MIDDLE)
+    return s
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--corr', required=True)
+    ap.add_argument('--reglas', help='carpeta reglas_v3_<fecha> (pixel_tipico_reglas_v3.py); agrega la diapositiva de eventos')
+    ap.add_argument('--olas', help='carpeta rachas_temporada_<fecha> (pixel_tipico_rachas_temporada.py); agrega la de olas')
     ap.add_argument('--entrada', default=str(PPT))
     ap.add_argument('--salida', default=str(PPT))
     a = ap.parse_args()
@@ -412,14 +565,85 @@ def main():
             prs.part.drop_rel(e.rId); lst.remove(e)
     # sin esto, add_slide reutiliza nombres slideN.xml que aún existen y el archivo queda con partes duplicadas
     prs.part.rename_slide_parts([e.rId for e in lst])
-    ancla = por_titulo(prs, 'El sustento de los umbrales de maíz')  # el bloque va justo después de las amenazas
-    pos = [k for k, s in enumerate(prs.slides) if s is ancla][0] + 1
+    # Orden del 3 nov 2026: amenazas del píxel → eventos → tendencia → amenaza-cosecha → el mar → ONI, contexto y transición.
     # versión resumida (2 nov 2026): s_fase, s_cadena y s_enso quedan disponibles pero no se insertan
-    nuevas = [s_clima(prs, x, tag), s_oni(prs, x, tag), s_contexto(prs, tag), s_trayectoria(prs, x, res, tag)]
-    for k, s in enumerate(nuevas): mover(prs, s, pos + k)
+    bloques = [('¿Y el clima? También puede tener tendencia', [s_clima(prs, x, tag)]),
+               ('El mar y el rendimiento', [s_oni(prs, x, tag), s_contexto(prs, tag), s_trayectoria(prs, x, res, tag)])]
+    if a.reglas:
+        bloques.insert(0, ('El sustento de los umbrales de maíz', [s_eventos(prs, Path(a.reglas), x)] +
+                           ([s_olas(prs, Path(a.olas), x)] if a.olas else [])))
+    for titulo, nuevas in bloques:
+        pos = [k for k, s in enumerate(prs.slides) if s is por_titulo(prs, titulo)][0] + 1
+        for k, s in enumerate(nuevas): mover(prs, s, pos + k)
+        print(f'después de «{titulo}»:', len(nuevas))
     renumerar(prs)
-    prs.save(a.salida); print('guardado', a.salida, len(prs.slides), 'diapositivas; nuevas en', pos + 1, '–', pos + len(nuevas))
+    prs.save(a.salida); print('guardado', a.salida, len(prs.slides), 'diapositivas')
 
 
 if __name__ == '__main__':
     main()
+
+
+# ---------- mala cosecha ----------
+def s_mala(prs, carpeta, pixel=191325):
+    """Qué es una mala cosecha en el píxel: anomalía robusta (malas_cosechas_pixeles.py)."""
+    a = pd.read_csv(carpeta / 'anual_maize.csv.gz')
+    a = a[a.pixel_id == pixel].set_index('anio')
+    rel = a.perdida_relativa_pct
+    med = float(rel.median()); mad = 1.4826 * float((rel - med).abs().median())
+    corte = med - mad
+    z_sd = (rel - rel.mean()) / rel.std()
+    malas = a[a.mala_cosecha == 1].index.tolist()
+    con_sd = rel[(z_sd <= -1) & (rel <= -5)].index.tolist()
+    res = pd.read_excel(carpeta / 'malas_cosechas.xlsx', sheet_name='resumen').set_index('cultivo')
+    s = nueva(prs, 'Qué es una mala cosecha',
+              'En cada píxel: perder bastante más de lo que ese píxel suele variar, y al menos 5 % de lo esperado.',
+              f'Fuente: rendimiento/{carpeta.name} (malas_cosechas_pixeles.py) · GDHY 1981–2016, píxel {pixel} · '
+              'Leys et al. (2013), J. Exp. Soc. Psychol. 49:764 · Utku et al. (2026), Sci. Rep. 16:25339 · GEOGLAM Crop Monitor.',
+              'Primer intento: llamar mala cosecha a toda pérdida de 5 % frente a la tendencia. En Nebraska daba 9 años, pero en los '
+              'píxeles variables marcaba un tercio de los años o más: una baja de 5 % es variación normal donde el rendimiento sube y '
+              'baja ±18 %. Por eso cada píxel se mide con su propia vara. La anomalía relativa es rendimiento ÷ tendencia − 1; se '
+              'estandariza con la mediana y la MAD (por 1,4826, comparable a la desviación típica; Leys et al. 2013, p. 2–3), que no '
+              f'se dejan arrastrar por un año extremo. Con la desviación típica, 2012 agranda la vara y quedan solo {len(con_sd)} años '
+              f'({", ".join(map(str, con_sd))}). El corte z ≤ −1 viene de Utku et al. (2026), que definen un choque negativo de '
+              'rendimiento como Z < −1 y prueban −0,5 y −1,5. El 5 % (clase «Poor» de GEOGLAM) evita que en un píxel muy estable entre '
+              'un año sin pérdida real. Ningún artículo combina las tres piezas: la combinación es nuestra y se declara así.')
+    x0, x1, yt, yb = 2.35, 11.6, 3.15, 8.55
+    vmin, vmax = -45.0, 20.0
+
+    def yv(v): return yt + (vmax - v) / (vmax - vmin) * (yb - yt)
+    for v in (-40, -30, -20, -10, 0, 10, 20):
+        rect(s, x0, yv(v) - 0.004, x1 - x0, 0.008, '1E293B' if v else '475569')
+        caja(s, x0 - 0.75, yv(v) - 0.13, 0.6, 0.26, [[(f'{v:+d} %' if v else '0', SANS, 10.5, SRC)]], align=PP_ALIGN.RIGHT)
+    w = (x1 - x0) / 36
+    for k, anio in enumerate(range(1981, 2017)):
+        v = float(rel.loc[anio]); xx = x0 + k * w
+        top, bot = (yv(v), yv(0)) if v >= 0 else (yv(0), yv(v))
+        rect(s, xx + 0.04, top, w - 0.08, max(bot - top, 0.01), AMARILLO if anio in malas else '334155')
+        if anio in malas:
+            caja(s, xx - 0.3, yv(v) + 0.05, w + 0.6, 0.25, [[(str(anio), SANSB, 10.5, AMARILLO)]], align=PP_ALIGN.CENTER)
+        if anio % 5 == 0:
+            caja(s, xx - 0.3, yb + 0.06, w + 0.6, 0.25, [[(str(anio), SANS, 10, SRC)]], align=PP_ALIGN.CENTER)
+    for v, col, txt in ((corte, MAG, f'z = −1  ({num(corte, 1)} %)'), (-5, CIAN, '−5 %')):
+        rect(s, x0, yv(v) - 0.012, x1 - x0, 0.024, col)
+        caja(s, x1 + 0.08, yv(v) - 0.14, 1.6, 0.28, [[(txt, SANSB, 11, col)]])
+    caja(s, x0, yb + 0.38, x1 - x0, 0.3, [[('Pérdida o ganancia frente a la tendencia del píxel, por cosecha. ', SANS, 12, SRC),
+                                            ('Amarillo: mala cosecha.', SANSB, 12, AMARILLO)]])
+
+    xp, wp = 13.55, 4.5
+    rect(s, xp, yt - 0.1, wp, 4.75, PANEL)
+    caja(s, xp + 0.3, yt + 0.1, wp - 0.6, 5.6, [
+        [(f'{len(malas)} de 36', SERIF, 30, AMARILLO)], [('cosechas malas en Nebraska', SANSB, 14, TXT)], [('', SANS, 8, TXT)],
+        [('1 · Anomalía', SANSB, 13, TXT)], [('rendimiento ÷ tendencia − 1', SANS, 12.5, TXT2)], [('', SANS, 6, TXT)],
+        [('2 · La vara del píxel', SANSB, 13, TXT)],
+        [('z = (anomalía − mediana) ÷ (1,4826 × MAD). Mediana y MAD no se dejan arrastrar por 2012 (Leys et al., 2013).', SANS, 12.5, TXT2)],
+        [('', SANS, 6, TXT)],
+        [('3 · Mala cosecha', SANSB, 13, TXT)],
+        [('z ≤ −1 (Utku et al., 2026) y pérdida de al menos 5 % (GEOGLAM).', SANS, 12.5, TXT2)], [('', SANS, 6, TXT)],
+        [(f'Con la desviación típica quedarían {len(con_sd)}: 2012 agranda la vara.', SANS, 12, SRC)],
+    ])
+    m = {c: int(res.loc[c, 'mediana_malas']) for c in ('Maíz', 'Arroz', 'Trigo', 'Soya')}
+    caja(s, x0 - 0.37, 9.4, 16.0, 0.5, [[('En todos los píxeles: ', SANSB, 14, TXT),
+                                          ('mediana de ' + ', '.join(f'{v} en {k.lower()}' for k, v in m.items()) +
+                                           ' malas cosechas en 36 años. El número sale de cada píxel, no de un percentil fijo.', SANS, 14, TXT2)]])
+    return s
