@@ -124,7 +124,7 @@ def construir(prs, d):
             ('En nuestro periodo', [(f'1981–2016: r = {num(e["r"])}; diferencia media {num(e["dif"])} °C; '
                                      f'misma categoría en el {e["misma"] * 100:.0f} % de los meses.', SANS, 15, TXT2)]),
             ('Después de 2016', [('RONI queda en promedio 0,4 °C por debajo de ONI: el trópico se calentó. '
-                                  'Para nosotros, RONI es prueba de sensibilidad.', SANS, 15, TXT2)])]
+                                  'Para nosotros, RONI sirve para comprobar que el resultado no cambia.', SANS, 15, TXT2)])]
     for i, (cab, cuerpo) in enumerate(cols):
         x = 2.35 + i * 5.25
         caja(s, x, y0 + 0.72, 4.95, 0.35, [[(cab, SANSB, 15, CIAN)]])
@@ -151,7 +151,7 @@ def construir(prs, d):
         'En 1981–2016: ' + '; '.join(f'{"Niño" if sg > 0 else "Niña"} {int(p[0][0])}–{int(p[-1][0])} (pico {max(abs(v) for _, v in p):.1f} °C)'
                                      for sg, p in tramos_fuertes(d)) + '.\n'
         'Respuesta para la exposición: en el periodo de la tesis los dos índices dan prácticamente la misma historia; se usa ONI porque es el índice de la literatura '
-        'ENSO–rendimiento y el que se calculó; RONI se reporta como sensibilidad.\n'
+        'ENSO–rendimiento y el que se calculó; RONI se usa para comprobar que el resultado no cambia.\n'
         'MJO: índice RMM (Wheeler y Hendon, 2004), diario, del Bureau of Meteorology de Australia (rmm.74toRealtime.txt). '
         'Fase 1–8 = longitud de la convección; amplitud > 1 = MJO activa; ≤ 1 = débil. Se proyecta tras quitar el ciclo anual y la media de 120 días.')
     nombrar(s, n0)

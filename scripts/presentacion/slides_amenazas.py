@@ -37,7 +37,7 @@ FAMILIAS = [  # (nombre, color, categorías de la hoja «Auditoría web», ejemp
     ('Asociación o indicador regional', '94A3B8', ['Seasonal observational association', 'Regional indicator'],
      'Schauberger et al. (2017): cada día > 30 °C se asocia a menos rendimiento en EE. UU.', 'Indicador; transferir con cuidado'),
     ('Transferido o tentativo', '64748B', ['Transferred frost-damage threshold', 'Transferred candidate', 'Review-derived tentative HNT threshold'],
-     'Umbrales de helada tomados de otra región o cultivo.', 'Solo sensibilidad')]
+     'Umbrales de helada tomados de otra región o cultivo.', 'Entra, declarando la transferencia')]
 
 
 # ---------- 17 ----------
@@ -127,7 +127,7 @@ def s18(prs):
     rect(s, 1.98, 8.6, 16.04, 1.3, PANEL); rect(s, 1.98, 8.6, 0.07, 1.3, MAG)
     caja(s, 2.35, 8.75, 15.5, 1.05, [[('Para entrar, una regla debe cumplir seis criterios: ', SANSB, 15, TXT),
                                       ('mecanismo en esa fase con cita y página; variable global equivalente (ERA5-Land); nivel de evidencia declarado; '
-                                       'que varíe entre años; una principal por fase y familia (las demás, sensibilidad); unidad comparable.', SANS, 15, TXT2)]])
+                                       'que varíe entre años; una principal por fase y familia; unidad comparable.', SANS, 15, TXT2)]])
     s.notes_slide.notes_text_frame.text = (
         'Conteo sobre las 63 filas de la hoja «Auditoría web» (columna «Categoría de evidencia»), agrupadas en cinco familias para la exposición:\n'
         '- Umbral verificado (16): duración–respuesta 9, operativo dependiente del genotipo 4, fisiológico 1, operativo 1, experimental verificado 1.\n'
@@ -227,8 +227,8 @@ def s19(prs):
 
 
 # ---------- 20 ----------
-NEBRASKA = [('EST', '26 abr – 5 may', ('≥ 34,0 °C', False), (True,), False),
-            ('VEG', '6 may – 8 jul *', ('≥ 34,6 °C', False), (True,), False),
+NEBRASKA = [('EST', '26 abr – 5 may', ('≥ 34,0 °C', True), (True,), False),
+            ('VEG', '6 may – 8 jul *', ('≥ 34,6 °C', True), (True,), False),
             ('FLO', '9 – 17 jul', ('≥ 33,7 °C †', True), (True,), True),
             ('REP-pos', '18 – 27 jul', ('≥ 33,7 °C', True), None, True),
             ('FIL', '28 jul – 5 sep', ('≥ 32,9 °C', True), (True,), True),
@@ -237,7 +237,7 @@ NEBRASKA = [('EST', '26 abr – 5 may', ('≥ 34,0 °C', False), (True,), False)
 
 def s20(prs):
     s, n0 = preparar(prs, ('Qué estamos contando',), 'Las amenazas de nuestro píxel')
-    caja(s, 1.98, 2.28, 16, 0.4, [[('Maíz de secano, Nebraska: de una a tres reglas por fase. Lleno = principal; contorno = sensibilidad.', SANS, 19.5, TXT2)]])
+    caja(s, 1.98, 2.28, 16, 0.4, [[('Maíz de secano, Nebraska: de una a tres reglas por fase, todas vigentes.', SANS, 19.5, TXT2)]])
     hdr = [(1.98, 1.7, 'Fase'), (3.75, 2.6, 'Ventana'), (6.5, 3.4, 'Calor · Tmax ≥ 2 días'), (10.05, 3.2, 'Sequía · P − ETP < Q1'),
            (13.4, 2.4, 'Calor continuo · EDD29'), (15.95, 2.07, 'Lluvia · MAT')]
     for x, w, t in hdr:
@@ -254,13 +254,13 @@ def s20(prs):
         if calor: chip(6.5, 3.2, calor[0], CALOR, calor[1])
         if seq: chip(10.05, 3.1, 'bandera por temporada', AGUA, True)
         if edd: chip(13.4, 2.35, '°C·día sobre 29', 'F59E0B', True)
-        if fase == 'MAT': chip(15.95, 2.07, 'P > 10 mm/día', AGUA, False)
+        if fase == 'MAT': chip(15.95, 2.07, 'P > 10 mm/día', AGUA, True)
     rect(s, 1.98, 8.75, 16.04, 0.012, '334155')
     caja(s, 1.98, 8.85, 16, 0.55, [[('Qué se cuenta: ', SANSB, 15, TXT),
                                     ('rachas de calor (episodios y % de días de la fase), una bandera de sequía por temporada, °C·día de calor continuo y días de lluvia. '
                                      'Lo siguiente: cada evento con su duración e intensidad.', SANS, 15, TXT2)]])
     caja(s, 1.98, 9.55, 16, 0.4, [[('* El conteo de calor de VEG usó solo V7–VT (6 jun – 8 jul).   † FLO: 34,8 °C (VT–R1) sigue por decidir.   '
-                                    'También en sensibilidad: evento seco-cálido compuesto en FLO, REP-pos y FIL.', SANS, 13, SRC)]])
+                                    'En toda la temporada: racha seca P < 1 mm y racha Tmax > 29 °C; en FLO–FIL, seco-cálido compuesto.', SANS, 13, SRC)]])
     enlaces(s, 10.12, [('tabla_maestra_v2_maiz.xlsx', None), ('calendario_seis_fases_secano.csv', None)], prefijo='Tablas: ')
     s.notes_slide.notes_text_frame.text = (
         'Reglas de maíz v2 aplicadas al píxel 191325 (Nebraska). Estado según la tabla v2: principales MAI-EST-SEQ, MAI-VEG-SEQ, MAI-FLO-CAL, MAI-FLO-SEQ, MAI-REP-CAL, '
@@ -283,7 +283,7 @@ FUENTES_MAIZ = [
     ('Ortega Gómez et al. (2019)', 'Nova Scientia', 'https://doi.org/10.21640/ns.v11i22.1682', 'Lluvia en maduración: P > 10 mm/día',
      'Maíz de temporal, Bajo Balsas, México', 'b/d', 'La tabla dice > 10 y el resumen ≥ 10: fijar uno'),
     ('Wu et al. (2025)', 'Global and Planetary Change', 'https://doi.org/10.1016/j.gloplacha.2025.104828', 'Seco-cálido: P < p20 y T > p80',
-     'China, 1961–2020', 'd', 'Sensibilidad; útil para ENSO')]
+     'China, 1961–2020', 'd', 'Regla vigente; útil para ENSO')]
 
 
 def s21(prs):
