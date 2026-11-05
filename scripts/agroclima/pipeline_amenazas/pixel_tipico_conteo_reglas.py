@@ -19,7 +19,7 @@ Año: anio = año de cosecha (el de GDHY); en trigo de invierno la siembra es el
 
 Entrada: pixel_<id>/diario_celdas_nativas_anual_1950_2024.csv.gz (Tmax, Tmin, Tmedia, P; pixel_tipico_descarga.py
 --meses 1-12 --nombre anual) y calendario/<cultivo>.json (calendario regional v4).
-Salida: carpeta conteo_reglas_<fecha> con eventos.csv (una fila por ola), regla_anio.csv (regla × año), resumen.xlsx.
+Salida: carpeta conteo_reglas_<fecha> con eventos.csv (una fila por evento: días por fase y, en calor de maíz, grado), regla_anio.csv (regla × año), resumen.xlsx.
 Uso: .venv/Scripts/python.exe pixel_tipico_conteo_reglas.py [--pixel 191325]
 """
 import argparse, json, math
@@ -30,7 +30,7 @@ import numpy as np
 import pandas as pd
 
 from pixel_tipico_tendencia import BASE
-from pixel_tipico_reglas_v3 import bloques_por_dia, rachas, et0_hargreaves
+from pixel_tipico_reglas_v3 import bloques_por_dia, rachas, et0_hargreaves, grado, ETAPA_BLOQUE
 
 AM = Path('C:/Users/paola/Tesis/03_Resultados/Agroclima/vigente/amenazas')
 CAL = Path('C:/Users/paola/Tesis/03_Resultados/Agroclima/vigente/calendario')
@@ -109,8 +109,13 @@ def olas_grupo(grupo, piv, peso, mapa, fase_de):
         rid = max(dict.fromkeys(ids), key=ids.count)
         fases = [fase_de[mapa[d]] for d in tramo if d in mapa]
         orden = list(dict.fromkeys(fases))
+        bls = [mapa[d] for d in tramo if d in mapa]
+        b = max(dict.fromkeys(bls), key=bls.count) if bls else None
         out.append(dict(id=rid, inicio=tramo[0], fin=tramo[-1], dias=largo,
-                        fase=max(orden, key=fases.count) if orden else '', fases=' → '.join(orden), cruza_borde=len(orden) > 1))
+                        fase=max(orden, key=fases.count) if orden else '', fases=' → '.join(orden),
+                        dias_por_fase=' + '.join(str(fases.count(f)) for f in orden), cruza_borde=len(orden) > 1,
+                        # grado por la duración completa (Li 2025b, Tabla 2): solo calor de maíz por fase
+                        grado=grado(largo, ETAPA_BLOQUE[b]) if rid.startswith('MAI-') and rid.endswith('-CAL') and b in ETAPA_BLOQUE else ''))
     return out
 
 

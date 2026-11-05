@@ -416,71 +416,99 @@ def rango_fase(f, j):
     return ' / '.join(v.replace(' d', '') for v in vals[:-1]) + (' / ' if len(vals) > 1 else '') + vals[-1]
 
 
-def s_eventos(prs, olas):
-    """Cuántas olas de calor hay por fase y de qué grado (pixel_tipico_olas_amenazas.py, olas.csv). Sin rendimiento."""
-    ol = pd.read_csv(olas / 'olas.csv')
-    ol = ol[ol.amenaza == 'calor']
-    tot = pd.crosstab(ol.fase, ol.grado).reindex(index=['VEG', 'FLO', 'REP', 'FIL'], columns=[g for g, _, _ in GRADOS], fill_value=0)
-    cruzan = ol.groupby('fase').cruza_borde.sum()
-    fuertes = sorted(ol[ol.grado.isin(['moderado', 'severo'])].anio.unique())
-    ej = ol[(ol.anio == 1987) & ol.cruza_borde].iloc[0]
-    s = nueva(prs, 'Cuántas olas y cuánto duran',
-              'Una ola son días seguidos de calor en al menos la mitad del píxel. Se cuenta entera y una sola vez.',
-              f'Fuente: pixel_tipico/{olas.name}/olas.csv (igual a conteo_reglas_20261105_133648) · Li et al. (2025b), Agronomy 15:1545, '
-              'Tabla 2 · píxel 191325, 1981–2016.',
-              'Ola del píxel: en cada una de las 25 celdas de ERA5-Land se marcan los días que forman racha (2 o más días seguidos con Tmax '
-              'sobre el umbral de su fase); el píxel está en ola el día en que al menos la mitad de las celdas (ponderadas por cos(lat)) lo '
-              'está. La ola no se corta en el borde de la fase: se cuenta completa y se asigna a la fase donde tiene más días. Grado por la '
-              'duración completa con la Tabla 2 de Li et al. (2025b), por etapa, en días enteros (techo). «Menor que leve»: 2 días o más sin '
-              'llegar al mínimo de leve. Verificación (5 nov 2026): pixel_tipico_conteo_reglas.py, que lee reglas_vigentes.csv, da las '
-              'mismas 65 olas con las mismas fechas. La versión anterior de esta diapositiva contaba rachas por celda, cortadas en el borde '
-              'y promediadas (por eso tenía decimales). EST y V1–V6 no tuvieron olas: sus umbrales (34,0 y 34,1 °C) no se alcanzan.')
-    x0, y0, wf, wc, hf = 1.98, 3.05, 2.5, 1.55, 0.9
-    cab = [nom for _, nom, _ in GRADOS] + ['Pasan de fase']
-    caja(s, x0, y0, wf, 0.45, [[('Olas en 36 años', SANSB, 13, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
-    for j, nom in enumerate(cab):
-        a = GRADOS[j][2] if j < 4 else None
-        rect(s, x0 + wf + j * wc, y0, wc - 0.08, 0.45, mezcla(CALOR, a) if a else '3A3410')
-        caja(s, x0 + wf + j * wc, y0, wc - 0.08, 0.45, [[(nom, SANSB, 13 if len(nom) > 10 else 14, TXT)]], align=PP_ALIGN.CENTER,
-             anchor=MSO_ANCHOR.MIDDLE)
-    for i, f in enumerate(['VEG', 'FLO', 'REP', 'FIL']):
-        yy = y0 + 0.6 + i * (hf + 0.1)
-        rect(s, x0, yy, 0.12, hf, FASE_COLOR[f])
-        caja(s, x0 + 0.25, yy, wf - 0.3, hf, [[('REP-pos' if f == 'REP' else f, SANSB, 17, TXT)],
-                                               [(UMBRAL_TXT[f] + ', ≥ 2 d', SANS, 11, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
-        for j, (g, _, a) in enumerate(GRADOS + [('cruza', '', None)]):
-            v = int(tot.loc[f, g]) if g != 'cruza' else int(cruzan.get(f, 0))
-            xx = x0 + wf + j * wc
-            fondo = (mezcla(CALOR, a * min(v / 8, 1)) if a else '3A3410') if v else PANEL
-            rect(s, xx, yy, wc - 0.08, hf, fondo)
-            caja(s, xx, yy + 0.06, wc - 0.08, 0.5, [[(str(v), SERIF if v else SANS, 22 if v else 16, TXT if v else SRC)]],
-                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-            caja(s, xx, yy + 0.56, wc - 0.08, 0.28, [[(rango_fase(f, j) if a is not None or j < 4 else 'cruzan un borde', SANS, 11.5, TXT2)]],
-                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    caja(s, x0, y0 + 0.6 + 4 * (hf + 0.1) + 0.05, wf + 5 * wc, 0.6,
-         [[('Arriba, cuántas olas en 36 años (números enteros: cada ola es del píxel completo); abajo, cuántos días seguidos dura '
-            'una ola de ese grado (Li et al., 2025b, Tabla 2, por etapa).', SANS, 12, SRC)]])
-    xr = x0 + wf + 5 * wc + 0.35; wr = 18.0 - xr
-    rect(s, xr, y0, wr, 4.55, PANEL); rect(s, xr, y0, 0.07, 4.55, CIAN)
-    caja(s, xr + 0.3, y0 + 0.15, wr - 0.5, 4.3, [
-        [(f'{len(ol)} olas', SERIF, 30, AMARILLO)],
-        [('Verificadas: ', SANSB, 13, TXT), ('el conteo desde reglas_vigentes.csv da las mismas 65, con las mismas fechas.', SANS, 13, TXT2)],
-        [('', SANS, 6, TXT)],
-        [('Antes: ', SANSB, 13, TXT), ('rachas por celda, cortadas en el borde de la fase y promediadas; por eso había decimales.', SANS, 13, TXT2)],
-        [('', SANS, 6, TXT)],
-        [('Años con ola moderada o severa', SANSB, 13, TXT)],
-        [(', '.join(map(str, fuertes)), SANS, 13, AMARILLO)]])
-    pasos = [('1', 'Contar', 'En cada celda y día: ¿Tmax ≥ umbral de la fase? 2 o más días seguidos son racha. Si la mitad del píxel '
-                             'está en racha, ese día hay ola.'),
-             ('2', 'Asignar fase', f'La ola se cuenta entera y una sola vez, en la fase donde tiene más días. Si pasa de una fase a otra, '
-                                   f'queda marcada ({int(ol.cruza_borde.sum())} de {len(ol)}).'),
-             ('3', 'Clasificar', f'Grado por la duración completa. Ej.: 1987, {ej.dias} días ({ej.dias_por_fase.replace(" + ", " en REP-pos + ")} '
-                                 f'en FIL) → FIL, {ej.grado}.')]
-    for k, (n, cab_, txt) in enumerate(pasos):
-        xx, yy = x0 + k * 5.4, 8.75
-        rect(s, xx, yy, 5.2, 1.2, PANEL)
-        caja(s, xx + 0.15, yy + 0.1, 0.5, 0.6, [[(n, SERIF, 28, CIAN)]])
-        caja(s, xx + 0.7, yy + 0.1, 4.35, 1.05, [[(cab_, SANSB, 14, TXT)], [(txt, SANS, 12, TXT2)]])
+FASES6 = ['EST', 'VEG', 'FLO', 'REP', 'FIL', 'MAT']
+CAL_IDS = ['MAI-EST-CAL', 'MAI-VEG1-CAL', 'MAI-VEG2-CAL', 'MAI-FLO-CAL', 'MAI-REP-CAL', 'MAI-FIL-CAL']
+SEQ_IDS = ['MAI-EST-SEQ', 'MAI-VEG-SEQ', 'MAI-FLO-SEQ', 'MAI-FIL-SEQ']
+FILAS_EV = [  # (amenaza, regla, color, ids, tipo, fases con regla)
+    ('Calor', 'Tmax ≥ umbral de la fase, ≥ 2 d', CALOR, CAL_IDS, 'racha', FASES6[:5]),
+    ('Calor sobre 29 °C', 'Tmax > 29 °C, ≥ 2 d', CALOR, ['MAI-RACHA-29'], 'racha', FASES6),
+    ('Racha seca', 'P < 1 mm, ≥ 2 d', CIAN, ['MAI-RACHA-SECA'], 'racha', FASES6),
+    ('Lluvia', 'P > 10 mm, cada día', CIAN, ['MAI-MAT-LLU'], 'dia', ['MAT']),
+    ('Sequía', 'P − ETP < Q1, sí o no', CIAN, SEQ_IDS, 'ventana', ['EST', 'VEG', 'FLO', 'FIL']),
+    ('Seco-cálido', 'P < p20 y T > p80, sí o no', CALOR, ['MAI-TARDIA-SECA-CALIDA'], 'ventana', ['FLO', 'REP', 'FIL'])]
+
+
+def s_eventos(prs, conteo):
+    """Cuántos eventos de cada amenaza de maíz hay por fase y cuánto duran (pixel_tipico_conteo_reglas.py). Sin rendimiento."""
+    ev = pd.read_csv(conteo / 'eventos.csv'); ra = pd.read_csv(conteo / 'regla_anio.csv')
+    ev = ev[ev.anio.between(1981, 2016)]; ra = ra[ra.anio.between(1981, 2016) & (ra.cultivo == 'maize')]
+    n_anios = ra.anio.nunique()
+
+    def dias_fase(sub):
+        d = dict.fromkeys(FASES6, 0)
+        for o in sub.itertuples():
+            for f, k in zip(o.fases.split(' → '), str(o.dias_por_fase).split(' + ')): d[f] += int(k)
+        return d
+    cal = ev[ev.id.isin(CAL_IDS)]
+    grados = cal.grado.value_counts()
+    ej = cal[(cal.anio == 1987) & cal.cruza_borde].iloc[0]
+    s = nueva(prs, 'Cuántos eventos y cuánto duran',
+              'Cada amenaza se cuenta por separado. Arriba, eventos en 36 años; abajo, días en evento por año en esa fase.',
+              f'Fuente: pixel_tipico/{conteo.name} (eventos.csv, regla_anio.csv), reglas_vigentes.csv · píxel 191325, maíz, 1981–2016.',
+              'Evento del píxel: en cada una de las 25 celdas de ERA5-Land se marcan los días que forman racha según la regla de la amenaza; '
+              'el píxel está en evento el día en que al menos la mitad de las celdas (ponderadas por cos(lat)) lo está. Cada amenaza se cuenta '
+              'por separado: un mismo día puede estar en un evento de calor y en uno de racha seca. Un evento que pasa de una fase a otra se '
+              'cuenta una sola vez, en la fase donde tiene más días, y sus días se reparten entre las fases (no se duplica ningún día). '
+              'Calor: Tmax ≥ 34,0 / 34,1 / 34,6 / 33,7 / 33,7 / 32,9 °C de EST a FIL (Li et al., 2025a); grado por la duración completa con la '
+              'Tabla 2 de Li et al. (2025b) en días enteros. Lluvia en MAT: cada día con P > 10 mm es un evento. Sequía y seco-cálido son '
+              'condiciones de ventana: se cuentan años (sí o no por temporada); la sequía sale en 25 % de los años por construcción (primer cuartil). '
+              'EDD29 no es evento (°C·día) y no está en la tabla. Verificación: el calor da las mismas 65 que la versión anterior, con las mismas '
+              'fechas, grados y días por fase.')
+    x0, y0, wl, wc, wx, hf = 1.98, 2.95, 3.55, 1.72, 1.85, 0.74
+    caja(s, x0, y0, wl, 0.42, [[('Amenaza · regla', SANSB, 13, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
+    for k, f in enumerate(FASES6):
+        x = x0 + wl + k * wc
+        rect(s, x, y0, wc - 0.06, 0.42, FASE_COLOR[f])
+        caja(s, x, y0, wc - 0.06, 0.42, [[('REP-pos' if f == 'REP' else f, SANSB, 13, BG)]], align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    xx = x0 + wl + 6 * wc + 0.05
+    rect(s, xx, y0, wx, 0.42, '3A3410')
+    caja(s, xx, y0, wx, 0.42, [[('Pasan de fase', SANSB, 13, TXT)]], align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    for r, (nom, regla, color, ids, tipo, fases) in enumerate(FILAS_EV):
+        y = y0 + 0.52 + r * (hf + 0.06)
+        rect(s, x0, y, 0.1, hf, color)
+        caja(s, x0 + 0.2, y, wl - 0.25, hf, [[(nom, SANSB, 15, TXT)], [(regla, SANS, 11, SRC)]], anchor=MSO_ANCHOR.MIDDLE)
+        if tipo == 'ventana':
+            sub = ra[ra.id.isin(ids)]
+            por_fase = ({f.split(' ')[0]: int(g.hubo.sum()) for f, g in sub.groupby('fase')} if len(ids) > 1
+                        else {'FLO': int(sub.hubo.sum())})
+        else:
+            sub = ev[ev.id.isin(ids)]
+            n = sub.groupby('fase').size() if tipo == 'racha' else sub.groupby('fase').dias.sum()
+            dias = dias_fase(sub)
+        for k, f in enumerate(FASES6):
+            x = x0 + wl + k * wc
+            if nom == 'Seco-cálido' and f in ('REP', 'FIL'): continue
+            ancho = (3 * wc if nom == 'Seco-cálido' and f == 'FLO' else wc) - 0.06
+            if f not in fases:
+                rect(s, x, y, ancho, hf, '0B1328')
+                caja(s, x, y, ancho, hf, [[('—', SANS, 14, '475569')]], align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+                continue
+            rect(s, x, y, ancho, hf, PANEL)
+            if tipo == 'ventana':
+                v = por_fase.get(f, 0)
+                lineas = [[(str(v), SERIF, 20, TXT)], [(f'años de {n_anios}' + (' · FLO–FIL' if nom == 'Seco-cálido' else ''), SANS, 10.5, TXT2)]]
+            else:
+                v = int(n.get(f, 0)); d = dias[f] / n_anios
+                lineas = [[(str(v), SERIF, 20, TXT if v else SRC)], [(f'{num(d, 1)} d/año', SANS, 10.5, TXT2)]]
+            caja(s, x, y, ancho, hf, lineas, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        rect(s, xx, y, wx, hf, PANEL)
+        cr = '—' if tipo == 'ventana' else str(int(ev[ev.id.isin(ids)].cruza_borde.sum()))
+        caja(s, xx, y, wx, hf, [[(cr, SERIF if cr != '—' else SANS, 20 if cr != '—' else 14, AMARILLO if cr not in ('—', '0') else SRC)]],
+             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    yg = y0 + 0.52 + len(FILAS_EV) * (hf + 0.06) + 0.02
+    caja(s, x0, yg, 16.04, 0.35, [[('Calor por grado ', SANSB, 12.5, TXT2), ('(Li et al., 2025b, por la duración completa): ', SANS, 12.5, SRC)] +
+                                   [(f'{nom_g.lower()} {int(grados.get(g, 0))}' + ('  ·  ' if k < 3 else ''), SANS, 12.5, TXT2)
+                                    for k, (g, nom_g, _) in enumerate(GRADOS)]])
+    pasos = [('1', 'Contar', 'En cada celda y día se revisa la regla de la amenaza. 2 o más días seguidos son racha. Si la mitad del '
+                             'píxel está en racha, ese día hay evento.'),
+             ('2', 'Asignar fase', f'El evento se cuenta una vez, en la fase con más días; sus días se reparten. Ej.: 1987, '
+                                   f'{ej.dias_por_fase.replace(" + ", " d en REP-pos + ")} d en FIL → un evento de FIL.'),
+             ('3', 'Clasificar', 'Calor: grado por la duración completa. Sequía y seco-cálido: sí o no por temporada.')]
+    for k, (nn, cab_, txt) in enumerate(pasos):
+        xk, yk = x0 + k * 5.4, 8.8
+        rect(s, xk, yk, 5.2, 1.15, PANEL)
+        caja(s, xk + 0.15, yk + 0.08, 0.5, 0.6, [[(nn, SERIF, 28, CIAN)]])
+        caja(s, xk + 0.7, yk + 0.08, 4.35, 1.02, [[(cab_, SANSB, 14, TXT)], [(txt, SANS, 12, TXT2)]])
     return s
 
 
@@ -491,17 +519,17 @@ def s_olas(prs, olas, x):
     lim = dd[dd.anio == dd.anio.min()].groupby('fase').agg(i=('dia_ciclo', 'min'), f=('dia_ciclo', 'max'))
     d0, d1 = int(lim.loc['VEG', 'i']), int(lim.loc['FIL', 'f']) + 1
     cruzan = ol[ol.cruza_borde]; dos = cruzan[cruzan.pedazos_v3 > 1]; corta = cruzan[cruzan.dias_fuera_v3 > 0]
-    s = nueva(prs, 'Las olas de calor, año por año',
-              'Cada fila es un año y cada barra una ola. Así se ve qué olas quedan dentro de una fase y cuáles pasan a la siguiente.',
+    s = nueva(prs, 'Los eventos de calor, año por año',
+              'Cada fila es un año y cada barra un evento de calor. Así se ve cuáles quedan dentro de una fase y cuáles pasan a la siguiente.',
               f'Fuente: pixel_tipico/{olas.name}/rachas.csv (umbrales de reglas v3 por subfase, sin cortar en el borde de la fase) · '
               'rendimiento GDHY sin tendencia.',
               'Cómo explicarla: cada fila es una temporada (1981 arriba, 2016 abajo); el eje horizontal va del 6 de mayo al 5 de septiembre '
-              'con las fases arriba. Cada barra es una ola: empieza el primer día en que la mitad del píxel está en racha de calor y termina '
-              'el último. El color es el grado por la duración completa (Li et al., 2025b). Borde amarillo: la ola pasa de una fase a otra; '
+              'con las fases arriba. Cada barra es un evento: empieza el primer día en que la mitad del píxel está en racha de calor y termina '
+              'el último. El color es el grado por la duración completa (Li et al., 2025b). Borde amarillo: el evento pasa de una fase a otra; '
               'se cuenta una sola vez, en la fase donde tiene más días. A la derecha, el rendimiento sin tendencia de ese año. '
-              f'{len(ol)} olas en 36 años; {len(cruzan)} pasan de fase. Lo que sale de aquí para el análisis, por fase y año: número de '
-              'olas, días en ola, ola más larga y grado mayor. Antes (reglas por fase) la racha se cortaba en el borde: '
-              f'{len(dos)} olas se contaban dos veces ({", ".join(map(str, dos.anio))}); ya no.')
+              f'{len(ol)} eventos en 36 años; {len(cruzan)} pasan de fase y sus días se reparten entre las fases. Lo que sale de aquí para el análisis, por fase y año: número de '
+              'eventos, días en evento, evento más largo y grado mayor. Antes (reglas por fase) la racha se cortaba en el borde: '
+              f'{len(dos)} eventos se contaban dos veces ({", ".join(map(str, dos.anio))}); ya no.')
     xl, xg0, xg1, xy, yt, yb = 1.98, 2.75, 12.35, 12.5, 3.25, 9.75
     esc = (xg1 - xg0) / (d1 - d0); h = (yb - yt) / 36
 
@@ -536,15 +564,15 @@ def s_olas(prs, olas, x):
         return ' + '.join(f'{d} d {f}' for d, f in zip(ds, fs)) + f' → {fase_mayor(o).replace("REP", "REP-pos")}'
     caja(s, xp + 0.3, yt - 0.25, wp - 0.6, 6.5, [
         [('Cómo leerla', SANSB, 15, TXT)],
-        [('Fila = un año. Barra = una ola, de su primer a su último día. Color = grado por la duración completa.', SANS, 12.5, TXT2)],
+        [('Fila = un año. Barra = un evento de calor, de su primer a su último día. Color = grado por la duración completa.', SANS, 12.5, TXT2)],
         [('', SANS, 6, TXT)],
         [(f'{len(cruzan)} de {len(ol)}', SERIF, 28, AMARILLO)],
-        [('olas pasan de una fase a otra (borde amarillo)', SANSB, 13, TXT)],
-        [('Se cuentan una vez, en la fase con más días:', SANS, 12.5, TXT2)],
+        [('eventos pasan de una fase a otra (borde amarillo)', SANSB, 13, TXT)],
+        [('Se cuentan una vez, en la fase con más días; sus días se reparten:', SANS, 12.5, TXT2)],
         *[[(f'{o.anio}   ', SANSB, 11.5, TXT), (tramo(o), SANS, 11.5, TXT2)] for o in cruzan.itertuples()],
         [('', SANS, 6, TXT)],
         [('Lo que sale de aquí, por fase y año', SANSB, 13, TXT)],
-        [('olas · días en ola · ola más larga · grado mayor', SANS, 12.5, CIAN)],
+        [('eventos · días en evento · evento más largo · grado mayor', SANS, 12.5, CIAN)],
     ])
     caja(s, xp + 0.3, 7.85, 3.0, 0.3, [[('Leyenda', SANSB, 12, SRC)]])
     for j, (g, nom, a) in enumerate(GRADOS):
@@ -559,7 +587,7 @@ def s_olas(prs, olas, x):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--corr', required=True)
-    ap.add_argument('--reglas', help='carpeta olas_amenazas_<fecha> (pixel_tipico_olas_amenazas.py); agrega la diapositiva de olas por fase')
+    ap.add_argument('--reglas', help='carpeta conteo_reglas_<fecha> (pixel_tipico_conteo_reglas.py); agrega la diapositiva de eventos por amenaza y fase')
     ap.add_argument('--olas', help='carpeta rachas_temporada_<fecha> (pixel_tipico_rachas_temporada.py); agrega la de olas')
     ap.add_argument('--entrada', default=str(PPT))
     ap.add_argument('--salida', default=str(PPT))

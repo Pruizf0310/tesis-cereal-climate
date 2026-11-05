@@ -1,0 +1,54 @@
+{
+ "pixel": 191325,
+ "diario": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\pixel_tipico\\pixel_191325\\diario_celdas_nativas_anual_1950_2024.csv.gz",
+ "reglas": "C:\\Users\\paola\\Tesis\\03_Resultados\\Agroclima\\vigente\\amenazas\\reglas_vigentes.csv",
+ "periodo_percentiles": [
+  1981,
+  2016
+ ],
+ "criterio_ola": "≥ 50 % de las celdas (cos(lat)) en evento; la ola se asigna a la regla con más días",
+ "omitidas": [
+  "ARR-EST-CAL",
+  "ARR-EST-FRI",
+  "ARR-VEG-CAL",
+  "ARR-REP-CAL",
+  "ARR-REP-FRI",
+  "ARR-FLO-CAL",
+  "ARR-FLO-FRI",
+  "ARR-FIL-CAL",
+  "ARR-MAT-CAL"
+ ],
+ "anios": {
+  "maize": [
+   1950,
+   2024
+  ],
+  "soybean": [
+   1950,
+   2024
+  ],
+  "wheat": [
+   1951,
+   2024
+  ]
+ },
+ "olas_por_regla": {
+  "MAI-RACHA-SECA": 1451,
+  "MAI-RACHA-29": 694,
+  "TRI-REP-HEL": 477,
+  "TRI-VEG-HEL": 190,
+  "MAI-FIL-CAL": 97,
+  "MAI-MAT-LLU": 77,
+  "TRI-FLO-HEL": 44,
+  "MAI-REP-CAL": 34,
+  "MAI-VEG2-CAL": 26,
+  "SOY-EST-HEL": 26,
+  "MAI-FLO-CAL": 25,
+  "SOY-REP-CAL": 4,
+  "TRI-FIL-HEL": 3,
+  "MAI-VEG1-CAL": 2,
+  "SOY-FLO-CAL": 1,
+  "TRI-MAT-LLU": 1,
+  "TRI-EST-FRI": 1
+ }
+}
